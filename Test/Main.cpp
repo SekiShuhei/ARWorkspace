@@ -29,6 +29,7 @@ void Main()
 	while (System::Update())
 	{
 		{
+
 			//test.
 			auto size = s3d::Window::ClientSize();
 			//s3d::Scene::Resize(size);
@@ -38,6 +39,7 @@ void Main()
 		ar_screen.Update();
 		ar_screen.Draw();
 
+		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
 		
 	}
 }

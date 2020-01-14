@@ -25,9 +25,9 @@ public:
 	}
 private:
 
-	// WinAPI : デスクトップキャプチャ→DIB→クリップボード
-	//...
+	DWORD GetBitmapImageSize(const BITMAPINFO& bitmap_info) const;
 
+	
 	RECT			capture_rect = RECT();
 	HWND			desktop = HWND();
 	

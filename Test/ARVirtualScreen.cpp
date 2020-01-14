@@ -53,6 +53,15 @@ void ARVirtualScreen::Update()
 
 	this->GetCaptureRect();
 	
+	// メニューバーの分だけ少しY座標がずれるので注意.
+	screen_capture.CaptureScreen(
+		this->capture_rect.x,
+		this->capture_rect.y,
+		this->capture_rect.w,
+		this->capture_rect.h);
+
+	//Clipboard::GetImage(capture_image);
+	capture_image = this->screen_capture.GetImage();
 
 }
 
@@ -61,15 +70,6 @@ void ARVirtualScreen::Draw()
 	
 	////////キャプチャ系
 	{
-		// メニューバーの分だけ少しY座標がずれるので注意.
-		screen_capture.CaptureScreen(
-			this->capture_rect.x, 
-			this->capture_rect.y, 
-			this->capture_rect.w, 
-			this->capture_rect.h);
-		
-		//Clipboard::GetImage(capture_image);
-		capture_image = this->screen_capture.GetImage();
 		
 		if (texture.fillIfNotBusy(capture_image))
 		{
