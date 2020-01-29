@@ -24,7 +24,7 @@ void Main()
 	// 大きさ 60 のフォントを用意
 	const Font font(60);
 
-	
+	ar_screen.initialize();
 	
 	while (System::Update())
 	{
@@ -36,7 +36,7 @@ void Main()
 
 		}
 
-		ar_screen.Update();
+		//ar_screen.Update();
 		ar_screen.Draw();
 
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);

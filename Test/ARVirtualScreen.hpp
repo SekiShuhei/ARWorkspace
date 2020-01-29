@@ -2,6 +2,9 @@
 
 #include <Siv3D.hpp>
 
+#include <mutex>
+#include <thread>
+
 
 #include "WinScreenCapture.hpp"
 #include "CustomCursor.hpp"
@@ -21,6 +24,10 @@ public:
 	ARVirtualScreen(const ARVirtualScreen&) = delete;
 	ARVirtualScreen(const ARVirtualScreen&&) = delete;
 	void operator =(const ARVirtualScreen&) = delete;
+
+	~ARVirtualScreen();
+
+	void initialize();
 
 	// ユーザー設定のロード.
 	bool LoadUserSetting();
@@ -60,6 +67,12 @@ public:
 
 
 private:
+
+	std::mutex			mutex;
+	std::thread			capture_thread;
+	bool				capture_thread_run = false;
+
+
 
 	CustomCursor		custom_cursor;
 	WinScreenCapture	screen_capture;

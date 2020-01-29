@@ -9,6 +9,31 @@ ARVirtualScreen::ARVirtualScreen()
 
 }
 
+ARVirtualScreen::~ARVirtualScreen()
+{
+
+	this->capture_thread_run = false;
+	this->capture_thread.join();
+
+}
+
+void ARVirtualScreen::initialize()
+{
+	this->capture_thread_run = true;
+	this->capture_thread = std::thread([this]()
+		{
+			while (this->capture_thread_run)
+			{
+				// マルチスレッド処理.
+				this->Update();
+
+				//std::this_thread::sleep_for(std::chrono::milliseconds(2));
+			}
+		});
+
+
+}
+
 bool ARVirtualScreen::LoadUserSetting()
 {
 
@@ -59,6 +84,7 @@ void ARVirtualScreen::Update()
 		this->capture_rect.y,
 		this->capture_rect.w,
 		this->capture_rect.h);
+	
 
 	//Clipboard::GetImage(capture_image);
 	capture_image = this->screen_capture.GetImage();

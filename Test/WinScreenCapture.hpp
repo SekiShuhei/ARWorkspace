@@ -19,7 +19,7 @@ public:
 	bool LoadImageFromDIB();
 	bool LoadImageFromClipboard();
 
-	s3d::Image& GetImage()
+	const s3d::Image& GetImage()
 	{
 		return this->captured_image;
 	}
