@@ -23,6 +23,7 @@ void Main()
 
 	// 大きさ 60 のフォントを用意
 	const Font font(60);
+	double value;
 
 	ar_screen.initialize();
 	
@@ -41,6 +42,15 @@ void Main()
 
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
 		
+		//double x = s3d::Scene::Size().x - 300;
+		//double y = 0;
+		//double h = 30;
+		//
+		//SimpleGUI::Slider(U"R {:.2f}"_fmt(value), value, 0, 600, Vec2(x, y     ), 100, 200);
+		//SimpleGUI::Slider(U"R {:.2f}"_fmt(value), value, 0, 600, Vec2(x, y += h), 100, 200);
+		//SimpleGUI::Slider(U"R {:.2f}"_fmt(value), value, 0, 600, Vec2(x, y += h), 100, 200);
+		//SimpleGUI::Slider(U"R {:.2f}"_fmt(value), value, 0, 600, Vec2(x, y += h), 100, 200);
+	
 	}
 }
 

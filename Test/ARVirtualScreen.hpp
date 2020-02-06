@@ -69,9 +69,28 @@ public:
 private:
 
 	std::mutex			mutex;
+	int					imageindex_reading = 0;
+	int					imageindex_standby = 1;
+	int					imageindex_drawing = 2;
+	//int					imageindex_drawed = -1;
+	enum class ImageState
+	{
+		not_initialized = -1,
+		reading = 0,
+		standby,
+		drawing,
+		drawed
+	};
+	ImageState			image_state[3]
+	{ 
+		ImageState::not_initialized ,
+		ImageState::not_initialized ,
+		ImageState::not_initialized 
+	};
+
+
 	std::thread			capture_thread;
 	bool				capture_thread_run = false;
-
 
 
 	CustomCursor		custom_cursor;
@@ -91,7 +110,12 @@ private:
 	s3d::DynamicTexture	texture;
 
 	double	radian = 0.0;
-	s3d::Image	capture_image;
-
+	s3d::Image	capture_image[3] = 
+	{
+		s3d::Image(),
+		s3d::Image(),
+		s3d::Image()
+	};
+	
 };
 

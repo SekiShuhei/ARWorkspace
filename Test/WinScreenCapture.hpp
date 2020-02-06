@@ -12,18 +12,18 @@ public:
 	WinScreenCapture();
 	~WinScreenCapture();
 
-	bool CaptureScreen(int x, int y, int width, int height);
+	bool CaptureScreen(s3d::Image&, int x, int y, int width, int height);
 
 	bool HasInvalidPremultipliedColors(const Color* image, const size_t num_pixels);
 
-	bool LoadImageFromDIB();
-	bool LoadImageFromClipboard();
-
-	const s3d::Image& GetImage()
-	{
-		return this->captured_image;
-	}
+	//const s3d::Image& GetImage()
+	//{
+	//	return this->captured_image;
+	//}
 private:
+
+	bool LoadImageFromDIB(s3d::Image&);
+	//bool LoadImageFromClipboard();
 
 	DWORD GetBitmapImageSize(const BITMAPINFO& bitmap_info) const;
 
@@ -38,7 +38,7 @@ private:
 	HBITMAP			hBitmap = HBITMAP();
 
 	// DIBからクリップボードを介さずに直接S3DImageに落とし込む実験.
-	s3d::Image		captured_image = s3d::Image();
+	//s3d::Image		captured_image = s3d::Image();
 
 
 };
