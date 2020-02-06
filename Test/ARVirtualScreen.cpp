@@ -9,6 +9,31 @@ ARVirtualScreen::ARVirtualScreen()
 
 }
 
+ARVirtualScreen::~ARVirtualScreen()
+{
+
+	this->capture_thread_run = false;
+	this->capture_thread.join();
+
+}
+
+void ARVirtualScreen::initialize()
+{
+	this->capture_thread_run = true;
+	this->capture_thread = std::thread([this]()
+		{
+			while (this->capture_thread_run)
+			{
+				// マルチスレッド処理.
+				this->Update();
+
+				//std::this_thread::sleep_for(std::chrono::milliseconds(2));
+			}
+		});
+
+
+}
+
 bool ARVirtualScreen::LoadUserSetting()
 {
 
@@ -53,31 +78,70 @@ void ARVirtualScreen::Update()
 
 	this->GetCaptureRect();
 	
+	
 	// メニューバーの分だけ少しY座標がずれるので注意.
-	screen_capture.CaptureScreen(
+	this->screen_capture.CaptureScreen(
+		this->capture_image[this->imageindex_reading],
 		this->capture_rect.x,
 		this->capture_rect.y,
 		this->capture_rect.w,
 		this->capture_rect.h);
-
-	//Clipboard::GetImage(capture_image);
-	capture_image = this->screen_capture.GetImage();
-
+	
+	{
+		std::lock_guard<std::mutex>	lock(this->mutex);
+		this->imageindex_standby = this->imageindex_reading;
+		for (int i = 0; i < 3; i++)
+		{
+			if (i != this->imageindex_drawing && i != this->imageindex_reading )
+			{
+				this->imageindex_reading = i;
+				break;
+			}
+		}
+		
+	}
+	
 }
 
 void ARVirtualScreen::Draw()
 {
-	
+	// キャプチャ領域指定.
+	//double x = s3d::Scene::Size().x - 300;
+	//double y = 0;
+	//double h = 30;
+	//double value;
+	//
+	//SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_rect.x), value, 0, 600, Vec2(x, y), 100, 200);
+	//SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_rect.y), value, 0, 600, Vec2(x, y += h), 100, 200);
+	//SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_rect.w), value, 0, 600, Vec2(x, y += h), 100, 200);
+	//SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_rect.h), value, 0, 600, Vec2(x, y += h), 100, 200);
+
+
+
+
+
 	////////キャプチャ系
 	{
-		
-		if (texture.fillIfNotBusy(capture_image))
 		{
-			texture.scaled(this->scale).
-				rotatedAt(s3d::Window::ClientCenter(), radian).
-				drawAt(s3d::Window::ClientCenter());
-		} else {
+			std::lock_guard<std::mutex>	lock(this->mutex);
+			if (this->imageindex_standby >= 0)
+			{
+				this->imageindex_drawing = this->imageindex_standby;
+				this->imageindex_standby = -1;
+			}
+		}
+		if (this->imageindex_drawing >= 0)
+		{
+			if (texture.fill(capture_image[this->imageindex_drawing]))
+			{
+				texture.scaled(this->scale).
+					rotatedAt(s3d::Window::ClientCenter(), radian).
+					drawAt(s3d::Window::ClientCenter());
 
+
+			} else {
+
+			}
 		}
 	}
 	//texture.resize(s3d::Window::Width(), s3d::Window::Height()).rotate(radian).draw();
