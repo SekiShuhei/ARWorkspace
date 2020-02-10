@@ -87,8 +87,8 @@ bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int w
 
 	//DIBの情報を設定する
 	this->bmpInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
-	this->bmpInfo.bmiHeader.biWidth = this->capture_rect.right - this->capture_rect.left;
-	this->bmpInfo.bmiHeader.biHeight = this->capture_rect.bottom - this->capture_rect.top;
+	this->bmpInfo.bmiHeader.biWidth = width;
+	this->bmpInfo.bmiHeader.biHeight = height;
 	this->bmpInfo.bmiHeader.biPlanes = 1;
 	this->bmpInfo.bmiHeader.biBitCount = 32;
 	this->bmpInfo.bmiHeader.biCompression = BI_RGB;
@@ -109,6 +109,8 @@ bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int w
 			SelectObject(this->hMemDC, this->hBitmap);
 			error = false;
 		}
+	} else {
+		int a =0;
 	}
 	if (hPrevBitmap != NULL)
 	{
@@ -168,13 +170,8 @@ bool WinScreenCapture::LoadImageFromDIB(s3d::Image& read_image)
 	{
 		// ビットマップデータの先頭へのアドレス.
 		const void* memory = &(this->hBitmap);
-
-		// すでに取得済みのはず.
-		//const BITMAPINFO* header = static_cast<const BITMAPINFO*>(memory);
 		const BITMAPINFO* header = &(this->bmpInfo);
-
 		const int32 depth = header->bmiHeader.biBitCount;
-
 		size_t colorTableSize = 0;
 
 		if (depth == 8)
@@ -196,7 +193,6 @@ bool WinScreenCapture::LoadImageFromDIB(s3d::Image& read_image)
 		const int32 height = reversed ? header->bmiHeader.biHeight : -header->bmiHeader.biHeight;
 		const bool hasAlpha = (depth == 32)
 			&& !this->HasInvalidPremultipliedColors(static_cast<const Color*>(bitmapData), width* height);
-		//image.resize(width, height);
 		read_image.resize(width, height);
 
 		//ReaderView reader(bitmapData, this->bmpInfo.bmiHeader.biSizeImage);
@@ -286,9 +282,7 @@ bool WinScreenCapture::LoadImageFromDIB(s3d::Image& read_image)
 		}
 
 	}
-	// 要確認.
-	//::GlobalUnlock(hDIB);
-
+	
 	return true;
 }
 

@@ -61,14 +61,16 @@ bool ARVirtualScreen::LoadUserSetting()
 
 bool ARVirtualScreen::GetCaptureRect()
 {
-	auto client_size = s3d::Scene::Size();
-	
-	auto capture_size = client_size / this->scale;
-
-	this->capture_rect.x = this->capture_point.x - (capture_size.x / 2);
-	this->capture_rect.y = this->capture_point.y - (capture_size.y / 2);
-	this->capture_rect.w = this->capture_point.x + (capture_size.x / 2);
-	this->capture_rect.h = this->capture_point.y + (capture_size.y / 2);
+	// 中心点からキャプチャ領域を割り出す.
+	// 要検討.
+	//auto client_size = s3d::Scene::Size();
+	//
+	//auto capture_size = client_size / this->scale;
+	//
+	//this->capture_region.x = this->capture_point.x - (capture_size.x / 2);
+	//this->capture_region.y = this->capture_point.y - (capture_size.y / 2);
+	//this->capture_region.w = this->capture_point.x + (capture_size.x / 2);
+	//this->capture_region.h = this->capture_point.y + (capture_size.y / 2);
 
 	return true;
 }
@@ -82,10 +84,10 @@ void ARVirtualScreen::Update()
 	// メニューバーの分だけ少しY座標がずれるので注意.
 	this->screen_capture.CaptureScreen(
 		this->capture_image[this->imageindex_reading],
-		this->capture_rect.x,
-		this->capture_rect.y,
-		this->capture_rect.w,
-		this->capture_rect.h);
+		(int)this->capture_region.x,
+		(int)this->capture_region.y,
+		(int)this->capture_region.w,
+		(int)this->capture_region.h);
 	
 	{
 		std::lock_guard<std::mutex>	lock(this->mutex);
@@ -105,17 +107,7 @@ void ARVirtualScreen::Update()
 
 void ARVirtualScreen::Draw()
 {
-	// キャプチャ領域指定.
-	//double x = s3d::Scene::Size().x - 300;
-	//double y = 0;
-	//double h = 30;
-	//double value;
-	//
-	//SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_rect.x), value, 0, 600, Vec2(x, y), 100, 200);
-	//SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_rect.y), value, 0, 600, Vec2(x, y += h), 100, 200);
-	//SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_rect.w), value, 0, 600, Vec2(x, y += h), 100, 200);
-	//SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_rect.h), value, 0, 600, Vec2(x, y += h), 100, 200);
-
+	
 
 
 
@@ -132,15 +124,19 @@ void ARVirtualScreen::Draw()
 		}
 		if (this->imageindex_drawing >= 0)
 		{
+			//texture.fillRegion(capture_image[this->imageindex_drawing], s3d::Rect(0, 0, 200, 200));
+
 			if (texture.fill(capture_image[this->imageindex_drawing]))
 			{
 				texture.scaled(this->scale).
 					rotatedAt(s3d::Window::ClientCenter(), radian).
 					drawAt(s3d::Window::ClientCenter());
-
-
+			
+			
 			} else {
-
+				// テクスチャはリサイズできないっぽい.
+				// 現状のサイズと違うImageでFillしようとするとfalseが返る.
+				//...
 			}
 		}
 	}
@@ -168,5 +164,32 @@ void ARVirtualScreen::Draw()
 
 		//font(U"AccelSensor_X:", rx).draw(0.0, 0.0, Palette::Blue);
 
+	}
+
+
+	{
+
+		// キャプチャ領域指定.
+		double x = s3d::Scene::Size().x - 300;
+		double y = 0;
+		double h = 30;
+
+		SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.x), this->capture_region.x, 0, 2000, Vec2(x, y), 100, 200);
+		y += h;
+		SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.y), this->capture_region.y, 0, 2000, Vec2(x, y), 100, 200);
+		y += h;
+		SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.w), this->capture_region.w, 200, 2000, Vec2(x, y), 100, 200);
+		y += h;
+		SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.h), this->capture_region.h, 200, 2000, Vec2(x, y), 100, 200);
+		y += h;
+		// テクスチャ再作成ボタンをとりあえず検証用に作る.
+		if (SimpleGUI::Button(U"テクスチャ再作成", Vec2(x, y)))
+		{
+			if (this->texture.size() != this->capture_image[this->imageindex_drawing].size())
+			{
+				int a = 0;
+				
+			}
+		}
 	}
 }

@@ -4,8 +4,6 @@
 
 #include <Windows.h>
 
-
-// WinAPIで任意のスクリーン領域をキャプチャしクリップボードに保存する.
 class WinScreenCapture
 {
 public:
@@ -13,17 +11,11 @@ public:
 	~WinScreenCapture();
 
 	bool CaptureScreen(s3d::Image&, int x, int y, int width, int height);
-
 	bool HasInvalidPremultipliedColors(const Color* image, const size_t num_pixels);
 
-	//const s3d::Image& GetImage()
-	//{
-	//	return this->captured_image;
-	//}
 private:
 
 	bool LoadImageFromDIB(s3d::Image&);
-	//bool LoadImageFromClipboard();
 
 	DWORD GetBitmapImageSize(const BITMAPINFO& bitmap_info) const;
 
@@ -37,8 +29,6 @@ private:
 	LPDWORD			lpPixel = LPDWORD();
 	HBITMAP			hBitmap = HBITMAP();
 
-	// DIBからクリップボードを介さずに直接S3DImageに落とし込む実験.
-	//s3d::Image		captured_image = s3d::Image();
 
 
 };

@@ -5,7 +5,7 @@
 #include <mutex>
 #include <thread>
 
-
+#include "DisplayRegion.hpp"
 #include "WinScreenCapture.hpp"
 #include "CustomCursor.hpp"
 #include "SensorApiManager.hpp"
@@ -102,8 +102,7 @@ private:
 	s3d::Point	capture_point = s3d::Point(0, 0);
 	// ÀÛ‚ÉƒXƒNƒŠ[ƒ“‚©‚çæ“¾‚·‚é‚×‚«—Ìˆæ.
 	// Œ»ó‚Í‰ñ“]Œn‚ğŠÜ‚Ü‚È‚¢.
-	s3d::Rect	capture_rect;
-	
+	DisplayRegion	capture_region;
 
 
 
