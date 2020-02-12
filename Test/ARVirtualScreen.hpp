@@ -51,8 +51,7 @@ public:
 
 	// スクリーンキャプチャ.
 
-	// 更新処理と描画を分ける　マルチスレッドにするたぶん.
-	void Update();
+	void Capture();
 
 	// 描画.
 	void Draw();
@@ -68,11 +67,26 @@ public:
 
 private:
 
+	CustomCursor		custom_cursor;
+	WinScreenCapture	screen_capture;
+	SensorApiManager	sensor_manager;
+
+	// キャプチャ系.
+	std::thread			capture_thread;
+	bool				capture_thread_run = false;
+
+	double	scale = 3.0;
+	s3d::Point	capture_point = s3d::Point(0, 0);
+	// 実際にスクリーンから取得するべき領域.
+	// 現状は回転系を含まない.
+	DisplayRegion	capture_region;
+
+	// 描画系.
 	std::mutex			mutex;
 	int					imageindex_reading = 0;
 	int					imageindex_standby = 1;
 	int					imageindex_drawing = 2;
-	//int					imageindex_drawed = -1;
+	
 	enum class ImageState
 	{
 		not_initialized = -1,
@@ -87,27 +101,8 @@ private:
 		ImageState::not_initialized ,
 		ImageState::not_initialized 
 	};
-
-
-	std::thread			capture_thread;
-	bool				capture_thread_run = false;
-
-
-	CustomCursor		custom_cursor;
-	WinScreenCapture	screen_capture;
-	SensorApiManager	sensor_manager;
-
-
-	double	scale = 3.0;
-	s3d::Point	capture_point = s3d::Point(0, 0);
-	// 実際にスクリーンから取得するべき領域.
-	// 現状は回転系を含まない.
-	DisplayRegion	capture_region;
-
-
-
-	s3d::DynamicTexture	texture;
-
+	std::unique_ptr<s3d::DynamicTexture>	p_texture;
+	
 	double	radian = 0.0;
 	s3d::Image	capture_image[3] = 
 	{
@@ -115,6 +110,10 @@ private:
 		s3d::Image(),
 		s3d::Image()
 	};
+
+	bool capture_region_updated = false;
+	int texture_reflesh_count = 0;
+	int texture_reflesh_count_max = 3;
 	
 };
 

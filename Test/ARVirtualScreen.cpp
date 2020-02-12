@@ -6,7 +6,7 @@
 
 ARVirtualScreen::ARVirtualScreen()
 {
-
+	this->p_texture = std::make_unique<s3d::DynamicTexture>();
 }
 
 ARVirtualScreen::~ARVirtualScreen()
@@ -25,7 +25,7 @@ void ARVirtualScreen::initialize()
 			while (this->capture_thread_run)
 			{
 				// マルチスレッド処理.
-				this->Update();
+				this->Capture();
 
 				//std::this_thread::sleep_for(std::chrono::milliseconds(2));
 			}
@@ -75,9 +75,9 @@ bool ARVirtualScreen::GetCaptureRect()
 	return true;
 }
 
-void ARVirtualScreen::Update()
+void ARVirtualScreen::Capture()
 {
-
+	
 	this->GetCaptureRect();
 	
 	
@@ -108,6 +108,7 @@ void ARVirtualScreen::Update()
 void ARVirtualScreen::Draw()
 {
 	
+	this->capture_region_updated = false;
 
 
 
@@ -126,9 +127,9 @@ void ARVirtualScreen::Draw()
 		{
 			//texture.fillRegion(capture_image[this->imageindex_drawing], s3d::Rect(0, 0, 200, 200));
 
-			if (texture.fill(capture_image[this->imageindex_drawing]))
+			if (p_texture->fill(capture_image[this->imageindex_drawing]))
 			{
-				texture.scaled(this->scale).
+				p_texture->scaled(this->scale).
 					rotatedAt(s3d::Window::ClientCenter(), radian).
 					drawAt(s3d::Window::ClientCenter());
 			
@@ -178,17 +179,30 @@ void ARVirtualScreen::Draw()
 		y += h;
 		SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.y), this->capture_region.y, 0, 2000, Vec2(x, y), 100, 200);
 		y += h;
-		SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.w), this->capture_region.w, 200, 2000, Vec2(x, y), 100, 200);
+		if (SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.w), 
+			this->capture_region.w, 200, 2000, Vec2(x, y), 100, 200))
+		{
+			this->capture_region_updated = true;
+		}
 		y += h;
-		SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.h), this->capture_region.h, 200, 2000, Vec2(x, y), 100, 200);
+		if (SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.h), 
+			this->capture_region.h, 200, 2000, Vec2(x, y), 100, 200))
+		{
+			this->capture_region_updated = true;
+		}
 		y += h;
 		// テクスチャ再作成ボタンをとりあえず検証用に作る.
-		if (SimpleGUI::Button(U"テクスチャ再作成", Vec2(x, y)))
+		//if (SimpleGUI::Button(U"テクスチャ再作成", Vec2(x, y)))
+		if (this->capture_region_updated)
 		{
-			if (this->texture.size() != this->capture_image[this->imageindex_drawing].size())
+			this->texture_reflesh_count = 0;
+		} else {
+			this->texture_reflesh_count += 1;
+			if (this->texture_reflesh_count > this->texture_reflesh_count_max &&
+				this->p_texture->size() != this->capture_image[this->imageindex_drawing].size())
 			{
-				int a = 0;
-				
+				this->p_texture = std::make_unique<s3d::DynamicTexture>();
+				this->texture_reflesh_count = 0;
 			}
 		}
 	}
