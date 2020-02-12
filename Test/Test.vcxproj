@@ -245,6 +245,7 @@
     <ClInclude Include="CustomCursor.hpp" />
     <ClInclude Include="DisplayRegion.hpp" />
     <ClInclude Include="SensorApiManager.hpp" />
+    <ClInclude Include="SimpleCounter.hpp" />
     <ClInclude Include="Utilty.hpp" />
     <ClInclude Include="WinScreenCapture.hpp" />
   </ItemGroup>

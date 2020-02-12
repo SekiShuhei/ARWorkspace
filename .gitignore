@@ -41,3 +41,5 @@ AS_DEBUG/
 *.db-wal
 *.ipch
 
+*.vcxproj
+*.filters

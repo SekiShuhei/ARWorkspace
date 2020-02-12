@@ -134,9 +134,9 @@ void ARVirtualScreen::Draw()
 			
 			
 			} else {
-				// テクスチャはリサイズできないっぽい.
+				// テクスチャはリサイズできない.
 				// 現状のサイズと違うImageでFillしようとするとfalseが返る.
-				//...
+				// 一定期間でテクスチャ再作成することで解決.
 			}
 		}
 	}
@@ -144,7 +144,7 @@ void ARVirtualScreen::Draw()
 	//texture.draw();
 
 	// test.
-	//radian += 0.01;
+	radian += 0.01;
 	
 	// カーソル系.
 	{
@@ -194,14 +194,18 @@ void ARVirtualScreen::Draw()
 		//if (SimpleGUI::Button(U"テクスチャ再作成", Vec2(x, y)))
 		if (this->capture_region_updated)
 		{
-			this->texture_reflesh_count = 0;
+			this->texture_reflesh_counter.Reset();
+			//this->texture_reflesh_count = 0;
 		} else {
-			this->texture_reflesh_count += 1;
-			if (this->texture_reflesh_count > this->texture_reflesh_count_max &&
+			//this->texture_reflesh_count += 1;
+			
+			if (//this->texture_reflesh_count > this->texture_reflesh_count_max &&
+				this->texture_reflesh_counter.Count() &&
 				this->p_texture->size() != this->GetDrawImage().size())
 			{
 				this->p_texture = std::make_unique<s3d::DynamicTexture>();
-				this->texture_reflesh_count = 0;
+				//this->texture_reflesh_count = 0;
+
 			}
 		}
 	}
