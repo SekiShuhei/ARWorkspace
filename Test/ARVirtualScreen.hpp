@@ -116,8 +116,6 @@ private:
 	};
 
 	bool capture_region_updated = false;
-	//int texture_reflesh_count = 0;
-	//int texture_reflesh_count_max = 3;
 	SimpleCounter	texture_reflesh_counter = SimpleCounter(3);
 };
 

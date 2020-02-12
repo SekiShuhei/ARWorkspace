@@ -195,17 +195,13 @@ void ARVirtualScreen::Draw()
 		if (this->capture_region_updated)
 		{
 			this->texture_reflesh_counter.Reset();
-			//this->texture_reflesh_count = 0;
 		} else {
-			//this->texture_reflesh_count += 1;
 			
-			if (//this->texture_reflesh_count > this->texture_reflesh_count_max &&
-				this->texture_reflesh_counter.Count() &&
+			if (this->texture_reflesh_counter.Count() &&
 				this->p_texture->size() != this->GetDrawImage().size())
 			{
 				this->p_texture = std::make_unique<s3d::DynamicTexture>();
-				//this->texture_reflesh_count = 0;
-
+				
 			}
 		}
 	}
