@@ -108,9 +108,8 @@ void ARVirtualScreen::Capture()
 void ARVirtualScreen::Draw()
 {
 	
-	this->capture_region_updated = false;
-
-
+	this->capture_size_updated = false;
+	
 
 
 	////////キャプチャ系
@@ -174,25 +173,47 @@ void ARVirtualScreen::Draw()
 		double y = 0;
 		double h = 30;
 
-		SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.x), this->capture_region.x, 0, 2000, Vec2(x, y), 100, 200);
+		if (SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.x), 
+			this->capture_region.x, 0, 2000, Vec2(x, y), 100, 200))
+		{
+			this->capture_region_updated = true;
+		}
 		y += h;
-		SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.y), this->capture_region.y, 0, 2000, Vec2(x, y), 100, 200);
+		if (SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.y), 
+			this->capture_region.y, 0, 2000, Vec2(x, y), 100, 200))
+		{
+			this->capture_region_updated = true;
+		}
 		y += h;
 		if (SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.w), 
 			this->capture_region.w, 200, 2000, Vec2(x, y), 100, 200))
 		{
 			this->capture_region_updated = true;
+			this->capture_size_updated = true;
 		}
 		y += h;
 		if (SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.h), 
 			this->capture_region.h, 200, 2000, Vec2(x, y), 100, 200))
 		{
 			this->capture_region_updated = true;
+			this->capture_size_updated = true;
 		}
 		y += h;
-		// テクスチャ再作成ボタンをとりあえず検証用に作る.
-		//if (SimpleGUI::Button(U"テクスチャ再作成", Vec2(x, y)))
+
 		if (this->capture_region_updated)
+		{
+			if (this->capture_region_guide_counter.Count())
+			{
+				this->capture_region_updated = false;
+
+				//...WinAPIで描画.
+
+
+
+			}
+		}
+
+		if (this->capture_size_updated)
 		{
 			this->texture_reflesh_counter.Reset();
 		} else {
