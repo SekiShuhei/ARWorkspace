@@ -61,7 +61,10 @@ public:
 
 	// ScreenCaptureŠÖ”‚ğŠÇŠH
 
-
+	inline const s3d::Image& GetDrawImage() const
+	{
+		return this->capture_image[this->imageindex_drawing];
+	};
 
 
 

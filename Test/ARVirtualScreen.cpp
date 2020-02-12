@@ -125,9 +125,8 @@ void ARVirtualScreen::Draw()
 		}
 		if (this->imageindex_drawing >= 0)
 		{
-			//texture.fillRegion(capture_image[this->imageindex_drawing], s3d::Rect(0, 0, 200, 200));
-
-			if (p_texture->fill(capture_image[this->imageindex_drawing]))
+			
+			if (p_texture->fill(this->GetDrawImage()))
 			{
 				p_texture->scaled(this->scale).
 					rotatedAt(s3d::Window::ClientCenter(), radian).
@@ -199,7 +198,7 @@ void ARVirtualScreen::Draw()
 		} else {
 			this->texture_reflesh_count += 1;
 			if (this->texture_reflesh_count > this->texture_reflesh_count_max &&
-				this->p_texture->size() != this->capture_image[this->imageindex_drawing].size())
+				this->p_texture->size() != this->GetDrawImage().size())
 			{
 				this->p_texture = std::make_unique<s3d::DynamicTexture>();
 				this->texture_reflesh_count = 0;
