@@ -13,7 +13,7 @@
 
 
 
-
+namespace ARWorkspace {
 
 class ARVirtualScreen
 {
@@ -120,4 +120,6 @@ private:
 	SimpleCounter	capture_region_guide_counter = SimpleCounter(10);
 	SimpleCounter	texture_reflesh_counter = SimpleCounter(3);
 };
+
+}
 

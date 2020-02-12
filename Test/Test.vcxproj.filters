@@ -412,5 +412,8 @@
     <ClInclude Include="SimpleCounter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DisplayRegionGuideView.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

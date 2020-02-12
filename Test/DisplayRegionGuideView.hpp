@@ -2,6 +2,7 @@
 
 #include "DisplayRegion.hpp"
 
+namespace ARWorkspace {
 
 static class DisplayRegionGuideView
 {
@@ -20,3 +21,5 @@ static class DisplayRegionGuideView
 	}
 
 };
+
+}

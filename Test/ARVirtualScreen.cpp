@@ -3,6 +3,7 @@
 
 #include "Utilty.hpp"
 
+namespace ARWorkspace {
 
 ARVirtualScreen::ARVirtualScreen()
 {
@@ -226,4 +227,6 @@ void ARVirtualScreen::Draw()
 			}
 		}
 	}
+}
+
 }

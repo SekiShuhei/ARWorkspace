@@ -1,5 +1,6 @@
 #pragma once
 
+namespace ARWorkspace {
 
 class SimpleCounter
 {
@@ -30,3 +31,4 @@ private:
 	int _counter_max = 1;
 };
 
+}

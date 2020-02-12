@@ -2,6 +2,8 @@
 
 #include "Utilty.hpp"
 
+namespace ARWorkspace {
+
 std::string Utilty::GetModulePath()
 {
 	// 実行ファイルのパス
@@ -19,4 +21,6 @@ std::string Utilty::GetModulePath()
 	}
 
 	return modulePath;
+}
+
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+namespace ARWorkspace {
 
 struct DisplayRegion
 {
@@ -10,3 +11,4 @@ struct DisplayRegion
 
 };
 
+}

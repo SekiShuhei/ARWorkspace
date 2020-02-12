@@ -4,6 +4,7 @@
 
 //#include <siv3d.hpp>
 
+namespace ARWorkspace {
 
 class CustomCursor
 {
@@ -24,3 +25,4 @@ private:
 
 };
 
+}

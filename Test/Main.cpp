@@ -18,7 +18,7 @@ void Main()
 	WindowResizeOption::ResizeSceneSize;
 	Scene::SetTextureFilter(TextureFilter::Nearest);
 	
-	ARVirtualScreen	ar_screen;
+	ARWorkspace::ARVirtualScreen	ar_screen;
 	ar_screen.LoadUserSetting();
 
 	// 大きさ 60 のフォントを用意

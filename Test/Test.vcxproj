@@ -244,6 +244,7 @@
     <ClInclude Include="ARVirtualScreen.hpp" />
     <ClInclude Include="CustomCursor.hpp" />
     <ClInclude Include="DisplayRegion.hpp" />
+    <ClInclude Include="DisplayRegionGuideView.hpp" />
     <ClInclude Include="SensorApiManager.hpp" />
     <ClInclude Include="SimpleCounter.hpp" />
     <ClInclude Include="Utilty.hpp" />
