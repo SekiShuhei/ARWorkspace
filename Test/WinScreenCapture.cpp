@@ -99,14 +99,14 @@ bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int w
 	
 	HDC hPrevMemDC = this->hMemDC;
 	HBITMAP hPrevBitmap = this->hBitmap;
-	this->hBitmap = CreateDIBSection(this->hdc, &this->bmpInfo, DIB_RGB_COLORS, (void**)&this->lpPixel, NULL, 0);
+	this->hBitmap = ::CreateDIBSection(this->hdc, &this->bmpInfo, DIB_RGB_COLORS, (void**)&this->lpPixel, NULL, 0);
 	bool error = true;
 	if (this->hBitmap != NULL)
 	{	
-		this->hMemDC = CreateCompatibleDC(this->hdc);
+		this->hMemDC = ::CreateCompatibleDC(this->hdc);
 		if (this->hMemDC != NULL)
 		{
-			SelectObject(this->hMemDC, this->hBitmap);
+			::SelectObject(this->hMemDC, this->hBitmap);
 			error = false;
 		}
 	} else {
@@ -114,14 +114,13 @@ bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int w
 	}
 	if (hPrevBitmap != NULL)
 	{
-		DeleteObject(hPrevBitmap);  //BMPを削除した時、lpPixelも自動的に解放される
+		::DeleteObject(hPrevBitmap);  //BMPを削除した時、lpPixelも自動的に解放される
 	}
 	if (hPrevMemDC != NULL)
 	{
-		DeleteDC(hPrevMemDC);
+		::DeleteDC(hPrevMemDC);
 	}
-
-	ReleaseDC(NULL, this->hdc);
+	::ReleaseDC(NULL, this->hdc);
 
 	if (error)
 	{
@@ -133,19 +132,18 @@ bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int w
 	bool result = false;
 
 	//スクリーンをDIBSectionにコピー
-	this->hdc = GetDC(this->desktop);
-	BitBlt(this->hMemDC, 0, 0, this->bmpInfo.bmiHeader.biWidth, this->bmpInfo.bmiHeader.biHeight, 
+	this->hdc = ::GetDC(this->desktop);
+	::BitBlt(this->hMemDC, 0, 0, this->bmpInfo.bmiHeader.biWidth, this->bmpInfo.bmiHeader.biHeight, 
 		this->hdc, this->capture_rect.left, this->capture_rect.top, SRCCOPY);
 	if (this->hdc != NULL)
 	{
-		ReleaseDC(this->desktop, this->hdc);
+		::ReleaseDC(this->desktop, this->hdc);
 	}
 
 	this->LoadImageFromDIB(read_image);
 
 }
 
-// そのまま引用.
 bool WinScreenCapture::HasInvalidPremultipliedColors(const Color* image, const size_t num_pixels)
 {
 	const Color* pSrc = image;

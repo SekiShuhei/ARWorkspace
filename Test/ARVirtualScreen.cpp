@@ -1,7 +1,7 @@
 #include "ARVirtualScreen.hpp"
 
-
 #include "Utilty.hpp"
+#include "DisplayRegionGuideView.hpp"
 
 namespace ARWorkspace {
 
@@ -111,40 +111,8 @@ void ARVirtualScreen::Draw()
 	
 	this->capture_size_updated = false;
 	
+	this->drawTexture();
 
-
-	////////キャプチャ系
-	{
-		{
-			std::lock_guard<std::mutex>	lock(this->mutex);
-			if (this->imageindex_standby >= 0)
-			{
-				this->imageindex_drawing = this->imageindex_standby;
-				this->imageindex_standby = -1;
-			}
-		}
-		if (this->imageindex_drawing >= 0)
-		{
-			
-			if (p_texture->fill(this->GetDrawImage()))
-			{
-				p_texture->scaled(this->scale).
-					rotatedAt(s3d::Window::ClientCenter(), radian).
-					drawAt(s3d::Window::ClientCenter());
-			
-			
-			} else {
-				// テクスチャはリサイズできない.
-				// 現状のサイズと違うImageでFillしようとするとfalseが返る.
-				// 一定期間でテクスチャ再作成することで解決.
-			}
-		}
-	}
-	//texture.resize(s3d::Window::Width(), s3d::Window::Height()).rotate(radian).draw();
-	//texture.draw();
-
-	// test.
-	radian += 0.01;
 	
 	// カーソル系.
 	{
@@ -207,8 +175,8 @@ void ARVirtualScreen::Draw()
 			{
 				this->capture_region_updated = false;
 
-				//...WinAPIで描画.
-
+			} else {
+				DisplayRegionGuideView::Draw(this->capture_region, 20);
 
 
 			}
@@ -227,6 +195,46 @@ void ARVirtualScreen::Draw()
 			}
 		}
 	}
+}
+
+void ARVirtualScreen::drawTexture()
+{
+	if (this->capture_region_updated)
+	{
+		return;
+	}
+	{
+		std::lock_guard<std::mutex>	lock(this->mutex);
+		if (this->imageindex_standby >= 0)
+		{
+			this->imageindex_drawing = this->imageindex_standby;
+			this->imageindex_standby = -1;
+		}
+	}
+	if (this->imageindex_drawing >= 0)
+	{
+
+		if (p_texture->fill(this->GetDrawImage()))
+		{
+			p_texture->scaled(this->scale).
+				rotatedAt(s3d::Window::ClientCenter(), radian).
+				drawAt(s3d::Window::ClientCenter());
+
+
+		}
+		else {
+			// テクスチャはリサイズできない.
+			// 現状のサイズと違うImageでFillしようとするとfalseが返る.
+			// 一定期間でテクスチャ再作成することで解決.
+		}
+	}
+	
+	//texture.resize(s3d::Window::Width(), s3d::Window::Height()).rotate(radian).draw();
+	//texture.draw();
+
+	// test.
+	//radian += 0.01;
+
 }
 
 }

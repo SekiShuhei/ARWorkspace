@@ -67,6 +67,9 @@ public:
 		return this->capture_image[this->imageindex_drawing];
 	};
 
+private:
+
+	void drawTexture();
 
 
 private:
