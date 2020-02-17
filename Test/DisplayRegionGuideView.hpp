@@ -22,11 +22,20 @@ public:
 
 	static bool Draw(int x, int y, int width, int height, int border_width)
 	{
-		HWND desktop_hwnd = ::GetDesktopWindow();
+        DisplayRegionGuideView::drawLine(x, y, width, height, border_width);
+		
+
+
+		return true;
+	}
+
+private:
+
+    static bool drawLine(int x, int y, int width, int height, int border_width)
+    {
+        HWND desktop_hwnd = ::GetDesktopWindow();
         HDC  desktop_hdc = ::GetDC(desktop_hwnd);
 
-        //::SelectObject(desktop_hdc, GetStockObject(BLACK_PEN));
-        
         int bw = border_width / 2;
         HPEN   hpen = ::CreatePen(PS_SOLID, 1, RGB(0, 255, 127));
         HBRUSH hbrush = ::CreateSolidBrush(RGB(0, 255, 127));
@@ -42,8 +51,8 @@ public:
         ::DeleteObject(hpen);
         ::DeleteObject(hbrush);
 
-		return true;
-	}
+        return true;
+    }
 
 };
 
