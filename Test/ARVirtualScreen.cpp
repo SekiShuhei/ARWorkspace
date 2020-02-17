@@ -1,6 +1,6 @@
 #include "ARVirtualScreen.hpp"
 
-#include "Utilty.hpp"
+#include "Utility.hpp"
 #include "DisplayRegionGuideView.hpp"
 
 namespace ARWorkspace {
@@ -39,7 +39,7 @@ bool ARVirtualScreen::LoadUserSetting()
 {
 
 
-	auto exec_path = s3d::Unicode::Widen(Utilty::GetModulePath());
+	auto exec_path = Utility::GetExecFilePath();
 	s3d::String setting_file_path = exec_path + U"setting.json";
 	setting_file_path = U"C:\\Users\\sekishuhei\\010_develop\\ARWorkspace\\Test\\setting.json";
 	JSONReader json(setting_file_path);

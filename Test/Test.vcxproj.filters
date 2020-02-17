@@ -114,10 +114,10 @@
     <ClCompile Include="ARVirtualScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Utilty.cpp">
+    <ClCompile Include="DisplayRegion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DisplayRegion.cpp">
+    <ClCompile Include="Utility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -391,9 +391,6 @@
     <ClInclude Include="SensorApiManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utilty.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="WinScreenCapture.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -413,6 +410,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DisplayRegionGuideView.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
