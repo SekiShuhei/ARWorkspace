@@ -112,6 +112,7 @@
     <ClCompile Include="ARVirtualScreen.cpp" />
     <ClCompile Include="CustomCursor.cpp" />
     <ClCompile Include="DisplayRegion.cpp" />
+    <ClCompile Include="DisplayRegionGuideWindow.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SensorApiManager.cpp" />
     <ClCompile Include="Utility.cpp" />
@@ -245,6 +246,7 @@
     <ClInclude Include="CustomCursor.hpp" />
     <ClInclude Include="DisplayRegion.hpp" />
     <ClInclude Include="DisplayRegionGuideView.hpp" />
+    <ClInclude Include="DisplayRegionGuideWindow.hpp" />
     <ClInclude Include="SensorApiManager.hpp" />
     <ClInclude Include="SimpleCounter.hpp" />
     <ClInclude Include="Utility.hpp" />

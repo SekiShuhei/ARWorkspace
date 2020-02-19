@@ -1,7 +1,7 @@
 #pragma once
 
-#pragma comment(lib, "user32.lib")  // GetDesktopWindow, GetDC, ReleaseDC API
-#pragma comment(lib, "gdi32.lib")   // 各種描画API
+#pragma comment(lib, "user32.lib")
+#pragma comment(lib, "gdi32.lib")
 
 #include <windows.h>
 
@@ -24,8 +24,6 @@ public:
 	{
         DisplayRegionGuideView::drawLine(x, y, width, height, border_width);
 		
-
-
 		return true;
 	}
 
@@ -33,6 +31,7 @@ private:
 
     static bool drawLine(int x, int y, int width, int height, int border_width)
     {
+        // チラつきなど見栄えがよくないのでデバッグ用途以外では使えそうにない.
         HWND desktop_hwnd = ::GetDesktopWindow();
         HDC  desktop_hdc = ::GetDC(desktop_hwnd);
 
