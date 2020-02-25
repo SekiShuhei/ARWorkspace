@@ -7,22 +7,25 @@
 #pragma comment(lib, "gdi32.lib")
 #include <Windows.h>
 
-class DisplayRegionSettingWindow
+class DisplayRegionGuideWindow
 {
 public:
-	DisplayRegionSettingWindow(HWND main_window_handle);
-	~DisplayRegionSettingWindow();
+	DisplayRegionGuideWindow(HWND main_window_handle);
+	~DisplayRegionGuideWindow();
 
 	void Show();
+	void Update();
 
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 
 private:
 
-	ATOM initializeWindow(HINSTANCE hInst);
+	HINSTANCE GetInstanceHandle(HWND arg_window_handle) const;
+
 	bool createChildWindow();
 
-	HWND main_window_handle;
+	HWND main_window_handle = 0;
+	HWND this_window_handle = 0;
 	std::string class_name = "DisplayRegionGuideWindow";
 
 

@@ -5,7 +5,8 @@
 
 namespace ARWorkspace {
 
-ARVirtualScreen::ARVirtualScreen()
+ARVirtualScreen::ARVirtualScreen() :
+	capture_region_window((HWND)s3d::Platform::Windows::Window::GetHWND())
 {
 	this->p_texture = std::make_unique<s3d::DynamicTexture>();
 }
@@ -15,6 +16,8 @@ ARVirtualScreen::~ARVirtualScreen()
 
 	this->capture_thread_run = false;
 	this->capture_thread.join();
+	this->capture_region_guide_thread_run = false;
+	this->capture_region_guide_thread.join();
 
 }
 
@@ -25,13 +28,24 @@ void ARVirtualScreen::initialize()
 		{
 			while (this->capture_thread_run)
 			{
-				// マルチスレッド処理.
 				this->Capture();
-
 				//std::this_thread::sleep_for(std::chrono::milliseconds(2));
 			}
 		});
 
+	this->capture_region_guide_thread_run = true;
+	this->capture_region_guide_thread = std::thread([this]()
+		{
+			while (this->capture_thread_run)
+			{
+				if (this->capture_region_guide_counter.IsCount())
+				{
+					DisplayRegionGuideView::Draw(this->capture_region, this->capture_region_guide_border_width);
+					//std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+				}
+			}
+		});
 
 }
 
@@ -110,7 +124,8 @@ void ARVirtualScreen::Draw()
 {
 	
 	this->capture_size_updated = false;
-	
+	this->capture_region_updated = false;
+
 	this->drawTexture();
 
 	
@@ -140,65 +155,68 @@ void ARVirtualScreen::Draw()
 		if (s3d::SimpleGUI::Button(U"", s3d::Vec2(0,0)))
 		{
 			//...
+			this->capture_region_window.Show();
 		}
 
-		//// キャプチャ領域指定.
-		//double x = s3d::Scene::Size().x - 300;
-		//double y = 0;
-		//double h = 30;
-		//
-		//if (SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.x), 
-		//	this->capture_region.x, 0, 2000, Vec2(x, y), 100, 200))
-		//{
-		//	this->capture_region_updated = true;
-		//}
-		//y += h;
-		//if (SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.y), 
-		//	this->capture_region.y, 0, 2000, Vec2(x, y), 100, 200))
-		//{
-		//	this->capture_region_updated = true;
-		//}
-		//y += h;
-		//if (SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.w), 
-		//	this->capture_region.w, 200, 2000, Vec2(x, y), 100, 200))
-		//{
-		//	this->capture_region_updated = true;
-		//	this->capture_size_updated = true;
-		//}
-		//y += h;
-		//if (SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.h), 
-		//	this->capture_region.h, 200, 2000, Vec2(x, y), 100, 200))
-		//{
-		//	this->capture_region_updated = true;
-		//	this->capture_size_updated = true;
-		//}
-		//y += h;
-		//
-		//if (this->capture_region_updated)
-		//{
-		//	if (this->capture_region_guide_counter.Count())
-		//	{
-		//		this->capture_region_updated = false;
-		//
-		//	} else {
-		//		DisplayRegionGuideView::Draw(this->capture_region, 20);
-		//
-		//
-		//	}
-		//}
-		//
-		//if (this->capture_size_updated)
-		//{
-		//	this->texture_reflesh_counter.Reset();
-		//} else {
-		//	
-		//	if (this->texture_reflesh_counter.Count() &&
-		//		this->p_texture->size() != this->GetDrawImage().size())
-		//	{
-		//		this->p_texture = std::make_unique<s3d::DynamicTexture>();
-		//		
-		//	}
-		//}
+		// キャプチャ領域指定.
+		double x = s3d::Scene::Size().x - 300;
+		double y = 0;
+		double h = 30;
+		
+		if (SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.x), 
+			this->capture_region.x, 0, 2000, Vec2(x, y), 100, 200))
+		{
+			this->capture_region_updated = true;
+		}
+		y += h;
+		if (SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.y), 
+			this->capture_region.y, 0, 2000, Vec2(x, y), 100, 200))
+		{
+			this->capture_region_updated = true;
+		}
+		y += h;
+		if (SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.w), 
+			this->capture_region.w, 200, 2000, Vec2(x, y), 100, 200))
+		{
+			this->capture_region_updated = true;
+			this->capture_size_updated = true;
+		}
+		y += h;
+		if (SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_region.h), 
+			this->capture_region.h, 200, 2000, Vec2(x, y), 100, 200))
+		{
+			this->capture_region_updated = true;
+			this->capture_size_updated = true;
+		}
+		y += h;
+		
+		if (this->capture_region_updated)
+		{
+			DisplayRegionGuideView::Invalidate(this->capture_region, this->capture_region_guide_border_width);
+			//::InvalidateRect(NULL, NULL, false);
+			this->capture_region_guide_counter.Reset();
+			this->capture_region_guide_counter.Count();
+		}
+		if (this->capture_region_guide_counter.IsCount())
+		{
+			if (this->capture_region_guide_counter.Count())
+			{
+				this->capture_region_guide_counter.Reset();
+			}
+		}
+		
+		if (this->capture_size_updated)
+		{
+			this->texture_reflesh_counter.Reset();
+		} else {
+			
+			if (this->texture_reflesh_counter.Count() &&
+				this->p_texture->size() != this->GetDrawImage().size())
+			{
+				this->p_texture = std::make_unique<s3d::DynamicTexture>();
+				
+			}
+		}
 	}
 }
 

@@ -28,12 +28,14 @@ const s3d::String Utility::GetModulePath()
 	return result_path;
 }
 
-HWND GetMainWindowHandle(s3d::String WindowTitle)
+HWND Utility::GetMainWindowHandle(s3d::String WindowTitle)
 {
-	HWND hWnd = ::FindWindowW(
-		Utility::GetModulePath().toWstr().c_str(), 
-		WindowTitle.toWstr().c_str());
+	(HWND)s3d::Platform::Windows::Window::GetHWND();
 
+	//return ::FindWindowW(
+	//	(LPCWSTR)Utility::GetModulePath().c_str(), 
+	//	WindowTitle.toWstr().c_str());
+	return 0;
 }
 
 }

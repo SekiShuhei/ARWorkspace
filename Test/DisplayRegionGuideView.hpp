@@ -27,6 +27,16 @@ public:
 		return true;
 	}
 
+    static void Invalidate(const DisplayRegion& display_region, int border_width)
+    {
+        RECT rect;
+        rect.left   = display_region.x - border_width;
+        rect.top    = display_region.y - border_width;
+        rect.right	= display_region.x + display_region.w + border_width;
+        rect.bottom = display_region.y + display_region.h + border_width;
+        ::InvalidateRect(NULL, &rect, true);
+    }
+
 private:
 
     static bool drawLine(int x, int y, int width, int height, int border_width)

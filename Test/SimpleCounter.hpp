@@ -10,6 +10,16 @@ public:
 		
 	}
 
+	bool IsZero() const
+	{
+		return (_counter == 0);
+	}
+
+	bool IsCount() const
+	{
+		return (_counter > 0);
+	}
+	
 	bool Count()
 	{
 		_counter += 1;
@@ -27,7 +37,7 @@ public:
 	}
 
 private:
-	int _counter = 0l;
+	int _counter = 0;
 	int _counter_max = 1;
 };
 

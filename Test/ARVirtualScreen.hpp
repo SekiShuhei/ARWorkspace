@@ -7,6 +7,7 @@
 
 #include "SimpleCounter.hpp"
 #include "DisplayRegion.hpp"
+#include "DisplayRegionGuideWindow.hpp"
 #include "WinScreenCapture.hpp"
 #include "CustomCursor.hpp"
 #include "SensorApiManager.hpp"
@@ -81,12 +82,17 @@ private:
 	// ƒLƒƒƒvƒ`ƒƒŒn.
 	std::thread			capture_thread;
 	bool				capture_thread_run = false;
+	std::thread			capture_region_guide_thread;
+	bool				capture_region_guide_thread_run = false;
+	bool				capture_region_guide_drawing = false;
 
 	double	scale = 3.0;
 	s3d::Point	capture_point = s3d::Point(0, 0);
 	// ÀÛ‚ÉƒXƒNƒŠ[ƒ“‚©‚çæ“¾‚·‚é‚×‚«—Ìˆæ.
 	// Œ»ó‚Í‰ñ“]Œn‚ğŠÜ‚Ü‚È‚¢.
 	DisplayRegion	capture_region;
+	int				capture_region_guide_border_width = 20;
+	DisplayRegionGuideWindow	capture_region_window;
 
 	// •`‰æŒn.
 	std::mutex			mutex;
