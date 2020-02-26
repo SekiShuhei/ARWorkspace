@@ -126,7 +126,7 @@ private:
 
 	bool capture_region_updated = false;
 	bool capture_size_updated = false;
-	SimpleCounter	capture_region_guide_counter = SimpleCounter(10);
+	SimpleCounter	capture_region_guide_counter = SimpleCounter(16);
 	SimpleCounter	texture_reflesh_counter = SimpleCounter(3);
 };
 
