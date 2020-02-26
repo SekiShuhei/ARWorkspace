@@ -41,7 +41,6 @@ private:
 
     static bool drawLine(int x, int y, int width, int height, int border_width)
     {
-        // チラつきなど見栄えがよくないのでデバッグ用途以外では使えそうにない.
         HWND desktop_hwnd = ::GetDesktopWindow();
         HDC  desktop_hdc = ::GetDC(desktop_hwnd);
 

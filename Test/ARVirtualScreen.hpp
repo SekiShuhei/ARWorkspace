@@ -7,7 +7,8 @@
 
 #include "SimpleCounter.hpp"
 #include "DisplayRegion.hpp"
-#include "DisplayRegionGuideWindow.hpp"
+//#include "DisplayRegionGuideWindow.hpp"
+#include "DisplayRegionGuideView.hpp"
 #include "WinScreenCapture.hpp"
 #include "CustomCursor.hpp"
 #include "SensorApiManager.hpp"
@@ -92,8 +93,7 @@ private:
 	// Œ»ó‚Í‰ñ“]Œn‚ğŠÜ‚Ü‚È‚¢.
 	DisplayRegion	capture_region;
 	int				capture_region_guide_border_width = 20;
-	DisplayRegionGuideWindow	capture_region_window;
-
+	
 	// •`‰æŒn.
 	std::mutex			mutex;
 	int					imageindex_reading = 0;

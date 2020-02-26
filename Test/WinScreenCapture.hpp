@@ -3,6 +3,8 @@
 #include <Siv3D.hpp>
 
 #define WIN32_LEAN_AND_MEAN
+#pragma comment(lib, "user32.lib")
+#pragma comment(lib, "gdi32.lib")
 #include <Windows.h>
 
 class WinScreenCapture

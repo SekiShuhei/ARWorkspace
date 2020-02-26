@@ -1,12 +1,10 @@
 #include "ARVirtualScreen.hpp"
 
 #include "Utility.hpp"
-#include "DisplayRegionGuideView.hpp"
 
 namespace ARWorkspace {
 
-ARVirtualScreen::ARVirtualScreen() :
-	capture_region_window((HWND)s3d::Platform::Windows::Window::GetHWND())
+ARVirtualScreen::ARVirtualScreen()
 {
 	this->p_texture = std::make_unique<s3d::DynamicTexture>();
 }
@@ -164,12 +162,7 @@ void ARVirtualScreen::Draw()
 
 	{
 
-		if (s3d::SimpleGUI::Button(U"", s3d::Vec2(0,0)))
-		{
-			//...
-			this->capture_region_window.Show();
-		}
-
+		
 		// キャプチャ領域指定.
 		double x = s3d::Scene::Size().x - 300;
 		double y = 0;
