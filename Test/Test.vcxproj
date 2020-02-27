@@ -115,6 +115,7 @@
     <ClCompile Include="DisplayRegionGuideWindow.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SensorApiManager.cpp" />
+    <ClCompile Include="DisplayRegionGuideView.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="WinScreenCapture.cpp" />
   </ItemGroup>

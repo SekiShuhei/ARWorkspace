@@ -7,7 +7,6 @@
 
 #include "SimpleCounter.hpp"
 #include "DisplayRegion.hpp"
-//#include "DisplayRegionGuideWindow.hpp"
 #include "DisplayRegionGuideView.hpp"
 #include "WinScreenCapture.hpp"
 #include "CustomCursor.hpp"
@@ -92,7 +91,7 @@ private:
 	// ÀÛ‚ÉƒXƒNƒŠ[ƒ“‚©‚çæ“¾‚·‚é‚×‚«—Ìˆæ.
 	// Œ»ó‚Í‰ñ“]Œn‚ğŠÜ‚Ü‚È‚¢.
 	DisplayRegion	capture_region;
-	int				capture_region_guide_border_width = 20;
+	DisplayRegionGuideView	capture_region_guide = DisplayRegionGuideView(capture_region, 20);
 	
 	// •`‰æŒn.
 	std::mutex			mutex;
@@ -126,7 +125,7 @@ private:
 
 	bool capture_region_updated = false;
 	bool capture_size_updated = false;
-	SimpleCounter	capture_region_guide_counter = SimpleCounter(16);
+	SimpleCounter	capture_region_guide_counter = SimpleCounter(10);
 	SimpleCounter	texture_reflesh_counter = SimpleCounter(3);
 };
 

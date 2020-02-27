@@ -36,24 +36,25 @@ void ARVirtualScreen::initialize()
 		{
 			while (this->capture_region_guide_thread_run)
 			{
+				
 				if (this->capture_region_updated)
 				{
 					this->capture_region_updated = false;
-					DisplayRegionGuideView::Invalidate(this->capture_region, this->capture_region_guide_border_width);
 					this->capture_region_guide_counter.Reset();
 					this->capture_region_guide_counter.Count();
 				}
-
 				if (this->capture_region_guide_counter.IsCount())
 				{
-					DisplayRegionGuideView::Draw(this->capture_region, this->capture_region_guide_border_width);
 					if (this->capture_region_guide_counter.Count())
 					{
-						DisplayRegionGuideView::Invalidate(this->capture_region, this->capture_region_guide_border_width);
+						this->capture_region_guide.Invalidate();
 						this->capture_region_guide_counter.Reset();
+					} else {
+						this->capture_region_guide.Draw();
 					}
-					//std::this_thread::sleep_for(std::chrono::milliseconds(10));
 				}
+				
+				//std::this_thread::sleep_for(std::chrono::milliseconds(10));
 			}
 		});
 
@@ -134,9 +135,11 @@ void ARVirtualScreen::Draw()
 {
 	
 	this->capture_size_updated = false;
-	//this->capture_region_updated = false;
-
-	this->drawTexture();
+	
+	if (! this->capture_region_guide_counter.IsCount())
+	{
+		this->drawTexture();
+	}
 
 	
 	// ƒJ[ƒ\ƒ‹Œn.
@@ -214,10 +217,7 @@ void ARVirtualScreen::Draw()
 
 void ARVirtualScreen::drawTexture()
 {
-	if (this->capture_region_updated)
-	{
-		return;
-	}
+	
 	{
 		std::lock_guard<std::mutex>	lock(this->mutex);
 		if (this->imageindex_standby >= 0)
