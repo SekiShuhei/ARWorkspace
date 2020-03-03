@@ -1,11 +1,6 @@
 #pragma once
 
-#pragma comment(lib, "user32.lib")
-#pragma comment(lib, "gdi32.lib")
-
-#include <windows.h>
-
-#include "DisplayRegion.hpp"
+class DisplayRegion;
 
 namespace ARWorkspace {
 

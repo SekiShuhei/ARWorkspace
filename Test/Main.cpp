@@ -33,7 +33,7 @@ void Main()
 
 			//test.
 			auto size = s3d::Window::ClientSize();
-			//s3d::Scene::Resize(size);
+			s3d::Scene::Resize(size);
 
 		}
 
