@@ -16,7 +16,7 @@ void Main()
 {
 	Window::SetStyle(WindowStyle::Sizable);
 	WindowResizeOption::ResizeSceneSize;
-	Scene::SetTextureFilter(TextureFilter::Nearest);
+	Scene::SetTextureFilter(TextureFilter::Linear);
 	
 	ARWorkspace::ARVirtualScreen	ar_screen;
 	ar_screen.LoadUserSetting();
