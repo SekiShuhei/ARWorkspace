@@ -63,15 +63,27 @@ public:
 
 	// ScreenCaptureŠÖ”‚ðŠÇŠH
 
-	inline const s3d::Image& GetDrawImage() const
+	inline DisplayRegion& GetCaptureRegion()
 	{
-		return this->capture_image[this->imageindex_drawing];
-	};
+		return this->capture_region;
+	}
+	inline void CaptureRegionUpdate()
+	{
+		this->capture_region_updated = true;
+	}
+	inline void CaptureSizeUpdate()
+	{
+		this->capture_size_updated = true;
+	}
 
 private:
 
 	void drawTexture();
 
+	inline const s3d::Image& GetDrawImage() const
+	{
+		return this->capture_image[this->imageindex_drawing];
+	};
 
 private:
 

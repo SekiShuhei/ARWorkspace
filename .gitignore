@@ -43,3 +43,4 @@ AS_DEBUG/
 
 *.vcxproj
 *.filters
+Test/App/Test(debug)_log.html
