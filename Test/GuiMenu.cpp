@@ -28,13 +28,13 @@ void GuiMenu::Draw()
 	}
 
 	if (SimpleGUI::Slider(U"X {:.2f}"_fmt(this->model.GetCaptureRegion().x),
-		this->model.GetCaptureRegion().x, 0, 2000, Vec2(x, y), 100, 200))
+		this->model.GetCaptureRegion().x, -2000, 2000, Vec2(x, y), 100, 200))
 	{
 		this->model.CaptureRegionUpdate();
 	}
 	y += h;
 	if (SimpleGUI::Slider(U"Y {:.2f}"_fmt(this->model.GetCaptureRegion().y),
-		this->model.GetCaptureRegion().y, 0, 2000, Vec2(x, y), 100, 200))
+		this->model.GetCaptureRegion().y, -2000, 2000, Vec2(x, y), 100, 200))
 	{
 		this->model.CaptureRegionUpdate();
 	}
