@@ -49,10 +49,7 @@ void DisplayRegionGuideView::Invalidate(const DisplayRegion& display_region, int
 
 bool DisplayRegionGuideView::drawLine(int x, int y, int width, int height, int border_width)
 {
-    HWND desktop_hwnd = ::GetDesktopWindow();
-    //HDC  desktop_hdc = ::GetDC(desktop_hwnd);
     HDC  desktop_hdc = ::GetDC(NULL);
-
 
     int bw = border_width / 2;
     HPEN   hpen = ::CreatePen(PS_SOLID, 1, RGB(0, 255, 127));
