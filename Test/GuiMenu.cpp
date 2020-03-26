@@ -58,7 +58,7 @@ void GuiMenu::Draw()
 	y += h;
 	if (SimpleGUI::Slider(U"Scale {:.2f}"_fmt(this->model.scale),
 		this->model.scale, 1.0, 10.0, Vec2(x, y), text_width, slider_width, 
-		!this->model.texture_auto_resize))
+		! this->model.texture_auto_resize))
 	{
 		//...
 	}

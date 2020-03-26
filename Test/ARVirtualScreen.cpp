@@ -66,16 +66,13 @@ bool ARVirtualScreen::LoadUserSetting()
 
 	auto exec_path = Utility::GetExecFilePath();
 	s3d::String setting_file_path = exec_path + U"setting.json";
-	setting_file_path = U"C:\\Users\\sekishuhei\\010_develop\\ARWorkspace\\Test\\setting.json";
+	//setting_file_path = U"C:\\Users\\sekishuhei\\010_develop\\ARWorkspace\\Test\\setting.json";
 	JSONReader json(setting_file_path);
 
 	if (json.open(setting_file_path))
 	{
-
-		//Println(json[L"CaptureRect.Width"].get<int32>());
-
 		this->capture_point.x = json[U"CapturePoint.x"].get<int32>();
-		this->capture_point.y = json[U"CapturePoint.y"].get<int32>();		
+		this->capture_point.y = json[U"CapturePoint.y"].get<int32>();	
 		this->scale = json[U"CaptureScale"].get<double>();
 		
 		return true;
