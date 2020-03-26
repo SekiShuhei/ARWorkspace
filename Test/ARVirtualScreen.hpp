@@ -29,7 +29,7 @@ public:
 
 	~ARVirtualScreen();
 
-	void initialize();
+	void Initialize();
 
 	// ユーザー設定のロード.
 	bool LoadUserSetting();
@@ -74,6 +74,10 @@ public:
 	inline void CaptureSizeUpdate()
 	{
 		this->capture_size_updated = true;
+	}
+	inline void SetAutoResizeMode(bool arg_bool)
+	{
+		this->texture_auto_resize = arg_bool;
 	}
 
 private:
@@ -127,7 +131,6 @@ private:
 	};
 	std::unique_ptr<s3d::DynamicTexture>	p_texture;
 	
-	double	radian = 0.0;
 	s3d::Image	capture_image[3] = 
 	{
 		s3d::Image(),
@@ -139,6 +142,10 @@ private:
 	bool capture_size_updated = false;
 	SimpleCounter	capture_region_guide_counter = SimpleCounter(10);
 	SimpleCounter	texture_reflesh_counter = SimpleCounter(3);
+	
+	// テクスチャ拡縮関連.
+	double	radian = 0.0;
+	bool texture_auto_resize = false;
 };
 
 }

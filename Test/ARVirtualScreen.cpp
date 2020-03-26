@@ -19,7 +19,7 @@ ARVirtualScreen::~ARVirtualScreen()
 
 }
 
-void ARVirtualScreen::initialize()
+void ARVirtualScreen::Initialize()
 {
 	this->capture_thread_run = true;
 	this->capture_thread = std::thread([this]()
@@ -200,13 +200,15 @@ void ARVirtualScreen::drawTexture()
 
 		if (p_texture->fill(this->GetDrawImage()))
 		{
-			// ƒEƒBƒ“ƒhƒE5ƒTƒCƒYŽ©“®Šgk‚Ì‚Æ‚«.
-			p_texture->resized(s3d::Window::ClientWidth(), s3d::Window::ClientHeight()).draw(0,0);
-			// Šgk‰ñ“]•\Ž¦‚Ì‚Æ‚«.
-			//p_texture->scaled(this->scale).
-			//	rotatedAt(s3d::Window::ClientCenter(), radian).
-			//	drawAt(s3d::Window::ClientCenter());
-
+			if (this->texture_auto_resize)
+			{
+				p_texture->resized(s3d::Window::ClientWidth(), s3d::Window::ClientHeight()).
+					draw(0,0);
+			} else {
+				p_texture->scaled(this->scale).
+					rotatedAt(s3d::Window::ClientCenter(), radian).
+					drawAt(s3d::Window::ClientCenter());
+			}
 
 		}
 		else {

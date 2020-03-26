@@ -21,7 +21,8 @@ void Main()
 	const Font font(60);
 	double value;
 
-	ar_screen.initialize();
+	ar_screen.Initialize();
+	ar_screen.SetAutoResizeMode(false);
 	
 	while (System::Update())
 	{
