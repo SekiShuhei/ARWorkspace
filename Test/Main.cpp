@@ -22,7 +22,7 @@ void Main()
 	double value;
 
 	ar_screen.Initialize();
-	ar_screen.SetAutoResizeMode(false);
+	ar_screen.SetAutoResizeMode(true);
 	
 	while (System::Update())
 	{

@@ -102,7 +102,6 @@ private:
 	bool				capture_region_guide_thread_run = false;
 	bool				capture_region_guide_drawing = false;
 
-	double	scale = 3.0;
 	s3d::Point	capture_point = s3d::Point(0, 0);
 	// 実際にスクリーンから取得するべき領域.
 	// 現状は回転系を含まない.
@@ -144,6 +143,9 @@ private:
 	SimpleCounter	texture_reflesh_counter = SimpleCounter(3);
 	
 	// テクスチャ拡縮関連.
+	
+public:
+	double	scale = 3.0;
 	double	radian = 0.0;
 	bool texture_auto_resize = false;
 };
