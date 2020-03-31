@@ -31,8 +31,8 @@ public:
 
 	void Initialize();
 
-	// ユーザー設定のロード.
-	bool LoadUserSetting();
+	bool ReadConfigFile();
+	bool WriteConfigFile();
 
 	// センサ系.
 	// COM系必須っぽい.

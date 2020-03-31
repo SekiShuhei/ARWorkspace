@@ -45,3 +45,4 @@ AS_DEBUG/
 *.filters
 Test/App/Test(debug)_log.html
 *.html
+*.html

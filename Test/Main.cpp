@@ -13,7 +13,7 @@ void Main()
 	Scene::SetTextureFilter(TextureFilter::Linear);
 	
 	ARWorkspace::ARVirtualScreen	ar_screen;
-	ar_screen.LoadUserSetting();
+	ar_screen.ReadConfigFile();
 
 	ARWorkspace::GuiMenu		gui_capture_menu(ar_screen);
 
@@ -41,6 +41,8 @@ void Main()
 		
 	
 	}
+
+	ar_screen.WriteConfigFile();
 }
 
 

@@ -60,19 +60,21 @@ void ARVirtualScreen::Initialize()
 
 }
 
-bool ARVirtualScreen::LoadUserSetting()
+bool ARVirtualScreen::ReadConfigFile()
 {
 
-
 	auto exec_path = Utility::GetExecFilePath();
-	s3d::String setting_file_path = exec_path + U"setting.json";
-	//setting_file_path = U"C:\\Users\\sekishuhei\\010_develop\\ARWorkspace\\Test\\setting.json";
+	s3d::String setting_file_path = exec_path + U"userconfig.json";
 	JSONReader json(setting_file_path);
-
+	
 	if (json.open(setting_file_path))
 	{
 		this->capture_point.x = json[U"CapturePoint.x"].get<int32>();
-		this->capture_point.y = json[U"CapturePoint.y"].get<int32>();	
+		this->capture_point.y = json[U"CapturePoint.y"].get<int32>();
+		this->capture_region.x = json[U"CaptureRegion.x"].get<int32>();
+		this->capture_region.y = json[U"CaptureRegion.y"].get<int32>();
+		this->capture_region.w = json[U"CaptureRegion.width"].get<int32>();
+		this->capture_region.h = json[U"CaptureRegion.height"].get<int32>();
 		this->scale = json[U"CaptureScale"].get<double>();
 		
 		return true;
@@ -81,6 +83,34 @@ bool ARVirtualScreen::LoadUserSetting()
 
 	return false;
 }
+
+bool ARVirtualScreen::WriteConfigFile()
+{
+	JSONWriter	json;
+	json.startObject();
+	{
+		json.key(U"CaptureScale").write(this->scale);
+
+		json.key(U"CaptureRegion").startObject();
+		{
+			json.key(U"x").write((int)this->capture_region.x);
+			json.key(U"y").write((int)this->capture_region.y);
+			json.key(U"width").write((int)this->capture_region.w);
+			json.key(U"height").write((int)this->capture_region.h);
+		}
+		json.endObject();
+	}
+	json.endObject();
+
+	auto exec_path = Utility::GetExecFilePath();
+	json.save(exec_path + U"userconfig.json");
+
+
+	return false;
+}
+
+
+
 
 bool ARVirtualScreen::GetCaptureRect()
 {
