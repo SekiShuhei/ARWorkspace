@@ -12,41 +12,63 @@ CustomGUI::ValueEditor::~ValueEditor()
 
 bool CustomGUI::ValueEditor::Draw(s3d::Vec2 arg_position, double arg_new_value)
 {
-	this->ValueModelUpdate(arg_new_value);
-
-	bool result = false;
-	this->position = arg_position;
-	// 表示位置の調整方法？？.
-
-
-	//if (SimpleGUI::Slider(U"X {:.2f}"_fmt(this->model.GetCaptureRegion().x),
-	//	this->model.GetCaptureRegion().x, 0, 2000, Vec2(x, y), text_width, slider_width))
 	
+	bool value_change_flag = false;
+	s3d::String last_textbox_string = this->text_edit_state.text;
+	this->position = arg_position;
+	int x = arg_position.x;
+	// .
 
-	if (SimpleGUI::TextBox(text_edit_state, this->position, 300))
+	if (SimpleGUI::Slider(this->label, this->value_model, this->min_value, 
+		this->max_value, Vec2(x, this->position.y), this->caption_width, this->slider_width))
 	{
+		value_change_flag = true;
+		this->text_edit_state.text = this->valueToString();
 
-		// テキストボックス編集時の挙動　文字列のパース.
-		
-		
-
-
-		// 値が変更されたらtrueを返す.
-		result = this->valueChange(0.0);
+	}
+	x += this->caption_width + this->slider_width;
+	if (SimpleGUI::TextBox(text_edit_state, Vec2(x, this->position.y), this->textbox_width, 4))
+	{
+		value_change_flag = true;
+		try
+		{
+			auto new_value = Parse<double>(text_edit_state.text);
+			if (new_value > this->max_value)
+			{
+				new_value = this->max_value;
+			}
+			if (new_value < this->min_value)
+			{
+				new_value = this->min_value;
+			}
+			this->valueChange(new_value);
+		}
+		catch(const s3d::ParseError& error)
+		{
+			text_edit_state.text = last_textbox_string;
+		}
+	}
+	if (! value_change_flag)
+	{
+		this->ValueModelUpdate(arg_new_value);
 	}
 
-	return result;
+	return value_change_flag;
 }
 
 void CustomGUI::ValueEditor::ValueModelUpdate(double arg_new_value)
 {
-	this->value_model = arg_new_value;
-	this->text_edit_state.text = s3d::Format(this->value_model);
-
+	if (this->last_update_value != arg_new_value)
+	{
+		this->last_update_value = arg_new_value;
+		this->value_model = arg_new_value;
+		this->text_edit_state.text = this->valueToString();
+	}
 }
 
 bool CustomGUI::ValueEditor::valueChange(double arg_new_value)
 {
+	
 	double last_value = this->value_model;
 	this->value_model = arg_new_value;
 	this->value_change_event(arg_new_value, last_value);

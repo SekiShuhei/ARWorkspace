@@ -67,7 +67,11 @@ void GuiMenu::Draw()
 	//...
 	// test.
 	{
-		this->value_editor_width.Draw(Vec2(x, y), 20);
+		if (this->value_editor_width.Draw(Vec2(x, y), this->model.GetCaptureRegion().x))
+		{
+			this->model.GetCaptureRegion().x = this->value_editor_width.GetValue();
+			
+		}
 		y += h;
 	}
 
