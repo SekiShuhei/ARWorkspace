@@ -14,7 +14,15 @@ public:
 	ValueEditor(double arg_value_model, ValueEditorValueChangedEvent arg_value_change_event);
 	~ValueEditor();
 
-	void Draw();
+	bool Draw(s3d::Vec2	arg_position);
+
+	double GetValue() const
+	{
+		return this->value_model;
+	}
+
+private:
+	bool valueChange(double arg_new_value);
 
 private:
 
