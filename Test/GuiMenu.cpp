@@ -29,9 +29,7 @@ void GuiMenu::Draw()
 		}
 		return;
 	}
-	s3d::TextEditState text_edit_state(U"test");
-	SimpleGUI::TextBox(text_edit_state, Vec2(x - 300, y), 300);
-
+	
 	if (SimpleGUI::Slider(U"X {:.2f}"_fmt(this->model.GetCaptureRegion().x),
 		this->model.GetCaptureRegion().x, 0, 2000, Vec2(x, y), text_width, slider_width))
 	{
@@ -67,6 +65,11 @@ void GuiMenu::Draw()
 	y += h;
 
 	//...
+	// test.
+	{
+		this->value_editor_width.Draw(Vec2(x, y), 20);
+		y += h;
+	}
 
 	if (s3d::SimpleGUI::Button(U"Å£Close", Vec2(x, y), text_width + slider_width))
 	{

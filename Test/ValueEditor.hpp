@@ -10,11 +10,12 @@ using ValueEditorValueChangedEvent = std::function<void(double arg_new_value, do
 class ValueEditor
 {
 public:
-	ValueEditor() = default;
-	ValueEditor(double arg_value_model, ValueEditorValueChangedEvent arg_value_change_event);
+	ValueEditor();
+	//ValueEditor(ValueEditorValueChangedEvent arg_value_change_event);
 	~ValueEditor();
 
-	bool Draw(s3d::Vec2	arg_position);
+	bool Draw(s3d::Vec2	arg_position, double arg_new_value);
+	void ValueModelUpdate(double arg_new_value);
 
 	double GetValue() const
 	{
@@ -26,8 +27,11 @@ private:
 
 private:
 
-	double							value_model;
-	ValueEditorValueChangedEvent	value_change_event;
+	double							value_model = 0.0;
+	double							default_value = 0.0;
+	double							max_value = 100.0;
+	double							min_value = 0.0;
+	ValueEditorValueChangedEvent	value_change_event = [](auto, auto){};
 	s3d::Vec2						position;
 	s3d::TextEditState				text_edit_state;
 

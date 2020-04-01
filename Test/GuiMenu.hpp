@@ -3,6 +3,7 @@
 #include <Siv3D.hpp>
 
 #include "ARVirtualScreen.hpp"
+#include "ValueEditor.hpp"
 
 namespace ARWorkspace {
 enum class GuiMenuAlignment
@@ -29,6 +30,7 @@ private:
 	bool pull_down_flag = false;
 	int text_size = 20;
 
+	CustomGUI::ValueEditor	value_editor_width;
 };
 
 }
