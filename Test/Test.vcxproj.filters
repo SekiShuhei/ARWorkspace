@@ -129,6 +129,9 @@
     <ClCompile Include="GuiMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ValueEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -428,6 +431,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GuiMenu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ValueEditor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

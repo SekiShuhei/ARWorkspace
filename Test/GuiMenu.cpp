@@ -29,6 +29,8 @@ void GuiMenu::Draw()
 		}
 		return;
 	}
+	s3d::TextEditState text_edit_state(U"test");
+	SimpleGUI::TextBox(text_edit_state, Vec2(x - 300, y), 300);
 
 	if (SimpleGUI::Slider(U"X {:.2f}"_fmt(this->model.GetCaptureRegion().x),
 		this->model.GetCaptureRegion().x, 0, 2000, Vec2(x, y), text_width, slider_width))

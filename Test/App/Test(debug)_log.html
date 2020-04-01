@@ -21,471 +21,959 @@ div.messages { margin: 0 10% 28px; padding 0 0 28px; border: 1px solid; border-c
 <body>
 <h2>Test(debug) Log</h2>
 <div class="messages">
-<div class="trace">472: CSystem::init()</div>
-<div class="info">473: ℹ️ 2020/3/31 21:52:08</div>
-<div class="info">473: ⌛ Preparing for setup...</div>
-<div class="info">473: ℹ️ Siv3D Engine (Debug build) version 0.4.2 (Windows Desktop)</div>
-<div class="trace">474: CCPU::init()</div>
-<div class="info">474: ℹ️ CPU vendor: GenuineIntel</div>
-<div class="info">475: ℹ️ CPU name: Intel(R) Pentium(R) CPU 4415Y @ 1.60GHz</div>
-<div class="info">476: ℹ️ Instruction set extensions: SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, AES-NI</div>
-<div class="info">476: ℹ️ CCPU initialized</div>
-<div class="trace">476: CProfiler::init()</div>
-<div class="info">477: ℹ️ CProfiler initialized</div>
-<div class="trace">477: CImageFormat::init()</div>
-<div class="debug">479: Supported image file extensions: bmp, png, jpg, jpeg, gif, ppm, pgm, pbm, pnm, tga, webp</div>
-<div class="info">479: ℹ️ CImageFormat initialized</div>
-<div class="trace">479: CObjectDetection::init()</div>
-<div class="info">482: ℹ️ CObjectDetection initialized</div>
-<div class="trace">483: CWindow::init()</div>
-<div class="trace">483: SetHighDPIAwareness(aware = false)</div>
-<div class="trace">483: DLL::LoadSystemLibrary(library = `user32.dll`)</div>
-<div class="trace">484: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `SetThreadDpiAwarenessContext`) p = 0x7ffaef5774b0</div>
-<div class="trace">484: CWindow::registerWindowClass()</div>
-<div class="trace">486: CWindow::createWindow()</div>
-<div class="trace">487: CWindow::m_state.frameSize: (8, 8), CWindow::m_state.titleBarHeight: 23</div>
-<div class="trace">503: DLL::LoadSystemLibrary(library = `User32.dll`)</div>
-<div class="trace">509: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `SetWindowFeedbackSetting`) p = 0x7ffaef5932c0</div>
-<div class="info">509: ℹ️ CWindow initialized</div>
-<div class="trace">510: CCursor::init()</div>
-<div class="info">514: ℹ️ CCursor initialized</div>
-<div class="trace">515: CKeyboard::init()</div>
-<div class="info">518: ℹ️ CKeyboard initialized</div>
-<div class="trace">519: CMouse::init()</div>
-<div class="info">521: ℹ️ An input digitizer with support for multiple inputs found</div>
-<div class="info">522: ℹ️ CMouse initialized</div>
-<div class="trace">524: CGamepad::init()</div>
-<div class="info">839: ℹ️ Gamepad initialized</div>
-<div class="trace">840: CXInput::init()</div>
-<div class="trace">840: DLL::LoadSystemLibrary(library = `xinput1_4.dll`)</div>
-<div class="trace">856: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `XInputGetState`) p = 0x7ffad08b16f0</div>
-<div class="trace">857: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `XInputSetState`) p = 0x7ffad08b1990</div>
-<div class="info">858: ℹ️ CXInput initialized</div>
-<div class="trace">860: CTextInput::init()</div>
-<div class="info">1005: ℹ️ CTextInput initialized</div>
-<div class="trace">1005: CTextToSpeech::init()</div>
-<div class="info">1036: ℹ️ TextToSpeech available</div>
-<div class="info">1036: ℹ️ CTextToSpeech initialized</div>
-<div class="trace">1038: CClipboard::init()</div>
-<div class="info">1039: ℹ️ CClipboard initialized</div>
-<div class="trace">1041: CDragDrop::init()</div>
-<div class="info">1087: ℹ️ CDragDrop initialized</div>
-<div class="trace">1088: CCodec::init()</div>
-<div class="trace">1090: DLL::LoadSystemLibrary(library = `Mfplat.dll`)</div>
-<div class="trace">1106: DLL::LoadSystemLibrary(library = `Mf.dll`)</div>
-<div class="trace">1112: DLL::LoadSystemLibrary(library = `Mfreadwrite.dll`)</div>
-<div class="trace">1119: DLL::GetFunction::GetFunction(name = `MFStartup`) p = 0x7ffae7a157c0</div>
-<div class="trace">1119: DLL::GetFunction::GetFunction(name = `MFShutdown`) p = 0x7ffae7a16ef0</div>
-<div class="trace">1125: DLL::GetFunction::GetFunction(name = `MFCreateTranscodeTopology`) p = 0x7ffab4c9fe00</div>
-<div class="trace">1125: DLL::GetFunction::GetFunction(name = `MFCreateSourceResolver`) p = 0x7ffae79e2d60</div>
-<div class="trace">1126: DLL::GetFunction::GetFunction(name = `MFCreateAttributes`) p = 0x7ffae7a13550</div>
-<div class="trace">1127: DLL::GetFunction::GetFunction(name = `MFCreateMediaType`) p = 0x7ffae7a09720</div>
-<div class="trace">1128: DLL::GetFunction::GetFunction(name = `MFCreateAsyncResult`) p = 0x7ffae78eac80</div>
-<div class="trace">1130: DLL::GetFunction::GetFunction(name = `MFInvokeCallback`) p = 0x7ffae78e2940</div>
-<div class="trace">1131: DLL::GetFunction::GetFunction(name = `MFCreateMemoryBuffer`) p = 0x7ffae7a11bb0</div>
-<div class="trace">1133: DLL::GetFunction::GetFunction(name = `MFCreateSample`) p = 0x7ffae79f7f10</div>
-<div class="trace">1134: DLL::GetFunction::GetFunction(name = `MFFrameRateToAverageTimePerFrame`) p = 0x7ffae7aa9670</div>
-<div class="trace">1151: DLL::GetFunction::GetFunction(name = `MFCreateMediaSession`) p = 0x7ffabd5b09b0</div>
-<div class="trace">1153: DLL::GetFunction::GetFunction(name = `MFCreateTranscodeProfile`) p = 0x7ffab4c78750</div>
-<div class="trace">1156: DLL::GetFunction::GetFunction(name = `MFTranscodeGetAudioOutputAvailableTypes`) p = 0x7ffab4ca1340</div>
-<div class="trace">1156: DLL::GetFunction::GetFunction(name = `MFGetService`) p = 0x7ffabd5cb410</div>
-<div class="trace">1157: DLL::GetFunction::GetFunction(name = `MFCreateTopology`) p = 0x7ffabd5c0950</div>
-<div class="trace">1158: DLL::GetFunction::GetFunction(name = `MFCreateTopologyNode`) p = 0x7ffabd5d4830</div>
-<div class="trace">1161: DLL::GetFunction::GetFunction(name = `MFCreateAudioRendererActivate`) p = 0x7ffabd5fd960</div>
-<div class="trace">1163: DLL::GetFunction::GetFunction(name = `MFCreateVideoRendererActivate`) p = 0x7ffaafb53490</div>
-<div class="trace">1164: DLL::GetFunction::GetFunction(name = `MFCreateSourceReaderFromURL`) p = 0x7ffaa9e58bf0</div>
-<div class="trace">1166: DLL::GetFunction::GetFunction(name = `MFCreateSourceReaderFromByteStream`) p = 0x7ffaa9e58bc0</div>
-<div class="trace">1166: DLL::GetFunction::GetFunction(name = `MFCreateSinkWriterFromURL`) p = 0x7ffaa9e58a20</div>
-<div class="info">1168: ℹ️ Codec_MF initialized</div>
-<div class="trace">1169: CAudioFormat::init()</div>
-<div class="info">1170: ℹ️ CAudioFormat initialized</div>
-<div class="trace">1171: CAudio_X28::init()</div>
-<div class="debug">1198: 💠 Created Audio[0(null)]</div>
-<div class="info">1201: ℹ️ CAudio_X28 initialized</div>
-<div class="trace">1203: CFFT::init()</div>
-<div class="info">1208: ℹ️ CFFT initialized</div>
-<div class="trace">1211: CNetwork::init()</div>
-<div class="info">1216: ℹ️ CNetwork initialized</div>
-<div class="trace">1217: CToastNotification::init()</div>
-<div class="info">1219: ℹ️ ToastNotification is available</div>
-<div class="info">1234: ℹ️ CToastNotification initialized</div>
-<div class="trace">1235: CGraphics_D3D11::init()</div>
-<div class="trace">1235: D3D11Device::D3D11Device()</div>
-<div class="trace">1237: DLL::LoadSystemLibrary(library = `d3d11.dll`)</div>
-<div class="trace">1238: DLL::GetFunction::GetFunction(name = `D3D11CreateDevice`) p = 0x7ffaea9dcfe0</div>
-<div class="trace">1238: DLL::LoadSystemLibrary(library = `dxgi.dll`)</div>
-<div class="trace">1240: DLL::GetFunction::GetFunction(name = `CreateDXGIFactory1`) p = 0x7ffaebd4d710</div>
-<div class="trace">1242: DLL::LoadSystemLibrary(library = `D3D11_1SDKLayers.dll`)</div>
-<div class="info">1257: ℹ️ DXGIFactory5 is available</div>
-<div class="trace">1258: GetAdapters()</div>
-<div class="info">1260: ℹ️ IDXGIAdapter [0]: Intel(R) HD Graphics 615 (Dedicated GPU memory: 128MiB, System: 0B, Shared: 3.95GiB) (supports Direct3D 11.1 runtime)</div>
-<div class="trace">1261: CheckHardwareDevice()</div>
-<div class="info">1324: ℹ️ - [D3D_DRIVER_TYPE_HARDWARE] selected: D3D_FEATURE_LEVEL_12_1 (max: D3D_FEATURE_LEVEL_12_1)</div>
-<div class="debug">1342: ℹ️ IDXGIAdapter [1] is Microsoft Basics Display Driver (skipped)</div>
-<div class="info">1343: ℹ️ 1 adapters available</div>
-<div class="trace">1344: GetWARPFeatureLevel()</div>
-<div class="info">1364: ℹ️ [D3D_DRIVER_TYPE_WARP] supports D3D_FEATURE_LEVEL_11_1</div>
-<div class="trace">1366: GetREFFeatureLevel()</div>
-<div class="info">1371: ℹ️ [D3D_DRIVER_TYPE_REFERENCE] supports D3D_FEATURE_LEVEL_10_1</div>
-<div class="trace">1371: D3D11Device::createDevice(targetDevice = 0, targetAdapterIndex = none, deviceFlags = 0)</div>
-<div class="info">1372: ℹ️ selectedAdapterIndex: 0 (Intel(R) HD Graphics 615)</div>
-<div class="info">1453: ✅ D3D11 device created. Driver type: Hardware (D3D_FEATURE_LEVEL_12_1)</div>
-<div class="trace">1459: D3D11SwapChain::D3D11SwapChain()</div>
-<div class="trace">1461: Use flip model = true</div>
-<div class="trace">1463: DLL::LoadSystemLibrary(library = `User32.dll`)</div>
-<div class="trace">1465: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `GetDpiForWindow`) p = 0x7ffaef571df0</div>
-<div class="trace">1466: IDXGIFactory2::CreateSwapChainForHwnd()</div>
-<div class="trace">1470: IDXGIFactory1::MakeWindowAssociation()</div>
-<div class="trace">1472: D3D11RenderTarget::D3D11RenderTarget()</div>
-<div class="trace">1474: D3D11RenderTarget::m_backBuffer.size = (800, 600)</div>
-<div class="trace">1476: CreateRTVFromBackBuffer()</div>
-<div class="trace">1478: CreateRenderTarget2D(size = (800, 600), sampleCount = 4)</div>
-<div class="trace">1490: CShader_D3D11::init()</div>
-<div class="trace">1536: DLL::LoadSystemLibrary(library = `d3dcompiler_47.dll`)</div>
-<div class="info">1569: `d3dcompiler_47.dll` found</div>
-<div class="trace">1572: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `D3DCompile2`) p = 0x7ffaea05e290</div>
-<div class="info">1575: HLSL compiler is available</div>
-<div class="debug">1578: 💠 Created VertexShader[0(null)]</div>
-<div class="debug">1580: 💠 Created PixelShader[0(null)]</div>
-<div class="debug">1582: 📤 BinaryReader: Opened resource &quot;/engine/shader/copy.ps&quot; size: 616B</div>
-<div class="debug">1583: CShader_D3D11::createVSFromFile(): `/engine/shader/copy.ps` is a precompiled shader file</div>
-<div class="debug">1586: 💠 Created PixelShader[1] </div>
-<div class="debug">1587: 📥 BinaryReader: Closed resource &quot;/engine/shader/copy.ps&quot;</div>
-<div class="debug">1590: 📤 BinaryReader: Opened resource &quot;/engine/shader/gaussian_blur_9.ps&quot; size: 1.36KiB</div>
-<div class="debug">1592: CShader_D3D11::createVSFromFile(): `/engine/shader/gaussian_blur_9.ps` is a precompiled shader file</div>
-<div class="debug">1594: 💠 Created PixelShader[2] </div>
-<div class="debug">1595: 📥 BinaryReader: Closed resource &quot;/engine/shader/gaussian_blur_9.ps&quot;</div>
-<div class="info">1598: ℹ️ CShader_D3D11 initialized</div>
-<div class="trace">1599: CTexture_D3D11::init()</div>
-<div class="info">1601: 4x MSAA support:</div>
-<div class="debug">1602: R8G8B8A8_Unorm ✔</div>
-<div class="debug">1604: R8G8B8A8_Unorm_SRGB ✔</div>
-<div class="debug">1605: R16G16_Float ✔</div>
-<div class="debug">1606: R32_Float ✔</div>
-<div class="debug">1608: R10G10B10A2_Unorm ✔</div>
-<div class="debug">1611: R11G11B10_UFloat ✔</div>
-<div class="debug">1612: R16G16B16A16_Float ✔</div>
-<div class="debug">1613: R32G32_Float ✔</div>
-<div class="debug">1615: R32G32B32A32_Float ✔</div>
-<div class="debug">1618: 💠 Created Texture[0(null)]</div>
-<div class="info">1619: ℹ️ CTexture_D3D11 initialized</div>
-<div class="trace">1620: CRenderer2D_D3D11::init()</div>
-<div class="debug">1624: 📤 BinaryReader: Opened resource &quot;/engine/shader/sprite.vs&quot; size: 936B</div>
-<div class="debug">1625: CShader_D3D11::createVSFromFile(): `/engine/shader/sprite.vs` is a precompiled shader file</div>
-<div class="debug">1627: 💠 Created VertexShader[1] </div>
-<div class="debug">1630: 📥 BinaryReader: Closed resource &quot;/engine/shader/sprite.vs&quot;</div>
-<div class="debug">1632: 📤 BinaryReader: Opened resource &quot;/engine/shader/fullscreen_triangle_resolve.vs&quot; size: 1KiB</div>
-<div class="debug">1633: CShader_D3D11::createVSFromFile(): `/engine/shader/fullscreen_triangle_resolve.vs` is a precompiled shader file</div>
-<div class="debug">1635: 💠 Created VertexShader[2] </div>
-<div class="debug">1637: 📥 BinaryReader: Closed resource &quot;/engine/shader/fullscreen_triangle_resolve.vs&quot;</div>
-<div class="debug">1639: 📤 BinaryReader: Opened resource &quot;/engine/shader/fullscreen_triangle_draw.vs&quot; size: 804B</div>
-<div class="debug">1641: CShader_D3D11::createVSFromFile(): `/engine/shader/fullscreen_triangle_draw.vs` is a precompiled shader file</div>
-<div class="debug">1643: 💠 Created VertexShader[3] </div>
-<div class="debug">1645: 📥 BinaryReader: Closed resource &quot;/engine/shader/fullscreen_triangle_draw.vs&quot;</div>
-<div class="debug">1655: 📤 BinaryReader: Opened resource &quot;/engine/shader/shape.ps&quot; size: 708B</div>
+<div class="trace">490: CSystem::init()</div>
+<div class="info">503: ℹ️ 2020/3/31 22:04:44</div>
+<div class="info">507: ⌛ Preparing for setup...</div>
+<div class="info">509: ℹ️ Siv3D Engine (Debug build) version 0.4.2 (Windows Desktop)</div>
+<div class="trace">510: CCPU::init()</div>
+<div class="info">510: ℹ️ CPU vendor: GenuineIntel</div>
+<div class="info">510: ℹ️ CPU name: Intel(R) Pentium(R) CPU 4415Y @ 1.60GHz</div>
+<div class="info">511: ℹ️ Instruction set extensions: SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, AES-NI</div>
+<div class="info">511: ℹ️ CCPU initialized</div>
+<div class="trace">514: CProfiler::init()</div>
+<div class="info">516: ℹ️ CProfiler initialized</div>
+<div class="trace">521: CImageFormat::init()</div>
+<div class="debug">522: Supported image file extensions: bmp, png, jpg, jpeg, gif, ppm, pgm, pbm, pnm, tga, webp</div>
+<div class="info">523: ℹ️ CImageFormat initialized</div>
+<div class="trace">523: CObjectDetection::init()</div>
+<div class="info">528: ℹ️ CObjectDetection initialized</div>
+<div class="trace">529: CWindow::init()</div>
+<div class="trace">533: SetHighDPIAwareness(aware = false)</div>
+<div class="trace">534: DLL::LoadSystemLibrary(library = `user32.dll`)</div>
+<div class="trace">536: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `SetThreadDpiAwarenessContext`) p = 0x7ffaef5774b0</div>
+<div class="trace">537: CWindow::registerWindowClass()</div>
+<div class="trace">539: CWindow::createWindow()</div>
+<div class="trace">542: CWindow::m_state.frameSize: (8, 8), CWindow::m_state.titleBarHeight: 23</div>
+<div class="trace">573: DLL::LoadSystemLibrary(library = `User32.dll`)</div>
+<div class="trace">573: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `SetWindowFeedbackSetting`) p = 0x7ffaef5932c0</div>
+<div class="info">573: ℹ️ CWindow initialized</div>
+<div class="trace">574: CCursor::init()</div>
+<div class="info">574: ℹ️ CCursor initialized</div>
+<div class="trace">574: CKeyboard::init()</div>
+<div class="info">575: ℹ️ CKeyboard initialized</div>
+<div class="trace">575: CMouse::init()</div>
+<div class="info">575: ℹ️ An input digitizer with support for multiple inputs found</div>
+<div class="info">576: ℹ️ CMouse initialized</div>
+<div class="trace">576: CGamepad::init()</div>
+<div class="info">844: ℹ️ Gamepad initialized</div>
+<div class="trace">845: CXInput::init()</div>
+<div class="trace">846: DLL::LoadSystemLibrary(library = `xinput1_4.dll`)</div>
+<div class="trace">853: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `XInputGetState`) p = 0x7ffad08b16f0</div>
+<div class="trace">854: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `XInputSetState`) p = 0x7ffad08b1990</div>
+<div class="info">854: ℹ️ CXInput initialized</div>
+<div class="trace">855: CTextInput::init()</div>
+<div class="info">992: ℹ️ CTextInput initialized</div>
+<div class="trace">994: CTextToSpeech::init()</div>
+<div class="info">1019: ℹ️ TextToSpeech available</div>
+<div class="info">1020: ℹ️ CTextToSpeech initialized</div>
+<div class="trace">1020: CClipboard::init()</div>
+<div class="info">1023: ℹ️ CClipboard initialized</div>
+<div class="trace">1024: CDragDrop::init()</div>
+<div class="info">1062: ℹ️ CDragDrop initialized</div>
+<div class="trace">1062: CCodec::init()</div>
+<div class="trace">1064: DLL::LoadSystemLibrary(library = `Mfplat.dll`)</div>
+<div class="trace">1076: DLL::LoadSystemLibrary(library = `Mf.dll`)</div>
+<div class="trace">1082: DLL::LoadSystemLibrary(library = `Mfreadwrite.dll`)</div>
+<div class="trace">1089: DLL::GetFunction::GetFunction(name = `MFStartup`) p = 0x7ffae7a157c0</div>
+<div class="trace">1090: DLL::GetFunction::GetFunction(name = `MFShutdown`) p = 0x7ffae7a16ef0</div>
+<div class="trace">1096: DLL::GetFunction::GetFunction(name = `MFCreateTranscodeTopology`) p = 0x7ffabb22fe00</div>
+<div class="trace">1096: DLL::GetFunction::GetFunction(name = `MFCreateSourceResolver`) p = 0x7ffae79e2d60</div>
+<div class="trace">1097: DLL::GetFunction::GetFunction(name = `MFCreateAttributes`) p = 0x7ffae7a13550</div>
+<div class="trace">1098: DLL::GetFunction::GetFunction(name = `MFCreateMediaType`) p = 0x7ffae7a09720</div>
+<div class="trace">1100: DLL::GetFunction::GetFunction(name = `MFCreateAsyncResult`) p = 0x7ffae78eac80</div>
+<div class="trace">1100: DLL::GetFunction::GetFunction(name = `MFInvokeCallback`) p = 0x7ffae78e2940</div>
+<div class="trace">1102: DLL::GetFunction::GetFunction(name = `MFCreateMemoryBuffer`) p = 0x7ffae7a11bb0</div>
+<div class="trace">1102: DLL::GetFunction::GetFunction(name = `MFCreateSample`) p = 0x7ffae79f7f10</div>
+<div class="trace">1103: DLL::GetFunction::GetFunction(name = `MFFrameRateToAverageTimePerFrame`) p = 0x7ffae7aa9670</div>
+<div class="trace">1118: DLL::GetFunction::GetFunction(name = `MFCreateMediaSession`) p = 0x7ffabd5b09b0</div>
+<div class="trace">1119: DLL::GetFunction::GetFunction(name = `MFCreateTranscodeProfile`) p = 0x7ffabb208750</div>
+<div class="trace">1119: DLL::GetFunction::GetFunction(name = `MFTranscodeGetAudioOutputAvailableTypes`) p = 0x7ffabb231340</div>
+<div class="trace">1120: DLL::GetFunction::GetFunction(name = `MFGetService`) p = 0x7ffabd5cb410</div>
+<div class="trace">1120: DLL::GetFunction::GetFunction(name = `MFCreateTopology`) p = 0x7ffabd5c0950</div>
+<div class="trace">1121: DLL::GetFunction::GetFunction(name = `MFCreateTopologyNode`) p = 0x7ffabd5d4830</div>
+<div class="trace">1122: DLL::GetFunction::GetFunction(name = `MFCreateAudioRendererActivate`) p = 0x7ffabd5fd960</div>
+<div class="trace">1122: DLL::GetFunction::GetFunction(name = `MFCreateVideoRendererActivate`) p = 0x7ffaafb53490</div>
+<div class="trace">1123: DLL::GetFunction::GetFunction(name = `MFCreateSourceReaderFromURL`) p = 0x7ffaa9e58bf0</div>
+<div class="trace">1123: DLL::GetFunction::GetFunction(name = `MFCreateSourceReaderFromByteStream`) p = 0x7ffaa9e58bc0</div>
+<div class="trace">1124: DLL::GetFunction::GetFunction(name = `MFCreateSinkWriterFromURL`) p = 0x7ffaa9e58a20</div>
+<div class="info">1125: ℹ️ Codec_MF initialized</div>
+<div class="trace">1125: CAudioFormat::init()</div>
+<div class="info">1126: ℹ️ CAudioFormat initialized</div>
+<div class="trace">1126: CAudio_X28::init()</div>
+<div class="debug">1154: 💠 Created Audio[0(null)]</div>
+<div class="info">1159: ℹ️ CAudio_X28 initialized</div>
+<div class="trace">1161: CFFT::init()</div>
+<div class="info">1167: ℹ️ CFFT initialized</div>
+<div class="trace">1170: CNetwork::init()</div>
+<div class="info">1174: ℹ️ CNetwork initialized</div>
+<div class="trace">1179: CToastNotification::init()</div>
+<div class="info">1181: ℹ️ ToastNotification is available</div>
+<div class="info">1190: ℹ️ CToastNotification initialized</div>
+<div class="trace">1194: CGraphics_D3D11::init()</div>
+<div class="trace">1197: D3D11Device::D3D11Device()</div>
+<div class="trace">1200: DLL::LoadSystemLibrary(library = `d3d11.dll`)</div>
+<div class="trace">1201: DLL::GetFunction::GetFunction(name = `D3D11CreateDevice`) p = 0x7ffaea9dcfe0</div>
+<div class="trace">1203: DLL::LoadSystemLibrary(library = `dxgi.dll`)</div>
+<div class="trace">1205: DLL::GetFunction::GetFunction(name = `CreateDXGIFactory1`) p = 0x7ffaebd4d710</div>
+<div class="trace">1207: DLL::LoadSystemLibrary(library = `D3D11_1SDKLayers.dll`)</div>
+<div class="info">1229: ℹ️ DXGIFactory5 is available</div>
+<div class="trace">1231: GetAdapters()</div>
+<div class="info">1233: ℹ️ IDXGIAdapter [0]: Intel(R) HD Graphics 615 (Dedicated GPU memory: 128MiB, System: 0B, Shared: 3.95GiB) (supports Direct3D 11.1 runtime)</div>
+<div class="trace">1234: CheckHardwareDevice()</div>
+<div class="info">1360: ℹ️ - [D3D_DRIVER_TYPE_HARDWARE] selected: D3D_FEATURE_LEVEL_12_1 (max: D3D_FEATURE_LEVEL_12_1)</div>
+<div class="debug">1377: ℹ️ IDXGIAdapter [1] is Microsoft Basics Display Driver (skipped)</div>
+<div class="info">1377: ℹ️ 1 adapters available</div>
+<div class="trace">1379: GetWARPFeatureLevel()</div>
+<div class="info">1395: ℹ️ [D3D_DRIVER_TYPE_WARP] supports D3D_FEATURE_LEVEL_11_1</div>
+<div class="trace">1396: GetREFFeatureLevel()</div>
+<div class="info">1401: ℹ️ [D3D_DRIVER_TYPE_REFERENCE] supports D3D_FEATURE_LEVEL_10_1</div>
+<div class="trace">1401: D3D11Device::createDevice(targetDevice = 0, targetAdapterIndex = none, deviceFlags = 0)</div>
+<div class="info">1403: ℹ️ selectedAdapterIndex: 0 (Intel(R) HD Graphics 615)</div>
+<div class="info">1478: ✅ D3D11 device created. Driver type: Hardware (D3D_FEATURE_LEVEL_12_1)</div>
+<div class="trace">1478: D3D11SwapChain::D3D11SwapChain()</div>
+<div class="trace">1480: Use flip model = true</div>
+<div class="trace">1480: DLL::LoadSystemLibrary(library = `User32.dll`)</div>
+<div class="trace">1482: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `GetDpiForWindow`) p = 0x7ffaef571df0</div>
+<div class="trace">1483: IDXGIFactory2::CreateSwapChainForHwnd()</div>
+<div class="trace">1487: IDXGIFactory1::MakeWindowAssociation()</div>
+<div class="trace">1488: D3D11RenderTarget::D3D11RenderTarget()</div>
+<div class="trace">1489: D3D11RenderTarget::m_backBuffer.size = (800, 600)</div>
+<div class="trace">1491: CreateRTVFromBackBuffer()</div>
+<div class="trace">1492: CreateRenderTarget2D(size = (800, 600), sampleCount = 4)</div>
+<div class="trace">1536: CShader_D3D11::init()</div>
+<div class="trace">1571: DLL::LoadSystemLibrary(library = `d3dcompiler_47.dll`)</div>
+<div class="info">1596: `d3dcompiler_47.dll` found</div>
+<div class="trace">1597: DLL::GetFunctionNoThrow::GetFunctionNoThrow(name = `D3DCompile2`) p = 0x7ffaea05e290</div>
+<div class="info">1597: HLSL compiler is available</div>
+<div class="debug">1599: 💠 Created VertexShader[0(null)]</div>
+<div class="debug">1600: 💠 Created PixelShader[0(null)]</div>
+<div class="debug">1601: 📤 BinaryReader: Opened resource &quot;/engine/shader/copy.ps&quot; size: 616B</div>
+<div class="debug">1602: CShader_D3D11::createVSFromFile(): `/engine/shader/copy.ps` is a precompiled shader file</div>
+<div class="debug">1604: 💠 Created PixelShader[1] </div>
+<div class="debug">1605: 📥 BinaryReader: Closed resource &quot;/engine/shader/copy.ps&quot;</div>
+<div class="debug">1606: 📤 BinaryReader: Opened resource &quot;/engine/shader/gaussian_blur_9.ps&quot; size: 1.36KiB</div>
+<div class="debug">1606: CShader_D3D11::createVSFromFile(): `/engine/shader/gaussian_blur_9.ps` is a precompiled shader file</div>
+<div class="debug">1608: 💠 Created PixelShader[2] </div>
+<div class="debug">1608: 📥 BinaryReader: Closed resource &quot;/engine/shader/gaussian_blur_9.ps&quot;</div>
+<div class="info">1609: ℹ️ CShader_D3D11 initialized</div>
+<div class="trace">1610: CTexture_D3D11::init()</div>
+<div class="info">1610: 4x MSAA support:</div>
+<div class="debug">1611: R8G8B8A8_Unorm ✔</div>
+<div class="debug">1612: R8G8B8A8_Unorm_SRGB ✔</div>
+<div class="debug">1613: R16G16_Float ✔</div>
+<div class="debug">1615: R32_Float ✔</div>
+<div class="debug">1618: R10G10B10A2_Unorm ✔</div>
+<div class="debug">1619: R11G11B10_UFloat ✔</div>
+<div class="debug">1621: R16G16B16A16_Float ✔</div>
+<div class="debug">1622: R32G32_Float ✔</div>
+<div class="debug">1625: R32G32B32A32_Float ✔</div>
+<div class="debug">1628: 💠 Created Texture[0(null)]</div>
+<div class="info">1629: ℹ️ CTexture_D3D11 initialized</div>
+<div class="trace">1630: CRenderer2D_D3D11::init()</div>
+<div class="debug">1633: 📤 BinaryReader: Opened resource &quot;/engine/shader/sprite.vs&quot; size: 936B</div>
+<div class="debug">1637: CShader_D3D11::createVSFromFile(): `/engine/shader/sprite.vs` is a precompiled shader file</div>
+<div class="debug">1640: 💠 Created VertexShader[1] </div>
+<div class="debug">1642: 📥 BinaryReader: Closed resource &quot;/engine/shader/sprite.vs&quot;</div>
+<div class="debug">1644: 📤 BinaryReader: Opened resource &quot;/engine/shader/fullscreen_triangle_resolve.vs&quot; size: 1KiB</div>
+<div class="debug">1646: CShader_D3D11::createVSFromFile(): `/engine/shader/fullscreen_triangle_resolve.vs` is a precompiled shader file</div>
+<div class="debug">1647: 💠 Created VertexShader[2] </div>
+<div class="debug">1648: 📥 BinaryReader: Closed resource &quot;/engine/shader/fullscreen_triangle_resolve.vs&quot;</div>
+<div class="debug">1651: 📤 BinaryReader: Opened resource &quot;/engine/shader/fullscreen_triangle_draw.vs&quot; size: 804B</div>
+<div class="debug">1652: CShader_D3D11::createVSFromFile(): `/engine/shader/fullscreen_triangle_draw.vs` is a precompiled shader file</div>
+<div class="debug">1654: 💠 Created VertexShader[3] </div>
+<div class="debug">1655: 📥 BinaryReader: Closed resource &quot;/engine/shader/fullscreen_triangle_draw.vs&quot;</div>
+<div class="debug">1658: 📤 BinaryReader: Opened resource &quot;/engine/shader/shape.ps&quot; size: 708B</div>
 <div class="debug">1659: CShader_D3D11::createVSFromFile(): `/engine/shader/shape.ps` is a precompiled shader file</div>
-<div class="debug">1662: 💠 Created PixelShader[3] </div>
-<div class="debug">1664: 📥 BinaryReader: Closed resource &quot;/engine/shader/shape.ps&quot;</div>
-<div class="debug">1666: 📤 BinaryReader: Opened resource &quot;/engine/shader/texture.ps&quot; size: 884B</div>
-<div class="debug">1668: CShader_D3D11::createVSFromFile(): `/engine/shader/texture.ps` is a precompiled shader file</div>
-<div class="debug">1675: 💠 Created PixelShader[4] </div>
-<div class="debug">1678: 📥 BinaryReader: Closed resource &quot;/engine/shader/texture.ps&quot;</div>
-<div class="debug">1683: 📤 BinaryReader: Opened resource &quot;/engine/shader/square_dot.ps&quot; size: 1.13KiB</div>
-<div class="debug">1684: CShader_D3D11::createVSFromFile(): `/engine/shader/square_dot.ps` is a precompiled shader file</div>
-<div class="debug">1686: 💠 Created PixelShader[5] </div>
-<div class="debug">1695: 📥 BinaryReader: Closed resource &quot;/engine/shader/square_dot.ps&quot;</div>
-<div class="debug">1702: 📤 BinaryReader: Opened resource &quot;/engine/shader/round_dot.ps&quot; size: 1.14KiB</div>
-<div class="debug">1704: CShader_D3D11::createVSFromFile(): `/engine/shader/round_dot.ps` is a precompiled shader file</div>
-<div class="debug">1706: 💠 Created PixelShader[6] </div>
-<div class="debug">1707: 📥 BinaryReader: Closed resource &quot;/engine/shader/round_dot.ps&quot;</div>
-<div class="debug">1710: 📤 BinaryReader: Opened resource &quot;/engine/shader/sdf.ps&quot; size: 1.28KiB</div>
-<div class="debug">1714: CShader_D3D11::createVSFromFile(): `/engine/shader/sdf.ps` is a precompiled shader file</div>
-<div class="debug">1717: 💠 Created PixelShader[7] </div>
+<div class="debug">1661: 💠 Created PixelShader[3] </div>
+<div class="debug">1670: 📥 BinaryReader: Closed resource &quot;/engine/shader/shape.ps&quot;</div>
+<div class="debug">1680: 📤 BinaryReader: Opened resource &quot;/engine/shader/texture.ps&quot; size: 884B</div>
+<div class="debug">1683: CShader_D3D11::createVSFromFile(): `/engine/shader/texture.ps` is a precompiled shader file</div>
+<div class="debug">1686: 💠 Created PixelShader[4] </div>
+<div class="debug">1689: 📥 BinaryReader: Closed resource &quot;/engine/shader/texture.ps&quot;</div>
+<div class="debug">1692: 📤 BinaryReader: Opened resource &quot;/engine/shader/square_dot.ps&quot; size: 1.13KiB</div>
+<div class="debug">1694: CShader_D3D11::createVSFromFile(): `/engine/shader/square_dot.ps` is a precompiled shader file</div>
+<div class="debug">1697: 💠 Created PixelShader[5] </div>
+<div class="debug">1701: 📥 BinaryReader: Closed resource &quot;/engine/shader/square_dot.ps&quot;</div>
+<div class="debug">1704: 📤 BinaryReader: Opened resource &quot;/engine/shader/round_dot.ps&quot; size: 1.14KiB</div>
+<div class="debug">1705: CShader_D3D11::createVSFromFile(): `/engine/shader/round_dot.ps` is a precompiled shader file</div>
+<div class="debug">1707: 💠 Created PixelShader[6] </div>
+<div class="debug">1709: 📥 BinaryReader: Closed resource &quot;/engine/shader/round_dot.ps&quot;</div>
+<div class="debug">1711: 📤 BinaryReader: Opened resource &quot;/engine/shader/sdf.ps&quot; size: 1.28KiB</div>
+<div class="debug">1712: CShader_D3D11::createVSFromFile(): `/engine/shader/sdf.ps` is a precompiled shader file</div>
+<div class="debug">1715: 💠 Created PixelShader[7] </div>
 <div class="debug">1720: 📥 BinaryReader: Closed resource &quot;/engine/shader/sdf.ps&quot;</div>
-<div class="debug">1721: 📤 BinaryReader: Opened resource &quot;/engine/shader/fullscreen_triangle_resolve.ps&quot; size: 872B</div>
+<div class="debug">1723: 📤 BinaryReader: Opened resource &quot;/engine/shader/fullscreen_triangle_resolve.ps&quot; size: 872B</div>
 <div class="debug">1724: CShader_D3D11::createVSFromFile(): `/engine/shader/fullscreen_triangle_resolve.ps` is a precompiled shader file</div>
 <div class="debug">1726: 💠 Created PixelShader[8] </div>
-<div class="debug">1727: 📥 BinaryReader: Closed resource &quot;/engine/shader/fullscreen_triangle_resolve.ps&quot;</div>
-<div class="debug">1731: 📤 BinaryReader: Opened resource &quot;/engine/shader/fullscreen_triangle_draw.ps&quot; size: 664B</div>
-<div class="debug">1733: CShader_D3D11::createVSFromFile(): `/engine/shader/fullscreen_triangle_draw.ps` is a precompiled shader file</div>
-<div class="debug">1737: 💠 Created PixelShader[9] </div>
-<div class="debug">1739: 📥 BinaryReader: Closed resource &quot;/engine/shader/fullscreen_triangle_draw.ps&quot;</div>
-<div class="debug">1742: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/256.png&quot; size: 5.51KiB</div>
-<div class="debug">1762: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/256.png&quot;</div>
-<div class="debug">1765: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/128.png&quot; size: 2.5KiB</div>
-<div class="debug">1770: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/128.png&quot;</div>
-<div class="debug">1781: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/64.png&quot; size: 1.34KiB</div>
-<div class="debug">1786: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/64.png&quot;</div>
-<div class="debug">1790: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/32.png&quot; size: 617B</div>
-<div class="debug">1791: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/32.png&quot;</div>
-<div class="debug">1792: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/16.png&quot; size: 263B</div>
-<div class="debug">1794: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/16.png&quot;</div>
-<div class="debug">1795: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/8.png&quot; size: 140B</div>
-<div class="debug">1796: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/8.png&quot;</div>
-<div class="debug">1801: 💠 Created Texture[1] (type: Normal, size: 256x256, format: R8G8B8A8_Unorm)</div>
-<div class="info">1802: ℹ️ CRenderer2D_D3D11 initialized</div>
-<div class="info">1804: ℹ️ CGraphics_D3D11 initialized</div>
-<div class="trace">1805: CScreenCapture::init()</div>
-<div class="debug">1806: Default Screenshot directory: &quot;C:/Users/sekishuhei/010_develop/ARWorkspace/Test/App/Screenshot/&quot;</div>
-<div class="info">1807: ℹ️ CScreenCapture initialized</div>
-<div class="trace">1808: CFont::init()</div>
-<div class="debug">1820: 💠 Created Font[0(null)]</div>
-<div class="info">1820: ℹ️ CFont initialized</div>
-<div class="trace">1821: CSDFFont::init()</div>
-<div class="debug">1823: 💠 Created SDFFont[0(null)]</div>
-<div class="info">1823: ℹ️ CSDFFont initialized</div>
-<div class="trace">1824: CGUI::init()</div>
-<div class="debug">1829: 💠 Created Font[1] (`M+ 1p medium` size: 20)</div>
-<div class="info">1829: ℹ️ CGUI initialized</div>
-<div class="trace">1830: CEffect::init()</div>
-<div class="debug">1832: 💠 Created Effect[0(null)]</div>
-<div class="info">1832: ℹ️ CEffect initialized</div>
-<div class="trace">1833: CPrint::init()</div>
-<div class="debug">1837: 💠 Created Font[2] (`M+ 1p medium` size: 16)</div>
-<div class="info">1838: ℹ️ CPrint initialized</div>
-<div class="trace">1840: CAsset::init()</div>
-<div class="info">1841: ℹ️ Asset initialized</div>
-<div class="info">1845: ✅ Siv3D engine setup completed</div>
-<div class="trace">1846: MainThread</div>
-<hr width="99%"><div class="trace">1849: CScript::init()</div>
-<div class="debug">2102: 💠 Created Script[0(null)]</div>
-<div class="info">2103: ℹ️ CScript initialized</div>
-<div class="trace">2129: WM_PAINT</div>
-<div class="trace">2147: WM_SIZE</div>
-<div class="trace">2200: CWindow::updateWindowBounds(rect = (192, 60, 816, 639))</div>
-<div class="trace">2204: CWindow::requestBackBufferResizing()</div>
-<div class="trace">2207: CWindow::updateWindowBounds(rect = (192, 60, 816, 639))</div>
-<div class="fail">2210: ❌ BinaryReader: Failed to open file &quot;C:\Users\sekishuhei\010_develop\ARWorkspace\Intermediate\Test\Debug\userconfig.json&quot;</div>
-<div class="fail">2212: ❌ BinaryReader: Failed to open file &quot;C:\Users\sekishuhei\010_develop\ARWorkspace\Intermediate\Test\Debug\userconfig.json&quot;</div>
-<div class="debug">2222: 💠 Created Font[3] (`M+ 1p regular` size: 60)</div>
-<div class="trace">2294: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="debug">2304: 💠 Created Texture[2] (type: Dynamic, size: 200x200, format: R8G8B8A8_Unorm)</div>
-<div class="debug">2515: 💠 Created Texture[3] (type: Dynamic, size: 768x256, format: R8G8B8A8_Unorm)</div>
-<div class="debug">2519: ℹ️ Created font texture (size: 768x256)</div>
-<div class="debug">2618: 💠 Created Texture[4] (type: Dynamic, size: 1536x256, format: R8G8B8A8_Unorm)</div>
-<div class="debug">2623: ℹ️ Created font texture (size: 1536x256)</div>
-<div class="trace">2668: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">2787: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">2874: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">2997: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">3086: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">3149: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">3209: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">3259: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">3307: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">3377: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">3479: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">3545: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">3578: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">3648: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">3697: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">3746: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">3797: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">3862: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">3959: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4006: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4077: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4153: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4202: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4298: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4424: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4476: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4556: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4599: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4658: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4710: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4760: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4810: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4860: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4914: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">4982: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5062: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5109: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5188: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5240: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5300: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5349: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5431: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5480: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5529: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5583: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5637: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5685: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5737: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5789: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5848: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5898: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">5947: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6004: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6039: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6109: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6158: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6211: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6258: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6308: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6359: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6414: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6458: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6508: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6558: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6620: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6680: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6691: WM_PAINT</div>
-<div class="trace">6794: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6863: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6918: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">6967: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">7019: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">7056: WM_PAINT</div>
-<div class="trace">7100: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">7222: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">7271: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">7288: WM_PAINT</div>
-<div class="trace">7410: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">7487: WM_PAINT</div>
-<div class="trace">7498: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">7593: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">7660: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">7675: WM_PAINT</div>
-<div class="trace">7761: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">7810: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">7857: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">7906: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">7954: WM_PAINT</div>
-<div class="trace">7988: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">8036: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">8119: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">8142: WM_PAINT</div>
-<div class="trace">8171: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">8304: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">8358: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">8407: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">8439: WM_PAINT</div>
-<div class="trace">8488: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">8573: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">8631: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">8678: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">8727: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">8785: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">8827: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">8885: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">8935: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9005: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9081: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9130: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9197: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9228: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9288: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9351: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9399: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9457: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9508: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9556: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9609: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9661: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9706: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9756: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9806: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9862: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">9893: WM_PAINT</div>
-<div class="trace">9995: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="debug">10042: ♻️ Released Texture[2]</div>
-<div class="trace">10050: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="debug">10097: 💠 Created Texture[5] (type: Dynamic, size: 960x960, format: R8G8B8A8_Unorm)</div>
-<div class="trace">10189: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">10239: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">10303: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">10385: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">10438: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">10503: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">10547: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">10600: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">10653: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">10703: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">10760: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">10820: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">10869: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">10912: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">10998: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">11049: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">11100: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">11155: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">11209: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">11259: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">11308: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">11375: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">11428: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">11479: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">11528: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">11609: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="trace">11659: WM_CLOSE</div>
-<div class="trace">11659: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
-<div class="info">11709: 🚪 System::Update(): `UserAction::CloseButtonClicked` has occurred</div>
-<div class="debug">11712: 📤 BinaryReader: Opened file &quot;C:/Users/sekishuhei/010_develop/ARWorkspace/Intermediate/Test/Debug/userconfig.json&quot;</div>
-<div class="debug">11733: 📥 BinaryWriter: Closed file &quot;C:/Users/sekishuhei/010_develop/ARWorkspace/Intermediate/Test/Debug/userconfig.json&quot;</div>
-<div class="debug">11734: ♻️ Released Font[3]</div>
-<div class="debug">11734: ♻️ Released Texture[4]</div>
-<div class="debug">11797: ♻️ Released Texture[5]</div>
-<div class="debug">11799: ♻️ Released Script[0(null)]</div>
-<hr width="99%"><div class="trace">11818: CAsset::~CAsset()</div>
-<div class="trace">11818: CScript::~CScript()</div>
-<div class="trace">11819: CPrint::~CPrint()</div>
-<div class="debug">11819: ♻️ Released Font[2]</div>
-<div class="trace">11820: CEffect::~CEffect()</div>
-<div class="debug">11821: ♻️ Released Effect[0(null)]</div>
-<div class="trace">11821: CGUI::~CGUI()</div>
-<div class="debug">11822: ♻️ Released Font[1]</div>
-<div class="debug">11822: ♻️ Released Texture[3]</div>
-<div class="trace">11824: CSDFFont::~CSDFFont()</div>
-<div class="debug">11824: ♻️ Released SDFFont[0(null)]</div>
-<div class="trace">11826: CFont::~CFont()</div>
-<div class="debug">11827: ♻️ Released Font[0(null)]</div>
-<div class="trace">11829: CScreenCapture::~CScreenCapture()</div>
-<div class="trace">11830: CRenderer2D_D3D11::~CRenderer2D_D3D11()</div>
-<div class="debug">11830: ♻️ Released Texture[1]</div>
-<div class="debug">11831: ♻️ Released PixelShader[9]</div>
-<div class="debug">11832: ♻️ Released PixelShader[8]</div>
-<div class="debug">11833: ♻️ Released PixelShader[7]</div>
-<div class="debug">11833: ♻️ Released PixelShader[6]</div>
-<div class="debug">11834: ♻️ Released PixelShader[5]</div>
-<div class="debug">11834: ♻️ Released PixelShader[4]</div>
-<div class="debug">11835: ♻️ Released PixelShader[3]</div>
-<div class="debug">11836: ♻️ Released VertexShader[3]</div>
-<div class="debug">11836: ♻️ Released VertexShader[2]</div>
-<div class="debug">11837: ♻️ Released VertexShader[1]</div>
-<div class="trace">11838: CTexture_D3D11::~CTexture_D3D11()</div>
-<div class="debug">11838: ♻️ Released Texture[0(null)]</div>
-<div class="trace">11839: CShader_D3D11::~CShader_D3D11()</div>
-<div class="debug">11841: ♻️ Released PixelShader[1]</div>
-<div class="debug">11841: ♻️ Released PixelShader[2]</div>
-<div class="debug">11842: ♻️ Released PixelShader[0(null)]</div>
-<div class="debug">11843: ♻️ Released VertexShader[0(null)]</div>
-<div class="trace">11843: CGraphics_D3D11::~CGraphics_D3D11()</div>
-<div class="trace">11862: CToastNotification::~CToastNotification()</div>
-<div class="trace">11862: CNetwork::~CNetwork()</div>
-<div class="trace">11863: CFFT::~CFFT()</div>
-<div class="debug">11873: ♻️ Released Audio[0(null)]</div>
-<div class="trace">11904: CSoundFont::~CSoundFont()</div>
-<div class="trace">11905: CAudioFormat::~CAudioFormat()</div>
-<div class="trace">11905: CCodec::~CCodec()</div>
-<div class="trace">11933: CDragDrop::~CDragDrop()</div>
-<div class="trace">11936: CClipboard::~CClipboard()</div>
-<div class="trace">11937: CTextToSpeech::~CTextToSpeech()</div>
-<div class="trace">11939: CTextInput::~CTextInput()</div>
-<div class="trace">11940: CXInput::~CXInput()</div>
-<div class="trace">11947: CGamepad::~CGamepad()</div>
-<div class="trace">11949: CMouse::~CMouse()</div>
-<div class="trace">11950: CKeyboard::CKeyboard()</div>
-<div class="trace">11951: CCursor::~CCursor()</div>
-<div class="trace">11951: CWindow::~CWindow()</div>
-<div class="trace">11981: WM_DESTROY</div>
-<div class="trace">11993: message.message == WM_QUIT</div>
-<div class="trace">11993: CObjectDetection::~CObjectDetection()</div>
-<div class="trace">11994: CImageFormat::~CImageFormat()</div>
-<div class="trace">11994: CProfiler::~CProfiler()</div>
-<div class="trace">11995: CCPU::~CCPU()</div>
-<div class="info">12095: ✅ Siv3D engine has terminated</div>
-<div class="info">12096: ℹ️ 2020/3/31 21:52:19</div>
+<div class="debug">1734: 📥 BinaryReader: Closed resource &quot;/engine/shader/fullscreen_triangle_resolve.ps&quot;</div>
+<div class="debug">1739: 📤 BinaryReader: Opened resource &quot;/engine/shader/fullscreen_triangle_draw.ps&quot; size: 664B</div>
+<div class="debug">1742: CShader_D3D11::createVSFromFile(): `/engine/shader/fullscreen_triangle_draw.ps` is a precompiled shader file</div>
+<div class="debug">1743: 💠 Created PixelShader[9] </div>
+<div class="debug">1745: 📥 BinaryReader: Closed resource &quot;/engine/shader/fullscreen_triangle_draw.ps&quot;</div>
+<div class="debug">1747: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/256.png&quot; size: 5.51KiB</div>
+<div class="debug">1771: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/256.png&quot;</div>
+<div class="debug">1772: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/128.png&quot; size: 2.5KiB</div>
+<div class="debug">1777: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/128.png&quot;</div>
+<div class="debug">1778: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/64.png&quot; size: 1.34KiB</div>
+<div class="debug">1781: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/64.png&quot;</div>
+<div class="debug">1782: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/32.png&quot; size: 617B</div>
+<div class="debug">1784: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/32.png&quot;</div>
+<div class="debug">1785: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/16.png&quot; size: 263B</div>
+<div class="debug">1787: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/16.png&quot;</div>
+<div class="debug">1789: 📤 BinaryReader: Opened resource &quot;/engine/texture/box-shadow/8.png&quot; size: 140B</div>
+<div class="debug">1790: 📥 BinaryReader: Closed resource &quot;/engine/texture/box-shadow/8.png&quot;</div>
+<div class="debug">1793: 💠 Created Texture[1] (type: Normal, size: 256x256, format: R8G8B8A8_Unorm)</div>
+<div class="info">1795: ℹ️ CRenderer2D_D3D11 initialized</div>
+<div class="info">1797: ℹ️ CGraphics_D3D11 initialized</div>
+<div class="trace">1798: CScreenCapture::init()</div>
+<div class="debug">1800: Default Screenshot directory: &quot;C:/Users/sekishuhei/010_develop/ARWorkspace/Test/App/Screenshot/&quot;</div>
+<div class="info">1801: ℹ️ CScreenCapture initialized</div>
+<div class="trace">1802: CFont::init()</div>
+<div class="debug">1814: 💠 Created Font[0(null)]</div>
+<div class="info">1815: ℹ️ CFont initialized</div>
+<div class="trace">1817: CSDFFont::init()</div>
+<div class="debug">1818: 💠 Created SDFFont[0(null)]</div>
+<div class="info">1819: ℹ️ CSDFFont initialized</div>
+<div class="trace">1820: CGUI::init()</div>
+<div class="debug">1825: 💠 Created Font[1] (`M+ 1p medium` size: 20)</div>
+<div class="info">1826: ℹ️ CGUI initialized</div>
+<div class="trace">1827: CEffect::init()</div>
+<div class="debug">1829: 💠 Created Effect[0(null)]</div>
+<div class="info">1829: ℹ️ CEffect initialized</div>
+<div class="trace">1830: CPrint::init()</div>
+<div class="debug">1835: 💠 Created Font[2] (`M+ 1p medium` size: 16)</div>
+<div class="info">1836: ℹ️ CPrint initialized</div>
+<div class="trace">1837: CAsset::init()</div>
+<div class="info">1838: ℹ️ Asset initialized</div>
+<div class="info">1839: ✅ Siv3D engine setup completed</div>
+<div class="trace">1839: MainThread</div>
+<hr width="99%"><div class="trace">1841: CScript::init()</div>
+<div class="debug">2233: 💠 Created Script[0(null)]</div>
+<div class="info">2235: ℹ️ CScript initialized</div>
+<div class="trace">2263: WM_PAINT</div>
+<div class="trace">2291: WM_SIZE</div>
+<div class="trace">2292: CWindow::updateWindowBounds(rect = (192, 60, 816, 639))</div>
+<div class="trace">2297: CWindow::requestBackBufferResizing()</div>
+<div class="trace">2300: CWindow::updateWindowBounds(rect = (192, 60, 816, 639))</div>
+<div class="debug">2303: 📤 BinaryReader: Opened file &quot;C:/Users/sekishuhei/010_develop/ARWorkspace/Intermediate/Test/Debug/userconfig.json&quot; size: 124B</div>
+<div class="debug">2307: 📥 BinaryReader: Closed file &quot;C:/Users/sekishuhei/010_develop/ARWorkspace/Intermediate/Test/Debug/userconfig.json&quot;</div>
+<div class="debug">2309: 📤 BinaryReader: Opened file &quot;C:/Users/sekishuhei/010_develop/ARWorkspace/Intermediate/Test/Debug/userconfig.json&quot; size: 124B</div>
+<div class="debug">2310: 📥 BinaryReader: Closed file &quot;C:/Users/sekishuhei/010_develop/ARWorkspace/Intermediate/Test/Debug/userconfig.json&quot;</div>
+<div class="debug">2316: 💠 Created Font[3] (`M+ 1p regular` size: 60)</div>
+<div class="trace">2406: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="debug">2617: 💠 Created Texture[2] (type: Dynamic, size: 768x256, format: R8G8B8A8_Unorm)</div>
+<div class="debug">2618: ℹ️ Created font texture (size: 768x256)</div>
+<div class="debug">2720: 💠 Created Texture[3] (type: Dynamic, size: 1536x256, format: R8G8B8A8_Unorm)</div>
+<div class="debug">2723: ℹ️ Created font texture (size: 1536x256)</div>
+<div class="trace">2763: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">2813: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="debug">2873: 💠 Created Texture[4] (type: Dynamic, size: 960x960, format: R8G8B8A8_Unorm)</div>
+<div class="trace">2947: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">3008: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">3154: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">3276: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">3337: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">3395: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">3446: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">3513: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">3673: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">3725: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">3794: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">3850: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">3906: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">4035: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">4116: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">4163: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">4273: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">4334: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">4384: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">4471: WM_PAINT</div>
+<div class="trace">4484: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">4611: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">4675: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">4726: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">4777: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">4823: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">4877: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">4928: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">4981: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5036: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5079: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5152: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5212: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5277: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5332: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5384: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5434: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5497: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5585: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5656: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5703: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5756: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5825: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5885: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5942: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">5987: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">6030: WM_PAINT</div>
+<div class="trace">6206: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">6278: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">6337: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">6397: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">6446: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">6512: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">6560: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">6630: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">6675: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">6734: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">6797: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">6846: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">6902: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">6953: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7006: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7054: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7110: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7165: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7216: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7268: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7316: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7366: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7415: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7466: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7528: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7582: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7648: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7696: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7752: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7806: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7855: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7904: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">7955: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8021: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8054: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8125: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8173: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8233: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8266: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8334: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8387: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8456: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8524: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8579: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8628: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8674: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8737: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8816: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8874: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8946: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">8995: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9045: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9103: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9165: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9215: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9267: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9318: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9374: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9424: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9477: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9539: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9589: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9637: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9686: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9737: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9816: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9866: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9916: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">9967: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10025: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10074: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10123: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10170: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10235: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10295: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10348: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10406: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10456: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10508: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10560: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10598: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10664: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10718: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10776: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10827: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10885: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10934: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">10985: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11046: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11106: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11169: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11217: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11291: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11329: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11395: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11450: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11516: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11587: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11636: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11686: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11739: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11807: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11855: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11907: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">11971: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12027: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12075: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12126: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12164: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12235: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12295: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12349: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12407: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12465: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12516: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12588: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12621: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12686: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12735: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12786: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12866: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12914: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">12963: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13024: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13086: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13135: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13185: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13237: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13282: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13346: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13394: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13449: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13510: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13566: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13615: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13669: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13725: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13787: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13849: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13896: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13948: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">13995: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14062: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14106: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14157: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14205: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14268: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14316: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14365: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14426: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14474: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14545: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14618: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14665: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14721: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14755: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14824: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14874: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14927: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">14976: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15038: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15085: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15146: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15195: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15247: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15293: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15357: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15416: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15465: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15518: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15567: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15626: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15675: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15725: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15777: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15853: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15898: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">15965: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16024: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16077: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16125: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16185: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16237: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16280: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16345: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16406: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16457: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16511: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16577: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16625: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16676: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16762: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16816: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16865: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16917: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">16976: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17026: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17075: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17127: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17175: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17223: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17285: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17342: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17387: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17433: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17485: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17527: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17597: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17653: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17690: WM_CHAR</div>
+<div class="trace">17706: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17758: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17818: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17871: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17914: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">17963: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18020: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18063: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18073: WM_CHAR</div>
+<div class="trace">18126: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18176: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18227: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18290: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18333: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18385: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18435: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18486: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18558: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18603: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18655: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18720: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18762: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18825: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18875: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18926: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">18975: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19024: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19076: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19128: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19175: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19236: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19297: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19347: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19405: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19459: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19507: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19568: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19627: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19675: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19726: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19788: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19837: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19885: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19936: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">19988: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20052: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20119: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20166: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20214: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20271: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20329: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20375: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20435: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20489: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20529: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20596: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20645: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20699: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20780: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20828: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20875: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20927: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">20974: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21068: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21116: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21167: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21226: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21285: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21336: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21390: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21434: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21484: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21546: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21595: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21667: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21715: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21766: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21814: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21865: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21914: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">21965: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22018: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22076: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22124: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22175: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22229: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22309: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22355: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22404: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22459: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22513: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22566: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22616: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22669: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22732: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22781: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22835: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22885: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22933: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">22986: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23028: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23094: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23156: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23205: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23256: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23317: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23367: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23425: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23474: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23531: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23564: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23624: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23679: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23725: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23798: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23845: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23895: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">23945: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24008: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24075: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24124: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24175: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24226: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24337: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24396: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24445: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24494: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24557: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24605: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24660: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24715: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24777: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24825: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24882: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24934: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">24986: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25026: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25100: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25147: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25199: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25251: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25291: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25364: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25415: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25465: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25522: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25597: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25646: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25696: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25749: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25810: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25867: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25914: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">25963: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26022: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26077: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26138: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26186: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26252: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26305: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26357: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26407: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26462: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26516: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26564: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26615: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26687: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26765: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26809: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26856: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26923: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">26979: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27037: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27084: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27147: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27206: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27259: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27316: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27375: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27435: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27490: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27548: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27597: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27658: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27705: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27760: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27818: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27877: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27926: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">27977: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28059: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28116: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28167: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28216: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28267: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28318: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28376: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28436: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28487: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28531: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28596: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28654: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28704: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28760: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28807: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28863: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28913: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">28963: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29005: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29086: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29133: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29181: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29232: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29276: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29367: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29413: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29463: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29518: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29574: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29622: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29673: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29723: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29793: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29843: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29892: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29942: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">29993: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30043: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30092: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30142: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30195: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30265: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30312: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30364: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30403: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30472: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30534: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30585: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30634: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30683: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30733: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30784: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30843: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30892: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">30942: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31071: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31127: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31194: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31252: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31283: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31353: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31410: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31469: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31525: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31573: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31623: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31690: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31725: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31792: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31842: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31894: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">31956: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32013: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32062: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32114: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32183: WM_PAINT</div>
+<div class="trace">32185: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32317: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32347: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32412: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32466: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32520: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32567: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32618: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32663: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32732: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32819: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32878: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32935: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">32986: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">33042: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">33078: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">33148: WM_PAINT</div>
+<div class="trace">33169: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">33287: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">33326: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">33396: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">33446: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">33507: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">33507: WM_PAINT</div>
+<div class="trace">33654: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">33707: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">33765: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">33816: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">33864: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">33917: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">33965: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">34065: WM_PAINT</div>
+<div class="trace">34099: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">34233: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">34258: WM_PAINT</div>
+<div class="trace">34321: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">34364: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">34393: WM_PAINT</div>
+<div class="trace">34433: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">34539: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">34594: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">34629: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">34721: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">34809: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">34869: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">34917: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">34971: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">35050: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">35107: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">35157: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">35207: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">35267: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">35296: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">35364: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">35469: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">35495: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">35514: WM_PAINT</div>
+<div class="trace">35631: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="debug">35671: ♻️ Released Texture[4]</div>
+<div class="trace">35686: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">35702: WM_PAINT</div>
+<div class="trace">35797: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">35866: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">35899: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">35977: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36032: WM_PAINT</div>
+<div class="trace">36056: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36142: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36199: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36245: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36295: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36346: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36400: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36456: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36509: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36566: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36643: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36706: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36755: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36803: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36868: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">36919: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">37024: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">37063: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">37137: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">37184: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">37241: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">37315: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">37363: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">37414: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">37465: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">37517: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">37576: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">37652: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="debug">37659: 💠 Created Texture[5] (type: Dynamic, size: 414x446, format: R8G8B8A8_Unorm)</div>
+<div class="trace">37660: WM_PAINT</div>
+<div class="trace">37864: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">37935: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">37984: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38036: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38085: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38137: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38191: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38235: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38286: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38334: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38387: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38448: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38497: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38549: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38610: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38650: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38716: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38766: D3D11RenderTarget::resizeScene(sceneSize = (800, 600))</div>
+<div class="trace">38788: WM_CLOSE</div>
+<div class="info">38816: 🚪 System::Update(): `UserAction::CloseButtonClicked` has occurred</div>
+<div class="debug">38819: 📤 BinaryReader: Opened file &quot;C:/Users/sekishuhei/010_develop/ARWorkspace/Intermediate/Test/Debug/userconfig.json&quot;</div>
+<div class="debug">38867: 📥 BinaryWriter: Closed file &quot;C:/Users/sekishuhei/010_develop/ARWorkspace/Intermediate/Test/Debug/userconfig.json&quot;</div>
+<div class="debug">38870: ♻️ Released Font[3]</div>
+<div class="debug">38870: ♻️ Released Texture[3]</div>
+<div class="trace">38901: WM_DEVICECHANGE</div>
+<div class="debug">38901: ♻️ Released Texture[5]</div>
+<div class="trace">38901: CSystem::onDeviceChange()</div>
+<div class="debug">38903: ♻️ Released Script[0(null)]</div>
+<hr width="99%"><div class="trace">38931: CAsset::~CAsset()</div>
+<div class="trace">38931: CScript::~CScript()</div>
+<div class="trace">38932: CPrint::~CPrint()</div>
+<div class="debug">38933: ♻️ Released Font[2]</div>
+<div class="trace">38935: CEffect::~CEffect()</div>
+<div class="debug">38936: ♻️ Released Effect[0(null)]</div>
+<div class="trace">38937: CGUI::~CGUI()</div>
+<div class="debug">38938: ♻️ Released Font[1]</div>
+<div class="debug">38940: ♻️ Released Texture[2]</div>
+<div class="trace">38941: CSDFFont::~CSDFFont()</div>
+<div class="debug">38943: ♻️ Released SDFFont[0(null)]</div>
+<div class="trace">38944: CFont::~CFont()</div>
+<div class="debug">38945: ♻️ Released Font[0(null)]</div>
+<div class="trace">38946: CScreenCapture::~CScreenCapture()</div>
+<div class="trace">38946: CRenderer2D_D3D11::~CRenderer2D_D3D11()</div>
+<div class="debug">38947: ♻️ Released Texture[1]</div>
+<div class="debug">38948: ♻️ Released PixelShader[9]</div>
+<div class="debug">38949: ♻️ Released PixelShader[8]</div>
+<div class="debug">38950: ♻️ Released PixelShader[7]</div>
+<div class="debug">38951: ♻️ Released PixelShader[6]</div>
+<div class="debug">38954: ♻️ Released PixelShader[5]</div>
+<div class="debug">38955: ♻️ Released PixelShader[4]</div>
+<div class="debug">38957: ♻️ Released PixelShader[3]</div>
+<div class="debug">38958: ♻️ Released VertexShader[3]</div>
+<div class="debug">38959: ♻️ Released VertexShader[2]</div>
+<div class="debug">38960: ♻️ Released VertexShader[1]</div>
+<div class="trace">38960: CTexture_D3D11::~CTexture_D3D11()</div>
+<div class="debug">38961: ♻️ Released Texture[0(null)]</div>
+<div class="trace">38962: CShader_D3D11::~CShader_D3D11()</div>
+<div class="debug">38963: ♻️ Released PixelShader[1]</div>
+<div class="debug">38963: ♻️ Released PixelShader[2]</div>
+<div class="debug">38964: ♻️ Released PixelShader[0(null)]</div>
+<div class="debug">38965: ♻️ Released VertexShader[0(null)]</div>
+<div class="trace">38966: CGraphics_D3D11::~CGraphics_D3D11()</div>
+<div class="trace">38987: CToastNotification::~CToastNotification()</div>
+<div class="trace">38988: CNetwork::~CNetwork()</div>
+<div class="trace">38989: CFFT::~CFFT()</div>
+<div class="debug">38998: ♻️ Released Audio[0(null)]</div>
+<div class="trace">39014: CSoundFont::~CSoundFont()</div>
+<div class="trace">39014: CAudioFormat::~CAudioFormat()</div>
+<div class="trace">39016: CCodec::~CCodec()</div>
+<div class="trace">39027: CDragDrop::~CDragDrop()</div>
+<div class="trace">39029: CClipboard::~CClipboard()</div>
+<div class="trace">39029: CTextToSpeech::~CTextToSpeech()</div>
+<div class="trace">39032: CTextInput::~CTextInput()</div>
+<div class="trace">39034: CXInput::~CXInput()</div>
+<div class="trace">39038: CGamepad::~CGamepad()</div>
+<div class="trace">39038: CMouse::~CMouse()</div>
+<div class="trace">39039: CKeyboard::CKeyboard()</div>
+<div class="trace">39039: CCursor::~CCursor()</div>
+<div class="trace">39039: CWindow::~CWindow()</div>
+<div class="trace">39062: WM_DESTROY</div>
+<div class="trace">39080: message.message == WM_QUIT</div>
+<div class="trace">39081: CObjectDetection::~CObjectDetection()</div>
+<div class="trace">39081: CImageFormat::~CImageFormat()</div>
+<div class="trace">39081: CProfiler::~CProfiler()</div>
+<div class="trace">39083: CCPU::~CCPU()</div>
+<div class="info">39163: ✅ Siv3D engine has terminated</div>
+<div class="info">39163: ℹ️ 2020/3/31 22:05:23</div>
 </div>
 </body>
 </html>

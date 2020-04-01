@@ -118,6 +118,7 @@
     <ClCompile Include="SensorApiManager.cpp" />
     <ClCompile Include="DisplayRegionGuideView.cpp" />
     <ClCompile Include="Utility.cpp" />
+    <ClCompile Include="ValueEditor.cpp" />
     <ClCompile Include="WinScreenCapture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +254,7 @@
     <ClInclude Include="SensorApiManager.hpp" />
     <ClInclude Include="SimpleCounter.hpp" />
     <ClInclude Include="Utility.hpp" />
+    <ClInclude Include="ValueEditor.hpp" />
     <ClInclude Include="WinScreenCapture.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
