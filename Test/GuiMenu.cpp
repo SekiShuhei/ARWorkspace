@@ -8,6 +8,7 @@ namespace ARWorkspace {
 	model(arg_model)
 {
 
+	//this->value_editor_width.
 
 }
 
@@ -16,9 +17,10 @@ void GuiMenu::Draw()
 	int text_width = 150;
 	int slider_width = 200;
 
-	double x = s3d::Scene::Size().x - (text_width + slider_width);
-	double y = 0;
+	double w = this->value_editor_width.GetTotalWidth();
 	double h = 30;
+	double x = s3d::Scene::Size().x - w;
+	double y = 0;
 
 	
 	if (! this->pull_down_flag)

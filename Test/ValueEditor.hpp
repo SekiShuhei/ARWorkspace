@@ -25,6 +25,22 @@ public:
 	{
 		return this->caption_width + this->slider_width + this->textbox_width;
 	}
+	void SetRange(double arg_min_value, double arg_max_value, double arg_default_value)
+	{
+		this->min_value = arg_min_value;
+		this->max_value = arg_max_value;
+		this->default_value = arg_default_value;
+	}
+	void SetWidth(int arg_caption_width, int arg_slider_width, int arg_textbox_width)
+	{
+		this->caption_width = arg_caption_width;
+		this->slider_width = arg_slider_width;
+		this->textbox_width = arg_textbox_width;
+	}
+	void SetLabel(s3d::String arg_label_string)
+	{
+		this->label = arg_label_string;
+	}
 
 private:
 	bool valueChange(double arg_new_value);
