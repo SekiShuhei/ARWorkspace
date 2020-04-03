@@ -1,6 +1,5 @@
 
 #include <Siv3D.hpp>
-//#include <tuple>
 #include "KeyCommand.hpp"
 
 ARWorkspace::KeyCommand::KeyCommand(ARVirtualScreen& arg_model) :
