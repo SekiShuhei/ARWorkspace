@@ -35,21 +35,24 @@ std::optional<std::tuple<int, int>> ARWorkspace::KeyCommand::getPositionOffset()
 	int offset_y = 0;
 	if (KeyUp.down() || KeyUp.pressedDuration().count() > 1.0)
 	{
-		return std::tuple<int, int>(0, -1);
+		offset_y = -1;
 	}
-	else if (KeyDown.down() || KeyDown.pressedDuration().count() > 1.0)
+	if (KeyDown.down() || KeyDown.pressedDuration().count() > 1.0)
 	{
-		return std::tuple<int, int>(0, 1);
+		offset_y = 1;
 	}
-	else if (KeyLeft.down() || KeyLeft.pressedDuration().count() > 1.0)
+	if (KeyLeft.down() || KeyLeft.pressedDuration().count() > 1.0)
 	{
-		return std::tuple<int, int>(-1, 0);
+		offset_x = -1;
 	}
-	else if (KeyRight.down() || KeyRight.pressedDuration().count() > 1.0)
+	if (KeyRight.down() || KeyRight.pressedDuration().count() > 1.0)
 	{
-		return std::tuple<int, int>(1, 0);
+		offset_x = 1;
 	}
-	else {
+	if (offset_x == 0 && offset_y == 0)
+	{
 		return std::nullopt;
+	} else {
+		return std::tuple<int,int>(offset_x, offset_y);
 	}
 }
