@@ -114,6 +114,7 @@
     <ClCompile Include="DisplayRegion.cpp" />
     <ClCompile Include="DisplayRegionGuideWindow.cpp" />
     <ClCompile Include="GuiMenu.cpp" />
+    <ClCompile Include="KeyCommand.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SensorApiManager.cpp" />
     <ClCompile Include="DisplayRegionGuideView.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="DisplayRegionGuideView.hpp" />
     <ClInclude Include="DisplayRegionGuideWindow.hpp" />
     <ClInclude Include="GuiMenu.hpp" />
+    <ClInclude Include="KeyCommand.hpp" />
     <ClInclude Include="SensorApiManager.hpp" />
     <ClInclude Include="SimpleCounter.hpp" />
     <ClInclude Include="Utility.hpp" />

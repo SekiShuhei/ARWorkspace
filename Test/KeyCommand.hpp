@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include "ARVirtualScreen.hpp"
 
 namespace ARWorkspace {
@@ -10,7 +11,8 @@ public:
 	KeyCommand(ARVirtualScreen& arg_model);
 public:
 	void Update();
-
+private:
+	std::optional<std::tuple<int, int>> getPositionOffset() const;
 private:
 
 	ARVirtualScreen&	model; //‚Ù‚ñ‚Æ‚¤‚Íshared_ptr‚É‚·‚×‚«‚© ‚Æ‚è‚ ‚¦‚¸

@@ -4,7 +4,7 @@
 
 #include "ARVirtualScreen.hpp"
 #include "GuiMenu.hpp"
-
+#include "KeyCommand.hpp"
 
 void Main()
 {
@@ -16,6 +16,7 @@ void Main()
 	ar_screen.ReadConfigFile();
 
 	ARWorkspace::GuiMenu		gui_capture_menu(ar_screen);
+	ARWorkspace::KeyCommand		key_command(ar_screen);
 
 	// 大きさ 60 のフォントを用意
 	const Font font(60);
@@ -34,6 +35,7 @@ void Main()
 
 		}
 
+		key_command.Update();
 		ar_screen.Draw();
 		gui_capture_menu.Draw();
 

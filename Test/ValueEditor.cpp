@@ -1,16 +1,19 @@
 #include "ValueEditor.hpp"
 
-CustomGUI::ValueEditor::ValueEditor()
+namespace ARWorkspace {
+namespace CustomGUI {
+
+ValueEditor::ValueEditor()
 {
 
 
 }
 
-CustomGUI::ValueEditor::~ValueEditor()
+ValueEditor::~ValueEditor()
 {
 }
 
-bool CustomGUI::ValueEditor::Draw(s3d::Vec2 arg_position, double arg_new_value, bool arg_enable)
+bool ValueEditor::Draw(s3d::Vec2 arg_position, double arg_new_value, bool arg_enable)
 {
 	this->ValueModelUpdate(arg_new_value);
 
@@ -56,7 +59,7 @@ bool CustomGUI::ValueEditor::Draw(s3d::Vec2 arg_position, double arg_new_value, 
 	return value_change_flag;
 }
 
-void CustomGUI::ValueEditor::ValueModelUpdate(double arg_new_value)
+void ValueEditor::ValueModelUpdate(double arg_new_value)
 {
 	if (this->last_update_value != arg_new_value)
 	{
@@ -66,7 +69,7 @@ void CustomGUI::ValueEditor::ValueModelUpdate(double arg_new_value)
 	}
 }
 
-bool CustomGUI::ValueEditor::valueChange(double arg_new_value)
+bool ValueEditor::valueChange(double arg_new_value)
 {
 	
 	double last_value = this->value_model;
@@ -76,5 +79,7 @@ bool CustomGUI::ValueEditor::valueChange(double arg_new_value)
 	return true;
 }
 
+}
+}
 
 
