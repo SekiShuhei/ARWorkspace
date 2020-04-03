@@ -42,49 +42,13 @@ void GuiMenu::Draw()
 	
 	if (! this->pull_down_flag)
 	{
-		if (s3d::SimpleGUI::Button(U"¥CaptureSetting", Vec2(x,y), text_width + slider_width))
+		if (s3d::SimpleGUI::Button(U"¥CaptureSetting", Vec2(x,y), w))
 		{
 			this->pull_down_flag = true;
 		}
 		return;
 	}
 	
-	if (SimpleGUI::Slider(U"X {:.2f}"_fmt(this->model.GetCaptureRegion().x),
-		this->model.GetCaptureRegion().x, 0, 2000, Vec2(x, y), text_width, slider_width))
-	{
-		this->model.CaptureRegionUpdate();
-	}
-	y += h;
-	if (SimpleGUI::Slider(U"Y {:.2f}"_fmt(this->model.GetCaptureRegion().y),
-		this->model.GetCaptureRegion().y, 0, 2000, Vec2(x, y), text_width, slider_width))
-	{
-		this->model.CaptureRegionUpdate();
-	}
-	y += h;
-	if (SimpleGUI::Slider(U"Width {:.2f}"_fmt(this->model.GetCaptureRegion().w),
-		this->model.GetCaptureRegion().w, 200, 2000, Vec2(x, y), text_width, slider_width))
-	{
-		this->model.CaptureRegionUpdate();
-		this->model.CaptureSizeUpdate();
-	}
-	y += h;
-	if (SimpleGUI::Slider(U"Height {:.2f}"_fmt(this->model.GetCaptureRegion().h),
-		this->model.GetCaptureRegion().h, 200, 2000, Vec2(x, y), text_width, slider_width))
-	{
-		this->model.CaptureRegionUpdate();
-		this->model.CaptureSizeUpdate();
-	}
-	y += h;
-	if (SimpleGUI::Slider(U"Scale {:.2f}"_fmt(this->model.scale),
-		this->model.scale, 1.0, 10.0, Vec2(x, y), text_width, slider_width, 
-		! this->model.texture_auto_resize))
-	{
-		//...
-	}
-	y += h;
-
-	//...
-	// test.
 	{
 		
 		if (this->control_capture_region_x.Draw(Vec2(x, y), this->model.GetCaptureRegion().x))
@@ -125,7 +89,7 @@ void GuiMenu::Draw()
 		y += h;
 	}
 
-	if (s3d::SimpleGUI::Button(U"£Close", Vec2(x, y), text_width + slider_width))
+	if (s3d::SimpleGUI::Button(U"£Close", Vec2(x, y), w))
 	{
 		this->pull_down_flag = false;
 	}
