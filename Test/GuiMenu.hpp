@@ -30,7 +30,11 @@ private:
 	bool pull_down_flag = false;
 	int text_size = 20;
 
-	CustomGUI::ValueEditor	value_editor_width;
+	CustomGUI::ValueEditor	control_capture_region_x;
+	CustomGUI::ValueEditor	control_capture_region_y;
+	CustomGUI::ValueEditor	control_capture_region_width;
+	CustomGUI::ValueEditor	control_capture_region_height;
+	CustomGUI::ValueEditor	control_capture_scale;
 };
 
 }

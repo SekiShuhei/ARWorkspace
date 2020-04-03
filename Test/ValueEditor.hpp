@@ -14,7 +14,7 @@ public:
 	//ValueEditor(ValueEditorValueChangedEvent arg_value_change_event);
 	~ValueEditor();
 
-	bool Draw(s3d::Vec2	arg_position, double arg_new_value);
+	bool Draw(s3d::Vec2	arg_position, double arg_new_value, bool arg_enable = true);
 	void ValueModelUpdate(double arg_new_value);
 
 	double GetValue() const
@@ -47,7 +47,7 @@ private:
 
 	s3d::String valueToString()
 	{
-		return U"{:.2f}"_fmt(this->value_model);
+		return U"{:.0f}"_fmt(this->value_model);
 	}
 
 private:
