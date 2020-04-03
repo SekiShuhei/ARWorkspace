@@ -211,6 +211,31 @@ void ARVirtualScreen::Draw()
 	}
 }
 
+void ARVirtualScreen::SetCaptureRegion(int arg_x, int arg_y, int arg_width, int arg_height)
+{
+	this->capture_region.x = arg_x;
+	this->capture_region.y = arg_y;
+	this->capture_region.w = arg_width;
+	this->capture_region.h = arg_height;
+	this->CaptureRegionUpdate();
+	this->CaptureSizeUpdate();
+}
+
+void ARVirtualScreen::SetCaptureRegionPosition(int arg_x, int arg_y)
+{
+	this->capture_region.x = arg_x;
+	this->capture_region.y = arg_y;
+	this->CaptureRegionUpdate();
+}
+
+void ARVirtualScreen::SetCaptureRegionSize(int arg_width, int arg_height)
+{
+	this->capture_region.w = arg_width;
+	this->capture_region.h = arg_height;
+	this->CaptureRegionUpdate();
+	this->CaptureSizeUpdate();
+}
+
 void ARVirtualScreen::drawTexture()
 {
 	

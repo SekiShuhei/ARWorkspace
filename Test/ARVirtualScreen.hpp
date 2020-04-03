@@ -46,36 +46,36 @@ public:
 
 
 
+private:
 
-	// 投射領域の計算.
-	// 描画先のウィンドウサイズを渡す.
 	bool GetCaptureRect();
-
-	// スクリーンキャプチャ.
-
 	void Capture();
 
+
+public:
 	// 描画.
 	void Draw();
 
 	// カスタムカーソル.
 	// OSカーソルと同期するように、座標系を適切に処理.
+	// ↑いらない？.
 
-	// ScreenCapture関数を管轄？
-
-	inline DisplayRegion& GetCaptureRegion()
+	DisplayRegion& GetCaptureRegion()
 	{
 		return this->capture_region;
 	}
-	inline void CaptureRegionUpdate()
+	void CaptureRegionUpdate()
 	{
 		this->capture_region_updated = true;
 	}
-	inline void CaptureSizeUpdate()
+	void CaptureSizeUpdate()
 	{
 		this->capture_size_updated = true;
 	}
-	inline void SetAutoResizeMode(bool arg_bool)
+	void SetCaptureRegion(int arg_x, int arg_y, int arg_width, int arg_height);
+	void SetCaptureRegionPosition(int arg_x, int arg_y);
+	void SetCaptureRegionSize(int arg_width, int arg_height);
+	void SetAutoResizeMode(bool arg_bool)
 	{
 		this->texture_auto_resize = arg_bool;
 	}

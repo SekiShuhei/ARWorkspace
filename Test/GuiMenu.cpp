@@ -53,8 +53,11 @@ void GuiMenu::Draw()
 		
 		if (this->control_capture_region_x.Draw(Vec2(x, y), this->model.GetCaptureRegion().x))
 		{
-			this->model.GetCaptureRegion().x = this->control_capture_region_x.GetValue();
-			this->model.CaptureRegionUpdate();
+			this->model.SetCaptureRegionPosition(
+				this->control_capture_region_x.GetValue(),
+				this->model.GetCaptureRegion().y);
+			//this->model.GetCaptureRegion().x = this->control_capture_region_x.GetValue();
+			//this->model.CaptureRegionUpdate();
 		}
 		y += h;
 
