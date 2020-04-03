@@ -56,31 +56,30 @@ void GuiMenu::Draw()
 			this->model.SetCaptureRegionPosition(
 				this->control_capture_region_x.GetValue(),
 				this->model.GetCaptureRegion().y);
-			//this->model.GetCaptureRegion().x = this->control_capture_region_x.GetValue();
-			//this->model.CaptureRegionUpdate();
 		}
 		y += h;
 
 		if (this->control_capture_region_y.Draw(Vec2(x, y), this->model.GetCaptureRegion().y))
 		{
-			this->model.GetCaptureRegion().y = this->control_capture_region_y.GetValue();
-			this->model.CaptureRegionUpdate();
+			this->model.SetCaptureRegionPosition(
+				this->model.GetCaptureRegion().x,
+				this->control_capture_region_y.GetValue());
 		}
 		y += h;
 
 		if (this->control_capture_region_width.Draw(Vec2(x, y), this->model.GetCaptureRegion().w))
 		{
-			this->model.GetCaptureRegion().w = this->control_capture_region_width.GetValue();
-			this->model.CaptureRegionUpdate();
-			this->model.CaptureSizeUpdate();
+			this->model.SetCaptureRegionSize(
+				this->control_capture_region_width.GetValue(),
+				this->model.GetCaptureRegion().h);
 		}
 		y += h;
 
 		if (this->control_capture_region_height.Draw(Vec2(x, y), this->model.GetCaptureRegion().h))
 		{
-			this->model.GetCaptureRegion().h = this->control_capture_region_height.GetValue();
-			this->model.CaptureRegionUpdate();
-			this->model.CaptureSizeUpdate();
+			this->model.SetCaptureRegionSize(
+				this->model.GetCaptureRegion().w,
+				this->control_capture_region_height.GetValue());
 		}
 		y += h;
 

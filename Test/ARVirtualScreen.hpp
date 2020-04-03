@@ -60,7 +60,7 @@ public:
 	// OSカーソルと同期するように、座標系を適切に処理.
 	// ↑いらない？.
 
-	DisplayRegion& GetCaptureRegion()
+	const DisplayRegion& GetCaptureRegion() const
 	{
 		return this->capture_region;
 	}
@@ -143,7 +143,7 @@ private:
 	SimpleCounter	texture_reflesh_counter = SimpleCounter(3);
 	
 	// テクスチャ拡縮関連.
-	// GUIから参照アクセスするためにパブリックにしているが、うーん.
+	// アクセサ経由に変更する
 public:
 	double	scale = 3.0;
 	double	radian = 0.0;
