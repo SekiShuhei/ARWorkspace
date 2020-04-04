@@ -25,7 +25,6 @@ private:
 	
 	RECT			capture_rect = RECT();
 	
-	HDC				hdc = HDC(); // ‚±‚ê‚Í‚½‚Ô‚ñˆêŽž•Ï”‚Å‚æ‚¢.
 	HDC				hMemDC = HDC();
 	BITMAPINFO		bmpInfo = BITMAPINFO();
 	LPDWORD			lpPixel = LPDWORD();
