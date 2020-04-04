@@ -17,12 +17,10 @@ public:
 	bool HasInvalidPremultipliedColors(const Color* image, const size_t num_pixels);
 
 private:
-
 	bool LoadImageFromDIB(s3d::Image&);
 
 	DWORD GetBitmapImageSize(const BITMAPINFO& bitmap_info) const;
 
-	
 	RECT			capture_rect = RECT();
 	
 	HDC				hMemDC = HDC();

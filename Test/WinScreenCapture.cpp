@@ -85,7 +85,7 @@ bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int w
 			error = false;
 		}
 	} else {
-		int a =0;
+		//...
 	}
 	if (hPrevBitmap != NULL)
 	{
@@ -95,19 +95,16 @@ bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int w
 	{
 		::DeleteDC(hPrevMemDC);
 	}
-
 	if (error)
 	{
 		return false;
 	}
-
 	bool result = false;
 
 	::BitBlt(this->hMemDC, 0, 0, this->bmpInfo.bmiHeader.biWidth, this->bmpInfo.bmiHeader.biHeight, 
 		screen_dc, this->capture_rect.left, this->capture_rect.top, SRCCOPY);
 	
 	this->LoadImageFromDIB(read_image);
-
 }
 
 bool WinScreenCapture::HasInvalidPremultipliedColors(const Color* image, const size_t num_pixels)
@@ -132,7 +129,6 @@ bool WinScreenCapture::LoadImageFromDIB(s3d::Image& read_image)
 {
 	
 	{
-		// ビットマップデータの先頭へのアドレス.
 		const void* memory = &(this->hBitmap);
 		const BITMAPINFO* header = &(this->bmpInfo);
 		const int32 depth = header->bmiHeader.biBitCount;
@@ -159,10 +155,8 @@ bool WinScreenCapture::LoadImageFromDIB(s3d::Image& read_image)
 			&& !this->HasInvalidPremultipliedColors(static_cast<const Color*>(bitmapData), width* height);
 		read_image.resize(width, height);
 
-		//ReaderView reader(bitmapData, this->bmpInfo.bmiHeader.biSizeImage);
 		ReaderView reader(this->lpPixel, this->bmpInfo.bmiHeader.biSizeImage);
-		//ReaderView reader(bitmapData, memorySize - offsetSize);
-
+		
 		switch (depth)
 		{
 		case 8:
