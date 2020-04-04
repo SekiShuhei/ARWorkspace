@@ -1,10 +1,9 @@
-
+#define WIN32_LEAN_AND_MEAN
 #pragma comment(lib, "user32.lib")
 #pragma comment(lib, "gdi32.lib")
 #include <windows.h>
 
 #include "DisplayRegion.hpp"
-
 #include "DisplayRegionGuideView.hpp"
 
 namespace ARWorkspace {
@@ -21,6 +20,7 @@ bool DisplayRegionGuideView::Draw()
     {
         this->Invalidate(this->display_region, this->border_width);
 
+        // マルチディスプレイ環境でGDIが表示されない、位置がずれる等の減少がまれに起こるが謎.
         this->x = this->display_region.x + ::GetSystemMetrics(SM_XVIRTUALSCREEN);
         this->y = this->display_region.y + ::GetSystemMetrics(SM_YVIRTUALSCREEN);
         this->width = this->display_region.w;

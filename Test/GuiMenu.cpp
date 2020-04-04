@@ -12,7 +12,7 @@ namespace ARWorkspace {
 		int textbox_width = 100;
 
 		this->control_capture_region_x.SetLabel(U"X");
-		this->control_capture_region_x.SetRange(0.0, 2000.0, 0.0);
+		this->control_capture_region_x.SetRange(0.0, 4000.0, 0.0);
 		this->control_capture_region_x.SetWidth(label_width, slider_width, textbox_width);
 		this->control_capture_region_y.SetLabel(U"Y");
 		this->control_capture_region_y.SetRange(0.0, 2000.0, 0.0);

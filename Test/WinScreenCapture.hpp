@@ -7,6 +7,7 @@
 #pragma comment(lib, "gdi32.lib")
 #include <Windows.h>
 
+namespace ARWorkspace {
 class WinScreenCapture
 {
 public:
@@ -17,16 +18,12 @@ public:
 	bool HasInvalidPremultipliedColors(const Color* image, const size_t num_pixels);
 
 private:
-
 	bool LoadImageFromDIB(s3d::Image&);
 
 	DWORD GetBitmapImageSize(const BITMAPINFO& bitmap_info) const;
 
-	
 	RECT			capture_rect = RECT();
-	HWND			desktop = HWND();
 	
-	HDC				hdc = HDC(); // Ç±ÇÍÇÕÇΩÇ‘ÇÒàÍéûïœêîÇ≈ÇÊÇ¢.
 	HDC				hMemDC = HDC();
 	BITMAPINFO		bmpInfo = BITMAPINFO();
 	LPDWORD			lpPixel = LPDWORD();
@@ -35,3 +32,5 @@ private:
 
 
 };
+
+}
