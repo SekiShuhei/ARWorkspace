@@ -125,7 +125,8 @@ bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int w
 	bool result = false;
 
 	//スクリーンをDIBSectionにコピー
-	this->hdc = ::GetDC(this->desktop);
+	//this->hdc = ::GetDC(this->desktop);
+	this->hdc = ::GetDC(NULL);
 	::BitBlt(this->hMemDC, 0, 0, this->bmpInfo.bmiHeader.biWidth, this->bmpInfo.bmiHeader.biHeight, 
 		this->hdc, this->capture_rect.left, this->capture_rect.top, SRCCOPY);
 	if (this->hdc != NULL)
