@@ -71,8 +71,6 @@ DWORD WinScreenCapture::GetBitmapImageSize(const BITMAPINFO& bitmap_info) const
 bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int width, int height)
 {
 	
-	// 仮想スクリーン座標を合算する？？.
-	// マルチディスプレイ環境で座標が負数になる？大丈夫か？.
 	this->capture_rect.left = x + ::GetSystemMetrics(SM_XVIRTUALSCREEN);
 	this->capture_rect.top = y + ::GetSystemMetrics(SM_YVIRTUALSCREEN);
 	this->capture_rect.right = x + width;
