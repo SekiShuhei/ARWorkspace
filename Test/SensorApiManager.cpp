@@ -8,7 +8,7 @@
 
 #include "SensorApiManager.hpp"
 
-
+namespace ARWorkspace {
 
 SensorApiManager::SensorApiManager()
 {
@@ -77,3 +77,4 @@ void SensorApiManager::get_accelerometer_3d_value(double& rx, double& ry, double
 	rz = z.dblVal;
 }
 
+}

@@ -3,6 +3,8 @@
 
 #include <siv3d.hpp>
 
+namespace ARWorkspace {
+
 CustomCursor::CustomCursor()
 {
 
@@ -33,5 +35,7 @@ void CustomCursor::DrawAt(int arg_pos_x, int arg_pos_y)
 
 
 	}
+
+}
 
 }

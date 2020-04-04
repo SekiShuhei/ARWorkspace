@@ -1,12 +1,12 @@
 #include "ARVirtualScreen.hpp"
 
+#include "Utility.hpp"
 
-#include "Utilty.hpp"
-
+namespace ARWorkspace {
 
 ARVirtualScreen::ARVirtualScreen()
 {
-
+	this->p_texture = std::make_unique<s3d::DynamicTexture>();
 }
 
 ARVirtualScreen::~ARVirtualScreen()
@@ -14,42 +14,67 @@ ARVirtualScreen::~ARVirtualScreen()
 
 	this->capture_thread_run = false;
 	this->capture_thread.join();
+	this->capture_region_guide_thread_run = false;
+	this->capture_region_guide_thread.join();
 
 }
 
-void ARVirtualScreen::initialize()
+void ARVirtualScreen::Initialize()
 {
 	this->capture_thread_run = true;
 	this->capture_thread = std::thread([this]()
 		{
 			while (this->capture_thread_run)
 			{
-				// マルチスレッド処理.
-				this->Update();
-
+				this->Capture();
 				//std::this_thread::sleep_for(std::chrono::milliseconds(2));
 			}
 		});
 
+	this->capture_region_guide_thread_run = true;
+	this->capture_region_guide_thread = std::thread([this]()
+		{
+			while (this->capture_region_guide_thread_run)
+			{
+				
+				if (this->capture_region_updated)
+				{
+					this->capture_region_updated = false;
+					this->capture_region_guide_counter.Reset();
+					this->capture_region_guide_counter.Count();
+				}
+				if (this->capture_region_guide_counter.IsCount())
+				{
+					if (this->capture_region_guide_counter.Count())
+					{
+						this->capture_region_guide.Invalidate();
+						this->capture_region_guide_counter.Reset();
+					} else {
+						this->capture_region_guide.Draw();
+					}
+				}
+				
+				//std::this_thread::sleep_for(std::chrono::milliseconds(10));
+			}
+		});
 
 }
 
-bool ARVirtualScreen::LoadUserSetting()
+bool ARVirtualScreen::ReadConfigFile()
 {
 
-
-	auto exec_path = s3d::Unicode::Widen(Utilty::GetModulePath());
-	s3d::String setting_file_path = exec_path + U"setting.json";
-	setting_file_path = U"C:\\Users\\sekishuhei\\010_develop\\ARWorkspace\\Test\\setting.json";
+	auto exec_path = Utility::GetExecFilePath();
+	s3d::String setting_file_path = exec_path + U"userconfig.json";
 	JSONReader json(setting_file_path);
-
+	
 	if (json.open(setting_file_path))
 	{
-
-		//Println(json[L"CaptureRect.Width"].get<int32>());
-
 		this->capture_point.x = json[U"CapturePoint.x"].get<int32>();
-		this->capture_point.y = json[U"CapturePoint.y"].get<int32>();		
+		this->capture_point.y = json[U"CapturePoint.y"].get<int32>();
+		this->capture_region.x = json[U"CaptureRegion.x"].get<int32>();
+		this->capture_region.y = json[U"CaptureRegion.y"].get<int32>();
+		this->capture_region.w = json[U"CaptureRegion.width"].get<int32>();
+		this->capture_region.h = json[U"CaptureRegion.height"].get<int32>();
 		this->scale = json[U"CaptureScale"].get<double>();
 		
 		return true;
@@ -59,33 +84,63 @@ bool ARVirtualScreen::LoadUserSetting()
 	return false;
 }
 
+bool ARVirtualScreen::WriteConfigFile()
+{
+	JSONWriter	json;
+	json.startObject();
+	{
+		json.key(U"CaptureScale").write(this->scale);
+
+		json.key(U"CaptureRegion").startObject();
+		{
+			json.key(U"x").write((int)this->capture_region.x);
+			json.key(U"y").write((int)this->capture_region.y);
+			json.key(U"width").write((int)this->capture_region.w);
+			json.key(U"height").write((int)this->capture_region.h);
+		}
+		json.endObject();
+	}
+	json.endObject();
+
+	auto exec_path = Utility::GetExecFilePath();
+	json.save(exec_path + U"userconfig.json");
+
+
+	return false;
+}
+
+
+
+
 bool ARVirtualScreen::GetCaptureRect()
 {
-	auto client_size = s3d::Scene::Size();
-	
-	auto capture_size = client_size / this->scale;
-
-	this->capture_rect.x = this->capture_point.x - (capture_size.x / 2);
-	this->capture_rect.y = this->capture_point.y - (capture_size.y / 2);
-	this->capture_rect.w = this->capture_point.x + (capture_size.x / 2);
-	this->capture_rect.h = this->capture_point.y + (capture_size.y / 2);
+	// 中心点からキャプチャ領域を割り出す.
+	// 要検討.
+	//auto client_size = s3d::Scene::Size();
+	//
+	//auto capture_size = client_size / this->scale;
+	//
+	//this->capture_region.x = this->capture_point.x - (capture_size.x / 2);
+	//this->capture_region.y = this->capture_point.y - (capture_size.y / 2);
+	//this->capture_region.w = this->capture_point.x + (capture_size.x / 2);
+	//this->capture_region.h = this->capture_point.y + (capture_size.y / 2);
 
 	return true;
 }
 
-void ARVirtualScreen::Update()
+void ARVirtualScreen::Capture()
 {
-
+	
 	this->GetCaptureRect();
 	
 	
 	// メニューバーの分だけ少しY座標がずれるので注意.
 	this->screen_capture.CaptureScreen(
 		this->capture_image[this->imageindex_reading],
-		this->capture_rect.x,
-		this->capture_rect.y,
-		this->capture_rect.w,
-		this->capture_rect.h);
+		(int)this->capture_region.x,
+		(int)this->capture_region.y,
+		(int)this->capture_region.w,
+		(int)this->capture_region.h);
 	
 	{
 		std::lock_guard<std::mutex>	lock(this->mutex);
@@ -105,50 +160,14 @@ void ARVirtualScreen::Update()
 
 void ARVirtualScreen::Draw()
 {
-	// キャプチャ領域指定.
-	//double x = s3d::Scene::Size().x - 300;
-	//double y = 0;
-	//double h = 30;
-	//double value;
-	//
-	//SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_rect.x), value, 0, 600, Vec2(x, y), 100, 200);
-	//SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_rect.y), value, 0, 600, Vec2(x, y += h), 100, 200);
-	//SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_rect.w), value, 0, 600, Vec2(x, y += h), 100, 200);
-	//SimpleGUI::Slider(U"R {:.2f}"_fmt(this->capture_rect.h), value, 0, 600, Vec2(x, y += h), 100, 200);
-
-
-
-
-
-	////////キャプチャ系
+	
+	//this->capture_size_updated = false;
+	
+	if (! this->capture_region_guide_counter.IsCount())
 	{
-		{
-			std::lock_guard<std::mutex>	lock(this->mutex);
-			if (this->imageindex_standby >= 0)
-			{
-				this->imageindex_drawing = this->imageindex_standby;
-				this->imageindex_standby = -1;
-			}
-		}
-		if (this->imageindex_drawing >= 0)
-		{
-			if (texture.fill(capture_image[this->imageindex_drawing]))
-			{
-				texture.scaled(this->scale).
-					rotatedAt(s3d::Window::ClientCenter(), radian).
-					drawAt(s3d::Window::ClientCenter());
-
-
-			} else {
-
-			}
-		}
+		this->drawTexture();
 	}
-	//texture.resize(s3d::Window::Width(), s3d::Window::Height()).rotate(radian).draw();
-	//texture.draw();
 
-	// test.
-	//radian += 0.01;
 	
 	// カーソル系.
 	{
@@ -169,4 +188,91 @@ void ARVirtualScreen::Draw()
 		//font(U"AccelSensor_X:", rx).draw(0.0, 0.0, Palette::Blue);
 
 	}
+
+
+	{
+		// キャプチャテクスチャの管理.
+		
+		if (this->capture_size_updated)
+		{
+			this->capture_size_updated = false;
+			this->texture_reflesh_counter.Reset();
+		} else {
+			
+			if (this->texture_reflesh_counter.Count() &&
+				this->p_texture->size() != this->GetDrawImage().size())
+			{
+				this->p_texture = std::make_unique<s3d::DynamicTexture>();
+				
+			}
+		}
+
+		
+	}
+}
+
+void ARVirtualScreen::SetCaptureRegion(int arg_x, int arg_y, int arg_width, int arg_height)
+{
+	this->capture_region.x = arg_x;
+	this->capture_region.y = arg_y;
+	this->capture_region.w = arg_width;
+	this->capture_region.h = arg_height;
+	this->CaptureRegionUpdate();
+	this->CaptureSizeUpdate();
+}
+
+void ARVirtualScreen::SetCaptureRegionPosition(int arg_x, int arg_y)
+{
+	this->capture_region.x = arg_x;
+	this->capture_region.y = arg_y;
+	this->CaptureRegionUpdate();
+}
+
+void ARVirtualScreen::SetCaptureRegionSize(int arg_width, int arg_height)
+{
+	this->capture_region.w = arg_width;
+	this->capture_region.h = arg_height;
+	this->CaptureRegionUpdate();
+	this->CaptureSizeUpdate();
+}
+
+void ARVirtualScreen::drawTexture()
+{
+	
+	{
+		std::lock_guard<std::mutex>	lock(this->mutex);
+		if (this->imageindex_standby >= 0)
+		{
+			this->imageindex_drawing = this->imageindex_standby;
+			this->imageindex_standby = -1;
+		}
+	}
+	if (this->imageindex_drawing >= 0)
+	{
+
+		if (p_texture->fill(this->GetDrawImage()))
+		{
+			if (this->texture_auto_resize)
+			{
+				p_texture->resized(s3d::Window::ClientWidth(), s3d::Window::ClientHeight()).
+					draw(0,0);
+			} else {
+				p_texture->scaled(this->scale).
+					rotatedAt(s3d::Window::ClientCenter(), radian).
+					drawAt(s3d::Window::ClientCenter());
+			}
+
+		}
+		else {
+			// テクスチャはリサイズできない.
+			// 現状のサイズと違うImageでFillしようとするとfalseが返る.
+			// 一定期間でテクスチャ再作成することで解決.
+		}
+	}
+	
+	// test.
+	//radian += 0.01;
+
+}
+
 }

@@ -111,9 +111,15 @@
     <ClCompile Include="ARDisplay.cpp" />
     <ClCompile Include="ARVirtualScreen.cpp" />
     <ClCompile Include="CustomCursor.cpp" />
+    <ClCompile Include="DisplayRegion.cpp" />
+    <ClCompile Include="DisplayRegionGuideWindow.cpp" />
+    <ClCompile Include="GuiMenu.cpp" />
+    <ClCompile Include="KeyCommand.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SensorApiManager.cpp" />
-    <ClCompile Include="Utilty.cpp" />
+    <ClCompile Include="DisplayRegionGuideView.cpp" />
+    <ClCompile Include="Utility.cpp" />
+    <ClCompile Include="ValueEditor.cpp" />
     <ClCompile Include="WinScreenCapture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -242,8 +248,15 @@
     <ClInclude Include="ARDisplay.hpp" />
     <ClInclude Include="ARVirtualScreen.hpp" />
     <ClInclude Include="CustomCursor.hpp" />
+    <ClInclude Include="DisplayRegion.hpp" />
+    <ClInclude Include="DisplayRegionGuideView.hpp" />
+    <ClInclude Include="DisplayRegionGuideWindow.hpp" />
+    <ClInclude Include="GuiMenu.hpp" />
+    <ClInclude Include="KeyCommand.hpp" />
     <ClInclude Include="SensorApiManager.hpp" />
-    <ClInclude Include="Utilty.hpp" />
+    <ClInclude Include="SimpleCounter.hpp" />
+    <ClInclude Include="Utility.hpp" />
+    <ClInclude Include="ValueEditor.hpp" />
     <ClInclude Include="WinScreenCapture.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

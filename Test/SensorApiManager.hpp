@@ -5,6 +5,7 @@
 //#include <sensors.h>
 //#pragma comment(lib, "Sensorsapi.lib")
 
+namespace ARWorkspace {
 
 class SensorApiManager
 {
@@ -23,3 +24,4 @@ private:
 
 };
 
+}

@@ -114,7 +114,25 @@
     <ClCompile Include="ARVirtualScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Utilty.cpp">
+    <ClCompile Include="DisplayRegion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayRegionGuideWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayRegionGuideView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ValueEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -388,9 +406,6 @@
     <ClInclude Include="SensorApiManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utilty.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="WinScreenCapture.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -401,6 +416,30 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ARVirtualScreen.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayRegion.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleCounter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayRegionGuideView.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayRegionGuideWindow.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiMenu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ValueEditor.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyCommand.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

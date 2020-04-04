@@ -5,14 +5,16 @@
 #include <mutex>
 #include <thread>
 
-
+#include "SimpleCounter.hpp"
+#include "DisplayRegion.hpp"
+#include "DisplayRegionGuideView.hpp"
 #include "WinScreenCapture.hpp"
 #include "CustomCursor.hpp"
 #include "SensorApiManager.hpp"
 
 
 
-
+namespace ARWorkspace {
 
 class ARVirtualScreen
 {
@@ -27,10 +29,10 @@ public:
 
 	~ARVirtualScreen();
 
-	void initialize();
+	void Initialize();
 
-	// ユーザー設定のロード.
-	bool LoadUserSetting();
+	bool ReadConfigFile();
+	bool WriteConfigFile();
 
 	// センサ系.
 	// COM系必須っぽい.
@@ -44,35 +46,74 @@ public:
 
 
 
+private:
 
-	// 投射領域の計算.
-	// 描画先のウィンドウサイズを渡す.
 	bool GetCaptureRect();
+	void Capture();
 
-	// スクリーンキャプチャ.
 
-	// 更新処理と描画を分ける　マルチスレッドにするたぶん.
-	void Update();
-
+public:
 	// 描画.
 	void Draw();
 
 	// カスタムカーソル.
 	// OSカーソルと同期するように、座標系を適切に処理.
+	// ↑いらない？.
 
-	// ScreenCapture関数を管轄？
-
-
-
-
+	const DisplayRegion& GetCaptureRegion() const
+	{
+		return this->capture_region;
+	}
+	void CaptureRegionUpdate()
+	{
+		this->capture_region_updated = true;
+	}
+	void CaptureSizeUpdate()
+	{
+		this->capture_size_updated = true;
+	}
+	void SetCaptureRegion(int arg_x, int arg_y, int arg_width, int arg_height);
+	void SetCaptureRegionPosition(int arg_x, int arg_y);
+	void SetCaptureRegionSize(int arg_width, int arg_height);
+	void SetAutoResizeMode(bool arg_bool)
+	{
+		this->texture_auto_resize = arg_bool;
+	}
 
 private:
 
+	void drawTexture();
+
+	inline const s3d::Image& GetDrawImage() const
+	{
+		return this->capture_image[this->imageindex_drawing];
+	};
+
+private:
+
+	CustomCursor		custom_cursor;
+	WinScreenCapture	screen_capture;
+	SensorApiManager	sensor_manager;
+
+	// キャプチャ系.
+	std::thread			capture_thread;
+	bool				capture_thread_run = false;
+	std::thread			capture_region_guide_thread;
+	bool				capture_region_guide_thread_run = false;
+	bool				capture_region_guide_drawing = false;
+
+	s3d::Point	capture_point = s3d::Point(0, 0);
+	// 実際にスクリーンから取得するべき領域.
+	// 現状は回転系を含まない.
+	DisplayRegion	capture_region;
+	DisplayRegionGuideView	capture_region_guide = DisplayRegionGuideView(capture_region, 20);
+	
+	// 描画系.
 	std::mutex			mutex;
 	int					imageindex_reading = 0;
 	int					imageindex_standby = 1;
 	int					imageindex_drawing = 2;
-	//int					imageindex_drawed = -1;
+	
 	enum class ImageState
 	{
 		not_initialized = -1,
@@ -87,35 +128,26 @@ private:
 		ImageState::not_initialized ,
 		ImageState::not_initialized 
 	};
-
-
-	std::thread			capture_thread;
-	bool				capture_thread_run = false;
-
-
-	CustomCursor		custom_cursor;
-	WinScreenCapture	screen_capture;
-	SensorApiManager	sensor_manager;
-
-
-	double	scale = 3.0;
-	s3d::Point	capture_point = s3d::Point(0, 0);
-	// 実際にスクリーンから取得するべき領域.
-	// 現状は回転系を含まない.
-	s3d::Rect	capture_rect;
+	std::unique_ptr<s3d::DynamicTexture>	p_texture;
 	
-
-
-
-	s3d::DynamicTexture	texture;
-
-	double	radian = 0.0;
 	s3d::Image	capture_image[3] = 
 	{
 		s3d::Image(),
 		s3d::Image(),
 		s3d::Image()
 	};
+
+	bool capture_region_updated = false;
+	bool capture_size_updated = false;
+	SimpleCounter	capture_region_guide_counter = SimpleCounter(10);
+	SimpleCounter	texture_reflesh_counter = SimpleCounter(3);
 	
+	// テクスチャ拡縮関連.
+	// アクセサ経由に変更する
+public:
+	double	scale = 3.0;
+	double	radian = 0.0;
+	bool texture_auto_resize = false;
 };
 
+}

@@ -3,29 +3,27 @@
 
 
 #include "ARVirtualScreen.hpp"
-
-#include "Utilty.hpp"
-
-//#include "WinScreenCapture.hpp"
-//#include "CustomCursor.hpp"
-//#include "SensorApiManager.hpp"
-
-
+#include "GuiMenu.hpp"
+#include "KeyCommand.hpp"
 
 void Main()
 {
 	Window::SetStyle(WindowStyle::Sizable);
 	WindowResizeOption::ResizeSceneSize;
-	Scene::SetTextureFilter(TextureFilter::Nearest);
+	Scene::SetTextureFilter(TextureFilter::Linear);
 	
-	ARVirtualScreen	ar_screen;
-	ar_screen.LoadUserSetting();
+	ARWorkspace::ARVirtualScreen	ar_screen;
+	ar_screen.ReadConfigFile();
+
+	ARWorkspace::GuiMenu		gui_capture_menu(ar_screen);
+	ARWorkspace::KeyCommand		key_command(ar_screen);
 
 	// 大きさ 60 のフォントを用意
 	const Font font(60);
 	double value;
 
-	ar_screen.initialize();
+	ar_screen.Initialize();
+	ar_screen.SetAutoResizeMode(true);
 	
 	while (System::Update())
 	{
@@ -33,25 +31,20 @@ void Main()
 
 			//test.
 			auto size = s3d::Window::ClientSize();
-			//s3d::Scene::Resize(size);
+			s3d::Scene::Resize(size);
 
 		}
 
-		//ar_screen.Update();
+		key_command.Update();
 		ar_screen.Draw();
+		gui_capture_menu.Draw();
 
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
 		
-		//double x = s3d::Scene::Size().x - 300;
-		//double y = 0;
-		//double h = 30;
-		//
-		//SimpleGUI::Slider(U"R {:.2f}"_fmt(value), value, 0, 600, Vec2(x, y     ), 100, 200);
-		//SimpleGUI::Slider(U"R {:.2f}"_fmt(value), value, 0, 600, Vec2(x, y += h), 100, 200);
-		//SimpleGUI::Slider(U"R {:.2f}"_fmt(value), value, 0, 600, Vec2(x, y += h), 100, 200);
-		//SimpleGUI::Slider(U"R {:.2f}"_fmt(value), value, 0, 600, Vec2(x, y += h), 100, 200);
 	
 	}
+
+	ar_screen.WriteConfigFile();
 }
 
 
