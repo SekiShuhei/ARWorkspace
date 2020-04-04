@@ -6,7 +6,7 @@
 
 
 WinScreenCapture::WinScreenCapture() :
-	bmpInfo(), desktop()
+	bmpInfo()
 {
 	this->capture_rect = RECT{100,100,400,400}; //kari
 }
@@ -76,8 +76,6 @@ bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int w
 	this->capture_rect.right = x + width;
 	this->capture_rect.bottom = y + height;
 
-	this->desktop = GetDesktopWindow();
-
 	this->bmpInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 	this->bmpInfo.bmiHeader.biWidth = width;
 	this->bmpInfo.bmiHeader.biHeight = height;
@@ -123,15 +121,10 @@ bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int w
 	bool result = false;
 
 	//スクリーンをDIBSectionにコピー
-	//this->hdc = ::GetDC(this->desktop);
 	this->hdc = ::GetDC(NULL);
 	::BitBlt(this->hMemDC, 0, 0, this->bmpInfo.bmiHeader.biWidth, this->bmpInfo.bmiHeader.biHeight, 
 		this->hdc, this->capture_rect.left, this->capture_rect.top, SRCCOPY);
-	if (this->hdc != NULL)
-	{
-		::ReleaseDC(this->desktop, this->hdc);
-	}
-
+	
 	this->LoadImageFromDIB(read_image);
 
 }

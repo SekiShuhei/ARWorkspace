@@ -24,7 +24,6 @@ private:
 
 	
 	RECT			capture_rect = RECT();
-	HWND			desktop = HWND();
 	
 	HDC				hdc = HDC(); // ‚±‚ê‚Í‚½‚Ô‚ñˆê•Ï”‚Å‚æ‚¢.
 	HDC				hMemDC = HDC();
