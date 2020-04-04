@@ -8,7 +8,7 @@ DropDownMenu::DropDownMenu(DropDownMenuDrawEvent arg_draw_event) :
 {
 
 }
-bool DropDownMenu::Draw()
+bool DropDownMenu::Draw(s3d::Vec2 arg_position)
 {
 	if (! this->is_open)
 	{
