@@ -71,17 +71,15 @@ DWORD WinScreenCapture::GetBitmapImageSize(const BITMAPINFO& bitmap_info) const
 bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int width, int height)
 {
 	
-
-	// キャプチャ領域.
-	this->capture_rect.left = x;
-	this->capture_rect.top = y;
+	// 仮想スクリーン座標を合算する？？.
+	// マルチディスプレイ環境で座標が負数になる？大丈夫か？.
+	this->capture_rect.left = x + ::GetSystemMetrics(SM_XVIRTUALSCREEN);
+	this->capture_rect.top = y + ::GetSystemMetrics(SM_YVIRTUALSCREEN);
 	this->capture_rect.right = x + width;
 	this->capture_rect.bottom = y + height;
 
-	//スクリーンの情報を得る
 	this->desktop = GetDesktopWindow();
 
-	//DIBの情報を設定する
 	this->bmpInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 	this->bmpInfo.bmiHeader.biWidth = width;
 	this->bmpInfo.bmiHeader.biHeight = height;
@@ -90,15 +88,16 @@ bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int w
 	this->bmpInfo.bmiHeader.biCompression = BI_RGB;
 	this->bmpInfo.bmiHeader.biSizeImage = this->GetBitmapImageSize(this->bmpInfo);
 
-	//DIBSection作成
 	this->hdc = GetDC(NULL);
 	
+	// hPrevMemDCいらないのでは？？.
 	HDC hPrevMemDC = this->hMemDC;
 	HBITMAP hPrevBitmap = this->hBitmap;
 	this->hBitmap = ::CreateDIBSection(this->hdc, &this->bmpInfo, DIB_RGB_COLORS, (void**)&this->lpPixel, NULL, 0);
 	bool error = true;
 	if (this->hBitmap != NULL)
 	{	
+		// 毎回作りなおすのはたぶんむだ.
 		this->hMemDC = ::CreateCompatibleDC(this->hdc);
 		if (this->hMemDC != NULL)
 		{
@@ -122,8 +121,6 @@ bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int w
 	{
 		return false;
 	}
-
-	// ここの手順は見直す余地がかなりあるっぽい.
 
 	bool result = false;
 
