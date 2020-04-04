@@ -7,6 +7,7 @@
 #pragma comment(lib, "gdi32.lib")
 #include <Windows.h>
 
+namespace ARWorkspace {
 class WinScreenCapture
 {
 public:
@@ -31,3 +32,5 @@ private:
 
 
 };
+
+}

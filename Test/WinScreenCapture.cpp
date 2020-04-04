@@ -1,17 +1,13 @@
 
 #include <math.h>
-
 #include "WinScreenCapture.hpp"
 
-
-
+namespace ARWorkspace {
 WinScreenCapture::WinScreenCapture() :
 	bmpInfo()
 {
 	
-
 }
-
 
 WinScreenCapture::~WinScreenCapture()
 {
@@ -244,133 +240,4 @@ bool WinScreenCapture::LoadImageFromDIB(s3d::Image& read_image)
 	return true;
 }
 
-//bool WinScreenCapture::LoadImageFromClipboard()
-//{
-//	// éQçlóp.
-//	const HANDLE hDIB = ::GetClipboardData(CF_DIB);
-//
-//	if (!hDIB)
-//	{
-//		return false;
-//	}
-//	const size_t memorySize = ::GlobalSize(hDIB);
-//	if (const void* memory = reinterpret_cast<uint8*>(::GlobalLock(hDIB)))
-//	{
-//		const BITMAPINFO* header = static_cast<const BITMAPINFO*>(memory);
-//		
-//		const int32 depth = header->bmiHeader.biBitCount;
-//
-//		size_t colorTableSize = 0;
-//
-//		if (depth == 8)
-//		{
-//			colorTableSize = header->bmiHeader.biClrUsed ? header->bmiHeader.biClrUsed
-//				: (1 << header->bmiHeader.biBitCount);
-//		}
-//		else if (depth == 32 && header->bmiHeader.biCompression == BI_BITFIELDS)
-//		{
-//			colorTableSize = 3;
-//		}
-//
-//		const size_t offsetSize = header->bmiHeader.biSize + colorTableSize * sizeof(RGBQUAD);
-//		const void* bitmapData = static_cast<const Byte*>(memory) + offsetSize;
-//
-//		const bool reversed = header->bmiHeader.biHeight > 0;
-//
-//		const int32 width = header->bmiHeader.biWidth;
-//		const int32 height = reversed ? header->bmiHeader.biHeight : -header->bmiHeader.biHeight;
-//		const bool hasAlpha = (depth == 32)
-//			&& !this->HasInvalidPremultipliedColors(static_cast<const Color*>(bitmapData), width* height);
-//		//image.resize(width, height);
-//		read_image.resize(width, height);
-//
-//		ReaderView reader(bitmapData, memorySize - offsetSize);
-//
-//		switch (depth)
-//		{
-//		case 8:
-//		{
-//			uint8 palette[1024];
-//			reader.read(palette);
-//
-//			const uint32 rowSize = width + (width % 4 ? 4 - width % 4 : 0);
-//			const int32 lineStep = reversed ? -width : width;
-//			Color* pDstLine = read_image[reversed ? height - 1 : 0];
-//
-//			if (uint8* const buffer = static_cast<uint8*>(std::malloc(rowSize)))
-//			{
-//				for (int32 y = 0; y < height; ++y)
-//				{
-//					if (y == height - 1)
-//					{
-//						reader.read(buffer, width);
-//					}
-//					else
-//					{
-//						reader.read(buffer, rowSize);
-//					}
-//
-//					const uint8* pSrc = buffer;
-//					const Color* const pDstEnd = pDstLine + width;
-//
-//					for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
-//					{
-//						const uint8* src = palette + (static_cast<size_t>(*pSrc++) << 2);
-//
-//						pDst->set(src[2], src[1], src[0]);
-//					}
-//
-//					pDstLine += lineStep;
-//				}
-//
-//				std::free(buffer);
-//			}
-//
-//			break;
-//		}
-//		case 24:
-//		case 32:
-//		{
-//			const size_t rowSize = (depth == 24) ? (width * 3 + width % 4) : (width * 4);
-//			const int32 depthBytes = depth / 8;
-//			const int32 lineStep = reversed ? -width : width;
-//			Color* pDstLine = read_image[reversed ? height - 1 : 0];
-//
-//			if (uint8* const buffer = static_cast<uint8*>(std::malloc(rowSize)))
-//			{
-//				for (int32 y = 0; y < height; ++y)
-//				{
-//					if (y == height - 1)
-//					{
-//						reader.read(buffer, depthBytes * width);
-//					}
-//					else
-//					{
-//						reader.read(buffer, rowSize);
-//					}
-//					const Color* const pDstEnd = pDstLine + width;
-//					const uint8* pSrc = buffer;
-//
-//					for (Color* pDst = pDstLine; pDst != pDstEnd; ++pDst)
-//					{
-//						pDst->set(pSrc[2], pSrc[1], pSrc[0], hasAlpha ? pSrc[3] : 255);
-//
-//						pSrc += depthBytes;
-//					}
-//
-//					pDstLine += lineStep;
-//				}
-//
-//				std::free(buffer);
-//			}
-//
-//			break;
-//		}
-//		}
-//
-//	}
-//	::GlobalUnlock(hDIB);
-//
-//	return true;
-//}
-
+}
