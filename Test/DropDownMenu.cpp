@@ -8,30 +8,39 @@ DropDownMenu::DropDownMenu(DropDownMenuDrawEvent arg_draw_event) :
 {
 
 }
-bool DropDownMenu::Draw(s3d::Vec2 arg_position, int arg_width)
+int DropDownMenu::Draw(s3d::Vec2 arg_position, int arg_width)
 {
 	this->position = arg_position;
 	this->width = arg_width;
+	int y = this->position.y;
+	int h = 20;
+
 	if (! this->is_open)
 	{
-		if (s3d::SimpleGUI::Button(U"▼" + this->top_label, this->position, this->width))
+		if (s3d::SimpleGUI::Button(U"▼" + this->top_label, 
+			s3d::Vec2(this->position.x, y), this->width))
 		{
 			this->is_open = true;
 		}
-		return true;
+	} else {
+		if (s3d::SimpleGUI::Button(U"▲" + this->top_label, 
+			s3d::Vec2(this->position.x, y), this->width))
+		{
+			this->is_open = false;
+		}
+		y += h;
+
+		h = this->draw_event(y);
+
+		if (s3d::SimpleGUI::Button(U"close", 
+			s3d::Vec2(this->position.x, y), this->width))
+		{
+			this->is_open = false;
+		}
 	}
-	// 一番上にも閉じるボタン配置.
-	if (s3d::SimpleGUI::Button(U"▲" + this->top_label, this->position, this->width))
-	{
-		this->is_open = false;
-	}
-	// 改行すみ高さ値を渡す必要がある.
-
-	bool result = this->draw_event();
-
-	// 閉じるボタン表示.
-
-	return result;
+	// 高さを返す.
+	y += h;
+	return y;
 }
 
 

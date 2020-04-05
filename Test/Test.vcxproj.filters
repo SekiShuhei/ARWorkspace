@@ -135,6 +135,9 @@
     <ClCompile Include="KeyCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DropDownMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -440,6 +443,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="KeyCommand.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DropDownMenu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
