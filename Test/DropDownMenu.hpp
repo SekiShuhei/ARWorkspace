@@ -5,12 +5,12 @@
 namespace ARWorkspace {
 namespace CustomGUI {
 
-using DropDownMenuDrawEvent = std::function<int(int)>;
+using DropDownMenuDrawEvent = std::function<int(int arg_y)>;
 class DropDownMenu
 {
 public:
-	//DropDownMenu() = 0;
-	DropDownMenu(DropDownMenuDrawEvent arg_draw_event);
+	DropDownMenu();
+	//DropDownMenu(DropDownMenuDrawEvent arg_draw_event);
 public:
 	int Draw(s3d::Vec2 arg_position, int arg_width);
 
@@ -26,6 +26,10 @@ public:
 	{
 		this->width = arg_width;
 	}
+	void SetDrawEvent(DropDownMenuDrawEvent arg_draw_event)
+	{
+		this->draw_event = arg_draw_event;
+	}
 
 private:
 	bool					is_open = false;
@@ -33,7 +37,7 @@ private:
 	s3d::String				top_label = U"";
 	s3d::Vec2				position = Vec2(0,0);
 	int						width = 100;
-	DropDownMenuDrawEvent	draw_event = [](int){return 0;};
+	DropDownMenuDrawEvent	draw_event = [](int arg_y){return arg_y;};
 };
 
 }

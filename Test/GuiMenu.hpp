@@ -4,6 +4,7 @@
 
 #include "ARVirtualScreen.hpp"
 #include "ValueEditor.hpp"
+#include "DropDownMenu.hpp"
 
 namespace ARWorkspace {
 enum class GuiMenuAlignment
@@ -29,6 +30,8 @@ private:
 	GuiMenuAlignment	alignment = GuiMenuAlignment::RightTop;
 	bool pull_down_flag = false;
 	int text_size = 20;
+
+	CustomGUI::DropDownMenu  menu_capture_setting;
 
 	CustomGUI::ValueEditor	control_capture_region_x;
 	CustomGUI::ValueEditor	control_capture_region_y;
