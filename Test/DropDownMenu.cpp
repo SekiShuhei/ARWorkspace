@@ -29,7 +29,7 @@ int DropDownMenu::Draw(s3d::Vec2 arg_position, int arg_width)
 		}
 		y += h;
 		y = this->draw_event(y);
-		if (s3d::SimpleGUI::Button(U"close", 
+		if (s3d::SimpleGUI::Button(U"£close", 
 			s3d::Vec2(this->position.x, y), this->width))
 		{
 			this->is_open = false;

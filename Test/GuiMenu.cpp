@@ -29,10 +29,52 @@ model(arg_model)
 	this->control_capture_scale.SetWidth(label_width, slider_width, textbox_width);
 
 	this->menu_capture_setting.SetLabel(U"CaptureSetting");
-	this->menu_capture_setting.SetDrawEvent([](int arg_y)
+	this->menu_capture_setting.SetDrawEvent([this](int arg_y)
 		{
+			// kari.
+			double w = this->control_capture_region_x.GetTotalWidth();
+			double h = 30;
+			double x = s3d::Scene::Size().x - w;
+			double y = arg_y;
+			if (this->control_capture_region_x.Draw(Vec2(x, y), this->model.GetCaptureRegion().x))
+			{
+				this->model.SetCaptureRegionPosition(
+					this->control_capture_region_x.GetValue(),
+					this->model.GetCaptureRegion().y);
+			}
+			y += h;
 
-			return arg_y;
+			if (this->control_capture_region_y.Draw(Vec2(x, y), this->model.GetCaptureRegion().y))
+			{
+				this->model.SetCaptureRegionPosition(
+					this->model.GetCaptureRegion().x,
+					this->control_capture_region_y.GetValue());
+			}
+			y += h;
+
+			if (this->control_capture_region_width.Draw(Vec2(x, y), this->model.GetCaptureRegion().w))
+			{
+				this->model.SetCaptureRegionSize(
+					this->control_capture_region_width.GetValue(),
+					this->model.GetCaptureRegion().h);
+			}
+			y += h;
+
+			if (this->control_capture_region_height.Draw(Vec2(x, y), this->model.GetCaptureRegion().h))
+			{
+				this->model.SetCaptureRegionSize(
+					this->model.GetCaptureRegion().w,
+					this->control_capture_region_height.GetValue());
+			}
+			y += h;
+
+			if (this->control_capture_scale.Draw(Vec2(x, y), this->model.scale, !this->model.texture_auto_resize))
+			{
+				this->model.scale = this->control_capture_scale.GetValue();
+
+			}
+			y += h;
+			return y;
 		});
 }
 
