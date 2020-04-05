@@ -30,7 +30,10 @@ private:
 	GuiMenuAlignment	alignment = GuiMenuAlignment::RightTop;
 	bool pull_down_flag = false;
 	int text_size = 20;
-
+	s3d::Vec2		position;
+	int				item_width;
+	int				item_height;
+	
 	CustomGUI::DropDownMenu  menu_capture_setting;
 
 	CustomGUI::ValueEditor	control_capture_region_x;

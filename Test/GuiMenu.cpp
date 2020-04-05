@@ -31,10 +31,10 @@ model(arg_model)
 	this->menu_capture_setting.SetLabel(U"CaptureSetting");
 	this->menu_capture_setting.SetDrawEvent([this](int arg_y)
 		{
-			// kari.
-			double w = this->control_capture_region_x.GetTotalWidth();
-			double h = 30;
-			double x = s3d::Scene::Size().x - w;
+			// Žü‚è‚ÉŽlŠpŒ`‘‚­H.
+			double w = this->item_width;
+			double h = this->item_height;
+			double x = this->position.x;
 			double y = arg_y;
 			if (this->control_capture_region_x.Draw(Vec2(x, y), this->model.GetCaptureRegion().x))
 			{
@@ -76,19 +76,18 @@ model(arg_model)
 			y += h;
 			return y;
 		});
+
+	this->item_width = this->control_capture_region_x.GetTotalWidth();
+	this->item_height = 35;
+	this->position = s3d::Vec2(s3d::Scene::Size().x - this->item_width, 0);
 }
 
 void GuiMenu::Draw()
 {
-	int text_width = 150;
-	int slider_width = 200;
-
-	double w = this->control_capture_region_x.GetTotalWidth();
-	double h = 30;
-	double x = s3d::Scene::Size().x - w;
+	
 	double y = 0;
 
-	y += this->menu_capture_setting.Draw(Vec2(x, y), w);
+	y += this->menu_capture_setting.Draw(this->position, this->item_width);
 
 	// add...
 
