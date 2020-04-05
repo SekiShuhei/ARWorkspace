@@ -88,67 +88,9 @@ void GuiMenu::Draw()
 	double x = s3d::Scene::Size().x - w;
 	double y = 0;
 
-	/// test
-
 	y += this->menu_capture_setting.Draw(Vec2(x, y), w);
 
-	/// test/
-	
-	if (! this->pull_down_flag)
-	{
-		if (s3d::SimpleGUI::Button(U"¥CaptureSetting", Vec2(x,y), w))
-		{
-			this->pull_down_flag = true;
-		}
-		return;
-	}
-	
-	{
-		
-		if (this->control_capture_region_x.Draw(Vec2(x, y), this->model.GetCaptureRegion().x))
-		{
-			this->model.SetCaptureRegionPosition(
-				this->control_capture_region_x.GetValue(),
-				this->model.GetCaptureRegion().y);
-		}
-		y += h;
-
-		if (this->control_capture_region_y.Draw(Vec2(x, y), this->model.GetCaptureRegion().y))
-		{
-			this->model.SetCaptureRegionPosition(
-				this->model.GetCaptureRegion().x,
-				this->control_capture_region_y.GetValue());
-		}
-		y += h;
-
-		if (this->control_capture_region_width.Draw(Vec2(x, y), this->model.GetCaptureRegion().w))
-		{
-			this->model.SetCaptureRegionSize(
-				this->control_capture_region_width.GetValue(),
-				this->model.GetCaptureRegion().h);
-		}
-		y += h;
-
-		if (this->control_capture_region_height.Draw(Vec2(x, y), this->model.GetCaptureRegion().h))
-		{
-			this->model.SetCaptureRegionSize(
-				this->model.GetCaptureRegion().w,
-				this->control_capture_region_height.GetValue());
-		}
-		y += h;
-
-		if (this->control_capture_scale.Draw(Vec2(x, y), this->model.scale, !this->model.texture_auto_resize))
-		{
-			this->model.scale = this->control_capture_scale.GetValue();
-
-		}
-		y += h;
-	}
-
-	if (s3d::SimpleGUI::Button(U"£Close", Vec2(x, y), w))
-	{
-		this->pull_down_flag = false;
-	}
+	// add...
 
 }
 
