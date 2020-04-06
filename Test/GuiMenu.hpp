@@ -2,9 +2,10 @@
 
 #include <Siv3D.hpp>
 
-#include "ARVirtualScreen.hpp"
 #include "ValueEditor.hpp"
 #include "DropDownMenu.hpp"
+
+class ARVirtualScreen;
 
 namespace ARWorkspace {
 enum class GuiMenuAlignment
@@ -19,17 +20,16 @@ enum class GuiMenuAlignment
 class GuiMenu
 {
 public:
-	GuiMenu() = default;
-	GuiMenu(ARVirtualScreen&);
+	GuiMenu() = delete;
+	GuiMenu(std::shared_ptr<ARVirtualScreen>);
 	void Draw();
 
 private:
 
-	ARVirtualScreen&	model;
+	std::shared_ptr<ARVirtualScreen>	p_model;
 
 	GuiMenuAlignment	alignment = GuiMenuAlignment::RightTop;
 	bool pull_down_flag = false;
-	int text_size = 20;
 	s3d::Vec2		position;
 	int				item_width;
 	int				item_height;

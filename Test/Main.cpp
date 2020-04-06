@@ -8,22 +8,22 @@
 
 void Main()
 {
-	Window::SetStyle(WindowStyle::Sizable);
-	WindowResizeOption::ResizeSceneSize;
-	Scene::SetTextureFilter(TextureFilter::Linear);
+	s3d::Window::SetStyle(WindowStyle::Sizable);
+	s3d::WindowResizeOption::ResizeSceneSize;
+	s3d::Scene::SetTextureFilter(TextureFilter::Linear);
 	
-	ARWorkspace::ARVirtualScreen	ar_screen;
-	ar_screen.ReadConfigFile();
+	auto p_ar_screen = std::make_shared<ARWorkspace::ARVirtualScreen>();
+	p_ar_screen->ReadConfigFile();
 
-	ARWorkspace::GuiMenu		gui_capture_menu(ar_screen);
-	ARWorkspace::KeyCommand		key_command(ar_screen);
+	ARWorkspace::GuiMenu		gui_capture_menu(p_ar_screen);
+	ARWorkspace::KeyCommand		key_command(p_ar_screen);
 
 	// 大きさ 60 のフォントを用意
 	const Font font(60);
 	double value;
 
-	ar_screen.Initialize();
-	ar_screen.SetAutoResizeMode(true);
+	p_ar_screen->Initialize();
+	p_ar_screen->SetAutoResizeMode(true);
 	
 	while (System::Update())
 	{
@@ -36,7 +36,7 @@ void Main()
 		}
 
 		key_command.Update();
-		ar_screen.Draw();
+		p_ar_screen->Draw();
 		gui_capture_menu.Draw();
 
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
@@ -44,27 +44,5 @@ void Main()
 	
 	}
 
-	ar_screen.WriteConfigFile();
+	p_ar_screen->WriteConfigFile();
 }
-
-
-
-
-// OpenSiv3D リファレンス
-// https://siv3d.github.io/ja-jp/
-//
-// チュートリアル
-// https://siv3d.github.io/ja-jp/tutorial/basic/
-//
-// よくある間違い
-// https://siv3d.github.io/ja-jp/articles/mistakes/
-//
-// サポートについて
-// https://siv3d.github.io/ja-jp/support/support/
-//
-// Siv3D Slack (ユーザコミュニティ) への参加
-// https://siv3d.github.io/ja-jp/community/community/
-//
-// 新機能の提案やバグの報告
-// https://github.com/Siv3D/OpenSiv3D/issues
-//

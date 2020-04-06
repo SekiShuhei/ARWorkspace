@@ -1,11 +1,10 @@
-
-
+#include "ARVirtualScreen.hpp"
 #include "GuiMenu.hpp"
 
 namespace ARWorkspace {
 
-GuiMenu::GuiMenu(ARVirtualScreen& arg_model) :
-model(arg_model)
+GuiMenu::GuiMenu(std::shared_ptr<ARVirtualScreen> arg_p_model) :
+p_model(arg_p_model)
 {
 
 	int label_width = 80;
@@ -36,41 +35,41 @@ model(arg_model)
 			double h = this->item_height;
 			double x = this->position.x;
 			double y = arg_y;
-			if (this->control_capture_region_x.Draw(Vec2(x, y), this->model.GetCaptureRegion().x))
+			if (this->control_capture_region_x.Draw(Vec2(x, y), this->p_model->GetCaptureRegion().x))
 			{
-				this->model.SetCaptureRegionPosition(
+				this->p_model->SetCaptureRegionPosition(
 					this->control_capture_region_x.GetValue(),
-					this->model.GetCaptureRegion().y);
+					this->p_model->GetCaptureRegion().y);
 			}
 			y += h;
 
-			if (this->control_capture_region_y.Draw(Vec2(x, y), this->model.GetCaptureRegion().y))
+			if (this->control_capture_region_y.Draw(Vec2(x, y), this->p_model->GetCaptureRegion().y))
 			{
-				this->model.SetCaptureRegionPosition(
-					this->model.GetCaptureRegion().x,
+				this->p_model->SetCaptureRegionPosition(
+					this->p_model->GetCaptureRegion().x,
 					this->control_capture_region_y.GetValue());
 			}
 			y += h;
 
-			if (this->control_capture_region_width.Draw(Vec2(x, y), this->model.GetCaptureRegion().w))
+			if (this->control_capture_region_width.Draw(Vec2(x, y), this->p_model->GetCaptureRegion().w))
 			{
-				this->model.SetCaptureRegionSize(
+				this->p_model->SetCaptureRegionSize(
 					this->control_capture_region_width.GetValue(),
-					this->model.GetCaptureRegion().h);
+					this->p_model->GetCaptureRegion().h);
 			}
 			y += h;
 
-			if (this->control_capture_region_height.Draw(Vec2(x, y), this->model.GetCaptureRegion().h))
+			if (this->control_capture_region_height.Draw(Vec2(x, y), this->p_model->GetCaptureRegion().h))
 			{
-				this->model.SetCaptureRegionSize(
-					this->model.GetCaptureRegion().w,
+				this->p_model->SetCaptureRegionSize(
+					this->p_model->GetCaptureRegion().w,
 					this->control_capture_region_height.GetValue());
 			}
 			y += h;
 
-			if (this->control_capture_scale.Draw(Vec2(x, y), this->model.scale, !this->model.texture_auto_resize))
+			if (this->control_capture_scale.Draw(Vec2(x, y), this->p_model->scale, !this->p_model->texture_auto_resize))
 			{
-				this->model.scale = this->control_capture_scale.GetValue();
+				this->p_model->scale = this->control_capture_scale.GetValue();
 
 			}
 			y += h;

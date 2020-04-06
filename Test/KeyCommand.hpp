@@ -1,25 +1,23 @@
 #pragma once
 
 #include <optional>
-#include "ARVirtualScreen.hpp"
 
+class ARVirtualScreen;
 namespace ARWorkspace {
 
 class KeyCommand
 {
 public:
-	KeyCommand(ARVirtualScreen& arg_model);
+	KeyCommand() = delete;
+	KeyCommand(std::shared_ptr<ARVirtualScreen> arg_p_model);
 public:
 	void Update();
 private:
 	std::optional<std::tuple<int, int>> getPositionOffset() const;
 private:
 
-	ARVirtualScreen&	model; //ほんとうはshared_ptrにすべきか とりあえず
+	std::shared_ptr<ARVirtualScreen>	p_model;
 
-	// F1 + 十字キーでキャプチャ開始地点の移動.
-	// F2 + 十字キーでキャプチャ終了地点の移動.
-	// F3 + 十字キーでスケール変更？（検討）
 	// 操作ガイド表示の検討.
 };
 
