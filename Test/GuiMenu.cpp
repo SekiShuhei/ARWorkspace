@@ -76,6 +76,13 @@ p_model(arg_p_model)
 			return y;
 		});
 
+	this->menu_key_guide.SetLabel(U"KeyGuide");
+	this->menu_key_guide.SetDrawEvent([this](int arg_y)
+		{
+			return arg_y;
+		});
+
+
 	this->item_width = this->control_capture_region_x.GetTotalWidth();
 	this->item_height = 35;
 	this->position = s3d::Vec2(s3d::Scene::Size().x - this->item_width, 0);
@@ -86,8 +93,15 @@ void GuiMenu::Draw()
 	
 	double y = 0;
 
-	y += this->menu_capture_setting.Draw(this->position, this->item_width);
-
+	if (! this->menu_key_guide.IsOpen())
+	{
+		y += this->menu_capture_setting.Draw(s3d::Vec2(this->position.x, y), this->item_width);
+		y += 5;
+	}
+	if (! this->menu_capture_setting.IsOpen())
+	{
+		y += this->menu_key_guide.Draw(s3d::Vec2(this->position.x, y), this->item_width);
+	}
 	// add...
 
 }

@@ -10,10 +10,13 @@ class DropDownMenu
 {
 public:
 	DropDownMenu();
-	//DropDownMenu(DropDownMenuDrawEvent arg_draw_event);
 public:
 	int Draw(s3d::Vec2 arg_position, int arg_width);
 
+	bool IsOpen() const
+	{
+		return this->is_open;
+	}
 	void SetLabel(s3d::String arg_label)
 	{
 		this->top_label = arg_label;

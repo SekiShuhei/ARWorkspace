@@ -35,6 +35,7 @@ private:
 	int				item_height;
 	
 	CustomGUI::DropDownMenu  menu_capture_setting;
+	CustomGUI::DropDownMenu  menu_key_guide;
 
 	CustomGUI::ValueEditor	control_capture_region_x;
 	CustomGUI::ValueEditor	control_capture_region_y;
