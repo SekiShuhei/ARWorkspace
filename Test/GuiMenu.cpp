@@ -79,6 +79,11 @@ p_model(arg_p_model)
 	this->menu_key_guide.SetLabel(U"KeyGuide");
 	this->menu_key_guide.SetDrawEvent([this](int arg_y)
 		{
+			
+			s3d::SimpleGUI::Headline(U"Shift+¨:CapturePoint", Vec2(this->position.x, arg_y), this->item_width);
+			arg_y += this->item_height;
+			s3d::SimpleGUI::Headline(U"Alt+¨:CaptureSize", Vec2(this->position.x, arg_y), this->item_width);
+			arg_y += this->item_height;
 			return arg_y;
 		});
 
