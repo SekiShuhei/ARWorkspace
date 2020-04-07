@@ -95,7 +95,7 @@ p_model(arg_p_model)
 
 void GuiMenu::Draw()
 {
-	
+	this->position = s3d::Vec2(s3d::Scene::Size().x - this->item_width, 0);
 	double y = 0;
 
 	if (! this->menu_key_guide.IsOpen())
