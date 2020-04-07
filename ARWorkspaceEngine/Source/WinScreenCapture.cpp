@@ -101,6 +101,7 @@ bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int w
 		screen_dc, this->capture_rect.left, this->capture_rect.top, SRCCOPY);
 	
 	this->LoadImageFromDIB(read_image);
+	return true;
 }
 
 bool WinScreenCapture::HasInvalidPremultipliedColors(const Color* image, const size_t num_pixels)
