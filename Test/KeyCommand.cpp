@@ -1,9 +1,10 @@
 
 #include <Siv3D.hpp>
+#include "ARVirtualScreen.hpp"
 #include "KeyCommand.hpp"
 
-ARWorkspace::KeyCommand::KeyCommand(ARVirtualScreen& arg_model) :
-	model(arg_model)
+ARWorkspace::KeyCommand::KeyCommand(std::shared_ptr<ARVirtualScreen> arg_p_model) :
+	p_model(arg_p_model)
 {
 
 }
@@ -16,15 +17,17 @@ void ARWorkspace::KeyCommand::Update()
 	{
 		return;
 	}
-	if (! KeyShift.pressed())
+	if (KeyShift.pressed())
 	{
-		this->model.SetCaptureRegionPosition(
-			this->model.GetCaptureRegion().x + std::get<0>(offset.value()),
-			this->model.GetCaptureRegion().y + std::get<1>(offset.value()));
-	} else {
-		this->model.SetCaptureRegionSize(
-			this->model.GetCaptureRegion().w + std::get<0>(offset.value()),
-			this->model.GetCaptureRegion().h + std::get<1>(offset.value()));
+		this->p_model->SetCaptureRegionPosition(
+			this->p_model->GetCaptureRegion().x + std::get<0>(offset.value()),
+			this->p_model->GetCaptureRegion().y + std::get<1>(offset.value()));
+	}
+	if (KeyAlt.pressed())
+	{
+		this->p_model->SetCaptureRegionSize(
+				this->p_model->GetCaptureRegion().w + std::get<0>(offset.value()),
+				this->p_model->GetCaptureRegion().h + std::get<1>(offset.value()));
 	}
 }
 

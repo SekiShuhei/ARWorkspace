@@ -113,6 +113,7 @@
     <ClCompile Include="CustomCursor.cpp" />
     <ClCompile Include="DisplayRegion.cpp" />
     <ClCompile Include="DisplayRegionGuideWindow.cpp" />
+    <ClCompile Include="DropDownMenu.cpp" />
     <ClCompile Include="GuiMenu.cpp" />
     <ClCompile Include="KeyCommand.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="DisplayRegion.hpp" />
     <ClInclude Include="DisplayRegionGuideView.hpp" />
     <ClInclude Include="DisplayRegionGuideWindow.hpp" />
+    <ClInclude Include="DropDownMenu.hpp" />
     <ClInclude Include="GuiMenu.hpp" />
     <ClInclude Include="KeyCommand.hpp" />
     <ClInclude Include="SensorApiManager.hpp" />
