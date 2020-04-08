@@ -1,7 +1,6 @@
 #include "DropDownMenu.hpp"
 
-namespace ARWorkspace {
-namespace CustomGUI {
+namespace S3DCustomGUI {
 
 DropDownMenu::DropDownMenu()
 {
@@ -40,6 +39,4 @@ int DropDownMenu::Draw(s3d::Vec2 arg_position, int arg_width)
 	return y;
 }
 
-
-}
 }

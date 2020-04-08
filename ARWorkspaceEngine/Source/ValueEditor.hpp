@@ -1,10 +1,8 @@
 #pragma once
 
-
 #include <Siv3D.hpp>
 
-namespace ARWorkspace {
-namespace CustomGUI {
+namespace S3DCustomGUI {
 
 using ValueEditorValueChangedEvent = std::function<void(double arg_new_value, double arg_last_value)>;
 class ValueEditor
@@ -66,5 +64,4 @@ private:
 	int								slider_width = 200;
 	int								textbox_width = 100;
 };
-}
 }

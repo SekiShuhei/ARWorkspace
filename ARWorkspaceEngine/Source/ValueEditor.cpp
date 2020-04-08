@@ -1,7 +1,6 @@
 #include "ValueEditor.hpp"
 
-namespace ARWorkspace {
-namespace CustomGUI {
+namespace S3DCustomGUI {
 
 ValueEditor::ValueEditor()
 {
@@ -79,7 +78,6 @@ bool ValueEditor::valueChange(double arg_new_value)
 	return true;
 }
 
-}
 }
 
 

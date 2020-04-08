@@ -2,8 +2,7 @@
 
 #include <Siv3D.hpp>
 
-namespace ARWorkspace {
-namespace CustomGUI {
+namespace S3DCustomGUI {
 
 using DropDownMenuDrawEvent = std::function<int(int arg_y)>;
 class DropDownMenu
@@ -43,6 +42,5 @@ private:
 	DropDownMenuDrawEvent	draw_event = [](int arg_y){return arg_y;};
 };
 
-}
 }
 
