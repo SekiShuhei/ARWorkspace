@@ -1,20 +1,4 @@
-﻿  pch.cpp
-  ARDisplay.cpp
-  ARVirtualScreen.cpp
-  CustomCursor.cpp
-  DisplayRegion.cpp
-  DisplayRegionGuideView.cpp
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DisplayRegionGuideView.cpp(43,34): warning C4244: '=': 'double' から 'LONG' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DisplayRegionGuideView.cpp(44,33): warning C4244: '=': 'double' から 'LONG' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DisplayRegionGuideView.cpp(45,54): warning C4244: '=': 'double' から 'LONG' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DisplayRegionGuideView.cpp(46,55): warning C4244: '=': 'double' から 'LONG' への変換です。データが失われる可能性があります。
-  DisplayRegionGuideWindow.cpp
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DisplayRegionGuideWindow.cpp(25,9): warning C4302: '型キャスト': 'LPWSTR' から 'WORD' へ切り詰めます。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DisplayRegionGuideWindow.cpp(31,9): warning C4302: '型キャスト': 'LPWSTR' から 'WORD' へ切り詰めます。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DisplayRegionGuideWindow.cpp(39,47): warning C4302: '型キャスト': 'LPWSTR' から 'WORD' へ切り詰めます。
-  DropDownMenu.cpp
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DropDownMenu.cpp(14,8): warning C4244: '初期化中': 'double' から 'int' への変換です。データが失われる可能性があります。
-  GuiMenu.cpp
+﻿  GuiMenu.cpp
 C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\GuiMenu.cpp(42,39): warning C4244: '引数': 'const double' から 'int' への変換です。データが失われる可能性があります。
 C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\GuiMenu.cpp(41,45): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
 C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\GuiMenu.cpp(50,45): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
@@ -78,18 +62,4 @@ C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\GuiMenu.cpp
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\chrono(632): message : コンパイル対象の クラス テンプレート インスタンス化 'std::chrono::duration<double,std::ratio<1,1>>' のリファレンスを確認してください
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\chrono(178): message : コンパイル対象の クラス テンプレート インスタンス化 'std::chrono::duration<__int64,std::nano>' のリファレンスを確認してください
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\chrono(610): message : コンパイル対象の クラス テンプレート インスタンス化 'std::chrono::time_point<std::chrono::steady_clock,std::chrono::nanoseconds>' のリファレンスを確認してください
-  KeyCommand.cpp
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\KeyCommand.cpp(24,40): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\KeyCommand.cpp(23,40): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\KeyCommand.cpp(30,41): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\KeyCommand.cpp(29,41): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
-  SensorApiManager.cpp
-  Utility.cpp
-  ValueEditor.cpp
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\ValueEditor.cpp(23,8): warning C4244: '初期化中': 'double' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\ValueEditor.cpp(52,32): warning C4101: 'error': ローカル変数は 1 度も使われていません。
-  WinScreenCapture.cpp
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\WinScreenCapture.cpp(31,20): warning C4244: '=': 'double' から 'DWORD' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\WinScreenCapture.cpp(41,20): warning C4244: '=': 'double' から 'DWORD' への変換です。データが失われる可能性があります。
-  コードを生成中...
   ARWorkspaceEngine.vcxproj -> C:\Users\sekishuhei\010_develop\ARWorkspace\x64\Debug\ARWorkspaceEngine.lib
