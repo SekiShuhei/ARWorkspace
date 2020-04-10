@@ -16,13 +16,25 @@ DisplayRegionGuideView::DisplayRegionGuideView(const DisplayRegion& arg_display_
 
 bool DisplayRegionGuideView::Draw()
 {
+    // なんとかしてパフォーマンスを上げる.
     if (this->isUpdate())
     {
+        int screen_x = ::GetSystemMetrics(SM_XVIRTUALSCREEN);
+        int screen_y = ::GetSystemMetrics(SM_YVIRTUALSCREEN);
+        int screen_w = ::GetSystemMetrics(SM_CXVIRTUALSCREEN);
+        int screen_h = ::GetSystemMetrics(SM_CYVIRTUALSCREEN);
+
+        if (this->display_region.GetX() + screen_x > screen_w ||
+            this->display_region.GetY() + screen_y > screen_h)
+        {
+            return false;
+        }
+
         this->Invalidate(this->display_region, this->border_width);
 
-        // マルチディスプレイ環境でGDIが表示されない、位置がずれる等の減少がまれに起こるが謎.
-        this->x = this->display_region.GetX() + ::GetSystemMetrics(SM_XVIRTUALSCREEN);
-        this->y = this->display_region.GetY() + ::GetSystemMetrics(SM_YVIRTUALSCREEN);
+        // TODO:スケーリング問題.
+        this->x = this->display_region.GetX() + screen_x;
+        this->y = this->display_region.GetY() + screen_y;
         this->width = this->display_region.GetWidth();
         this->height = this->display_region.GetHeight();
     }
@@ -56,6 +68,8 @@ bool DisplayRegionGuideView::drawLine(int x, int y, int width, int height, int b
     HBRUSH hbrush = ::CreateSolidBrush(RGB(0, 255, 127));
     HPEN   oldpen = (HPEN)::SelectObject(desktop_hdc, (HGDIOBJ*)hpen);
     HBRUSH oldbrush = (HBRUSH)::SelectObject(desktop_hdc, (HGDIOBJ*)hbrush);
+
+    // TODO:仮想スクリーンの領域内にシュリンクさせる.
     ::Rectangle(desktop_hdc, x - bw, y - bw, x + width + bw, y + bw);
     ::Rectangle(desktop_hdc, x - bw, y - bw, x + bw, y + height + bw);
     ::Rectangle(desktop_hdc, x + width - bw, y - bw, x + width + bw, y + height + bw);

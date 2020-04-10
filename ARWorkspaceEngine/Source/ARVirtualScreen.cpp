@@ -48,8 +48,6 @@ void ARVirtualScreen::Initialize()
 				{
 					if (this->capture_region_guide_counter.Count())
 					{
-						// あきらかにパフォーマンスがおちる.
-						// 最後に消すときだけ再描画する.
 						this->capture_region_guide.Invalidate();
 						this->capture_region_guide_counter.Reset();
 					} else {
@@ -204,10 +202,11 @@ void ARVirtualScreen::Draw()
 				this->p_texture = std::make_unique<s3d::DynamicTexture>();
 				
 			}
-		}
-
-		
+		}	
 	}
+
+	
+	//...
 }
 
 void ARVirtualScreen::SetCaptureRegion(int arg_x, int arg_y, int arg_width, int arg_height)
