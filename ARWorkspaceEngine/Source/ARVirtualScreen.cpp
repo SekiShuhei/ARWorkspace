@@ -34,6 +34,7 @@ void ARVirtualScreen::Initialize()
 	this->capture_region_guide_thread_run = true;
 	this->capture_region_guide_thread = std::thread([this]()
 		{
+			// マルチスレッド処理はやめたほうがいいかも？？.
 			while (this->capture_region_guide_thread_run)
 			{
 				
@@ -47,6 +48,8 @@ void ARVirtualScreen::Initialize()
 				{
 					if (this->capture_region_guide_counter.Count())
 					{
+						// あきらかにパフォーマンスがおちる.
+						// 最後に消すときだけ再描画する.
 						this->capture_region_guide.Invalidate();
 						this->capture_region_guide_counter.Reset();
 					} else {
@@ -161,13 +164,11 @@ void ARVirtualScreen::Capture()
 void ARVirtualScreen::Draw()
 {
 	
-	//this->capture_size_updated = false;
 	
 	if (! this->capture_region_guide_counter.IsCount())
 	{
 		this->drawTexture();
 	}
-
 	
 	// カーソル系.
 	{
@@ -178,7 +179,6 @@ void ARVirtualScreen::Draw()
 		custom_cursor.DrawAt(this->capture_point.x, this->capture_point.y);
 	}
 	//
-
 
 	// センサ系.
 	{
@@ -192,7 +192,6 @@ void ARVirtualScreen::Draw()
 
 	{
 		// キャプチャテクスチャの管理.
-		
 		if (this->capture_size_updated)
 		{
 			this->capture_size_updated = false;
