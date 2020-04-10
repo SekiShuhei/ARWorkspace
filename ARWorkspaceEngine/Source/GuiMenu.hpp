@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Siv3D.hpp>
+#include "ARWorkspaceEngine.hpp"
 
 #include "ValueEditor.hpp"
 #include "DropDownMenu.hpp"
@@ -34,14 +34,14 @@ private:
 	int				item_width;
 	int				item_height;
 	
-	CustomGUI::DropDownMenu  menu_capture_setting;
-	CustomGUI::DropDownMenu  menu_key_guide;
+	S3DCustomGUI::DropDownMenu  menu_capture_setting;
+	S3DCustomGUI::DropDownMenu  menu_key_guide;
 
-	CustomGUI::ValueEditor	control_capture_region_x;
-	CustomGUI::ValueEditor	control_capture_region_y;
-	CustomGUI::ValueEditor	control_capture_region_width;
-	CustomGUI::ValueEditor	control_capture_region_height;
-	CustomGUI::ValueEditor	control_capture_scale;
+	S3DCustomGUI::ValueEditor	control_capture_region_x;
+	S3DCustomGUI::ValueEditor	control_capture_region_y;
+	S3DCustomGUI::ValueEditor	control_capture_region_width;
+	S3DCustomGUI::ValueEditor	control_capture_region_height;
+	S3DCustomGUI::ValueEditor	control_capture_scale;
 };
 
 }
