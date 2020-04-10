@@ -20,14 +20,14 @@ void ARWorkspace::KeyCommand::Update()
 	if (KeyShift.pressed())
 	{
 		this->p_model->SetCaptureRegionPosition(
-			this->p_model->GetCaptureRegion().x + std::get<0>(offset.value()),
-			this->p_model->GetCaptureRegion().y + std::get<1>(offset.value()));
+			this->p_model->GetCaptureRegion().GetX() + std::get<0>(offset.value()),
+			this->p_model->GetCaptureRegion().GetY() + std::get<1>(offset.value()));
 	}
 	if (KeyAlt.pressed())
 	{
 		this->p_model->SetCaptureRegionSize(
-				this->p_model->GetCaptureRegion().w + std::get<0>(offset.value()),
-				this->p_model->GetCaptureRegion().h + std::get<1>(offset.value()));
+				this->p_model->GetCaptureRegion().GetWidth() + std::get<0>(offset.value()),
+				this->p_model->GetCaptureRegion().GetHeight() + std::get<1>(offset.value()));
 	}
 }
 

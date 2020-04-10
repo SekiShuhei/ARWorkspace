@@ -35,34 +35,34 @@ p_model(arg_p_model)
 			double h = this->item_height;
 			double x = this->position.x;
 			double y = arg_y;
-			if (this->control_capture_region_x.Draw(Vec2(x, y), this->p_model->GetCaptureRegion().x))
+			if (this->control_capture_region_x.Draw(Vec2(x, y), this->p_model->GetCaptureRegion().GetX()))
 			{
 				this->p_model->SetCaptureRegionPosition(
 					this->control_capture_region_x.GetValue(),
-					this->p_model->GetCaptureRegion().y);
+					this->p_model->GetCaptureRegion().GetY());
 			}
 			y += h;
 
-			if (this->control_capture_region_y.Draw(Vec2(x, y), this->p_model->GetCaptureRegion().y))
+			if (this->control_capture_region_y.Draw(Vec2(x, y), this->p_model->GetCaptureRegion().GetY()))
 			{
 				this->p_model->SetCaptureRegionPosition(
-					this->p_model->GetCaptureRegion().x,
+					this->p_model->GetCaptureRegion().GetX(),
 					this->control_capture_region_y.GetValue());
 			}
 			y += h;
 
-			if (this->control_capture_region_width.Draw(Vec2(x, y), this->p_model->GetCaptureRegion().w))
+			if (this->control_capture_region_width.Draw(Vec2(x, y), this->p_model->GetCaptureRegion().GetWidth()))
 			{
 				this->p_model->SetCaptureRegionSize(
 					this->control_capture_region_width.GetValue(),
-					this->p_model->GetCaptureRegion().h);
+					this->p_model->GetCaptureRegion().GetHeight());
 			}
 			y += h;
 
-			if (this->control_capture_region_height.Draw(Vec2(x, y), this->p_model->GetCaptureRegion().h))
+			if (this->control_capture_region_height.Draw(Vec2(x, y), this->p_model->GetCaptureRegion().GetHeight()))
 			{
 				this->p_model->SetCaptureRegionSize(
-					this->p_model->GetCaptureRegion().w,
+					this->p_model->GetCaptureRegion().GetWidth(),
 					this->control_capture_region_height.GetValue());
 			}
 			y += h;

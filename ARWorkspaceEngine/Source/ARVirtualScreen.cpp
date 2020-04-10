@@ -71,10 +71,10 @@ bool ARVirtualScreen::ReadConfigFile()
 	{
 		this->capture_point.x = json[U"CapturePoint.x"].get<int32>();
 		this->capture_point.y = json[U"CapturePoint.y"].get<int32>();
-		this->capture_region.x = json[U"CaptureRegion.x"].get<int32>();
-		this->capture_region.y = json[U"CaptureRegion.y"].get<int32>();
-		this->capture_region.w = json[U"CaptureRegion.width"].get<int32>();
-		this->capture_region.h = json[U"CaptureRegion.height"].get<int32>();
+		this->capture_region.SetX(json[U"CaptureRegion.x"].get<int32>());
+		this->capture_region.SetY(json[U"CaptureRegion.y"].get<int32>());
+		this->capture_region.SetWidth(json[U"CaptureRegion.width"].get<int32>());
+		this->capture_region.SetHeight(json[U"CaptureRegion.height"].get<int32>());
 		this->scale = json[U"CaptureScale"].get<double>();
 		
 		return true;
@@ -93,10 +93,10 @@ bool ARVirtualScreen::WriteConfigFile()
 
 		json.key(U"CaptureRegion").startObject();
 		{
-			json.key(U"x").write((int)this->capture_region.x);
-			json.key(U"y").write((int)this->capture_region.y);
-			json.key(U"width").write((int)this->capture_region.w);
-			json.key(U"height").write((int)this->capture_region.h);
+			json.key(U"x").write((int)this->capture_region.GetX());
+			json.key(U"y").write((int)this->capture_region.GetY());
+			json.key(U"width").write((int)this->capture_region.GetWidth());
+			json.key(U"height").write((int)this->capture_region.GetHeight());
 		}
 		json.endObject();
 	}
@@ -120,10 +120,10 @@ bool ARVirtualScreen::GetCaptureRect()
 	//
 	//auto capture_size = client_size / this->scale;
 	//
-	//this->capture_region.x = this->capture_point.x - (capture_size.x / 2);
-	//this->capture_region.y = this->capture_point.y - (capture_size.y / 2);
-	//this->capture_region.w = this->capture_point.x + (capture_size.x / 2);
-	//this->capture_region.h = this->capture_point.y + (capture_size.y / 2);
+	//this->capture_region.GetX() = this->capture_point.x - (capture_size.x / 2);
+	//this->capture_region.GetY() = this->capture_point.y - (capture_size.y / 2);
+	//this->capture_region.GetWidth() = this->capture_point.x + (capture_size.x / 2);
+	//this->capture_region.GetHeight() = this->capture_point.y + (capture_size.y / 2);
 
 	return true;
 }
@@ -137,10 +137,10 @@ void ARVirtualScreen::Capture()
 	// メニューバーの分だけ少しY座標がずれるので注意.
 	this->screen_capture.CaptureScreen(
 		this->capture_image[this->imageindex_reading],
-		(int)this->capture_region.x,
-		(int)this->capture_region.y,
-		(int)this->capture_region.w,
-		(int)this->capture_region.h);
+		(int)this->capture_region.GetX(),
+		(int)this->capture_region.GetY(),
+		(int)this->capture_region.GetWidth(),
+		(int)this->capture_region.GetHeight());
 	
 	{
 		std::lock_guard<std::mutex>	lock(this->mutex);
@@ -213,25 +213,25 @@ void ARVirtualScreen::Draw()
 
 void ARVirtualScreen::SetCaptureRegion(int arg_x, int arg_y, int arg_width, int arg_height)
 {
-	this->capture_region.x = arg_x;
-	this->capture_region.y = arg_y;
-	this->capture_region.w = arg_width;
-	this->capture_region.h = arg_height;
+	this->capture_region.SetX(arg_x);
+	this->capture_region.SetY(arg_y);
+	this->capture_region.SetWidth(arg_width);
+	this->capture_region.SetHeight(arg_height);
 	this->CaptureRegionUpdate();
 	this->CaptureSizeUpdate();
 }
 
 void ARVirtualScreen::SetCaptureRegionPosition(int arg_x, int arg_y)
 {
-	this->capture_region.x = arg_x;
-	this->capture_region.y = arg_y;
+	this->capture_region.SetX(arg_x);
+	this->capture_region.SetY(arg_y);
 	this->CaptureRegionUpdate();
 }
 
 void ARVirtualScreen::SetCaptureRegionSize(int arg_width, int arg_height)
 {
-	this->capture_region.w = arg_width;
-	this->capture_region.h = arg_height;
+	this->capture_region.SetWidth(arg_width);
+	this->capture_region.SetHeight(arg_height);
 	this->CaptureRegionUpdate();
 	this->CaptureSizeUpdate();
 }

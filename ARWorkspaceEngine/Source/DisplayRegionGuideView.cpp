@@ -21,10 +21,10 @@ bool DisplayRegionGuideView::Draw()
         this->Invalidate(this->display_region, this->border_width);
 
         // マルチディスプレイ環境でGDIが表示されない、位置がずれる等の減少がまれに起こるが謎.
-        this->x = this->display_region.x + ::GetSystemMetrics(SM_XVIRTUALSCREEN);
-        this->y = this->display_region.y + ::GetSystemMetrics(SM_YVIRTUALSCREEN);
-        this->width = this->display_region.w;
-        this->height = this->display_region.h;
+        this->x = this->display_region.GetX() + ::GetSystemMetrics(SM_XVIRTUALSCREEN);
+        this->y = this->display_region.GetY() + ::GetSystemMetrics(SM_YVIRTUALSCREEN);
+        this->width = this->display_region.GetWidth();
+        this->height = this->display_region.GetHeight();
     }
     this->drawLine((int)this->x, (int)this->y, 
         (int)this->width, (int)this->height, this->border_width);
@@ -40,10 +40,10 @@ void DisplayRegionGuideView::Invalidate() const
 void DisplayRegionGuideView::Invalidate(const DisplayRegion& display_region, int border_width)
 {
     RECT rect;
-    rect.left = display_region.x - border_width;
-    rect.top = display_region.y - border_width;
-    rect.right = display_region.x + display_region.w + border_width;
-    rect.bottom = display_region.y + display_region.h + border_width;
+    rect.left = display_region.GetX() - border_width;
+    rect.top = display_region.GetY() - border_width;
+    rect.right = display_region.GetX() + display_region.GetWidth() + border_width;
+    rect.bottom = display_region.GetY() + display_region.GetHeight() + border_width;
     ::InvalidateRect(NULL, &rect, true);
 }
 
@@ -73,10 +73,10 @@ bool DisplayRegionGuideView::drawLine(int x, int y, int width, int height, int b
 bool DisplayRegionGuideView::isUpdate() const
 {
     return (
-        this->x      != this->display_region.x ||
-        this->y      != this->display_region.y ||
-        this->width  != this->display_region.w ||
-        this->height != this->display_region.h);
+        this->x      != this->display_region.GetX() ||
+        this->y      != this->display_region.GetY() ||
+        this->width  != this->display_region.GetWidth() ||
+        this->height != this->display_region.GetHeight());
 }
 
 }
