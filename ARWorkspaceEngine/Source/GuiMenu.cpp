@@ -18,10 +18,10 @@ p_model(arg_p_model)
 	this->control_capture_region_y.SetRange(0.0, 2000.0, 0.0);
 	this->control_capture_region_y.SetWidth(label_width, slider_width, textbox_width);
 	this->control_capture_region_width.SetLabel(U"width");
-	this->control_capture_region_width.SetRange(0.0, 2000.0, 100.0);
+	this->control_capture_region_width.SetRange(50.0, 2000.0, 100.0);
 	this->control_capture_region_width.SetWidth(label_width, slider_width, textbox_width);
 	this->control_capture_region_height.SetLabel(U"height");
-	this->control_capture_region_height.SetRange(0.0, 2000.0, 100.0);
+	this->control_capture_region_height.SetRange(50.0, 2000.0, 100.0);
 	this->control_capture_region_height.SetWidth(label_width, slider_width, textbox_width);
 	this->control_capture_scale.SetLabel(U"scale");
 	this->control_capture_scale.SetRange(0.0, 20.0, 2.0);
