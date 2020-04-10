@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ARWorkspace">
+      <UniqueIdentifier>{a9bb7bb6-42d4-4805-aa90-53fa63386f39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CustomGUI">
+      <UniqueIdentifier>{17ce6848-2169-470a-a822-dc760f99f209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ScreenCapture">
+      <UniqueIdentifier>{a64c1318-afec-4557-a114-334aadb1e41c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{2b8e8686-e5fc-464f-9151-e1b0d344fb5c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\SensorApiManager.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ARDisplay.hpp">
+      <Filter>ARWorkspace</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ARVirtualScreen.hpp">
+      <Filter>ARWorkspace</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WinScreenCapture.hpp">
+      <Filter>ScreenCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utility.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SimpleCounter.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DisplayRegion.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\pch.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ARWorkspaceEngine.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\framework.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DisplayRegionGuideWindow.hpp">
+      <Filter>ScreenCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DisplayRegionGuideView.hpp">
+      <Filter>ScreenCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiMenu.hpp">
+      <Filter>ARWorkspace</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CustomCursor.hpp">
+      <Filter>ARWorkspace</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\KeyCommand.hpp">
+      <Filter>ARWorkspace</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DropDownMenu.hpp">
+      <Filter>CustomGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ValueEditor.hpp">
+      <Filter>CustomGUI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\SensorApiManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ARDisplay.cpp">
+      <Filter>ARWorkspace</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ARVirtualScreen.cpp">
+      <Filter>ARWorkspace</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WinScreenCapture.cpp">
+      <Filter>ScreenCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DisplayRegion.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\pch.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utility.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DisplayRegionGuideView.cpp">
+      <Filter>ScreenCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DisplayRegionGuideWindow.cpp">
+      <Filter>ScreenCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuiMenu.cpp">
+      <Filter>ARWorkspace</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CustomCursor.cpp">
+      <Filter>ARWorkspace</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\KeyCommand.cpp">
+      <Filter>ARWorkspace</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DropDownMenu.cpp">
+      <Filter>CustomGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ValueEditor.cpp">
+      <Filter>CustomGUI</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
