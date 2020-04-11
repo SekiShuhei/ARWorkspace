@@ -26,7 +26,10 @@ void ARVirtualScreen::Initialize()
 		{
 			while (this->capture_thread_run)
 			{
-				this->Capture();
+				if (!this->capture_region_guide_counter.IsCount())
+				{
+					this->Capture();
+				}
 				//std::this_thread::sleep_for(std::chrono::milliseconds(2));
 			}
 		});
@@ -55,7 +58,7 @@ void ARVirtualScreen::Initialize()
 					}
 				}
 				
-				//std::this_thread::sleep_for(std::chrono::milliseconds(10));
+				std::this_thread::sleep_for(std::chrono::milliseconds(5));
 			}
 		});
 
