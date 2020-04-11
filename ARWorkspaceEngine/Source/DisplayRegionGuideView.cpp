@@ -13,7 +13,7 @@ DisplayRegionGuideView::DisplayRegionGuideView(const DisplayRegion& arg_display_
     display_region(arg_display_region), 
     border_width(arg_border_width)
 {
-    ::SetProcessDPIAware();
+    //::SetProcessDPIAware();
 
 }
 
