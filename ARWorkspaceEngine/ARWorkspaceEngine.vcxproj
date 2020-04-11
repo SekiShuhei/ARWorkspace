@@ -172,7 +172,6 @@
     <ClInclude Include="Source\CustomCursor.hpp" />
     <ClInclude Include="Source\ScreenRegion.hpp" />
     <ClInclude Include="Source\ScreenRegionGuideView.hpp" />
-    <ClInclude Include="Source\DisplayRegionGuideWindow.hpp" />
     <ClInclude Include="Source\GuiMenu.hpp" />
     <ClInclude Include="Source\KeyCommand.hpp" />
     <ClInclude Include="Source\SensorApiManager.hpp" />
@@ -193,7 +192,6 @@
     <ClCompile Include="Source\ARVirtualScreen.cpp" />
     <ClCompile Include="Source\CustomCursor.cpp" />
     <ClCompile Include="Source\ScreenRegionGuideView.cpp" />
-    <ClCompile Include="Source\DisplayRegionGuideWindow.cpp" />
     <ClCompile Include="Source\GuiMenu.cpp" />
     <ClCompile Include="Source\KeyCommand.cpp" />
     <ClCompile Include="Source\SensorApiManager.cpp" />

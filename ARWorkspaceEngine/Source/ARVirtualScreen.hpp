@@ -105,7 +105,7 @@ private:
 	s3d::Point	capture_point = s3d::Point(0, 0);
 	// ÀÛ‚ÉƒXƒNƒŠ[ƒ“‚©‚çæ“¾‚·‚é‚×‚«—Ìˆæ.
 	// Œ»ó‚Í‰ñ“]Œn‚ğŠÜ‚Ü‚È‚¢.
-	ScreenRegion	capture_region;
+	ScreenRegion		capture_region;
 	ScreenRegionGuideView	capture_region_guide = ScreenRegionGuideView(capture_region, 10);
 	
 	// •`‰æŒn.
