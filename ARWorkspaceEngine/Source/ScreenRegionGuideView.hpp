@@ -4,13 +4,13 @@ class ScreenRegion;
 
 namespace ARWorkspace {
 
-class DisplayRegionGuideView
+class ScreenRegionGuideView
 {
 
 
 public:
-	DisplayRegionGuideView() = default;
-	DisplayRegionGuideView(const ScreenRegion& arg_display_region, int arg_border_width);
+	ScreenRegionGuideView() = default;
+	ScreenRegionGuideView(const ScreenRegion& arg_display_region, int arg_border_width);
 
 	bool Draw();
 

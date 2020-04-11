@@ -7,7 +7,7 @@
 
 #include "SimpleCounter.hpp"
 #include "ScreenRegion.hpp"
-#include "DisplayRegionGuideView.hpp"
+#include "ScreenRegionGuideView.hpp"
 #include "WinScreenCapture.hpp"
 #include "CustomCursor.hpp"
 #include "SensorApiManager.hpp"
@@ -106,7 +106,7 @@ private:
 	// ÀÛ‚ÉƒXƒNƒŠ[ƒ“‚©‚çæ“¾‚·‚é‚×‚«—Ìˆæ.
 	// Œ»ó‚Í‰ñ“]Œn‚ğŠÜ‚Ü‚È‚¢.
 	ScreenRegion	capture_region;
-	DisplayRegionGuideView	capture_region_guide = DisplayRegionGuideView(capture_region, 10);
+	ScreenRegionGuideView	capture_region_guide = ScreenRegionGuideView(capture_region, 10);
 	
 	// •`‰æŒn.
 	std::mutex			mutex;

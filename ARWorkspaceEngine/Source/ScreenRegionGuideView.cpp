@@ -6,17 +6,17 @@
 #include <ShellScalingApi.h>
 
 #include "ScreenRegion.hpp"
-#include "DisplayRegionGuideView.hpp"
+#include "ScreenRegionGuideView.hpp"
 
 namespace ARWorkspace {
-DisplayRegionGuideView::DisplayRegionGuideView(const ScreenRegion& arg_display_region, int arg_border_width) :
+ScreenRegionGuideView::ScreenRegionGuideView(const ScreenRegion& arg_display_region, int arg_border_width) :
     display_region(arg_display_region), 
     border_width(arg_border_width)
 {
     
 }
 
-bool DisplayRegionGuideView::Draw()
+bool ScreenRegionGuideView::Draw()
 {
     if (this->isUpdate())
     {
@@ -53,12 +53,12 @@ bool DisplayRegionGuideView::Draw()
     return false;
 }
 
-void DisplayRegionGuideView::Invalidate() const
+void ScreenRegionGuideView::Invalidate() const
 {
-    DisplayRegionGuideView::Invalidate(this->display_region, this->border_width);
+    ScreenRegionGuideView::Invalidate(this->display_region, this->border_width);
 }
 
-void DisplayRegionGuideView::Invalidate(const ScreenRegion& display_region, int border_width)
+void ScreenRegionGuideView::Invalidate(const ScreenRegion& display_region, int border_width)
 {
     RECT rect;
     rect.left = display_region.GetX() - border_width;
@@ -68,7 +68,7 @@ void DisplayRegionGuideView::Invalidate(const ScreenRegion& display_region, int 
     ::InvalidateRect(NULL, &rect, true);
 }
 
-bool DisplayRegionGuideView::drawLine(int x, int y, int width, int height, int border_width)
+bool ScreenRegionGuideView::drawLine(int x, int y, int width, int height, int border_width)
 {
     HDC     desktop_hdc = ::GetDC(NULL);
     int     bw = border_width / 2;
@@ -91,7 +91,7 @@ bool DisplayRegionGuideView::drawLine(int x, int y, int width, int height, int b
     return true;
 }
 
-bool DisplayRegionGuideView::isUpdate() const
+bool ScreenRegionGuideView::isUpdate() const
 {
     return (
         this->x      != this->display_region.GetX() ||
