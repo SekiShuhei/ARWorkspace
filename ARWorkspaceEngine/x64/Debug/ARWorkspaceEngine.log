@@ -1,6 +1,6 @@
 ﻿  DisplayRegionGuideView.cpp
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DisplayRegionGuideView.cpp(76,39): warning C4244: '=': 'double' から 'LONG' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DisplayRegionGuideView.cpp(77,38): warning C4244: '=': 'double' から 'LONG' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DisplayRegionGuideView.cpp(78,68): warning C4244: '=': 'double' から 'LONG' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DisplayRegionGuideView.cpp(79,70): warning C4244: '=': 'double' から 'LONG' への変換です。データが失われる可能性があります。
+C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DisplayRegionGuideView.cpp(77,39): warning C4244: '=': 'double' から 'LONG' への変換です。データが失われる可能性があります。
+C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DisplayRegionGuideView.cpp(78,38): warning C4244: '=': 'double' から 'LONG' への変換です。データが失われる可能性があります。
+C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DisplayRegionGuideView.cpp(79,68): warning C4244: '=': 'double' から 'LONG' への変換です。データが失われる可能性があります。
+C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\DisplayRegionGuideView.cpp(80,70): warning C4244: '=': 'double' から 'LONG' への変換です。データが失われる可能性があります。
   ARWorkspaceEngine.vcxproj -> C:\Users\sekishuhei\010_develop\ARWorkspace\x64\Debug\ARWorkspaceEngine.lib

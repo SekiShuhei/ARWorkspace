@@ -13,7 +13,7 @@ DisplayRegionGuideView::DisplayRegionGuideView(const DisplayRegion& arg_display_
     display_region(arg_display_region), 
     border_width(arg_border_width)
 {
-    //::SetProcessDPIAware();
+    ::SetProcessDPIAware();
 
 }
 
@@ -50,14 +50,15 @@ bool DisplayRegionGuideView::Draw()
         UINT dpi_horizontal, dpi_vertical;
 
         auto result = ::GetDpiForMonitor(monitor, MDT_EFFECTIVE_DPI, &dpi_horizontal, &dpi_vertical);
-
+        auto dpiscale_x = (dpi_horizontal / 96.0);
+        auto dpiscale_y = (dpi_vertical / 96.0);
         // ::SetProcessDPIAware();を使ってディスプレイDPIを取得できるように
         // 位置ずれ、SIV3Dの対応状況調査.
 
-        this->x = this->display_region.GetX() + screen_x;
-        this->y = this->display_region.GetY() + screen_y;
-        this->width = this->display_region.GetWidth();
-        this->height = this->display_region.GetHeight();
+        this->x = (this->display_region.GetX() * dpiscale_x) + screen_x;
+        this->y = (this->display_region.GetY() * dpiscale_y) + screen_y;
+        this->width = this->display_region.GetWidth() * dpiscale_x;
+        this->height = this->display_region.GetHeight() * dpiscale_y;
     }
     this->drawLine((int)this->x, (int)this->y, 
         (int)this->width, (int)this->height, this->border_width);
