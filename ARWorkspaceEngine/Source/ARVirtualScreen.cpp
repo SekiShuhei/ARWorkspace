@@ -37,6 +37,9 @@ void ARVirtualScreen::Initialize()
 	this->capture_region_guide_thread_run = true;
 	this->capture_region_guide_thread = std::thread([this]()
 		{
+			// test.
+			::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+
 			// マルチスレッド処理はやめたほうがいいかも？？.
 			while (this->capture_region_guide_thread_run)
 			{
