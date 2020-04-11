@@ -13,7 +13,7 @@ DisplayRegionGuideView::DisplayRegionGuideView(const DisplayRegion& arg_display_
     display_region(arg_display_region), 
     border_width(arg_border_width)
 {
-    //::SetProcessDPIAware();
+    ::SetProcessDPIAware();
 
 }
 
@@ -83,6 +83,10 @@ void DisplayRegionGuideView::Invalidate(const DisplayRegion& display_region, int
 
 bool DisplayRegionGuideView::drawLine(int x, int y, int width, int height, int border_width)
 {
+    int screen_x = ::GetSystemMetrics(SM_XVIRTUALSCREEN);
+    int screen_y = ::GetSystemMetrics(SM_YVIRTUALSCREEN);
+    int screen_w = ::GetSystemMetrics(SM_CXVIRTUALSCREEN);
+    int screen_h = ::GetSystemMetrics(SM_CYVIRTUALSCREEN);
     HDC  desktop_hdc = ::GetDC(NULL);
 
     int bw = border_width / 2;
