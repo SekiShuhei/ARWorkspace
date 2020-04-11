@@ -106,7 +106,7 @@ private:
 	// ÀÛ‚ÉƒXƒNƒŠ[ƒ“‚©‚çæ“¾‚·‚é‚×‚«—Ìˆæ.
 	// Œ»ó‚Í‰ñ“]Œn‚ğŠÜ‚Ü‚È‚¢.
 	DisplayRegion	capture_region;
-	DisplayRegionGuideView	capture_region_guide = DisplayRegionGuideView(capture_region, 20);
+	DisplayRegionGuideView	capture_region_guide = DisplayRegionGuideView(capture_region, 10);
 	
 	// •`‰æŒn.
 	std::mutex			mutex;

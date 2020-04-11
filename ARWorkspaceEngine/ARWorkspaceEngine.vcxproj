@@ -192,7 +192,6 @@
     <ClCompile Include="Source\ARDisplay.cpp" />
     <ClCompile Include="Source\ARVirtualScreen.cpp" />
     <ClCompile Include="Source\CustomCursor.cpp" />
-    <ClCompile Include="Source\DisplayRegion.cpp" />
     <ClCompile Include="Source\DisplayRegionGuideView.cpp" />
     <ClCompile Include="Source\DisplayRegionGuideWindow.cpp" />
     <ClCompile Include="Source\GuiMenu.cpp" />

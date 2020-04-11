@@ -18,7 +18,6 @@ DisplayRegionGuideView::DisplayRegionGuideView(const DisplayRegion& arg_display_
 
 bool DisplayRegionGuideView::Draw()
 {
-    // なんとかしてパフォーマンスを上げる.
     if (this->isUpdate())
     {
         int screen_x = ::GetSystemMetrics(SM_XVIRTUALSCREEN);

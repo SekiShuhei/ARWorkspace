@@ -23,7 +23,7 @@ private:
 	bool isUpdate() const;
 
 	const DisplayRegion& display_region;
-	int		border_width = 20;
+	int		border_width = 10;
 	double		x = 0;
 	double		y = 0;
 	double		width = 200;
