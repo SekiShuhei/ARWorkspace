@@ -170,7 +170,7 @@
     <ClInclude Include="Source\ARVirtualScreen.hpp" />
     <ClInclude Include="Source\ARWorkspaceEngine.hpp" />
     <ClInclude Include="Source\CustomCursor.hpp" />
-    <ClInclude Include="Source\DisplayRegion.hpp" />
+    <ClInclude Include="Source\ScreenRegion.hpp" />
     <ClInclude Include="Source\DisplayRegionGuideView.hpp" />
     <ClInclude Include="Source\DisplayRegionGuideWindow.hpp" />
     <ClInclude Include="Source\GuiMenu.hpp" />

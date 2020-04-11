@@ -45,9 +45,6 @@
     <ClInclude Include="Source\SimpleCounter.hpp">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Source\DisplayRegion.hpp">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="Source\pch.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -77,6 +74,9 @@
     </ClInclude>
     <ClInclude Include="Source\ValueEditor.hpp">
       <Filter>CustomGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ScreenRegion.hpp">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

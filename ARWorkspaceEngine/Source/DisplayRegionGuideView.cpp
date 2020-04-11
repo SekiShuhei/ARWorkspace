@@ -5,11 +5,11 @@
 #include <windows.h>
 #include <ShellScalingApi.h>
 
-#include "DisplayRegion.hpp"
+#include "ScreenRegion.hpp"
 #include "DisplayRegionGuideView.hpp"
 
 namespace ARWorkspace {
-DisplayRegionGuideView::DisplayRegionGuideView(const DisplayRegion& arg_display_region, int arg_border_width) :
+DisplayRegionGuideView::DisplayRegionGuideView(const ScreenRegion& arg_display_region, int arg_border_width) :
     display_region(arg_display_region), 
     border_width(arg_border_width)
 {
@@ -58,7 +58,7 @@ void DisplayRegionGuideView::Invalidate() const
     DisplayRegionGuideView::Invalidate(this->display_region, this->border_width);
 }
 
-void DisplayRegionGuideView::Invalidate(const DisplayRegion& display_region, int border_width)
+void DisplayRegionGuideView::Invalidate(const ScreenRegion& display_region, int border_width)
 {
     RECT rect;
     rect.left = display_region.GetX() - border_width;

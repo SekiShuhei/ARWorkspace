@@ -2,7 +2,7 @@
 
 namespace ARWorkspace {
 
-class DisplayRegion
+class ScreenRegion
 {
 
 public:
