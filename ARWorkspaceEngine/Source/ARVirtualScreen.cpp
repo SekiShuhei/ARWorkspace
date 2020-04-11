@@ -37,10 +37,9 @@ void ARVirtualScreen::Initialize()
 	this->capture_region_guide_thread_run = true;
 	this->capture_region_guide_thread = std::thread([this]()
 		{
-			// test.
+			// Windows 10 Version 1703より古い場合は不具合が起きる可能性がある.
 			::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
-			// マルチスレッド処理はやめたほうがいいかも？？.
 			while (this->capture_region_guide_thread_run)
 			{
 				
