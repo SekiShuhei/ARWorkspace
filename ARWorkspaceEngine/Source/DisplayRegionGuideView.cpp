@@ -1,7 +1,9 @@
 #define WIN32_LEAN_AND_MEAN
 #pragma comment(lib, "user32.lib")
 #pragma comment(lib, "gdi32.lib")
+#pragma comment(lib, "shcore.lib")
 #include <windows.h>
+#include <ShellScalingApi.h>
 
 #include "DisplayRegion.hpp"
 #include "DisplayRegionGuideView.hpp"
@@ -11,6 +13,7 @@ DisplayRegionGuideView::DisplayRegionGuideView(const DisplayRegion& arg_display_
     display_region(arg_display_region), 
     border_width(arg_border_width)
 {
+    //::SetProcessDPIAware();
 
 }
 
@@ -33,6 +36,24 @@ bool DisplayRegionGuideView::Draw()
         this->Invalidate(this->display_region, this->border_width);
 
         // TODO:スケーリング問題.
+        // SetMapMode() ???たぶん使えない
+        
+        //http://yamatyuu.net/computer/program/sdk/base/edit3font/index.html
+        //MonitorFromPointによりディスプレイのハンドルを取得し
+        //GetDpiForMonitorによりDPIを取得します。
+        //このAPIが使えない場合はGetDeviceCapsを使用してDPIを取得します。
+        POINT pt = {0,0};
+        HMONITOR monitor = ::MonitorFromPoint(pt, MONITOR_DEFAULTTONEAREST);
+        //MONITOR_DEFAULTTONEAREST //指定した点に最も近い位置にあるディスプレイモニタのハンドルが返る。
+        //MONITOR_DEFAULTTONULL //NULL が返る。
+        //MONITOR_DEFAULTTOPRIMARY //プライマリディスプレイモニタのハンドルが返る。
+        UINT dpi_horizontal, dpi_vertical;
+
+        auto result = ::GetDpiForMonitor(monitor, MDT_EFFECTIVE_DPI, &dpi_horizontal, &dpi_vertical);
+
+        // ::SetProcessDPIAware();を使ってディスプレイDPIを取得できるように
+        // 位置ずれ、SIV3Dの対応状況調査.
+
         this->x = this->display_region.GetX() + screen_x;
         this->y = this->display_region.GetY() + screen_y;
         this->width = this->display_region.GetWidth();
