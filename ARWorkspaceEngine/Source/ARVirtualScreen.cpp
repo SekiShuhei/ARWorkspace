@@ -173,13 +173,13 @@ void ARVirtualScreen::Draw()
 	}
 	
 	// カーソル系.
-	{
-		::POINT	pos;
-		::GetCursorPos(&pos);
-
-		custom_cursor.DrawAt(pos.x, pos.y);
-		custom_cursor.DrawAt(this->capture_point.x, this->capture_point.y);
-	}
+	//{
+	//	::POINT	pos;
+	//	::GetCursorPos(&pos);
+	//
+	//	custom_cursor.DrawAt(pos.x, pos.y);
+	//	custom_cursor.DrawAt(this->capture_point.x, this->capture_point.y);
+	//}
 	//
 
 	// センサ系.

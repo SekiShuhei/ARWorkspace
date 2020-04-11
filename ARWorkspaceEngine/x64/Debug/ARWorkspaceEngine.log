@@ -1,8 +1,2 @@
-﻿  WinScreenCapture.cpp
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\WinScreenCapture.cpp(34,20): warning C4244: '=': 'double' から 'DWORD' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\WinScreenCapture.cpp(44,20): warning C4244: '=': 'double' から 'DWORD' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\WinScreenCapture.cpp(76,22): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\WinScreenCapture.cpp(77,22): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\WinScreenCapture.cpp(78,17): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sekishuhei\010_develop\ARWorkspace\ARWorkspaceEngine\Source\WinScreenCapture.cpp(79,19): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+﻿  ARVirtualScreen.cpp
   ARWorkspaceEngine.vcxproj -> C:\Users\sekishuhei\010_develop\ARWorkspace\x64\Debug\ARWorkspaceEngine.lib

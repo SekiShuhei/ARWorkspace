@@ -45,9 +45,6 @@
     <ClInclude Include="Source\SimpleCounter.hpp">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Source\DisplayRegion.hpp">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="Source\pch.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -56,12 +53,6 @@
     </ClInclude>
     <ClInclude Include="Source\framework.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\DisplayRegionGuideWindow.hpp">
-      <Filter>ScreenCapture</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\DisplayRegionGuideView.hpp">
-      <Filter>ScreenCapture</Filter>
     </ClInclude>
     <ClInclude Include="Source\GuiMenu.hpp">
       <Filter>ARWorkspace</Filter>
@@ -78,6 +69,12 @@
     <ClInclude Include="Source\ValueEditor.hpp">
       <Filter>CustomGUI</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ScreenRegion.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ScreenRegionGuideView.hpp">
+      <Filter>ScreenCapture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SensorApiManager.cpp">
@@ -92,20 +89,11 @@
     <ClCompile Include="Source\WinScreenCapture.cpp">
       <Filter>ScreenCapture</Filter>
     </ClCompile>
-    <ClCompile Include="Source\DisplayRegion.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
     <ClCompile Include="Source\pch.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Source\Utility.cpp">
       <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\DisplayRegionGuideView.cpp">
-      <Filter>ScreenCapture</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\DisplayRegionGuideWindow.cpp">
-      <Filter>ScreenCapture</Filter>
     </ClCompile>
     <ClCompile Include="Source\GuiMenu.cpp">
       <Filter>ARWorkspace</Filter>
@@ -121,6 +109,9 @@
     </ClCompile>
     <ClCompile Include="Source\ValueEditor.cpp">
       <Filter>CustomGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ScreenRegionGuideView.cpp">
+      <Filter>ScreenCapture</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

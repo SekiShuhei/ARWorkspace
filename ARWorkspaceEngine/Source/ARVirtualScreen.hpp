@@ -6,8 +6,8 @@
 #include <thread>
 
 #include "SimpleCounter.hpp"
-#include "DisplayRegion.hpp"
-#include "DisplayRegionGuideView.hpp"
+#include "ScreenRegion.hpp"
+#include "ScreenRegionGuideView.hpp"
 #include "WinScreenCapture.hpp"
 #include "CustomCursor.hpp"
 #include "SensorApiManager.hpp"
@@ -60,7 +60,7 @@ public:
 	// OSカーソルと同期するように、座標系を適切に処理.
 	// ↑いらない？.
 
-	const DisplayRegion& GetCaptureRegion() const
+	const ScreenRegion& GetCaptureRegion() const
 	{
 		return this->capture_region;
 	}
@@ -105,8 +105,8 @@ private:
 	s3d::Point	capture_point = s3d::Point(0, 0);
 	// 実際にスクリーンから取得するべき領域.
 	// 現状は回転系を含まない.
-	DisplayRegion	capture_region;
-	DisplayRegionGuideView	capture_region_guide = DisplayRegionGuideView(capture_region, 20);
+	ScreenRegion		capture_region;
+	ScreenRegionGuideView	capture_region_guide = ScreenRegionGuideView(capture_region, 10);
 	
 	// 描画系.
 	std::mutex			mutex;

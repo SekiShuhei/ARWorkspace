@@ -8,7 +8,7 @@
 
 void Main()
 {
-	
+	s3d::Window::Resize(s3d::Size(1200, 900));
 	s3d::Window::SetStyle(WindowStyle::Sizable);
 	s3d::WindowResizeOption::ResizeSceneSize;
 	s3d::Scene::SetScaleMode(ScaleMode::ResizeFill);
