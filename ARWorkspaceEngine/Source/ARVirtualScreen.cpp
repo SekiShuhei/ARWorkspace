@@ -24,9 +24,13 @@ void ARVirtualScreen::Initialize()
 	this->capture_thread_run = true;
 	this->capture_thread = std::thread([this]()
 		{
+			::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 			while (this->capture_thread_run)
 			{
-				this->Capture();
+				if (!this->capture_region_guide_counter.IsCount())
+				{
+					this->Capture();
+				}
 				//std::this_thread::sleep_for(std::chrono::milliseconds(2));
 			}
 		});
@@ -34,6 +38,7 @@ void ARVirtualScreen::Initialize()
 	this->capture_region_guide_thread_run = true;
 	this->capture_region_guide_thread = std::thread([this]()
 		{
+			::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 			while (this->capture_region_guide_thread_run)
 			{
 				
@@ -54,7 +59,7 @@ void ARVirtualScreen::Initialize()
 					}
 				}
 				
-				//std::this_thread::sleep_for(std::chrono::milliseconds(10));
+				std::this_thread::sleep_for(std::chrono::milliseconds(5));
 			}
 		});
 
@@ -161,13 +166,11 @@ void ARVirtualScreen::Capture()
 void ARVirtualScreen::Draw()
 {
 	
-	//this->capture_size_updated = false;
 	
 	if (! this->capture_region_guide_counter.IsCount())
 	{
 		this->drawTexture();
 	}
-
 	
 	// カーソル系.
 	{
@@ -178,7 +181,6 @@ void ARVirtualScreen::Draw()
 		custom_cursor.DrawAt(this->capture_point.x, this->capture_point.y);
 	}
 	//
-
 
 	// センサ系.
 	{
@@ -192,7 +194,6 @@ void ARVirtualScreen::Draw()
 
 	{
 		// キャプチャテクスチャの管理.
-		
 		if (this->capture_size_updated)
 		{
 			this->capture_size_updated = false;
@@ -205,10 +206,11 @@ void ARVirtualScreen::Draw()
 				this->p_texture = std::make_unique<s3d::DynamicTexture>();
 				
 			}
-		}
-
-		
+		}	
 	}
+
+	
+	//...
 }
 
 void ARVirtualScreen::SetCaptureRegion(int arg_x, int arg_y, int arg_width, int arg_height)

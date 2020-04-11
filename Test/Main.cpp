@@ -1,4 +1,4 @@
-﻿
+﻿#define SIV3D_WINDOWS_HIGH_DPI
 # include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
 
@@ -8,8 +8,10 @@
 
 void Main()
 {
+	
 	s3d::Window::SetStyle(WindowStyle::Sizable);
 	s3d::WindowResizeOption::ResizeSceneSize;
+	s3d::Scene::SetScaleMode(ScaleMode::ResizeFill);
 	s3d::Scene::SetTextureFilter(TextureFilter::Linear);
 	
 	auto p_ar_screen = std::make_shared<ARWorkspace::ARVirtualScreen>();
@@ -27,13 +29,7 @@ void Main()
 	
 	while (System::Update())
 	{
-		{
-
-			//test.
-			auto size = s3d::Window::ClientSize();
-			s3d::Scene::Resize(size);
-
-		}
+		
 
 		key_command.Update();
 		p_ar_screen->Draw();

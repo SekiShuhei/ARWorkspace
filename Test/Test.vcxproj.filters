@@ -366,4 +366,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="Test%28debug%29.exe.manifest" />
+  </ItemGroup>
 </Project>
