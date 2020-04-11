@@ -55,18 +55,24 @@ DWORD WinScreenCapture::GetBitmapImageSize(const BITMAPINFO& bitmap_info) const
 
 bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int width, int height)
 {
-	int screen_x = ::GetSystemMetrics(SM_XVIRTUALSCREEN);
-	int screen_y = ::GetSystemMetrics(SM_YVIRTUALSCREEN);
-	int screen_w = ::GetSystemMetrics(SM_CXVIRTUALSCREEN);
-	int screen_h = ::GetSystemMetrics(SM_CYVIRTUALSCREEN);
-
-	POINT pt = {x, y};
-	HMONITOR monitor = ::MonitorFromPoint(pt, MONITOR_DEFAULTTONEAREST);
-	UINT dpi_horizontal, dpi_vertical;
-	::GetDpiForMonitor(monitor, MDT_EFFECTIVE_DPI, &dpi_horizontal, &dpi_vertical);
-	auto dpiscale_x = (dpi_horizontal / 96.0);
-	auto dpiscale_y = (dpi_vertical / 96.0);
 	{
+		int screen_x = ::GetSystemMetrics(SM_XVIRTUALSCREEN);
+		int screen_y = ::GetSystemMetrics(SM_YVIRTUALSCREEN);
+		int screen_w = ::GetSystemMetrics(SM_CXVIRTUALSCREEN);
+		int screen_h = ::GetSystemMetrics(SM_CYVIRTUALSCREEN);
+
+		if (x + width < screen_x || y + height < screen_y ||
+			x > screen_w || y > screen_h)
+		{
+			return false;
+		}
+
+		POINT pt = {x, y};
+		HMONITOR monitor = ::MonitorFromPoint(pt, MONITOR_DEFAULTTONEAREST);
+		UINT dpi_horizontal, dpi_vertical;
+		::GetDpiForMonitor(monitor, MDT_EFFECTIVE_DPI, &dpi_horizontal, &dpi_vertical);
+		auto dpiscale_x = (dpi_horizontal / 96.0);
+		auto dpiscale_y = (dpi_vertical / 96.0);
 		x = (x + screen_x) * dpiscale_x;
 		y = (y + screen_y) * dpiscale_y;
 		width = width * dpiscale_x;
