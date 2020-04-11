@@ -31,10 +31,9 @@ bool DisplayRegionGuideView::Draw()
         {
             return false;
         }
-
         this->Invalidate(this->display_region, this->border_width);
 
-        POINT pt = {0,0};
+        POINT pt = { this->display_region.GetX(),this->display_region.GetY() };
         HMONITOR monitor = ::MonitorFromPoint(pt, MONITOR_DEFAULTTONEAREST);
         //MONITOR_DEFAULTTONEAREST //指定した点に最も近い位置にあるディスプレイモニタのハンドルが返る。
         //MONITOR_DEFAULTTONULL //NULL が返る。
@@ -72,19 +71,13 @@ void DisplayRegionGuideView::Invalidate(const DisplayRegion& display_region, int
 
 bool DisplayRegionGuideView::drawLine(int x, int y, int width, int height, int border_width)
 {
-    int screen_x = ::GetSystemMetrics(SM_XVIRTUALSCREEN);
-    int screen_y = ::GetSystemMetrics(SM_YVIRTUALSCREEN);
-    int screen_w = ::GetSystemMetrics(SM_CXVIRTUALSCREEN);
-    int screen_h = ::GetSystemMetrics(SM_CYVIRTUALSCREEN);
-    HDC  desktop_hdc = ::GetDC(NULL);
+    HDC     desktop_hdc = ::GetDC(NULL);
+    int     bw = border_width / 2;
+    HPEN    hpen = ::CreatePen(PS_SOLID, 1, RGB(0, 255, 127));
+    HBRUSH  hbrush = ::CreateSolidBrush(RGB(0, 255, 127));
+    HPEN    oldpen = (HPEN)::SelectObject(desktop_hdc, (HGDIOBJ*)hpen);
+    HBRUSH  oldbrush = (HBRUSH)::SelectObject(desktop_hdc, (HGDIOBJ*)hbrush);
 
-    int bw = border_width / 2;
-    HPEN   hpen = ::CreatePen(PS_SOLID, 1, RGB(0, 255, 127));
-    HBRUSH hbrush = ::CreateSolidBrush(RGB(0, 255, 127));
-    HPEN   oldpen = (HPEN)::SelectObject(desktop_hdc, (HGDIOBJ*)hpen);
-    HBRUSH oldbrush = (HBRUSH)::SelectObject(desktop_hdc, (HGDIOBJ*)hbrush);
-
-    // TODO:仮想スクリーンの領域内にシュリンクさせる.
     ::Rectangle(desktop_hdc, x - bw, y - bw, x + width + bw, y + bw);
     ::Rectangle(desktop_hdc, x - bw, y - bw, x + bw, y + height + bw);
     ::Rectangle(desktop_hdc, x + width - bw, y - bw, x + width + bw, y + height + bw);

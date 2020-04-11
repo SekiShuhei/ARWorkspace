@@ -24,6 +24,7 @@ void ARVirtualScreen::Initialize()
 	this->capture_thread_run = true;
 	this->capture_thread = std::thread([this]()
 		{
+			::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 			while (this->capture_thread_run)
 			{
 				if (!this->capture_region_guide_counter.IsCount())
@@ -37,9 +38,7 @@ void ARVirtualScreen::Initialize()
 	this->capture_region_guide_thread_run = true;
 	this->capture_region_guide_thread = std::thread([this]()
 		{
-			// Windows 10 Version 1703‚æ‚èŒÃ‚¢ê‡‚Í•s‹ï‡‚ª‹N‚«‚é‰Â”\«‚ª‚ ‚é.
 			::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
-
 			while (this->capture_region_guide_thread_run)
 			{
 				
