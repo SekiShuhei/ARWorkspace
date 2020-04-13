@@ -43,7 +43,7 @@ void Main()
 		double gyro_x, gyro_y, gyro_z;
 		//sensor.GetAccelerometerSensorData(gyro_x, gyro_y, gyro_z);
 		sensor.GetGyrometerSensorData(gyro_x, gyro_y, gyro_z);
-		font(U"x:{},y:{},z:{}"_fmt(gyro_x, gyro_x, gyro_x)).draw(0.0, 100.0, Palette::Green);
+		font(U"x:{:.0f},y:{:.0f},z:{:.0f}"_fmt(gyro_x, gyro_y, gyro_z)).draw(0.0, 100.0, Palette::Green);
 	}
 
 	p_ar_screen->WriteConfigFile();

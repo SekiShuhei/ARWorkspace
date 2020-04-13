@@ -100,7 +100,7 @@ void SensorApiManager::GetGyrometerSensorData(double& ref_x, double& ref_y, doub
 		return;
 	}
 	// .
-	if (FAILED(sensor_manager->GetSensorsByCategory(SENSOR_TYPE_ACCELEROMETER_3D, &sensor_collection)))
+	if (FAILED(sensor_manager->GetSensorsByCategory(SENSOR_TYPE_GYROMETER_3D, &sensor_collection)))
 	{
 		return;
 	}
@@ -114,17 +114,17 @@ void SensorApiManager::GetGyrometerSensorData(double& ref_x, double& ref_y, doub
 	}
 
 	PROPVARIANT x = {};
-	if (FAILED(data->GetSensorValue(SENSOR_DATA_TYPE_ANGULAR_ACCELERATION_X_DEGREES_PER_SECOND_SQUARED, &x)))
+	if (FAILED(data->GetSensorValue(SENSOR_DATA_TYPE_ANGULAR_VELOCITY_X_DEGREES_PER_SECOND, &x)))
 	{
 		return;
 	}
 	PROPVARIANT y = {};
-	if (FAILED(data->GetSensorValue(SENSOR_DATA_TYPE_ANGULAR_ACCELERATION_Y_DEGREES_PER_SECOND_SQUARED, &y)))
+	if (FAILED(data->GetSensorValue(SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Y_DEGREES_PER_SECOND, &y)))
 	{
 		return;
 	}
 	PROPVARIANT z = {};
-	if (FAILED(data->GetSensorValue(SENSOR_DATA_TYPE_ANGULAR_ACCELERATION_Z_DEGREES_PER_SECOND_SQUARED, &z)))
+	if (FAILED(data->GetSensorValue(SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Z_DEGREES_PER_SECOND, &z)))
 	{
 		return;
 	}
