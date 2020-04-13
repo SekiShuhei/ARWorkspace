@@ -6,8 +6,12 @@
 #include <sensors.h>
 #pragma comment(lib, "Sensorsapi.lib")
 
+#include <tuple>
+#include <optional>
+
 namespace ARWorkspace {
 
+using Vector3 = std::tuple<double, double, double>;
 class SensorApiManager
 {
 public:
@@ -17,6 +21,7 @@ public:
 
 	// éQçlà¯óp.
 	void GetAccelerometerSensorData(double& rx, double& ry, double& rz);
+	std::optional<Vector3> GetAccelerometerSensorData();
 
 	void GetGyrometerSensorData(double& ref_x, double& ref_y, double& ref_z);
 

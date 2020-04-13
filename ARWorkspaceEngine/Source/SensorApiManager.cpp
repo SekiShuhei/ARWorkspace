@@ -88,6 +88,52 @@ void SensorApiManager::GetAccelerometerSensorData(double& rx, double& ry, double
 	rz = z.dblVal;
 }
 
+std::optional<Vector3> SensorApiManager::GetAccelerometerSensorData()
+{
+	CComPtr<ISensorCollection> sensor_collection;
+	CComPtr<ISensorDataReport> data;
+
+	if (!this->intialized)
+	{
+		return std::nullopt;
+	}
+	if (!this->selectSensor(SENSOR_TYPE_ACCELEROMETER_3D))
+	{
+		return std::nullopt;
+	}
+	if (FAILED(this->p_current_sensor->GetData(&data)))
+	{
+		return std::nullopt;
+	}
+	// 以下はセンサー種類によってデータが異なる.
+	std::tuple<double, double, double> report_value;
+	PROPVARIANT value = {};
+	if (! FAILED(data->GetSensorValue(SENSOR_DATA_TYPE_ACCELERATION_X_G, &value)))
+	{
+		if (value.vt == VT_R8)
+		{
+			std::get<0>(report_value) = value.dblVal;
+		}
+	}
+	PropVariantClear(&value);
+	if (! FAILED(data->GetSensorValue(SENSOR_DATA_TYPE_ACCELERATION_Y_G, &value)))
+	{
+		if (value.vt == VT_R8)
+		{
+			std::get<1>(report_value) = value.dblVal;
+		}
+	}
+	PropVariantClear(&value);
+	if (! FAILED(data->GetSensorValue(SENSOR_DATA_TYPE_ACCELERATION_Z_G, &value)))
+	{
+		if (value.vt == VT_R8)
+		{
+			std::get<2>(report_value) = value.dblVal;
+		}
+	}
+	return report_value;
+}
+
 void SensorApiManager::GetGyrometerSensorData(double& ref_x, double& ref_y, double& ref_z)
 {
 	return; //kari.
