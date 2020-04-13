@@ -1,6 +1,5 @@
 #pragma once
 
-//#include <initguid.h>
 
 #include <atlbase.h>
 #include <SensorsApi.h>
@@ -14,6 +13,8 @@ class SensorApiManager
 public:
 	SensorApiManager();
 	~SensorApiManager();
+
+	bool Initialize();
 
 	// Qlˆø—p.
 	void GetAccelerometerSensorData(double& rx, double& ry, double& rz);

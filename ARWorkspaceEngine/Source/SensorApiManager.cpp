@@ -1,9 +1,9 @@
 
-
 #include <atlbase.h>
 #include <SensorsApi.h>
 #include <sensors.h>
 #pragma comment(lib, "Sensorsapi.lib")
+#include <initguid.h>
 
 
 #include "SensorApiManager.hpp"
@@ -12,12 +12,31 @@ namespace ARWorkspace {
 
 SensorApiManager::SensorApiManager()
 {
-
+	
 }
 
 
 SensorApiManager::~SensorApiManager()
 {
+}
+
+bool SensorApiManager::Initialize()
+{
+	if (FAILED(::CoInitializeEx(NULL, COINIT_MULTITHREADED)))
+	{
+		return false;
+	}
+	// メンバのポインタを渡すと落ちる.
+	//ISensorManager* p_sensor_manager;
+	//
+	//if (FAILED(::CoCreateInstance(CLSID_SensorManager, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&p_sensor_manager))))
+	//{
+	//	return false;
+	//}
+
+	this->intialized = true;
+
+	return true;
 }
 
 void SensorApiManager::GetAccelerometerSensorData(double& rx, double& ry, double& rz)
@@ -32,18 +51,16 @@ void SensorApiManager::GetAccelerometerSensorData(double& rx, double& ry, double
 	CComPtr<ISensor> sensor;
 	CComPtr<ISensorDataReport> data;
 
-	// .COMについて要調査
-	// 毎回初期化する必要はたぶんない.
-	if (FAILED(::CoInitializeEx(NULL, COINIT_MULTITHREADED))) 
+	if (! this->intialized)
 	{
 		return;
 	}
-	// 毎回マネージャを作成する必要もない？？.
 	if (FAILED(::CoCreateInstance(CLSID_SensorManager, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&sensor_manager)))) 
 	{
 		return;
 	}
-	// .
+	
+
 	if (FAILED(sensor_manager->GetSensorsByCategory(SENSOR_TYPE_ACCELEROMETER_3D, &sensor_collection))) 
 	{
 		return;
@@ -80,6 +97,8 @@ void SensorApiManager::GetAccelerometerSensorData(double& rx, double& ry, double
 
 void SensorApiManager::GetGyrometerSensorData(double& ref_x, double& ref_y, double& ref_z)
 {
+	return; //kari.
+
 	ref_x = 0.f;
 	ref_y = 0.f;
 	ref_z = 0.f;
@@ -89,12 +108,10 @@ void SensorApiManager::GetGyrometerSensorData(double& ref_x, double& ref_y, doub
 	CComPtr<ISensor> sensor;
 	CComPtr<ISensorDataReport> data;
 
-	// .COMについて要調査
-	// 毎回初期化する必要はたぶんない.
-	if (FAILED(::CoInitializeEx(NULL, COINIT_MULTITHREADED)))
-	{
-		return;
-	}
+	//if (FAILED(::CoInitializeEx(NULL, COINIT_MULTITHREADED)))
+	//{
+	//	return;
+	//}
 	// 毎回マネージャを作成する必要もない？？.
 	if (FAILED(::CoCreateInstance(CLSID_SensorManager, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&sensor_manager))))
 	{

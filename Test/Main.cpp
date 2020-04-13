@@ -29,6 +29,7 @@ void Main()
 
 	p_ar_screen->Initialize();
 	p_ar_screen->SetAutoResizeMode(true);
+	sensor.Initialize();
 	
 	while (System::Update())
 	{
