@@ -24,7 +24,8 @@ public:
 	void GetGyrometerSensorData(double& ref_x, double& ref_y, double& ref_z);
 
 private:
-	bool selectSensor(REFSENSOR_CATEGORY_ID arg_sensor_category_id); 
+	bool selectSensor(const REFSENSOR_CATEGORY_ID arg_sensor_category_id); 
+	double getCurrentSensorValue(const PROPERTYKEY arg_property_key);
 
 private:
 	CComPtr<ISensorManager>		p_sensor_manager;

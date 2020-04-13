@@ -147,7 +147,7 @@ void SensorApiManager::GetGyrometerSensorData(double& ref_x, double& ref_y, doub
 	ref_z = z.dblVal;
 }
 
-bool SensorApiManager::selectSensor(REFSENSOR_CATEGORY_ID arg_sensor_category_id)
+bool SensorApiManager::selectSensor(const REFSENSOR_CATEGORY_ID arg_sensor_category_id)
 {
 	// ‚Æ‚è‚ ‚¦‚¸æ“ª‚ÌƒZƒ“ƒT‚ğŒ©‚Â‚¯‚é‚¾‚¯.
 	CComPtr<ISensorCollection> sensor_collection;
@@ -170,6 +170,29 @@ bool SensorApiManager::selectSensor(REFSENSOR_CATEGORY_ID arg_sensor_category_id
 	}
 
 	return true;
+}
+
+double SensorApiManager::getCurrentSensorValue(const PROPERTYKEY arg_property_key)
+{
+	if (this->p_current_sensor.IsEqualObject(nullptr))
+	{
+		return 0.0;
+	}
+	CComPtr<ISensorDataReport> data;
+	if (FAILED(this->p_current_sensor->GetData(&data)))
+	{
+		return 0.0;
+	}
+	PROPVARIANT value = {};
+	if (FAILED(data->GetSensorValue(arg_property_key, &value)))
+	{
+		return 0.0;
+	}
+
+	if (value.vt == VT_R8)
+	{
+		return value.dblVal;
+	}
 }
 
 }
