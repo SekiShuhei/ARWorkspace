@@ -62,25 +62,6 @@ void SensorApiManager::GetAccelerometerSensorData(double& rx, double& ry, double
 	{
 		return;
 	}
-
-	//if (FAILED(p_sensor_manager->GetSensorsByCategory(SENSOR_TYPE_ACCELEROMETER_3D, &sensor_collection))) 
-	//{
-	//	return;
-	//}
-	//if (FAILED(sensor_collection->GetAt(0, &this->p_current_sensor.p))) 
-	//{
-	//	return;
-	//}
-	//ULONG ulCount = 0;
-	//if (FAILED(sensor_collection->GetCount(&ulCount)))
-	//{
-	//	return;
-	//}
-	//if (FAILED(this->p_current_sensor->SetEventSink(NULL)))
-	//{
-	//	return;
-	//}
-
 	if (FAILED(this->p_current_sensor->GetData(&data)))
 	{
 		return;
