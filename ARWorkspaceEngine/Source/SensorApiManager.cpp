@@ -27,11 +27,17 @@ bool SensorApiManager::Initialize()
 		return false;
 	}
 	// CComPtrをそのまま渡すと落ちる.
-	if (FAILED(::CoCreateInstance(CLSID_SensorManager, 
-		NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&this->p_sensor_manager.p))))
+	auto result = ::CoCreateInstance(CLSID_SensorManager, 
+		NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&this->p_sensor_manager.p));
+	if (FAILED(result))
 	{
 		return false;
 	}
+	if (result == HRESULT_FROM_WIN32(ERROR_ACCESS_DISABLED_BY_POLICY))
+	{
+		return result;
+	}
+	
 
 	this->intialized = true;
 
@@ -76,7 +82,7 @@ void SensorApiManager::GetAccelerometerSensorData(double& rx, double& ry, double
 	{
 		return;
 	}
-
+	// 以下はセンサー種類によってデータが異なる.
 	PROPVARIANT x = {};
 	if (FAILED(data->GetSensorValue(SENSOR_DATA_TYPE_ACCELERATION_X_G, &x))) 
 	{
