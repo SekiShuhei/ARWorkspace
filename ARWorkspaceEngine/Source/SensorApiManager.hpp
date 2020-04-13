@@ -23,10 +23,10 @@ public:
 
 
 private:
-	CComPtr<ISensorManager>		sensor_manager;
-	CComPtr<ISensorCollection>	sensor_collection;
-	CComPtr<ISensor>			sensor;
-	CComPtr<ISensorDataReport>	data;
+	CComPtr<ISensorManager>		p_sensor_manager;
+	CComPtr<ISensorCollection>	p_sensor_collection;
+	CComPtr<ISensor>			p_sensor;
+	CComPtr<ISensorDataReport>	p_data;
 
 	bool intialized = false;
 };

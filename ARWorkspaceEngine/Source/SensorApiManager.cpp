@@ -26,8 +26,9 @@ bool SensorApiManager::Initialize()
 	{
 		return false;
 	}
+	// CComPtrをそのまま渡すと落ちる.
 	if (FAILED(::CoCreateInstance(CLSID_SensorManager, 
-		NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&this->sensor_manager.p))))
+		NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&this->p_sensor_manager.p))))
 	{
 		return false;
 	}
@@ -44,7 +45,6 @@ void SensorApiManager::GetAccelerometerSensorData(double& rx, double& ry, double
 	ry = 0.f;
 	rz = 0.f;
 
-	//CComPtr<ISensorManager> sensor_manager;
 	CComPtr<ISensorCollection> sensor_collection;
 	CComPtr<ISensor> sensor;
 	CComPtr<ISensorDataReport> data;
@@ -54,7 +54,7 @@ void SensorApiManager::GetAccelerometerSensorData(double& rx, double& ry, double
 		return;
 	}
 
-	if (FAILED(sensor_manager->GetSensorsByCategory(SENSOR_TYPE_ACCELEROMETER_3D, &sensor_collection))) 
+	if (FAILED(p_sensor_manager->GetSensorsByCategory(SENSOR_TYPE_ACCELEROMETER_3D, &sensor_collection))) 
 	{
 		return;
 	}
@@ -62,6 +62,16 @@ void SensorApiManager::GetAccelerometerSensorData(double& rx, double& ry, double
 	{
 		return;
 	}
+	ULONG ulCount = 0;
+	if (FAILED(sensor_collection->GetCount(&ulCount)))
+	{
+		return;
+	}
+	if (FAILED(sensor->SetEventSink(NULL)))
+	{
+		return;
+	}
+
 	if (FAILED(sensor->GetData(&data))) 
 	{
 		return;
@@ -96,7 +106,7 @@ void SensorApiManager::GetGyrometerSensorData(double& ref_x, double& ref_y, doub
 	ref_y = 0.f;
 	ref_z = 0.f;
 
-	CComPtr<ISensorManager> sensor_manager;
+	CComPtr<ISensorManager> p_sensor_manager;
 	CComPtr<ISensorCollection> sensor_collection;
 	CComPtr<ISensor> sensor;
 	CComPtr<ISensorDataReport> data;
@@ -106,12 +116,12 @@ void SensorApiManager::GetGyrometerSensorData(double& ref_x, double& ref_y, doub
 	//	return;
 	//}
 	// 毎回マネージャを作成する必要もない？？.
-	if (FAILED(::CoCreateInstance(CLSID_SensorManager, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&sensor_manager))))
+	if (FAILED(::CoCreateInstance(CLSID_SensorManager, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&p_sensor_manager))))
 	{
 		return;
 	}
 	// .
-	if (FAILED(sensor_manager->GetSensorsByCategory(SENSOR_TYPE_GYROMETER_3D, &sensor_collection)))
+	if (FAILED(p_sensor_manager->GetSensorsByCategory(SENSOR_TYPE_GYROMETER_3D, &sensor_collection)))
 	{
 		return;
 	}
