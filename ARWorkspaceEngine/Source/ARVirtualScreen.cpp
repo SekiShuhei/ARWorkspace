@@ -184,11 +184,7 @@ void ARVirtualScreen::Draw()
 
 	// ƒZƒ“ƒTŒn.
 	{
-		double	rx, ry, rz;
-		//sensor_manager.get_accelerometer_3d_value(rx, ry, rz);
-
-		//font(U"AccelSensor_X:", rx).draw(0.0, 0.0, Palette::Blue);
-
+		//...
 	}
 
 
