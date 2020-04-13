@@ -35,7 +35,7 @@ bool SensorApiManager::Initialize()
 	}
 	if (result == HRESULT_FROM_WIN32(ERROR_ACCESS_DISABLED_BY_POLICY))
 	{
-		return result;
+		return false;
 	}
 	
 
@@ -52,33 +52,36 @@ void SensorApiManager::GetAccelerometerSensorData(double& rx, double& ry, double
 	rz = 0.f;
 
 	CComPtr<ISensorCollection> sensor_collection;
-	CComPtr<ISensor> sensor;
 	CComPtr<ISensorDataReport> data;
 
 	if (! this->intialized)
 	{
 		return;
 	}
-
-	if (FAILED(p_sensor_manager->GetSensorsByCategory(SENSOR_TYPE_ACCELEROMETER_3D, &sensor_collection))) 
-	{
-		return;
-	}
-	if (FAILED(sensor_collection->GetAt(0, &sensor))) 
-	{
-		return;
-	}
-	ULONG ulCount = 0;
-	if (FAILED(sensor_collection->GetCount(&ulCount)))
-	{
-		return;
-	}
-	if (FAILED(sensor->SetEventSink(NULL)))
+	if (! this->selectSensor(SENSOR_TYPE_ACCELEROMETER_3D))
 	{
 		return;
 	}
 
-	if (FAILED(sensor->GetData(&data))) 
+	//if (FAILED(p_sensor_manager->GetSensorsByCategory(SENSOR_TYPE_ACCELEROMETER_3D, &sensor_collection))) 
+	//{
+	//	return;
+	//}
+	//if (FAILED(sensor_collection->GetAt(0, &this->p_current_sensor.p))) 
+	//{
+	//	return;
+	//}
+	//ULONG ulCount = 0;
+	//if (FAILED(sensor_collection->GetCount(&ulCount)))
+	//{
+	//	return;
+	//}
+	//if (FAILED(this->p_current_sensor->SetEventSink(NULL)))
+	//{
+	//	return;
+	//}
+
+	if (FAILED(this->p_current_sensor->GetData(&data)))
 	{
 		return;
 	}
@@ -159,6 +162,31 @@ void SensorApiManager::GetGyrometerSensorData(double& ref_x, double& ref_y, doub
 	ref_x = x.dblVal;
 	ref_y = y.dblVal;
 	ref_z = z.dblVal;
+}
+
+bool SensorApiManager::selectSensor(REFSENSOR_CATEGORY_ID arg_sensor_category_id)
+{
+	// ‚Æ‚è‚ ‚¦‚¸æ“ª‚ÌƒZƒ“ƒT‚ğŒ©‚Â‚¯‚é‚¾‚¯.
+	CComPtr<ISensorCollection> sensor_collection;
+	if (FAILED(p_sensor_manager->GetSensorsByCategory(arg_sensor_category_id, &sensor_collection)))
+	{
+		return false;
+	}
+	if (FAILED(sensor_collection->GetAt(0, &this->p_current_sensor.p)))
+	{
+		return false;
+	}
+	ULONG ulCount = 0;
+	if (FAILED(sensor_collection->GetCount(&ulCount)))
+	{
+		return false;
+	}
+	if (FAILED(this->p_current_sensor->SetEventSink(NULL)))
+	{
+		return false;
+	}
+
+	return true;
 }
 
 }
