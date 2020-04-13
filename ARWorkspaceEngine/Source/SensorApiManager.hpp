@@ -20,6 +20,7 @@ public:
 	bool Initialize();
 
 	std::optional<Vector3> GetAccelerometerSensorData();
+	std::optional<Vector3> GetGyrometerSensorData();
 
 	void GetGyrometerSensorData(double& ref_x, double& ref_y, double& ref_z);
 

@@ -42,7 +42,8 @@ void Main()
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
 	
 		double gyro_x, gyro_y, gyro_z;
-		auto sensor_val = sensor.GetAccelerometerSensorData();
+		//auto sensor_val = sensor.GetAccelerometerSensorData();
+		auto sensor_val = sensor.GetGyrometerSensorData();
 		if (sensor_val)
 		{
 			gyro_x = std::get<0>(sensor_val.value());

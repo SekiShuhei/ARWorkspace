@@ -62,6 +62,25 @@ std::optional<Vector3> SensorApiManager::GetAccelerometerSensorData()
 	return report_value;
 }
 
+std::optional<Vector3> SensorApiManager::GetGyrometerSensorData()
+{
+	if (!this->intialized)
+	{
+		return std::nullopt;
+	}
+	if (!this->selectSensor(SENSOR_TYPE_GYROMETER_3D))
+	{
+		return std::nullopt;
+	}
+	Vector3 report_value;
+	std::get<0>(report_value) = this->getCurrentSensorValue(SENSOR_DATA_TYPE_ANGULAR_VELOCITY_X_DEGREES_PER_SECOND);
+	std::get<1>(report_value) = this->getCurrentSensorValue(SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Y_DEGREES_PER_SECOND);
+	std::get<2>(report_value) = this->getCurrentSensorValue(SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Z_DEGREES_PER_SECOND);
+
+	return report_value;
+
+}
+
 void SensorApiManager::GetGyrometerSensorData(double& ref_x, double& ref_y, double& ref_z)
 {
 	return; //kari.
