@@ -26,13 +26,11 @@ bool SensorApiManager::Initialize()
 	{
 		return false;
 	}
-	// メンバのポインタを渡すと落ちる.
-	//ISensorManager* p_sensor_manager;
-	//
-	//if (FAILED(::CoCreateInstance(CLSID_SensorManager, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&p_sensor_manager))))
-	//{
-	//	return false;
-	//}
+	if (FAILED(::CoCreateInstance(CLSID_SensorManager, 
+		NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&this->sensor_manager.p))))
+	{
+		return false;
+	}
 
 	this->intialized = true;
 
@@ -46,7 +44,7 @@ void SensorApiManager::GetAccelerometerSensorData(double& rx, double& ry, double
 	ry = 0.f;
 	rz = 0.f;
 
-	CComPtr<ISensorManager> sensor_manager;
+	//CComPtr<ISensorManager> sensor_manager;
 	CComPtr<ISensorCollection> sensor_collection;
 	CComPtr<ISensor> sensor;
 	CComPtr<ISensorDataReport> data;
@@ -55,11 +53,6 @@ void SensorApiManager::GetAccelerometerSensorData(double& rx, double& ry, double
 	{
 		return;
 	}
-	if (FAILED(::CoCreateInstance(CLSID_SensorManager, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&sensor_manager)))) 
-	{
-		return;
-	}
-	
 
 	if (FAILED(sensor_manager->GetSensorsByCategory(SENSOR_TYPE_ACCELEROMETER_3D, &sensor_collection))) 
 	{
