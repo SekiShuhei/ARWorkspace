@@ -5,6 +5,7 @@
 #include "ARVirtualScreen.hpp"
 #include "GuiMenu.hpp"
 #include "KeyCommand.hpp"
+#include "SensorApiManager.hpp"
 
 void Main()
 {
@@ -20,6 +21,8 @@ void Main()
 	ARWorkspace::GuiMenu		gui_capture_menu(p_ar_screen);
 	ARWorkspace::KeyCommand		key_command(p_ar_screen);
 
+	ARWorkspace::SensorApiManager	sensor;
+
 	// 大きさ 60 のフォントを用意
 	const Font font(60);
 	double value;
@@ -31,13 +34,16 @@ void Main()
 	{
 		
 
-		key_command.Update();
-		p_ar_screen->Draw();
-		gui_capture_menu.Draw();
+		//key_command.Update();
+		//p_ar_screen->Draw();
+		//gui_capture_menu.Draw();
 
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
-		
 	
+		double gyro_x, gyro_y, gyro_z;
+		//sensor.GetAccelerometerSensorData(gyro_x, gyro_y, gyro_z);
+		sensor.GetGyrometerSensorData(gyro_x, gyro_y, gyro_z);
+		font(U"x:{},y:{},z:{}"_fmt(gyro_x, gyro_x, gyro_x)).draw(0.0, 100.0, Palette::Green);
 	}
 
 	p_ar_screen->WriteConfigFile();

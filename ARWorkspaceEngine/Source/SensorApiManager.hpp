@@ -13,8 +13,11 @@ public:
 	SensorApiManager();
 	~SensorApiManager();
 
+	// éQçlà¯óp.
+	void GetAccelerometerSensorData(double& rx, double& ry, double& rz);
 
-	void get_accelerometer_3d_value(double& rx, double& ry, double& rz);
+	void GetGyrometerSensorData(double& ref_x, double& ref_y, double& ref_z);
+
 
 private:
 	//CComPtr<ISensorManager>		sensor_manager;

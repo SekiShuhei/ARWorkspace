@@ -25,11 +25,11 @@
     <Filter Include="Common">
       <UniqueIdentifier>{2b8e8686-e5fc-464f-9151-e1b0d344fb5c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sensor">
+      <UniqueIdentifier>{e42676c8-10b4-448e-8811-a873f770e930}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\SensorApiManager.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ARDisplay.hpp">
       <Filter>ARWorkspace</Filter>
     </ClInclude>
@@ -75,11 +75,11 @@
     <ClInclude Include="Source\ScreenRegionGuideView.hpp">
       <Filter>ScreenCapture</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SensorApiManager.hpp">
+      <Filter>Sensor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\SensorApiManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ARDisplay.cpp">
       <Filter>ARWorkspace</Filter>
     </ClCompile>
@@ -112,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="Source\ScreenRegionGuideView.cpp">
       <Filter>ScreenCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorApiManager.cpp">
+      <Filter>Sensor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
