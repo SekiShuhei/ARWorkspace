@@ -19,8 +19,6 @@ public:
 	~SensorApiManager();
 	bool Initialize();
 
-	// Qlˆø—p.
-	void GetAccelerometerSensorData(double& rx, double& ry, double& rz);
 	std::optional<Vector3> GetAccelerometerSensorData();
 
 	void GetGyrometerSensorData(double& ref_x, double& ref_y, double& ref_z);

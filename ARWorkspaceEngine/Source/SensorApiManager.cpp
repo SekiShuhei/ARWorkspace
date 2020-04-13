@@ -44,50 +44,6 @@ bool SensorApiManager::Initialize()
 	return true;
 }
 
-void SensorApiManager::GetAccelerometerSensorData(double& rx, double& ry, double& rz)
-{
-
-	rx = 0.f;
-	ry = 0.f;
-	rz = 0.f;
-
-	CComPtr<ISensorCollection> sensor_collection;
-	CComPtr<ISensorDataReport> data;
-
-	if (! this->intialized)
-	{
-		return;
-	}
-	if (! this->selectSensor(SENSOR_TYPE_ACCELEROMETER_3D))
-	{
-		return;
-	}
-	if (FAILED(this->p_current_sensor->GetData(&data)))
-	{
-		return;
-	}
-	// 以下はセンサー種類によってデータが異なる.
-	PROPVARIANT x = {};
-	if (FAILED(data->GetSensorValue(SENSOR_DATA_TYPE_ACCELERATION_X_G, &x))) 
-	{
-		return;
-	}
-	PROPVARIANT y = {};
-	if (FAILED(data->GetSensorValue(SENSOR_DATA_TYPE_ACCELERATION_Y_G, &y))) 
-	{
-		return;
-	}
-	PROPVARIANT z = {};
-	if (FAILED(data->GetSensorValue(SENSOR_DATA_TYPE_ACCELERATION_Z_G, &z))) 
-	{
-		return;
-	}
-
-	rx = x.dblVal;
-	ry = y.dblVal;
-	rz = z.dblVal;
-}
-
 std::optional<Vector3> SensorApiManager::GetAccelerometerSensorData()
 {
 	CComPtr<ISensorCollection> sensor_collection;
