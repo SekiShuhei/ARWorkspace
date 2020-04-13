@@ -174,7 +174,7 @@
     <ClInclude Include="Source\ScreenRegionGuideView.hpp" />
     <ClInclude Include="Source\GuiMenu.hpp" />
     <ClInclude Include="Source\KeyCommand.hpp" />
-    <ClInclude Include="Source\SensorApiManager.hpp" />
+    <ClInclude Include="Source\WinSensorManager.hpp" />
     <ClInclude Include="Source\SimpleCounter.hpp" />
     <ClInclude Include="Source\Utility.hpp" />
     <ClInclude Include="Source\ValueEditor.hpp" />
@@ -194,7 +194,7 @@
     <ClCompile Include="Source\ScreenRegionGuideView.cpp" />
     <ClCompile Include="Source\GuiMenu.cpp" />
     <ClCompile Include="Source\KeyCommand.cpp" />
-    <ClCompile Include="Source\SensorApiManager.cpp" />
+    <ClCompile Include="Source\WinSensorManager.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\ValueEditor.cpp" />
     <ClCompile Include="Source\WinScreenCapture.cpp" />

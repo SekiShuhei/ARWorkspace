@@ -6,21 +6,21 @@
 #include <initguid.h>
 
 
-#include "SensorApiManager.hpp"
+#include "WinSensorManager.hpp"
 
 namespace ARWorkspace {
 
-SensorApiManager::SensorApiManager()
+WinSensorManager::WinSensorManager()
 {
 	
 }
 
 
-SensorApiManager::~SensorApiManager()
+WinSensorManager::~WinSensorManager()
 {
 }
 
-bool SensorApiManager::Initialize()
+bool WinSensorManager::Initialize()
 {
 	if (FAILED(::CoInitializeEx(NULL, COINIT_MULTITHREADED)))
 	{
@@ -42,9 +42,12 @@ bool SensorApiManager::Initialize()
 	this->intialized = true;
 
 	return true;
+
+
+
 }
 
-std::optional<Vector3> SensorApiManager::GetAccelerometerSensorData()
+std::optional<Vector3> WinSensorManager::GetAccelerometerSensorData()
 {
 	if (!this->intialized)
 	{
@@ -62,7 +65,7 @@ std::optional<Vector3> SensorApiManager::GetAccelerometerSensorData()
 	return report_value;
 }
 
-std::optional<Vector3> SensorApiManager::GetGyrometerSensorData()
+std::optional<Vector3> WinSensorManager::GetGyrometerSensorData()
 {
 	if (!this->intialized)
 	{
@@ -81,7 +84,7 @@ std::optional<Vector3> SensorApiManager::GetGyrometerSensorData()
 
 }
 
-bool SensorApiManager::selectSensor(const REFSENSOR_CATEGORY_ID arg_sensor_category_id)
+bool WinSensorManager::selectSensor(const REFSENSOR_CATEGORY_ID arg_sensor_category_id)
 {
 	// ‚Æ‚è‚ ‚¦‚¸æ“ª‚ÌƒZƒ“ƒT‚ğŒ©‚Â‚¯‚é‚¾‚¯.
 	CComPtr<ISensorCollection> sensor_collection;
@@ -106,7 +109,7 @@ bool SensorApiManager::selectSensor(const REFSENSOR_CATEGORY_ID arg_sensor_categ
 	return true;
 }
 
-double SensorApiManager::getCurrentSensorValue(const PROPERTYKEY arg_property_key)
+double WinSensorManager::getCurrentSensorValue(const PROPERTYKEY arg_property_key)
 {
 	if (this->p_current_sensor.IsEqualObject(nullptr))
 	{

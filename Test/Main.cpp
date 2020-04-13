@@ -5,7 +5,7 @@
 #include "ARVirtualScreen.hpp"
 #include "GuiMenu.hpp"
 #include "KeyCommand.hpp"
-#include "SensorApiManager.hpp"
+#include "WinSensorManager.hpp"
 
 void Main()
 {
@@ -21,7 +21,7 @@ void Main()
 	ARWorkspace::GuiMenu		gui_capture_menu(p_ar_screen);
 	ARWorkspace::KeyCommand		key_command(p_ar_screen);
 
-	ARWorkspace::SensorApiManager	sensor;
+	ARWorkspace::WinSensorManager	sensor;
 
 	// 大きさ 60 のフォントを用意
 	const Font font(60);

@@ -12,11 +12,11 @@
 namespace ARWorkspace {
 
 using Vector3 = std::tuple<double, double, double>;
-class SensorApiManager
+class WinSensorManager
 {
 public:
-	SensorApiManager();
-	~SensorApiManager();
+	WinSensorManager();
+	~WinSensorManager();
 	bool Initialize();
 
 	std::optional<Vector3> GetAccelerometerSensorData();
