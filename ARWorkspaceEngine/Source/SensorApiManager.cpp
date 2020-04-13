@@ -12,6 +12,7 @@ namespace ARWorkspace {
 
 SensorApiManager::SensorApiManager()
 {
+
 }
 
 

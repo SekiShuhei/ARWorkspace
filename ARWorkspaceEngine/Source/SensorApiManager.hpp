@@ -1,9 +1,11 @@
 #pragma once
 
-//#include <atlbase.h>
-//#include <SensorsApi.h>
-//#include <sensors.h>
-//#pragma comment(lib, "Sensorsapi.lib")
+//#include <initguid.h>
+
+#include <atlbase.h>
+#include <SensorsApi.h>
+#include <sensors.h>
+#pragma comment(lib, "Sensorsapi.lib")
 
 namespace ARWorkspace {
 
@@ -20,11 +22,12 @@ public:
 
 
 private:
-	//CComPtr<ISensorManager>		sensor_manager;
-	//CComPtr<ISensorCollection>	sensor_collection;
-	//CComPtr<ISensor>			sensor;
-	//CComPtr<ISensorDataReport>	data;
+	CComPtr<ISensorManager>		sensor_manager;
+	CComPtr<ISensorCollection>	sensor_collection;
+	CComPtr<ISensor>			sensor;
+	CComPtr<ISensorDataReport>	data;
 
+	bool intialized = false;
 };
 
 }

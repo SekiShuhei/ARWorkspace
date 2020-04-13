@@ -32,7 +32,7 @@ void Main()
 	
 	while (System::Update())
 	{
-		//
+		
 
 		//key_command.Update();
 		//p_ar_screen->Draw();
@@ -41,8 +41,8 @@ void Main()
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
 	
 		double gyro_x, gyro_y, gyro_z;
-		//sensor.GetAccelerometerSensorData(gyro_x, gyro_y, gyro_z);
-		sensor.GetGyrometerSensorData(gyro_x, gyro_y, gyro_z);
+		sensor.GetAccelerometerSensorData(gyro_x, gyro_y, gyro_z);
+		//sensor.GetGyrometerSensorData(gyro_x, gyro_y, gyro_z);
 		font(U"x:{:.0f},y:{:.0f},z:{:.0f}"_fmt(gyro_x, gyro_y, gyro_z)).draw(0.0, 100.0, Palette::Green);
 	}
 
