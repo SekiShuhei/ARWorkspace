@@ -32,7 +32,7 @@ void Main()
 	
 	while (System::Update())
 	{
-		
+		//
 
 		//key_command.Update();
 		//p_ar_screen->Draw();
