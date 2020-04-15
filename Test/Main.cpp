@@ -42,8 +42,8 @@ void Main()
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
 	
 		double x = 0.0, y = 0.0, z = 0.0;
-		//auto sensor_val = sensor.GetAccelerometerData();
-		auto sensor_val = sensor.GetCompassData();
+		auto sensor_val = sensor.GetAccelerometerData();
+		//auto sensor_val = sensor.GetCompassData();
 		if (sensor_val)
 		{
 			x = std::get<0>(sensor_val.value());

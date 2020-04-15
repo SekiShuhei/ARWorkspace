@@ -4,7 +4,7 @@
 #include <sensors.h>
 #pragma comment(lib, "Sensorsapi.lib")
 #include <initguid.h>
-
+#include <cassert>
 
 #include "WinSensorManager.hpp"
 
@@ -58,9 +58,9 @@ std::optional<Vector3> WinSensorManager::GetAccelerometerData()
 		return std::nullopt;
 	}
 	Vector3 report_value;
-	std::get<0>(report_value) = this->getCurrentSensorValue(SENSOR_DATA_TYPE_ACCELERATION_X_G);
-	std::get<1>(report_value) = this->getCurrentSensorValue(SENSOR_DATA_TYPE_ACCELERATION_Y_G);
-	std::get<2>(report_value) = this->getCurrentSensorValue(SENSOR_DATA_TYPE_ACCELERATION_Z_G);
+	std::get<0>(report_value) = this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_X_G);
+	std::get<1>(report_value) = this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_Y_G);
+	std::get<2>(report_value) = this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_Z_G);
 
 	return report_value;
 }
@@ -145,21 +145,11 @@ bool WinSensorManager::selectSensor(const REFSENSOR_CATEGORY_ID arg_sensor_categ
 
 double WinSensorManager::getCurrentSensorValue(const PROPERTYKEY arg_property_key)
 {
-	if (this->p_current_sensor.IsEqualObject(nullptr))
-	{
-		return 0.0;
-	}
-	CComPtr<ISensorDataReport> data;
-	if (FAILED(this->p_current_sensor->GetData(&data)))
-	{
-		return 0.0;
-	}
 	PROPVARIANT value = {};
-	if (FAILED(data->GetSensorValue(arg_property_key, &value)))
+	if (! this->getData(value, arg_property_key))
 	{
 		return 0.0;
 	}
-
 	if (value.vt == VT_R8)
 	{
 		return value.dblVal;
@@ -168,31 +158,39 @@ double WinSensorManager::getCurrentSensorValue(const PROPERTYKEY arg_property_ke
 template<typename T>
 T WinSensorManager::getCurrentSensorValue(const PROPERTYKEY arg_property_key)
 {
-
+	assert();
+	return T;
 }
 template<>
-double WinSensorManager::getCurrentSensorValue(const PROPERTYKEY arg_property_key)
-{
-	return 0.0;
-}
-
-std::optional<PROPVARIANT> WinSensorManager::getData(const PROPERTYKEY arg_property_key)
+double WinSensorManager::getCurrentSensorValue<double>(const PROPERTYKEY arg_property_key)
 {
 	PROPVARIANT value = {};
+	if (!this->getData(value, arg_property_key))
+	{
+		return 0.0;
+	}
+	if (value.vt == VT_R8)
+	{
+		return value.dblVal;
+	}
+}
+
+bool WinSensorManager::getData(PROPVARIANT& ref_propvariant, const PROPERTYKEY arg_property_key)
+{
 	if (this->p_current_sensor.IsEqualObject(nullptr))
 	{
-		return std::nullopt;
+		return false;
 	}
 	CComPtr<ISensorDataReport> data;
 	if (FAILED(this->p_current_sensor->GetData(&data)))
 	{
-		return std::nullopt;
+		return false;
 	}
-	if (FAILED(data->GetSensorValue(arg_property_key, &value)))
+	if (FAILED(data->GetSensorValue(arg_property_key, &ref_propvariant)))
 	{
-		return std::nullopt;
+		return false;
 	}
-	return value;
+	return true;
 }
 
 }

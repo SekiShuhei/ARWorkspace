@@ -31,9 +31,14 @@ public:
 private:
 	bool selectSensor(const REFSENSOR_CATEGORY_ID arg_sensor_category_id); 
 	double getCurrentSensorValue(const PROPERTYKEY arg_property_key);
+	
 	template<typename T>
 	T getCurrentSensorValue(const PROPERTYKEY arg_property_key);
-	std::optional<PROPVARIANT> getData(const PROPERTYKEY arg_property_key);
+	template<>
+	double getCurrentSensorValue<double>(const PROPERTYKEY arg_property_key);
+
+
+	bool getData(PROPVARIANT& ref_propvariant ,const PROPERTYKEY arg_property_key);
 
 private:
 	CComPtr<ISensorManager>		p_sensor_manager;
