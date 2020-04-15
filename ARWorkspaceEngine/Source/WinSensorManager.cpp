@@ -3,6 +3,7 @@
 #include <SensorsApi.h>
 #include <sensors.h>
 #pragma comment(lib, "Sensorsapi.lib")
+#include <sensorsdef.h>
 #include <initguid.h>
 #include <cassert>
 
@@ -53,16 +54,14 @@ std::optional<Vector3> WinSensorManager::GetAccelerometerData()
 	{
 		return std::nullopt;
 	}
-	if (!this->selectSensor(SENSOR_TYPE_ACCELEROMETER_3D))
+	if (!this->selectSensorByCategory(SENSOR_TYPE_ACCELEROMETER_3D))
 	{
 		return std::nullopt;
 	}
-	Vector3 report_value;
-	std::get<0>(report_value) = this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_X_G);
-	std::get<1>(report_value) = this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_Y_G);
-	std::get<2>(report_value) = this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_Z_G);
-
-	return report_value;
+	return Vector3(
+		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_X_G),
+		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_Y_G),
+		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_Z_G));
 }
 
 std::optional<Vector3> WinSensorManager::GetCompassData()
@@ -71,16 +70,14 @@ std::optional<Vector3> WinSensorManager::GetCompassData()
 	{
 		return std::nullopt;
 	}
-	if (!this->selectSensor(SENSOR_TYPE_COMPASS_3D))
+	if (!this->selectSensorByCategory(SENSOR_TYPE_COMPASS_3D))
 	{
 		return std::nullopt;
 	}
-	Vector3 report_value;
-	std::get<0>(report_value) = this->getCurrentSensorValue(SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_X_MILLIGAUSS);
-	std::get<1>(report_value) = this->getCurrentSensorValue(SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Y_MILLIGAUSS);
-	std::get<2>(report_value) = this->getCurrentSensorValue(SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Z_MILLIGAUSS);
-
-	return report_value;
+	return Vector3(
+		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_X_MILLIGAUSS),
+		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Y_MILLIGAUSS),
+		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Z_MILLIGAUSS));
 }
 
 std::optional<Vector3> WinSensorManager::GetGyrometerData()
@@ -89,17 +86,15 @@ std::optional<Vector3> WinSensorManager::GetGyrometerData()
 	{
 		return std::nullopt;
 	}
-	if (!this->selectSensor(SENSOR_TYPE_GYROMETER_3D))
+	if (!this->selectSensorByCategory(SENSOR_TYPE_GYROMETER_3D))
 	{
 		return std::nullopt;
 	}
-	Vector3 report_value;
-	std::get<0>(report_value) = this->getCurrentSensorValue(SENSOR_DATA_TYPE_ANGULAR_VELOCITY_X_DEGREES_PER_SECOND);
-	std::get<1>(report_value) = this->getCurrentSensorValue(SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Y_DEGREES_PER_SECOND);
-	std::get<2>(report_value) = this->getCurrentSensorValue(SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Z_DEGREES_PER_SECOND);
 
-	return report_value;
-
+	return Vector3(
+		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ANGULAR_VELOCITY_X_DEGREES_PER_SECOND),
+		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Y_DEGREES_PER_SECOND),
+		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Z_DEGREES_PER_SECOND));
 }
 
 std::optional<float> WinSensorManager::GetAmbientLightData()
@@ -108,17 +103,32 @@ std::optional<float> WinSensorManager::GetAmbientLightData()
 	{
 		return std::nullopt;
 	}
-	if (!this->selectSensor(SENSOR_TYPE_AMBIENT_LIGHT))
+	if (!this->selectSensorByCategory(SENSOR_TYPE_AMBIENT_LIGHT))
 	{
 		return std::nullopt;
 	}
-	float report_value;
-	report_value = this->getCurrentSensorValue(SENSOR_DATA_TYPE_LIGHT_LEVEL_LUX);
-	
-	return report_value;
+	return this->getCurrentSensorValue<float>(SENSOR_DATA_TYPE_LIGHT_LEVEL_LUX);
 }
 
-bool WinSensorManager::selectSensor(const REFSENSOR_CATEGORY_ID arg_sensor_category_id)
+std::optional<Vector3> WinSensorManager::GetGravityVectorData()
+{
+	if (!this->intialized)
+	{
+		return std::nullopt;
+	}
+	if (! this->selectSensorByType(GUID_SensorType_GravityVector))
+	{
+		return std::nullopt;
+	}
+
+	return Vector3(
+		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_X_G),
+		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_Y_G),
+		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_Z_G));
+
+}
+
+bool WinSensorManager::selectSensorByCategory(const REFSENSOR_CATEGORY_ID arg_sensor_category_id)
 {
 	// とりあえず先頭のセンサを見つけるだけ.
 	CComPtr<ISensorCollection> sensor_collection;
@@ -143,22 +153,35 @@ bool WinSensorManager::selectSensor(const REFSENSOR_CATEGORY_ID arg_sensor_categ
 	return true;
 }
 
-double WinSensorManager::getCurrentSensorValue(const PROPERTYKEY arg_property_key)
+bool WinSensorManager::selectSensorByType(const REFSENSOR_CATEGORY_ID arg_sensor_category_id)
 {
-	PROPVARIANT value = {};
-	if (! this->getData(value, arg_property_key))
+	// とりあえず先頭のセンサを見つけるだけ.
+	CComPtr<ISensorCollection> sensor_collection;
+	if (FAILED(p_sensor_manager->GetSensorsByType(arg_sensor_category_id, &sensor_collection)))
 	{
-		return 0.0;
+		return false;
 	}
-	if (value.vt == VT_R8)
+	if (FAILED(sensor_collection->GetAt(0, &this->p_current_sensor.p)))
 	{
-		return value.dblVal;
+		return false;
 	}
+	ULONG ulCount = 0;
+	if (FAILED(sensor_collection->GetCount(&ulCount)))
+	{
+		return false;
+	}
+	if (FAILED(this->p_current_sensor->SetEventSink(NULL)))
+	{
+		return false;
+	}
+
+	return true;
 }
+
 template<typename T>
 T WinSensorManager::getCurrentSensorValue(const PROPERTYKEY arg_property_key)
 {
-	assert();
+	assert(0);
 	return T;
 }
 template<>
@@ -172,6 +195,20 @@ double WinSensorManager::getCurrentSensorValue<double>(const PROPERTYKEY arg_pro
 	if (value.vt == VT_R8)
 	{
 		return value.dblVal;
+	}
+}
+template<>
+float WinSensorManager::getCurrentSensorValue<float>(const PROPERTYKEY arg_property_key)
+{
+	FLOAT a;
+	PROPVARIANT value = {};
+	if (!this->getData(value, arg_property_key))
+	{
+		return 0.0;
+	}
+	if (value.vt == VT_R4)
+	{
+		return value.fltVal;
 	}
 }
 

@@ -42,16 +42,18 @@ void Main()
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
 	
 		double x = 0.0, y = 0.0, z = 0.0;
-		auto sensor_val = sensor.GetAccelerometerData();
-		//auto sensor_val = sensor.GetCompassData();
+		//auto sensor_val = sensor.GetAccelerometerData();
+		auto sensor_val = sensor.GetGyrometerData();
 		if (sensor_val)
 		{
+			//float f = (sensor_val.value());
+			//font(U"light:{:.0f}"_fmt(f)).draw(0.0, 100.0, Palette::Green);
+
 			x = std::get<0>(sensor_val.value());
 			y = std::get<1>(sensor_val.value());
 			z = std::get<2>(sensor_val.value());
-
+			font(U"x:{:.0f},y:{:.0f},z:{:.0f}"_fmt(x, y, z)).draw(0.0, 100.0, Palette::Green);
 		}
-		font(U"x:{:.0f},y:{:.0f},z:{:.0f}"_fmt(x, y, z)).draw(0.0, 100.0, Palette::Green);
 	
 		//s3d::Quaternion
 	

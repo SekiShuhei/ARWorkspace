@@ -29,13 +29,15 @@ public:
 	std::optional<Quaternion>	GetAggregatedDeviceOrientationData();
 
 private:
-	bool selectSensor(const REFSENSOR_CATEGORY_ID arg_sensor_category_id); 
-	double getCurrentSensorValue(const PROPERTYKEY arg_property_key);
-	
+	bool selectSensorByCategory(const REFSENSOR_CATEGORY_ID arg_sensor_category_id);
+	bool selectSensorByType(const REFSENSOR_CATEGORY_ID arg_sensor_type_id);
+
 	template<typename T>
 	T getCurrentSensorValue(const PROPERTYKEY arg_property_key);
 	template<>
 	double getCurrentSensorValue<double>(const PROPERTYKEY arg_property_key);
+	template<>
+	float getCurrentSensorValue<float>(const PROPERTYKEY arg_property_key);
 
 
 	bool getData(PROPVARIANT& ref_propvariant ,const PROPERTYKEY arg_property_key);
