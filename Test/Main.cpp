@@ -5,7 +5,7 @@
 #include "ARVirtualScreen.hpp"
 #include "GuiMenu.hpp"
 #include "KeyCommand.hpp"
-#include "SensorApiManager.hpp"
+#include "WinSensorManager.hpp"
 
 void Main()
 {
@@ -21,7 +21,7 @@ void Main()
 	ARWorkspace::GuiMenu		gui_capture_menu(p_ar_screen);
 	ARWorkspace::KeyCommand		key_command(p_ar_screen);
 
-	ARWorkspace::SensorApiManager	sensor;
+	ARWorkspace::WinSensorManager	sensor;
 
 	// 大きさ 60 のフォントを用意
 	const Font font(60);
@@ -41,19 +41,31 @@ void Main()
 
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
 	
-		double gyro_x, gyro_y, gyro_z;
-		//auto sensor_val = sensor.GetAccelerometerSensorData();
-		auto sensor_val = sensor.GetGyrometerSensorData();
+		double x = 0.0, y = 0.0, z = 0.0, w = 0.0;
+		//auto sensor_val = sensor.GetAccelerometerData();
+		auto sensor_val = sensor.GetAggregatedDeviceOrientationData();
 		if (sensor_val)
 		{
-			gyro_x = std::get<0>(sensor_val.value());
-			gyro_y = std::get<1>(sensor_val.value());
-			gyro_z = std::get<2>(sensor_val.value());
+			//float f = (sensor_val.value());
+			//font(U"light:{:.0f}"_fmt(f)).draw(0.0, 100.0, Palette::Green);
 
+			auto  q = s3d::Quaternion(
+				std::get<0>(sensor_val.value()),
+				std::get<1>(sensor_val.value()),
+				std::get<2>(sensor_val.value()),
+				std::get<3>(sensor_val.value()));
+
+			auto rt_q = q.toAxisAngle();
+
+			x = (double)rt_q.first.x;
+			y = (double)rt_q.first.y;
+			z = (double)rt_q.first.z;
+			//font(U"x:{},y:{},z:{},w:{}"_fmt(x, y, z,w)).draw(0.0, 100.0, Palette::Green);
+			font(U"x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(x, y, z)).draw(0.0, 100.0, Palette::Green);
 		}
-		//sensor.GetAccelerometerSensorData(gyro_x, gyro_y, gyro_z);
-		//sensor.GetGyrometerSensorData(gyro_x, gyro_y, gyro_z);
-		font(U"x:{:.0f},y:{:.0f},z:{:.0f}"_fmt(gyro_x, gyro_y, gyro_z)).draw(0.0, 100.0, Palette::Green);
+	
+		//s3d::Quaternion
+	
 	}
 
 	p_ar_screen->WriteConfigFile();

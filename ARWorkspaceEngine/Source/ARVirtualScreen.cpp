@@ -184,7 +184,7 @@ void ARVirtualScreen::Draw()
 
 	// ƒZƒ“ƒTŒn.
 	{
-		//...
+
 	}
 
 
