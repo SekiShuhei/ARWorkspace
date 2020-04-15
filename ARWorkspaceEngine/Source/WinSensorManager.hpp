@@ -38,6 +38,8 @@ private:
 	double getCurrentSensorValue<double>(const PROPERTYKEY arg_property_key);
 	template<>
 	float getCurrentSensorValue<float>(const PROPERTYKEY arg_property_key);
+	template<>
+	Quaternion getCurrentSensorValue<Quaternion>(const PROPERTYKEY arg_property_key);
 
 
 	bool getData(PROPVARIANT& ref_propvariant ,const PROPERTYKEY arg_property_key);

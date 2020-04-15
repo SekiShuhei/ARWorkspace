@@ -125,7 +125,37 @@ std::optional<Vector3> WinSensorManager::GetGravityVectorData()
 		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_X_G),
 		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_Y_G),
 		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_Z_G));
+}
 
+std::optional<Vector3> WinSensorManager::GetLinearAccelerometerData()
+{
+	if (!this->intialized)
+	{
+		return std::nullopt;
+	}
+	if (!this->selectSensorByType(GUID_SensorType_LinearAccelerometer))
+	{
+		return std::nullopt;
+	}
+
+	return Vector3(
+		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_X_G),
+		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_Y_G),
+		this->getCurrentSensorValue<double>(SENSOR_DATA_TYPE_ACCELERATION_Z_G));
+}
+
+std::optional<Quaternion> WinSensorManager::GetAggregatedDeviceOrientationData()
+{
+	if (!this->intialized)
+	{
+		return std::nullopt;
+	}
+	if (!this->selectSensorByCategory(SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION))
+	{
+		return std::nullopt;
+	}
+
+	return this->getCurrentSensorValue<Quaternion>(SENSOR_DATA_TYPE_QUATERNION);
 }
 
 bool WinSensorManager::selectSensorByCategory(const REFSENSOR_CATEGORY_ID arg_sensor_category_id)
@@ -200,7 +230,6 @@ double WinSensorManager::getCurrentSensorValue<double>(const PROPERTYKEY arg_pro
 template<>
 float WinSensorManager::getCurrentSensorValue<float>(const PROPERTYKEY arg_property_key)
 {
-	FLOAT a;
 	PROPVARIANT value = {};
 	if (!this->getData(value, arg_property_key))
 	{
@@ -209,6 +238,20 @@ float WinSensorManager::getCurrentSensorValue<float>(const PROPERTYKEY arg_prope
 	if (value.vt == VT_R4)
 	{
 		return value.fltVal;
+	}
+}
+template<>
+Quaternion WinSensorManager::getCurrentSensorValue<Quaternion>(const PROPERTYKEY arg_property_key)
+{
+	PROPVARIANT quaternion = {};
+	if (!this->getData(quaternion, arg_property_key))
+	{
+		return Quaternion();
+	}
+	if (quaternion.vt == (VT_VECTOR | VT_UI1)) 
+	{
+		const auto pElement = (float*)quaternion.caub.pElems;
+		return Quaternion(pElement[0], pElement[1], pElement[2], pElement[3]);
 	}
 }
 
