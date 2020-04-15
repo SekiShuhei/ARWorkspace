@@ -41,19 +41,20 @@ void Main()
 
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
 	
-		double gyro_x, gyro_y, gyro_z;
-		//auto sensor_val = sensor.GetAccelerometerSensorData();
-		auto sensor_val = sensor.GetGyrometerSensorData();
+		double x = 0.0, y = 0.0, z = 0.0;
+		//auto sensor_val = sensor.GetAccelerometerData();
+		auto sensor_val = sensor.GetCompassData();
 		if (sensor_val)
 		{
-			gyro_x = std::get<0>(sensor_val.value());
-			gyro_y = std::get<1>(sensor_val.value());
-			gyro_z = std::get<2>(sensor_val.value());
+			x = std::get<0>(sensor_val.value());
+			y = std::get<1>(sensor_val.value());
+			z = std::get<2>(sensor_val.value());
 
 		}
-		//sensor.GetAccelerometerSensorData(gyro_x, gyro_y, gyro_z);
-		//sensor.GetGyrometerSensorData(gyro_x, gyro_y, gyro_z);
-		font(U"x:{:.0f},y:{:.0f},z:{:.0f}"_fmt(gyro_x, gyro_y, gyro_z)).draw(0.0, 100.0, Palette::Green);
+		font(U"x:{:.0f},y:{:.0f},z:{:.0f}"_fmt(x, y, z)).draw(0.0, 100.0, Palette::Green);
+	
+		//s3d::Quaternion
+	
 	}
 
 	p_ar_screen->WriteConfigFile();

@@ -12,6 +12,7 @@
 namespace ARWorkspace {
 
 using Vector3 = std::tuple<double, double, double>;
+using Quaternion = std::tuple<double, double, double, double>;
 class WinSensorManager
 {
 public:
@@ -19,12 +20,20 @@ public:
 	~WinSensorManager();
 	bool Initialize();
 
-	std::optional<Vector3> GetAccelerometerSensorData();
-	std::optional<Vector3> GetGyrometerSensorData();
+	std::optional<Vector3>		GetAccelerometerData();
+	std::optional<Vector3>		GetCompassData();
+	std::optional<Vector3>		GetGyrometerData();
+	std::optional<float>		GetAmbientLightData();
+	std::optional<Vector3>		GetGravityVectorData();
+	std::optional<Vector3>		GetLinearAccelerometerData();
+	std::optional<Quaternion>	GetAggregatedDeviceOrientationData();
 
 private:
 	bool selectSensor(const REFSENSOR_CATEGORY_ID arg_sensor_category_id); 
 	double getCurrentSensorValue(const PROPERTYKEY arg_property_key);
+	template<typename T>
+	T getCurrentSensorValue(const PROPERTYKEY arg_property_key);
+	std::optional<PROPVARIANT> getData(const PROPERTYKEY arg_property_key);
 
 private:
 	CComPtr<ISensorManager>		p_sensor_manager;

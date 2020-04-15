@@ -47,7 +47,7 @@ bool WinSensorManager::Initialize()
 
 }
 
-std::optional<Vector3> WinSensorManager::GetAccelerometerSensorData()
+std::optional<Vector3> WinSensorManager::GetAccelerometerData()
 {
 	if (!this->intialized)
 	{
@@ -65,7 +65,25 @@ std::optional<Vector3> WinSensorManager::GetAccelerometerSensorData()
 	return report_value;
 }
 
-std::optional<Vector3> WinSensorManager::GetGyrometerSensorData()
+std::optional<Vector3> WinSensorManager::GetCompassData()
+{
+	if (!this->intialized)
+	{
+		return std::nullopt;
+	}
+	if (!this->selectSensor(SENSOR_TYPE_COMPASS_3D))
+	{
+		return std::nullopt;
+	}
+	Vector3 report_value;
+	std::get<0>(report_value) = this->getCurrentSensorValue(SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_X_MILLIGAUSS);
+	std::get<1>(report_value) = this->getCurrentSensorValue(SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Y_MILLIGAUSS);
+	std::get<2>(report_value) = this->getCurrentSensorValue(SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Z_MILLIGAUSS);
+
+	return report_value;
+}
+
+std::optional<Vector3> WinSensorManager::GetGyrometerData()
 {
 	if (!this->intialized)
 	{
@@ -82,6 +100,22 @@ std::optional<Vector3> WinSensorManager::GetGyrometerSensorData()
 
 	return report_value;
 
+}
+
+std::optional<float> WinSensorManager::GetAmbientLightData()
+{
+	if (!this->intialized)
+	{
+		return std::nullopt;
+	}
+	if (!this->selectSensor(SENSOR_TYPE_AMBIENT_LIGHT))
+	{
+		return std::nullopt;
+	}
+	float report_value;
+	report_value = this->getCurrentSensorValue(SENSOR_DATA_TYPE_LIGHT_LEVEL_LUX);
+	
+	return report_value;
 }
 
 bool WinSensorManager::selectSensor(const REFSENSOR_CATEGORY_ID arg_sensor_category_id)
@@ -130,6 +164,35 @@ double WinSensorManager::getCurrentSensorValue(const PROPERTYKEY arg_property_ke
 	{
 		return value.dblVal;
 	}
+}
+template<typename T>
+T WinSensorManager::getCurrentSensorValue(const PROPERTYKEY arg_property_key)
+{
+
+}
+template<>
+double WinSensorManager::getCurrentSensorValue(const PROPERTYKEY arg_property_key)
+{
+	return 0.0;
+}
+
+std::optional<PROPVARIANT> WinSensorManager::getData(const PROPERTYKEY arg_property_key)
+{
+	PROPVARIANT value = {};
+	if (this->p_current_sensor.IsEqualObject(nullptr))
+	{
+		return std::nullopt;
+	}
+	CComPtr<ISensorDataReport> data;
+	if (FAILED(this->p_current_sensor->GetData(&data)))
+	{
+		return std::nullopt;
+	}
+	if (FAILED(data->GetSensorValue(arg_property_key, &value)))
+	{
+		return std::nullopt;
+	}
+	return value;
 }
 
 }
