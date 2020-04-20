@@ -1,6 +1,6 @@
 
 #include <atlbase.h>
-#include "SensorManagerEvent.hpp"
+#include "SensorManagerEvents.hpp"
 
 namespace WinSensor {
 HRESULT SensorManagerEvents::Initialize()
@@ -48,5 +48,14 @@ HRESULT SensorManagerEvents::Initialize()
 
 
 }
+
+HRESULT SensorManagerEvents::Uninitialize()
+{
+	HRESULT hr;
+	hr = this->sp_sensor_manager->SetEventSink(NULL);
+
+	return hr;
+}
+
 
 }

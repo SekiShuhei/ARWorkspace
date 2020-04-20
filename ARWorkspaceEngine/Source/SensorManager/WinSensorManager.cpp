@@ -23,6 +23,7 @@ WinSensorManager::~WinSensorManager()
 
 bool WinSensorManager::Initialize()
 {
+	
 	//if (FAILED(::CoInitializeEx(NULL, COINIT_MULTITHREADED)))
 	//{
 	//	return false;
@@ -46,6 +47,11 @@ bool WinSensorManager::Initialize()
 
 
 
+}
+
+bool WinSensorManager::Uninitialize()
+{
+	return false;
 }
 
 std::optional<Quaternion> WinSensorManager::GetAggregatedDeviceOrientationData()

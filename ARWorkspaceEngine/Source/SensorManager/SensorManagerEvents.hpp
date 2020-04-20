@@ -4,6 +4,7 @@
 #include <sensors.h>
 #pragma comment(lib,"sensorsapi.lib")
 #include <memory>
+#include <atlbase.h>
 
 namespace WinSensor {
 class SensorManagerEvents : public ISensorManagerEvents
@@ -44,6 +45,7 @@ private:
 
 public:
 	HRESULT Initialize();
+	HRESULT Uninitialize();
 
 private:
 	CComPtr<ISensorManager> sp_sensor_manager;
