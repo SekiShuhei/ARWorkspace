@@ -13,8 +13,8 @@ WinSensorManager::WinSensorManager()
 		std::make_unique<SensorManagerEvents>(
 			[this](Float4AndTimestamp arg_report)
 			{
+				this->last_quaternion_report = arg_report;
 				return true; 
-			
 			});
 	//SensorManagerEvents([this](Float4AndTimestamp){return true;});
 }
@@ -41,13 +41,15 @@ bool WinSensorManager::Uninitialize()
 	return false;
 }
 
-std::optional<Quaternion> WinSensorManager::GetAggregatedDeviceOrientationData()
+const Float4AndTimestamp& WinSensorManager::GetAggregatedDeviceOrientationData()
 {
-	if (!this->intialized)
-	{
-		return std::nullopt;
-	}
-	return std::nullopt;
+	//if (!this->intialized)
+	//{
+	//	return std::nullopt;
+	//}
+
+	return this->last_quaternion_report;
+
 }
 
 

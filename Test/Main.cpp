@@ -46,19 +46,19 @@ void Main()
 		//
 		////auto sensor_val = sensor.GetAccelerometerData();
 		auto sensor_val = sensor.GetAggregatedDeviceOrientationData();
-		if (sensor_val)
-		{
+		//if (sensor_val)
+		//{
 			//float f = (sensor_val.value());
 			//font(U"light:{:.0f}"_fmt(f)).draw(0.0, 100.0, Palette::Green);
 			auto  q = s3d::Quaternion(
-				std::get<0>(sensor_val.value()),
-				std::get<1>(sensor_val.value()),
-				std::get<2>(sensor_val.value()),
-				std::get<3>(sensor_val.value()));
-			x = std::get<0>(sensor_val.value()); //test
-			y = std::get<1>(sensor_val.value()); //test
-			z = std::get<2>(sensor_val.value()); //test
-			w = std::get<3>(sensor_val.value()); //test
+				std::get<0>(sensor_val),
+				std::get<1>(sensor_val),
+				std::get<2>(sensor_val),
+				std::get<3>(sensor_val));
+			x = std::get<0>(sensor_val); //test
+			y = std::get<1>(sensor_val); //test
+			z = std::get<2>(sensor_val); //test
+			w = std::get<3>(sensor_val); //test
 
 			//auto rt_q = q.toAxisAngle();
 			//
@@ -67,7 +67,7 @@ void Main()
 			//z = (double)rt_q.first.z;
 			//font(U"x:{},y:{},z:{},w:{}"_fmt(x, y, z,w)).draw(0.0, 100.0, Palette::Green);
 			font(U"x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(x, y, z)).draw(0.0, 100.0, Palette::Green);
-		}
+		//}
 	
 	
 	}
