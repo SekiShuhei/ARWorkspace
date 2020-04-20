@@ -13,7 +13,7 @@ public:
 		this->ref_count = 0;
 		this->AddRef();
 	}
-
+	// -------------IUnknownInterface.-------------
 	ULONG __stdcall AddRef()
 	{
 		return ++this->ref_count;
@@ -33,7 +33,12 @@ public:
 		}
 		return E_NOINTERFACE;
 	}
+private:
+	unsigned long ref_count;
 
+
+	// -------------ISensorEvents.-------------
+public:
 	HRESULT __stdcall OnEvent(ISensor* pSensor, REFGUID eventID, IPortableDeviceValues* pEventData)
 	{
 		return S_OK;
@@ -61,9 +66,9 @@ public:
 		//ListView_DeleteAllItems(hL);			// clear the list
 		return S_OK;
 	}
-private:
-	unsigned long ref_count;
 
+	// ---------------------------------------
+public:
 
 };
 
