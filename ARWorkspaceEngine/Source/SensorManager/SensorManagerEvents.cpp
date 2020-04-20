@@ -126,17 +126,15 @@ HRESULT SensorManagerEvents::AddSensor(ISensor* p_sensor)
 	hr = p_sensor->GetID(&sensor_id);
 	if (SUCCEEDED(hr))
 	{
-		SENSOR_ID sensor_id = GUID_NULL;
-		hr = p_sensor->GetID(&sensor_id);
-		if (SUCCEEDED(hr))
+		//...
+		auto device_path = this->GetDevicePath(p_sensor);
+		if (device_path)
 		{
-			//...
-			auto a = this->GetDevicePath(p_sensor);
-
-			////
-			p_sensor->AddRef();
-			this->sensor_map[sensor_id] = p_sensor;
+			device_path.value().compare(std::wstring(L"test"));
 		}
+		////
+		p_sensor->AddRef();
+		this->sensor_map[sensor_id] = p_sensor;
 	}
 	//...
 
