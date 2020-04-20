@@ -6,16 +6,15 @@
 #include <memory>
 #include <atlbase.h>
 
+#include "SensorEvents.hpp"
 namespace WinSensor {
 class SensorManagerEvents : public ISensorManagerEvents
 {
 public:
-	SensorManagerEvents()
-	{
-		this->ref_count = 0;
-		this->AddRef();
-	}
+	SensorManagerEvents();
 
+	//------------ IUnknownInterface.-------------
+public:
 	ULONG __stdcall AddRef()
 	{
 		return ++this->ref_count;
@@ -35,21 +34,23 @@ public:
 		}
 		return E_NOINTERFACE;
 	}
+private:
+	unsigned long ref_count;
 
+	//------------ ISensorManagerEvents.-------------
+public:
 	HRESULT __stdcall OnSensorEnter(ISensor* pSensor, SensorState state)
 	{
 		return S_OK;
 	}
-private:
-	unsigned long ref_count;
-
+	// ----------------------------------------------
 public:
 	HRESULT Initialize();
 	HRESULT Uninitialize();
 
 private:
-	CComPtr<ISensorManager> sp_sensor_manager;
-	//std::unique_ptr<AggregatedDeviceOrientationSensorEvents> m_pSensorEvents; // Sensor Events class used for event sinking
+	CComPtr<ISensorManager>			sp_sensor_manager;
+	std::unique_ptr<SensorEvents>	sp_sensor_events;
 
 };
 

@@ -5,16 +5,15 @@
 #pragma comment(lib,"sensorsapi.lib")
 
 namespace WinSensor {
-class CMySensorEvents : public ISensorEvents
+class SensorEvents : public ISensorEvents
 {
 public:
-	CMySensorEvents()
+	SensorEvents()
 	{
 		this->ref_count = 0;
 		this->AddRef();
 	}
 
-	// IUnknown
 	ULONG __stdcall AddRef()
 	{
 		return ++this->ref_count;

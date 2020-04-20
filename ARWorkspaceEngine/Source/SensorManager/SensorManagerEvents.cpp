@@ -3,10 +3,18 @@
 #include "SensorManagerEvents.hpp"
 
 namespace WinSensor {
+SensorManagerEvents::SensorManagerEvents()
+{
+	this->ref_count = 0;
+	this->AddRef();
+
+	this->sp_sensor_events = std::make_unique<SensorEvents>();
+
+}
 HRESULT SensorManagerEvents::Initialize()
 {
 	HRESULT hr;
-
+	
 	hr = this->sp_sensor_manager.CoCreateInstance(CLSID_SensorManager);
 	if (SUCCEEDED(hr))
 	{

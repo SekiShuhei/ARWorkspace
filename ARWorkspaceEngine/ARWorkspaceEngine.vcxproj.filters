@@ -78,10 +78,10 @@
     <ClInclude Include="Source\SensorManager\WinSensorManager.hpp">
       <Filter>Sensor</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SensorManager\SensorEvent.hpp">
+    <ClInclude Include="Source\SensorManager\SensorManagerEvents.hpp">
       <Filter>Sensor</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SensorManager\SensorManagerEvents.hpp">
+    <ClInclude Include="Source\SensorManager\SensorEvents.hpp">
       <Filter>Sensor</Filter>
     </ClInclude>
   </ItemGroup>
