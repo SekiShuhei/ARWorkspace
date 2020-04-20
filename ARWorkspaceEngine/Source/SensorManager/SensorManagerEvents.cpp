@@ -47,6 +47,7 @@ HRESULT __stdcall SensorManagerEvents::QueryInterface(const IID& iid, void** ppv
 	this->AddRef();
 	return S_OK;
 }
+
 HRESULT SensorManagerEvents::Initialize()
 {
 	HRESULT hr;

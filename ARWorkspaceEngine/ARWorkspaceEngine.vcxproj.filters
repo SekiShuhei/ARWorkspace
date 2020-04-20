@@ -125,5 +125,8 @@
     <ClCompile Include="Source\SensorManager\SensorManagerEvents.cpp">
       <Filter>Sensor</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SensorManager\SensorEvents.cpp">
+      <Filter>Sensor</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

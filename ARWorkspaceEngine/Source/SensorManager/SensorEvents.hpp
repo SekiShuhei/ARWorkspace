@@ -14,25 +14,9 @@ public:
 		this->AddRef();
 	}
 	// -------------IUnknownInterface.-------------
-	ULONG __stdcall AddRef()
-	{
-		return ++this->ref_count;
-	}
-
-	ULONG __stdcall Release()
-	{
-		return --this->ref_count;
-	}
-	HRESULT __stdcall QueryInterface(const IID& id, void** p)
-	{
-		if (id == IID_IUnknown || id == __uuidof(ISensorEvents))
-		{
-			*p = this;
-			this->AddRef();
-			return S_OK;
-		}
-		return E_NOINTERFACE;
-	}
+	ULONG __stdcall AddRef();
+	ULONG __stdcall Release();
+	HRESULT __stdcall QueryInterface(const IID&, void**);
 private:
 	unsigned long ref_count;
 

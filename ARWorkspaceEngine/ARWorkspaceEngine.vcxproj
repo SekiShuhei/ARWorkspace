@@ -204,6 +204,7 @@
     <ClCompile Include="Source\ScreenRegionGuideView.cpp" />
     <ClCompile Include="Source\GuiMenu.cpp" />
     <ClCompile Include="Source\KeyCommand.cpp" />
+    <ClCompile Include="Source\SensorManager\SensorEvents.cpp" />
     <ClCompile Include="Source\SensorManager\SensorManagerEvents.cpp" />
     <ClCompile Include="Source\SensorManager\WinSensorManager.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
