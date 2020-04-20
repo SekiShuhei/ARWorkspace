@@ -3,6 +3,7 @@
 #include <sensorsapi.h>
 #include <sensors.h>
 #pragma comment(lib,"sensorsapi.lib")
+#include <memory>
 
 namespace WinSensor {
 class SensorManagerEvents : public ISensorManagerEvents
@@ -40,6 +41,14 @@ public:
 	}
 private:
 	unsigned long ref_count;
+
+public:
+	HRESULT Initialize();
+
+private:
+	CComPtr<ISensorManager> sp_sensor_manager;
+	//std::unique_ptr<AggregatedDeviceOrientationSensorEvents> m_pSensorEvents; // Sensor Events class used for event sinking
+
 };
 
 }

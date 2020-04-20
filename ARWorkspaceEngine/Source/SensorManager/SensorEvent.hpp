@@ -4,9 +4,6 @@
 #include <sensors.h>
 #pragma comment(lib,"sensorsapi.lib")
 
-// Define all of the COM structures to make things magically line up and work
-// from the examples provided by Microsoft here:
-// http://msdn.microsoft.com/en-us/library/windows/desktop/dd319014(v=vs.85).aspx
 namespace WinSensor {
 class CMySensorEvents : public ISensorEvents
 {
@@ -38,10 +35,8 @@ public:
 		return E_NOINTERFACE;
 	}
 
-	// Sensor Events  
 	HRESULT __stdcall OnEvent(ISensor* pSensor, REFGUID eventID, IPortableDeviceValues* pEventData)
 	{
-		// handle custom events here
 		return S_OK;
 	}
 	HRESULT __stdcall OnDataUpdated(ISensor* pSensor, ISensorDataReport* pNewData)
