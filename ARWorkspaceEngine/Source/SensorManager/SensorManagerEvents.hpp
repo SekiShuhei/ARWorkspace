@@ -5,53 +5,39 @@
 #pragma comment(lib,"sensorsapi.lib")
 #include <memory>
 #include <atlbase.h>
-
+#include <atlcoll.h>
+#include "SensorManagerDefine.hpp"
 #include "SensorEvents.hpp"
 namespace WinSensor {
 class SensorManagerEvents : public ISensorManagerEvents
 {
 public:
-	SensorManagerEvents();
+	SensorManagerEvents(QuaternionCallbackFunction callback_func);
 
 	//------------ IUnknownInterface.-------------
 public:
-	ULONG __stdcall AddRef()
-	{
-		return ++this->ref_count;
-	}
-
-	ULONG __stdcall Release()
-	{
-		return --this->ref_count;
-	}
-	HRESULT __stdcall QueryInterface(const IID& id, void** p)
-	{
-		if (id == IID_IUnknown || id == __uuidof(ISensorManagerEvents))
-		{
-			*p = this;
-			this->AddRef();
-			return S_OK;
-		}
-		return E_NOINTERFACE;
-	}
+	ULONG __stdcall AddRef();
+	ULONG __stdcall Release();
+	HRESULT __stdcall QueryInterface(const IID&, void**);
 private:
 	unsigned long ref_count;
 
 	//------------ ISensorManagerEvents.-------------
 public:
-	HRESULT __stdcall OnSensorEnter(ISensor* pSensor, SensorState state)
-	{
-		return S_OK;
-	}
+	HRESULT __stdcall OnSensorEnter(ISensor* pSensor, SensorState state);
 	// ----------------------------------------------
 public:
 	HRESULT Initialize();
 	HRESULT Uninitialize();
 
+	HRESULT AddSensor(ISensor* pSensor);
+
+	HRESULT RemoveSensor(ISensor* pSensor);
+
 private:
 	CComPtr<ISensorManager>			sp_sensor_manager;
 	std::unique_ptr<SensorEvents>	sp_sensor_events;
-
+	CAtlMap<SENSOR_ID, ISensor*>	sensor_map;
 };
 
 }

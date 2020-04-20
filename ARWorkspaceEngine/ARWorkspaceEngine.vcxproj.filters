@@ -84,6 +84,9 @@
     <ClInclude Include="Source\SensorManager\SensorEvents.hpp">
       <Filter>Sensor</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SensorManager\SensorManagerDefine.hpp">
+      <Filter>Sensor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ARDisplay.cpp">
@@ -123,6 +126,9 @@
       <Filter>Sensor</Filter>
     </ClCompile>
     <ClCompile Include="Source\SensorManager\SensorManagerEvents.cpp">
+      <Filter>Sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorManager\SensorEvents.cpp">
       <Filter>Sensor</Filter>
     </ClCompile>
   </ItemGroup>
