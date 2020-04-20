@@ -102,6 +102,13 @@ HRESULT SensorManagerEvents::Initialize()
 HRESULT SensorManagerEvents::Uninitialize()
 {
 	HRESULT hr;
+
+	POSITION pos = this->sensor_map.GetStartPosition();
+	while (NULL != pos)
+	{
+		ISensor* pSensor = this->sensor_map.GetNextValue(pos);
+		this->RemoveSensor(pSensor);
+	}
 	hr = this->sp_sensor_manager->SetEventSink(NULL);
 
 	return hr;
@@ -109,22 +116,44 @@ HRESULT SensorManagerEvents::Uninitialize()
 
 HRESULT SensorManagerEvents::AddSensor(ISensor* pSensor)
 {
-	HRESULT hr = S_OK;
-	if (nullptr == pSensor)
+	if (pSensor == nullptr) 
 	{
-		hr = E_POINTER;
+		return E_POINTER;
 	}
+	HRESULT hr = S_OK;
 	hr = pSensor->SetEventSink(this->sp_sensor_events.get());
-	SENSOR_ID idSensor = GUID_NULL;
-	hr = pSensor->GetID(&idSensor);
+	SENSOR_ID sensor_id = GUID_NULL;
+	hr = pSensor->GetID(&sensor_id);
 	if (SUCCEEDED(hr))
 	{
-		pSensor->AddRef();
-		//this->sensor_map[idSensor] = pSensor;
+		SENSOR_ID sensor_id = GUID_NULL;
+		hr = pSensor->GetID(&sensor_id);
+		if (SUCCEEDED(hr))
+		{
+			pSensor->AddRef();
+			this->sensor_map[sensor_id] = pSensor;
+		}
 	}
 	//...
 
 	return hr;
+}
+
+HRESULT SensorManagerEvents::RemoveSensor(ISensor* pSensor)
+{
+	if (pSensor == nullptr)
+	{
+		return E_POINTER;
+	}
+	HRESULT hr = S_OK;
+	hr = pSensor->SetEventSink(NULL);
+	SENSOR_ID sensor_id = GUID_NULL;
+	hr = pSensor->GetID(&sensor_id);
+	if (SUCCEEDED(hr))
+	{
+		this->sensor_map.RemoveKey(sensor_id);
+		pSensor->Release();
+	}
 }
 
 }

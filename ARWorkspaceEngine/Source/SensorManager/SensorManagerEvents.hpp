@@ -31,6 +31,8 @@ public:
 
 	HRESULT AddSensor(ISensor* pSensor);
 
+	HRESULT RemoveSensor(ISensor* pSensor);
+
 private:
 	CComPtr<ISensorManager>			sp_sensor_manager;
 	std::unique_ptr<SensorEvents>	sp_sensor_events;
