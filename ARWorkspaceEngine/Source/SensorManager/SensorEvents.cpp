@@ -1,10 +1,12 @@
 #include "SensorEvents.hpp"
 
 namespace WinSensor {
-SensorEvents::SensorEvents()
+SensorEvents::SensorEvents(QuaternionCallbackFunction arg_callback_func) :
+	callback_func(arg_callback_func)
 {
 	this->ref_count = 0;
 	this->AddRef();
+
 }
 ULONG __stdcall SensorEvents::AddRef()
 {
@@ -67,8 +69,10 @@ HRESULT __stdcall SensorEvents::OnDataUpdated(ISensor* p_sensor, ISensorDataRepo
 				pv_time_stamp.filetime.dwLowDateTime;
 			if (pv_quaternion.vt == (VT_VECTOR | VT_UI1)) 
 			{
-				float* pElement = (float*)pv_quaternion.caub.pElems;
-				//m_Callback(pElement[0], pElement[1], pElement[2], pElement[3], timestamp);
+				float* p_element = (float*)pv_quaternion.caub.pElems;
+				this->callback_func(
+					Float4AndTimestamp(p_element[0], p_element[1], 
+						p_element[2], p_element[3], timestamp));
 			}
 		}
 	}

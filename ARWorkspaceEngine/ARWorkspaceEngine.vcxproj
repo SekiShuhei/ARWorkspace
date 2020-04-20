@@ -183,6 +183,7 @@
     <ClInclude Include="Source\GuiMenu.hpp" />
     <ClInclude Include="Source\KeyCommand.hpp" />
     <ClInclude Include="Source\SensorManager\SensorEvents.hpp" />
+    <ClInclude Include="Source\SensorManager\SensorManagerDefine.hpp" />
     <ClInclude Include="Source\SensorManager\SensorManagerEvents.hpp" />
     <ClInclude Include="Source\SensorManager\WinSensorManager.hpp" />
     <ClInclude Include="Source\SimpleCounter.hpp" />

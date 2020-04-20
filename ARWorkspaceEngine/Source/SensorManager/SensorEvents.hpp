@@ -9,7 +9,7 @@ namespace WinSensor {
 class SensorEvents : public ISensorEvents
 {
 public:
-	SensorEvents();
+	SensorEvents(QuaternionCallbackFunction callback_func);
 	// -------------IUnknownInterface.-------------
 	ULONG __stdcall AddRef();
 	ULONG __stdcall Release();
@@ -27,6 +27,8 @@ public:
 	// ---------------------------------------
 public:
 
+private:
+	QuaternionCallbackFunction callback_func;
 };
 
 }

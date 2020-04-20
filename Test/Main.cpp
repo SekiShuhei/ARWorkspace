@@ -21,7 +21,7 @@ void Main()
 	ARWorkspace::GuiMenu		gui_capture_menu(p_ar_screen);
 	ARWorkspace::KeyCommand		key_command(p_ar_screen);
 
-	ARWorkspace::WinSensorManager	sensor;
+	WinSensor::WinSensorManager	sensor;
 
 	// 大きさ 60 のフォントを用意
 	const Font font(60);

@@ -3,12 +3,12 @@
 #include "SensorManagerEvents.hpp"
 
 namespace WinSensor {
-SensorManagerEvents::SensorManagerEvents()
+SensorManagerEvents::SensorManagerEvents(QuaternionCallbackFunction callback_func)
 {
 	this->ref_count = 0;
 	this->AddRef();
 
-	this->sp_sensor_events = std::make_unique<SensorEvents>();
+	this->sp_sensor_events = std::make_unique<SensorEvents>(callback_func);
 
 }
 ULONG __stdcall SensorManagerEvents::AddRef()

@@ -1,12 +1,12 @@
 #pragma once
 
 
-
+#include <memory>
 #include <tuple>
 #include <optional>
 
 #include "SensorManagerEvents.hpp"
-namespace ARWorkspace {
+namespace WinSensor {
 
 using Vector3 = std::tuple<double, double, double>;
 using Quaternion = std::tuple<double, double, double, double>;
@@ -31,7 +31,7 @@ private:
 	
 	bool intialized = false;
 	
-	WinSensor::SensorManagerEvents sensor_manager;
+	std::unique_ptr<WinSensor::SensorManagerEvents> p_sensor_manager;
 };
 
 }
