@@ -6,6 +6,7 @@
 #include <memory>
 #include <atlbase.h>
 #include <atlcoll.h>
+#include "SensorManagerDefine.hpp"
 #include "SensorEvents.hpp"
 namespace WinSensor {
 class SensorManagerEvents : public ISensorManagerEvents

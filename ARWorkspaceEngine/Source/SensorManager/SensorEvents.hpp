@@ -3,6 +3,7 @@
 #include <sensorsapi.h>
 #include <sensors.h>
 #pragma comment(lib,"sensorsapi.lib")
+#include "SensorManagerDefine.hpp"
 
 namespace WinSensor {
 class SensorEvents : public ISensorEvents
