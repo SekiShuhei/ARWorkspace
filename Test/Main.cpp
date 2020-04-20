@@ -73,4 +73,6 @@ void Main()
 	}
 
 	p_ar_screen->WriteConfigFile();
+
+	sensor.Uninitialize();
 }

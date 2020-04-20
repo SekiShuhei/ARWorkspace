@@ -8,11 +8,7 @@ namespace WinSensor {
 class SensorEvents : public ISensorEvents
 {
 public:
-	SensorEvents()
-	{
-		this->ref_count = 0;
-		this->AddRef();
-	}
+	SensorEvents();
 	// -------------IUnknownInterface.-------------
 	ULONG __stdcall AddRef();
 	ULONG __stdcall Release();
@@ -23,34 +19,10 @@ private:
 
 	// -------------ISensorEvents.-------------
 public:
-	HRESULT __stdcall OnEvent(ISensor* pSensor, REFGUID eventID, IPortableDeviceValues* pEventData)
-	{
-		return S_OK;
-	}
-	HRESULT __stdcall OnDataUpdated(ISensor* pSensor, ISensorDataReport* pNewData)
-	{
-		if (pSensor == nullptr || pNewData == nullptr)
-		{
-			return E_INVALIDARG;
-		}
-		//UpdateData(pSensor, pNewData);
-		return S_OK;
-	}
-	// sensor going away (unplugged) refresh the list
-	HRESULT __stdcall OnLeave(REFSENSOR_ID sensorID)
-	{
-		//HWND hL = GetDlgItem(MainWindow, 901);
-		//ListView_DeleteAllItems(hL);			// clear the list
-		return S_OK;
-	}
-	// sensor state changed, refresh the list
-	HRESULT __stdcall OnStateChanged(ISensor* pSensor, SensorState state)
-	{
-		//HWND hL = GetDlgItem(MainWindow, 901);
-		//ListView_DeleteAllItems(hL);			// clear the list
-		return S_OK;
-	}
-
+	HRESULT __stdcall OnEvent(ISensor* pSensor, REFGUID eventID, IPortableDeviceValues* pEventData);
+	HRESULT __stdcall OnDataUpdated(ISensor* pSensor, ISensorDataReport* pNewData);
+	HRESULT __stdcall OnLeave(REFSENSOR_ID sensorID);
+	HRESULT __stdcall OnStateChanged(ISensor* pSensor, SensorState state);
 	// ---------------------------------------
 public:
 

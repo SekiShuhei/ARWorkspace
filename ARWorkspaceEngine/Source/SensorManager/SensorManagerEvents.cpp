@@ -48,6 +48,11 @@ HRESULT __stdcall SensorManagerEvents::QueryInterface(const IID& iid, void** ppv
 	return S_OK;
 }
 
+HRESULT __stdcall SensorManagerEvents::OnSensorEnter(ISensor* pSensor, SensorState state)
+{
+	return S_OK;
+}
+
 HRESULT SensorManagerEvents::Initialize()
 {
 	HRESULT hr;
@@ -73,10 +78,9 @@ HRESULT SensorManagerEvents::Initialize()
 						hr = spSensors->GetAt(i, &spSensor);
 						if (SUCCEEDED(hr))
 						{
-							int i = 1;
 							//if (SUCCEEDED(IsMoverio(spSensor)))
 							//{
-								//hr = AddSensor(spSensor);
+								hr = this->AddSensor(spSensor);
 								//if (SUCCEEDED(hr))
 								//{
 									///////// 
@@ -103,5 +107,18 @@ HRESULT SensorManagerEvents::Uninitialize()
 	return hr;
 }
 
+HRESULT SensorManagerEvents::AddSensor(ISensor* pSensor)
+{
+	HRESULT hr = S_OK;
+	if (nullptr == pSensor)
+	{
+		hr = E_POINTER;
+	}
+	hr = pSensor->SetEventSink(this->sp_sensor_events.get());
+
+	//...
+
+	return hr;
+}
 
 }

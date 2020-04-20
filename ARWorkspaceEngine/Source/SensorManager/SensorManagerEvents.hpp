@@ -23,14 +23,13 @@ private:
 
 	//------------ ISensorManagerEvents.-------------
 public:
-	HRESULT __stdcall OnSensorEnter(ISensor* pSensor, SensorState state)
-	{
-		return S_OK;
-	}
+	HRESULT __stdcall OnSensorEnter(ISensor* pSensor, SensorState state);
 	// ----------------------------------------------
 public:
 	HRESULT Initialize();
 	HRESULT Uninitialize();
+
+	HRESULT AddSensor(ISensor* pSensor);
 
 private:
 	CComPtr<ISensorManager>			sp_sensor_manager;
