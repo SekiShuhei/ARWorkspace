@@ -11,7 +11,7 @@ public:
 	SensorManagerEvents()
 	{
 		this->ref_count = 0;
-		AddRef();
+		this->AddRef();
 	}
 
 	ULONG __stdcall AddRef()
@@ -28,7 +28,7 @@ public:
 		if (id == IID_IUnknown || id == __uuidof(ISensorManagerEvents))
 		{
 			*p = this;
-			AddRef();
+			this->AddRef();
 			return S_OK;
 		}
 		return E_NOINTERFACE;
