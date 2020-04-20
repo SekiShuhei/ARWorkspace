@@ -23,7 +23,7 @@ WinSensorManager::~WinSensorManager()
 
 bool WinSensorManager::Initialize()
 {
-	
+	this->sensor_manager.Initialize();	
 	//if (FAILED(::CoInitializeEx(NULL, COINIT_MULTITHREADED)))
 	//{
 	//	return false;
@@ -51,6 +51,7 @@ bool WinSensorManager::Initialize()
 
 bool WinSensorManager::Uninitialize()
 {
+	this->sensor_manager.Uninitialize();
 	return false;
 }
 

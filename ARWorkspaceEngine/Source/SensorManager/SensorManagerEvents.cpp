@@ -22,12 +22,13 @@ HRESULT SensorManagerEvents::Initialize()
 				//hr = spSensors->GetCount(&ulCount);
 				if (SUCCEEDED(hr))
 				{
-					for (ULONG i = 0; i < ulCount; i++)
+					for (ULONG i = 0; i < 1; i++)
 					{
 						CComPtr<ISensor> spSensor;
 						hr = spSensors->GetAt(i, &spSensor);
 						if (SUCCEEDED(hr))
 						{
+							int i = 1;
 							//if (SUCCEEDED(IsMoverio(spSensor)))
 							//{
 								//hr = AddSensor(spSensor);
