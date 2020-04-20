@@ -3,9 +3,11 @@
 #include <sensorsapi.h>
 #include <sensors.h>
 #pragma comment(lib,"sensorsapi.lib")
-#include <memory>
 #include <atlbase.h>
 #include <atlcoll.h>
+#include <memory>
+#include <string>
+#include <optional>
 #include "SensorManagerDefine.hpp"
 #include "SensorEvents.hpp"
 namespace WinSensor {
@@ -31,8 +33,8 @@ public:
 	HRESULT Uninitialize();
 
 	HRESULT AddSensor(ISensor* pSensor);
-
 	HRESULT RemoveSensor(ISensor* pSensor);
+	std::optional<std::wstring> GetDevicePath(ISensor* pSensor);
 
 private:
 	CComPtr<ISensorManager>			sp_sensor_manager;
