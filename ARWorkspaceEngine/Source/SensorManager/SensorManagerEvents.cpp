@@ -1,12 +1,20 @@
 
 #include <atlbase.h>
-#include "SensorManagerEvent.hpp"
+#include "SensorManagerEvents.hpp"
 
 namespace WinSensor {
+SensorManagerEvents::SensorManagerEvents()
+{
+	this->ref_count = 0;
+	this->AddRef();
+
+	this->sp_sensor_events = std::make_unique<SensorEvents>();
+
+}
 HRESULT SensorManagerEvents::Initialize()
 {
 	HRESULT hr;
-
+	
 	hr = this->sp_sensor_manager.CoCreateInstance(CLSID_SensorManager);
 	if (SUCCEEDED(hr))
 	{
@@ -22,12 +30,13 @@ HRESULT SensorManagerEvents::Initialize()
 				//hr = spSensors->GetCount(&ulCount);
 				if (SUCCEEDED(hr))
 				{
-					for (ULONG i = 0; i < ulCount; i++)
+					for (ULONG i = 0; i < 1; i++)
 					{
 						CComPtr<ISensor> spSensor;
 						hr = spSensors->GetAt(i, &spSensor);
 						if (SUCCEEDED(hr))
 						{
+							int i = 1;
 							//if (SUCCEEDED(IsMoverio(spSensor)))
 							//{
 								//hr = AddSensor(spSensor);
@@ -48,5 +57,14 @@ HRESULT SensorManagerEvents::Initialize()
 
 
 }
+
+HRESULT SensorManagerEvents::Uninitialize()
+{
+	HRESULT hr;
+	hr = this->sp_sensor_manager->SetEventSink(NULL);
+
+	return hr;
+}
+
 
 }
