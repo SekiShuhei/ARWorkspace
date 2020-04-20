@@ -115,7 +115,13 @@ HRESULT SensorManagerEvents::AddSensor(ISensor* pSensor)
 		hr = E_POINTER;
 	}
 	hr = pSensor->SetEventSink(this->sp_sensor_events.get());
-
+	SENSOR_ID idSensor = GUID_NULL;
+	hr = pSensor->GetID(&idSensor);
+	if (SUCCEEDED(hr))
+	{
+		pSensor->AddRef();
+		//this->sensor_map[idSensor] = pSensor;
+	}
 	//...
 
 	return hr;

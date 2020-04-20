@@ -5,7 +5,7 @@
 #pragma comment(lib,"sensorsapi.lib")
 #include <memory>
 #include <atlbase.h>
-
+#include <atlcoll.h>
 #include "SensorEvents.hpp"
 namespace WinSensor {
 class SensorManagerEvents : public ISensorManagerEvents
@@ -34,7 +34,7 @@ public:
 private:
 	CComPtr<ISensorManager>			sp_sensor_manager;
 	std::unique_ptr<SensorEvents>	sp_sensor_events;
-
+	CAtlMap<SENSOR_ID, ISensor*>	sensor_map;
 };
 
 }
