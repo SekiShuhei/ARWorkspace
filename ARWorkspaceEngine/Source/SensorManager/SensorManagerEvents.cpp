@@ -48,7 +48,7 @@ HRESULT __stdcall SensorManagerEvents::QueryInterface(const IID& iid, void** ppv
 	return S_OK;
 }
 
-HRESULT __stdcall SensorManagerEvents::OnSensorEnter(ISensor* pSensor, SensorState state)
+HRESULT __stdcall SensorManagerEvents::OnSensorEnter(ISensor* p_sensor, SensorState state)
 {
 	return S_OK;
 }
@@ -106,54 +106,69 @@ HRESULT SensorManagerEvents::Uninitialize()
 	POSITION pos = this->sensor_map.GetStartPosition();
 	while (NULL != pos)
 	{
-		ISensor* pSensor = this->sensor_map.GetNextValue(pos);
-		this->RemoveSensor(pSensor);
+		ISensor* p_sensor = this->sensor_map.GetNextValue(pos);
+		this->RemoveSensor(p_sensor);
 	}
 	hr = this->sp_sensor_manager->SetEventSink(NULL);
 
 	return hr;
 }
 
-HRESULT SensorManagerEvents::AddSensor(ISensor* pSensor)
+HRESULT SensorManagerEvents::AddSensor(ISensor* p_sensor)
 {
-	if (pSensor == nullptr) 
+	if (p_sensor == nullptr) 
 	{
 		return E_POINTER;
 	}
 	HRESULT hr = S_OK;
-	hr = pSensor->SetEventSink(this->sp_sensor_events.get());
+	hr = p_sensor->SetEventSink(this->sp_sensor_events.get());
 	SENSOR_ID sensor_id = GUID_NULL;
-	hr = pSensor->GetID(&sensor_id);
+	hr = p_sensor->GetID(&sensor_id);
 	if (SUCCEEDED(hr))
 	{
-		SENSOR_ID sensor_id = GUID_NULL;
-		hr = pSensor->GetID(&sensor_id);
-		if (SUCCEEDED(hr))
+		//...
+		auto device_path = this->GetDevicePath(p_sensor);
+		if (device_path)
 		{
-			pSensor->AddRef();
-			this->sensor_map[sensor_id] = pSensor;
+			device_path.value().compare(std::wstring(L"test"));
 		}
+		////
+		p_sensor->AddRef();
+		this->sensor_map[sensor_id] = p_sensor;
 	}
 	//...
 
 	return hr;
 }
 
-HRESULT SensorManagerEvents::RemoveSensor(ISensor* pSensor)
+HRESULT SensorManagerEvents::RemoveSensor(ISensor* p_sensor)
 {
-	if (pSensor == nullptr)
+	if (p_sensor == nullptr)
 	{
 		return E_POINTER;
 	}
 	HRESULT hr = S_OK;
-	hr = pSensor->SetEventSink(NULL);
+	hr = p_sensor->SetEventSink(NULL);
 	SENSOR_ID sensor_id = GUID_NULL;
-	hr = pSensor->GetID(&sensor_id);
+	hr = p_sensor->GetID(&sensor_id);
 	if (SUCCEEDED(hr))
 	{
 		this->sensor_map.RemoveKey(sensor_id);
-		pSensor->Release();
+		p_sensor->Release();
 	}
+}
+
+std::optional<std::wstring> SensorManagerEvents::GetDevicePath(ISensor* p_sensor)
+{
+	HRESULT hr;
+	PROPVARIANT pv_device_path = {};
+	hr = p_sensor->GetProperty(SENSOR_PROPERTY_DEVICE_PATH, &pv_device_path);
+	if (SUCCEEDED(hr))
+	{
+		return std::wstring(pv_device_path.bstrVal);
+	}
+	PropVariantClear(&pv_device_path);
+	return std::nullopt;
 }
 
 }
