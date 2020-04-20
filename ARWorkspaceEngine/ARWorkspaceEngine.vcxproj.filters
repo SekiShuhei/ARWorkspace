@@ -75,7 +75,10 @@
     <ClInclude Include="Source\ScreenRegionGuideView.hpp">
       <Filter>ScreenCapture</Filter>
     </ClInclude>
-    <ClInclude Include="Source\WinSensorManager.hpp">
+    <ClInclude Include="Source\SensorManager\WinSensorManager.hpp">
+      <Filter>Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorManager\SensorManagerEvent.hpp">
       <Filter>Sensor</Filter>
     </ClInclude>
   </ItemGroup>
@@ -113,7 +116,7 @@
     <ClCompile Include="Source\ScreenRegionGuideView.cpp">
       <Filter>ScreenCapture</Filter>
     </ClCompile>
-    <ClCompile Include="Source\WinSensorManager.cpp">
+    <ClCompile Include="Source\SensorManager\WinSensorManager.cpp">
       <Filter>Sensor</Filter>
     </ClCompile>
   </ItemGroup>
