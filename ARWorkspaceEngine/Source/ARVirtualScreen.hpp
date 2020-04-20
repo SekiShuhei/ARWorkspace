@@ -10,7 +10,6 @@
 #include "ScreenRegionGuideView.hpp"
 #include "WinScreenCapture.hpp"
 #include "CustomCursor.hpp"
-#include "WinSensorManager.hpp"
 
 
 
@@ -93,8 +92,7 @@ private:
 
 	CustomCursor		custom_cursor;
 	WinScreenCapture	screen_capture;
-	WinSensorManager	sensor_manager;
-
+	
 	// ƒLƒƒƒvƒ`ƒƒŒn.
 	std::thread			capture_thread;
 	bool				capture_thread_run = false;
