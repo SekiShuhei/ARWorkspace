@@ -60,11 +60,11 @@ void Main()
 			z = std::get<2>(sensor_val); //test
 			w = std::get<3>(sensor_val); //test
 
-			//auto rt_q = q.toAxisAngle();
-			//
-			//x = (double)rt_q.first.x;
-			//y = (double)rt_q.first.y;
-			//z = (double)rt_q.first.z;
+			auto rt_q = q.toAxisAngle();
+			
+			x = (double)rt_q.first.x;
+			y = (double)rt_q.first.y;
+			z = (double)rt_q.first.z;
 			//font(U"x:{},y:{},z:{},w:{}"_fmt(x, y, z,w)).draw(0.0, 100.0, Palette::Green);
 			font(U"x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(x, y, z)).draw(0.0, 100.0, Palette::Green);
 		//}
