@@ -185,6 +185,7 @@
     <ClInclude Include="Source\SensorManager\SensorEvents.hpp" />
     <ClInclude Include="Source\SensorManager\SensorManagerDefine.hpp" />
     <ClInclude Include="Source\SensorManager\SensorManagerEvents.hpp" />
+    <ClInclude Include="Source\SensorManager\SensorMapCollection.hpp" />
     <ClInclude Include="Source\SensorManager\WinSensorManager.hpp" />
     <ClInclude Include="Source\SimpleCounter.hpp" />
     <ClInclude Include="Source\Utility.hpp" />
@@ -207,6 +208,7 @@
     <ClCompile Include="Source\KeyCommand.cpp" />
     <ClCompile Include="Source\SensorManager\SensorEvents.cpp" />
     <ClCompile Include="Source\SensorManager\SensorManagerEvents.cpp" />
+    <ClCompile Include="Source\SensorManager\SensorMapCollection.cpp" />
     <ClCompile Include="Source\SensorManager\WinSensorManager.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\ValueEditor.cpp" />
