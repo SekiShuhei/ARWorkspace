@@ -3,7 +3,7 @@
 #include "SensorEvents.hpp"
 
 namespace WinSensor {
-SensorEvents::SensorEvents(QuaternionCallbackFunction arg_callback_func) :
+SensorEvents::SensorEvents(SensorEventCallbackFunction arg_callback_func) :
 	callback_func(arg_callback_func)
 {
 	this->ref_count = 0;
@@ -59,13 +59,7 @@ HRESULT __stdcall SensorEvents::OnDataUpdated(ISensor* p_sensor, ISensorDataRepo
 	{
 		return E_INVALIDARG;
 	}
-	DataReporterQuaternion data_report(p_data);
-	hr = data_report.GetResult();
-	if (! data_report.IsError())
-	{
-		this->callback_func(data_report.GetValue());
-	}
-
+	hr = this->callback_func(p_sensor, p_data);
 	return hr;
 }
 

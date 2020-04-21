@@ -13,7 +13,7 @@ namespace WinSensor {
 class SensorManagerEvents : public ISensorManagerEvents
 {
 public:
-	SensorManagerEvents(QuaternionCallbackFunction callback_func);
+	SensorManagerEvents(SensorEventCallbackFunction callback_func);
 
 	//------------ IUnknownInterface.-------------
 public:
