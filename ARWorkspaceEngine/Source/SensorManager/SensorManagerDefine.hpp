@@ -9,6 +9,9 @@
 #include <tuple>
 #include <functional>
 
+// WinSensor
+#include "SensorUtility.hpp"
+
 namespace WinSensor {
 
 using Float4AndTimestamp = std::tuple<float, float, float, float, unsigned __int64>;

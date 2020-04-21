@@ -28,7 +28,7 @@
     <Filter Include="Sensor">
       <UniqueIdentifier>{e42676c8-10b4-448e-8811-a873f770e930}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sensor\DataReporter">
+    <Filter Include="Sensor\Reporter">
       <UniqueIdentifier>{4c5831af-c89f-4b88-9c7a-8c74412a54f3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -93,17 +93,20 @@
     <ClInclude Include="Source\SensorManager\SensorMapCollection.hpp">
       <Filter>Sensor</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SensorManager\Utility.hpp">
-      <Filter>Sensor</Filter>
-    </ClInclude>
     <ClInclude Include="Source\SensorManager\DataReporterTimeStamp.hpp">
-      <Filter>Sensor\DataReporter</Filter>
+      <Filter>Sensor\Reporter</Filter>
     </ClInclude>
     <ClInclude Include="Source\SensorManager\DataReporterQuaternion.hpp">
-      <Filter>Sensor\DataReporter</Filter>
+      <Filter>Sensor\Reporter</Filter>
     </ClInclude>
     <ClInclude Include="Source\SensorManager\PropvariantWrapper.hpp">
-      <Filter>Sensor\DataReporter</Filter>
+      <Filter>Sensor\Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorManager\PropertyReporterString.hpp">
+      <Filter>Sensor\Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorManager\SensorUtility.hpp">
+      <Filter>Sensor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -153,10 +156,16 @@
       <Filter>Sensor</Filter>
     </ClCompile>
     <ClCompile Include="Source\SensorManager\DataReporterQuaternion.cpp">
-      <Filter>Sensor\DataReporter</Filter>
+      <Filter>Sensor\Reporter</Filter>
     </ClCompile>
     <ClCompile Include="Source\SensorManager\DataReporterTimeStamp.cpp">
-      <Filter>Sensor\DataReporter</Filter>
+      <Filter>Sensor\Reporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorManager\PropertyReporterString.cpp">
+      <Filter>Sensor\Reporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorManager\SensorUtility.cpp">
+      <Filter>Sensor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
