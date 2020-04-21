@@ -85,37 +85,38 @@ HRESULT SensorManagerEvents::AddSensor(REFSENSOR_TYPE_ID sensor_type)
 	//	SENSOR_STATUS_DISABLED;
 	//}
 	
-	if (SUCCEEDED(hr) && NULL != sp_sensor_collection)
+	if (FAILED(hr)) // || sp_sensor_collection == nullptr
 	{
-		ULONG sensor_count = 0;
-		// とりあえず０番センサだけ見る.
-		hr = sp_sensor_collection->GetCount(&sensor_count);
-		if (SUCCEEDED(hr))
-		{
-			for (ULONG i = 0; i < sensor_count; i++)
-			{
-				CComPtr<ISensor> sp_sensor;
-				hr = sp_sensor_collection->GetAt(i, &sp_sensor);
-				if (SUCCEEDED(hr))
-				{
-					//...デバイス判定処理をここに追加
-					auto device_path = Utility::GetDevicePath(sp_sensor);
-					if (device_path)
-					{
-						if (Utility::StringContains(device_path.value(), vid_list))
-						{
-							hr = this->addSensor(sp_sensor);
-							if (SUCCEEDED(hr))
-							{
-								// 接続1発目のデータ取得.
-								//hr = this->sp_sensor_events->GetSensorData(sp_sensor);
-								break;
-							}
+		return hr;
+	}
 
+	ULONG sensor_count = 0;
+	// とりあえず０番センサだけ見る.
+	hr = sp_sensor_collection->GetCount(&sensor_count);
+	if (SUCCEEDED(hr))
+	{
+		for (ULONG i = 0; i < sensor_count; i++)
+		{
+			CComPtr<ISensor> sp_sensor;
+			hr = sp_sensor_collection->GetAt(i, &sp_sensor);
+			if (SUCCEEDED(hr))
+			{
+				auto device_path = Utility::GetDevicePath(sp_sensor);
+				if (device_path)
+				{
+					if (Utility::StringContains(device_path.value(), vid_list))
+					{
+						hr = this->addSensor(sp_sensor);
+						if (SUCCEEDED(hr))
+						{
+							// 接続1発目のデータ取得.
+							//hr = this->sp_sensor_events->GetSensorData(sp_sensor);
+							return hr;
 						}
+
 					}
-					
 				}
+				
 			}
 		}
 	}
