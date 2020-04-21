@@ -1,7 +1,4 @@
 
-//#include <sensorsdef.h>
-//#include <initguid.h>
-//#include <cassert>
 
 #include "WinSensorManager.hpp"
 
@@ -32,7 +29,13 @@ bool WinSensorManager::Initialize()
 	{
 		return false;
 	}
-	hr = this->p_sensor_manager->AddSensor(SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION);
+	SensorRequest request;
+	request.type_id = SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION;
+	//request.vid_list.emplace_back(L"VID_0483"); // BT-35E
+	//request.vid_list.emplace_back(L"VID_04B8"); // BT-30C
+
+
+	hr = this->p_sensor_manager->AddSensor(request);
 	if (FAILED(hr))
 	{
 		int i = 1;

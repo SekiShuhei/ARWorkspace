@@ -1,5 +1,6 @@
 
 #include <atlbase.h>
+#include "SensorRequest.hpp"
 #include "SensorManagerEvents.hpp"
 
 namespace WinSensor {
@@ -68,15 +69,12 @@ HRESULT SensorManagerEvents::Initialize()
 	return hr;
 }
 
-HRESULT SensorManagerEvents::AddSensor(REFSENSOR_TYPE_ID sensor_type)
+HRESULT SensorManagerEvents::AddSensor(SensorRequest request)
 {
-	std::vector<std::wstring> vid_list;
-	//vid_list.emplace_back(L"VID_0483"); // BT-35E
-	//vid_list.emplace_back(L"VID_04B8"); // BT-30C
-
+	
 	HRESULT hr;
 	CComPtr<ISensorCollection> sp_sensor_collection;
-	hr = this->sp_sensor_manager->GetSensorsByType(sensor_type, &sp_sensor_collection);
+	hr = this->sp_sensor_manager->GetSensorsByType(request.type_id, &sp_sensor_collection);
 	
 	// ユーザーアクセス許可がない場合.
 	//hr = this->sp_sensor_manager->RequestPermissions(NULL, sp_sensor_collection, TRUE);
@@ -104,7 +102,7 @@ HRESULT SensorManagerEvents::AddSensor(REFSENSOR_TYPE_ID sensor_type)
 		{
 			continue;
 		}
-		if (vid_list.size() == 0)
+		if (request.vid_list.size() == 0)
 		{
 			hr = this->addSensor(sp_sensor);
 			if (SUCCEEDED(hr))
@@ -117,7 +115,7 @@ HRESULT SensorManagerEvents::AddSensor(REFSENSOR_TYPE_ID sensor_type)
 			auto device_path = Utility::GetDevicePath(sp_sensor);
 			if (device_path)
 			{
-				if (Utility::StringContains(device_path.value(), vid_list))
+				if (Utility::StringContains(device_path.value(), request.vid_list))
 				{
 					hr = this->addSensor(sp_sensor);
 					if (SUCCEEDED(hr))

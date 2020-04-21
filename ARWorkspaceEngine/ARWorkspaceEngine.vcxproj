@@ -190,6 +190,7 @@
     <ClInclude Include="Source\SensorManager\SensorManagerDefine.hpp" />
     <ClInclude Include="Source\SensorManager\SensorManagerEvents.hpp" />
     <ClInclude Include="Source\SensorManager\SensorMapCollection.hpp" />
+    <ClInclude Include="Source\SensorManager\SensorRequest.hpp" />
     <ClInclude Include="Source\SensorManager\SensorUtility.hpp" />
     <ClInclude Include="Source\SensorManager\WinSensorManager.hpp" />
     <ClInclude Include="Source\SimpleCounter.hpp" />

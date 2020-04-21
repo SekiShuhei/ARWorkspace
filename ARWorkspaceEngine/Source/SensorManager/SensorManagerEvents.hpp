@@ -10,6 +10,7 @@
 #include <optional>
 #include "SensorManagerDefine.hpp"
 #include "SensorEvents.hpp"
+#include "SensorRequest.hpp"
 namespace WinSensor {
 class SensorManagerEvents : public ISensorManagerEvents
 {
@@ -32,9 +33,10 @@ public:
 	HRESULT Initialize();
 	HRESULT Uninitialize();
 
-	HRESULT AddSensor(REFSENSOR_TYPE_ID sensor_type);
+	HRESULT AddSensor(SensorRequest request);
 	
 private:
+	
 	HRESULT addSensor(ISensor* pSensor);
 	HRESULT removeSensor(ISensor* pSensor);
 
