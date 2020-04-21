@@ -56,53 +56,57 @@ HRESULT __stdcall SensorManagerEvents::OnSensorEnter(ISensor* p_sensor, SensorSt
 HRESULT SensorManagerEvents::Initialize()
 {
 	HRESULT hr;
-	
 	hr = this->sp_sensor_manager.CoCreateInstance(CLSID_SensorManager);
 	if (SUCCEEDED(hr))
 	{
 		hr = this->sp_sensor_manager->SetEventSink(this);
 		if (SUCCEEDED(hr))
 		{
-			CComPtr<ISensorCollection> sp_sensors;
-			hr = this->sp_sensor_manager->GetSensorsByType(SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION, &sp_sensors);
-			
-			//hr = this->sp_sensor_manager->RequestPermissions(NULL, sp_sensors, TRUE);
-			//if (FAILED(hr))
-			//{
-			//	SENSOR_STATUS_DISABLED;
-			//}
-			
-			if (SUCCEEDED(hr) && NULL != sp_sensors)
+			this->initialized = true;
+		}
+	}
+	return hr;
+}
+
+HRESULT SensorManagerEvents::AddSensor(REFSENSOR_TYPE_ID sensor_type)
+{
+	HRESULT hr;
+	CComPtr<ISensorCollection> sp_sensors;
+	hr = this->sp_sensor_manager->GetSensorsByType(sensor_type, &sp_sensors);
+	
+	//hr = this->sp_sensor_manager->RequestPermissions(NULL, sp_sensors, TRUE);
+	//if (FAILED(hr))
+	//{
+	//	SENSOR_STATUS_DISABLED;
+	//}
+	
+	if (SUCCEEDED(hr) && NULL != sp_sensors)
+	{
+		ULONG ulCount = 0;
+		// ‚Æ‚è‚ ‚¦‚¸‚O”ÔƒZƒ“ƒT‚¾‚¯Œ©‚é.
+		//hr = sp_sensors->GetCount(&ulCount);
+		if (SUCCEEDED(hr))
+		{
+			for (ULONG i = 0; i < 1; i++)
 			{
-				ULONG ulCount = 0;
-				// ‚Æ‚è‚ ‚¦‚¸‚O”ÔƒZƒ“ƒT‚¾‚¯Œ©‚é.
-				//hr = sp_sensors->GetCount(&ulCount);
+				CComPtr<ISensor> spSensor;
+				hr = sp_sensors->GetAt(i, &spSensor);
 				if (SUCCEEDED(hr))
 				{
-					for (ULONG i = 0; i < 1; i++)
-					{
-						CComPtr<ISensor> spSensor;
-						hr = sp_sensors->GetAt(i, &spSensor);
-						if (SUCCEEDED(hr))
-						{
-							//if (SUCCEEDED(IsMoverio(spSensor)))
-							//{
-								hr = this->AddSensor(spSensor);
-								//if (SUCCEEDED(hr))
-								//{
-									///////// 
-									//hr = this->sp_sensor_events->GetSensorData(spSensor);
-								//}
-							//}
-						}
-					}
+					//if (SUCCEEDED(IsMoverio(spSensor)))
+					//{
+						hr = this->AddSensor(spSensor);
+						//if (SUCCEEDED(hr))
+						//{
+							///////// 
+							//hr = this->sp_sensor_events->GetSensorData(spSensor);
+						//}
+					//}
 				}
 			}
 		}
 	}
-
 	return hr;
-
 
 }
 

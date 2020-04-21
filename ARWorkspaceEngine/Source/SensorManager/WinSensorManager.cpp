@@ -27,7 +27,7 @@ WinSensorManager::~WinSensorManager()
 bool WinSensorManager::Initialize()
 {
 	this->p_sensor_manager->Initialize();	
-	
+	this->p_sensor_manager->AddSensor(SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION);
 
 	return true;
 
