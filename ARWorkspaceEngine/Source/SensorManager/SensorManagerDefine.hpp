@@ -8,7 +8,7 @@
 // Std.
 #include <tuple>
 #include <functional>
-
+#include <string>
 // WinSensor
 #include "SensorUtility.hpp"
 

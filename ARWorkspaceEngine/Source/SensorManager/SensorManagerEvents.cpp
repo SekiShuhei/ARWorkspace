@@ -70,38 +70,51 @@ HRESULT SensorManagerEvents::Initialize()
 
 HRESULT SensorManagerEvents::AddSensor(REFSENSOR_TYPE_ID sensor_type)
 {
+	std::vector<std::wstring> vid_list;
+	vid_list.emplace_back(L"VID_0483"); // BT-35E
+	vid_list.emplace_back(L"VID_04B8"); // BT-30C
+
+
 	HRESULT hr;
-	CComPtr<ISensorCollection> sp_sensors;
-	hr = this->sp_sensor_manager->GetSensorsByType(sensor_type, &sp_sensors);
+	CComPtr<ISensorCollection> sp_sensor_collection;
+	hr = this->sp_sensor_manager->GetSensorsByType(sensor_type, &sp_sensor_collection);
 	
-	//hr = this->sp_sensor_manager->RequestPermissions(NULL, sp_sensors, TRUE);
+	//hr = this->sp_sensor_manager->RequestPermissions(NULL, sp_sensor_collection, TRUE);
 	//if (FAILED(hr))
 	//{
 	//	SENSOR_STATUS_DISABLED;
 	//}
 	
-	if (SUCCEEDED(hr) && NULL != sp_sensors)
+	if (SUCCEEDED(hr) && NULL != sp_sensor_collection)
 	{
-		ULONG ulCount = 0;
+		ULONG sensor_count = 0;
 		// とりあえず０番センサだけ見る.
-		//hr = sp_sensors->GetCount(&ulCount);
+		hr = sp_sensor_collection->GetCount(&sensor_count);
 		if (SUCCEEDED(hr))
 		{
-			for (ULONG i = 0; i < 1; i++)
+			for (ULONG i = 0; i < sensor_count; i++)
 			{
-				CComPtr<ISensor> spSensor;
-				hr = sp_sensors->GetAt(i, &spSensor);
+				CComPtr<ISensor> sp_sensor;
+				hr = sp_sensor_collection->GetAt(i, &sp_sensor);
 				if (SUCCEEDED(hr))
 				{
-					//if (SUCCEEDED(IsMoverio(spSensor)))
-					//{
-						hr = this->AddSensor(spSensor);
-						//if (SUCCEEDED(hr))
-						//{
-							///////// 
-							//hr = this->sp_sensor_events->GetSensorData(spSensor);
-						//}
-					//}
+					//...デバイス判定処理をここに追加
+					auto device_path = Utility::GetDevicePath(sp_sensor);
+					if (device_path)
+					{
+						if (Utility::StringContains(device_path.value(), vid_list))
+						{
+							hr = this->AddSensor(sp_sensor);
+							if (SUCCEEDED(hr))
+							{
+								// 接続1発目のデータ取得.
+								//hr = this->sp_sensor_events->GetSensorData(sp_sensor);
+								break;
+							}
+
+						}
+					}
+					
 				}
 			}
 		}
@@ -137,13 +150,7 @@ HRESULT SensorManagerEvents::AddSensor(ISensor* p_sensor)
 	hr = p_sensor->GetID(&sensor_id);
 	if (SUCCEEDED(hr))
 	{
-		//...
-		auto device_path = Utility::GetDevicePath(p_sensor);
-		if (device_path)
-		{
-			auto a = device_path.value().compare(std::wstring(L"test"));
-		}
-		////
+		
 		p_sensor->AddRef();
 		this->sensor_map[sensor_id] = p_sensor;
 	}
