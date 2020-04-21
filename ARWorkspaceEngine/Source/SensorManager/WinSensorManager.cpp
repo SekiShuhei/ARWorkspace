@@ -9,10 +9,14 @@ WinSensorManager::WinSensorManager()
 {
 	this->p_sensor_manager = 
 		std::make_unique<SensorManagerEvents>(
-			[this](Float4AndTimestamp arg_report)
+			[this](ISensor* p_sensor, ISensorDataReport* p_data)
 			{
-				this->last_quaternion_report = arg_report;
-				return true; 
+				DataReporterQuaternion data_report(p_data);
+				if (!data_report.IsError())
+				{
+					this->last_quaternion_report = data_report.GetValue();
+				}
+				return data_report.GetResult();
 			});
 	//SensorManagerEvents([this](Float4AndTimestamp){return true;});
 }
@@ -41,9 +45,8 @@ bool WinSensorManager::Initialize()
 			if (!data_report.IsError())
 			{
 				this->last_quaternion_report = data_report.GetValue();
-				return true;
 			}
-			return false;
+			return data_report.GetResult();
 		};
 
 	hr = this->p_sensor_manager->AddSensor(request);

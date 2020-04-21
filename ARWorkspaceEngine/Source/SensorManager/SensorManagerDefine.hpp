@@ -16,7 +16,6 @@ namespace WinSensor {
 
 using Float4AndTimestamp = std::tuple<float, float, float, float, unsigned __int64>;
 
-using SensorEventCallbackFunction = std::function<bool(ISensor*, ISensorDataReport*)>;
-using QuaternionCallbackFunction = std::function<bool(Float4AndTimestamp)>;
+using SensorEventCallbackFunction = std::function<HRESULT(ISensor*, ISensorDataReport*)>;
 
 }

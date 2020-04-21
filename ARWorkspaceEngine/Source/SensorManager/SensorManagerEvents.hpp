@@ -1,13 +1,11 @@
 #pragma once
 
-#include <sensorsapi.h>
-#include <sensors.h>
-#pragma comment(lib,"sensorsapi.lib")
 #include <atlbase.h>
 #include <atlcoll.h>
 #include <memory>
 #include <string>
 #include <optional>
+#include <map>
 #include "SensorManagerDefine.hpp"
 #include "SensorEvents.hpp"
 #include "SensorRequest.hpp"
@@ -15,7 +13,7 @@ namespace WinSensor {
 class SensorManagerEvents : public ISensorManagerEvents
 {
 public:
-	SensorManagerEvents(QuaternionCallbackFunction callback_func);
+	SensorManagerEvents(SensorEventCallbackFunction callback_func);
 
 	//------------ IUnknownInterface.-------------
 public:
@@ -33,11 +31,11 @@ public:
 	HRESULT Initialize();
 	HRESULT Uninitialize();
 
-	HRESULT AddSensor(SensorRequest request);
+	HRESULT AddSensor(const SensorRequest& request);
 	
 private:
 	
-	HRESULT addSensor(ISensor* pSensor);
+	HRESULT addSensor(ISensor* pSensor, const SensorRequest& request);
 	HRESULT removeSensor(ISensor* pSensor);
 
 
@@ -47,6 +45,9 @@ private:
 	CComPtr<ISensorManager>			sp_sensor_manager;
 	std::unique_ptr<SensorEvents>	sp_sensor_events;
 	CAtlMap<SENSOR_ID, ISensor*>	sensor_map;
+
+
+	std::map<SENSOR_ID, std::shared_ptr<SensorEvents>> sensor_event_map;
 };
 
 }
