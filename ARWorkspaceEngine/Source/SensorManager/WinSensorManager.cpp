@@ -1,4 +1,5 @@
 
+#include "DataReporterQuaternion.hpp"
 
 #include "WinSensorManager.hpp"
 
@@ -33,7 +34,17 @@ bool WinSensorManager::Initialize()
 	request.type_id = SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION;
 	//request.vid_list.emplace_back(L"VID_0483"); // BT-35E
 	//request.vid_list.emplace_back(L"VID_04B8"); // BT-30C
-
+	request.callback_func = 
+		[this](ISensor * p_sensor, ISensorDataReport* p_data)
+		{
+			DataReporterQuaternion data_report(p_data);
+			if (!data_report.IsError())
+			{
+				this->last_quaternion_report = data_report.GetValue();
+				return true;
+			}
+			return false;
+		};
 
 	hr = this->p_sensor_manager->AddSensor(request);
 	if (FAILED(hr))
