@@ -1,3 +1,5 @@
+
+#include "DataReporterQuaternion.hpp"
 #include "SensorEvents.hpp"
 
 namespace WinSensor {
@@ -50,34 +52,20 @@ HRESULT __stdcall SensorEvents::OnEvent(ISensor* p_sensor, REFGUID eventID, IPor
 	return S_OK;
 }
 
-HRESULT __stdcall SensorEvents::OnDataUpdated(ISensor* p_sensor, ISensorDataReport* pNewData)
+HRESULT __stdcall SensorEvents::OnDataUpdated(ISensor* p_sensor, ISensorDataReport* p_data)
 {
 	HRESULT hr = S_OK;
-	if (nullptr == pNewData || nullptr == p_sensor)
+	if (nullptr == p_data || nullptr == p_sensor)
 	{
 		return E_INVALIDARG;
 	}
-	PROPVARIANT pv_quaternion = {};
-	PROPVARIANT pv_time_stamp = {};
-	hr = pNewData->GetSensorValue(SENSOR_DATA_TYPE_QUATERNION, &pv_quaternion);
-	if (SUCCEEDED(hr))
+	DataReporterQuaternion data_report(p_data);
+	hr = data_report.GetResult();
+	if (! data_report.IsError())
 	{
-		hr = pNewData->GetSensorValue(SENSOR_DATA_TYPE_TIMESTAMP, &pv_time_stamp);
-		if (SUCCEEDED(hr))
-		{
-			UINT64 timestamp = ((UINT64)pv_time_stamp.filetime.dwHighDateTime << 32) | 
-				pv_time_stamp.filetime.dwLowDateTime;
-			if (pv_quaternion.vt == (VT_VECTOR | VT_UI1)) 
-			{
-				float* p_element = (float*)pv_quaternion.caub.pElems;
-				this->callback_func(
-					Float4AndTimestamp(p_element[0], p_element[1], 
-						p_element[2], p_element[3], timestamp));
-			}
-		}
+		this->callback_func(data_report.GetValue());
 	}
-	PropVariantClear(&pv_quaternion);
-	PropVariantClear(&pv_time_stamp);
+
 	return hr;
 }
 

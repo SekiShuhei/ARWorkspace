@@ -182,10 +182,14 @@
     <ClInclude Include="Source\ScreenRegionGuideView.hpp" />
     <ClInclude Include="Source\GuiMenu.hpp" />
     <ClInclude Include="Source\KeyCommand.hpp" />
+    <ClInclude Include="Source\SensorManager\PropvariantWrapper.hpp" />
+    <ClInclude Include="Source\SensorManager\DataReporterQuaternion.hpp" />
+    <ClInclude Include="Source\SensorManager\DataReporterTimeStamp.hpp" />
     <ClInclude Include="Source\SensorManager\SensorEvents.hpp" />
     <ClInclude Include="Source\SensorManager\SensorManagerDefine.hpp" />
     <ClInclude Include="Source\SensorManager\SensorManagerEvents.hpp" />
     <ClInclude Include="Source\SensorManager\SensorMapCollection.hpp" />
+    <ClInclude Include="Source\SensorManager\Utility.hpp" />
     <ClInclude Include="Source\SensorManager\WinSensorManager.hpp" />
     <ClInclude Include="Source\SimpleCounter.hpp" />
     <ClInclude Include="Source\Utility.hpp" />
@@ -206,6 +210,8 @@
     <ClCompile Include="Source\ScreenRegionGuideView.cpp" />
     <ClCompile Include="Source\GuiMenu.cpp" />
     <ClCompile Include="Source\KeyCommand.cpp" />
+    <ClCompile Include="Source\SensorManager\DataReporterQuaternion.cpp" />
+    <ClCompile Include="Source\SensorManager\DataReporterTimeStamp.cpp" />
     <ClCompile Include="Source\SensorManager\SensorEvents.cpp" />
     <ClCompile Include="Source\SensorManager\SensorManagerEvents.cpp" />
     <ClCompile Include="Source\SensorManager\SensorMapCollection.cpp" />
