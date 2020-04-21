@@ -32,11 +32,13 @@ public:
 	HRESULT Initialize();
 	HRESULT Uninitialize();
 
+	HRESULT AddSensor(REFSENSOR_TYPE_ID sensor_type);
 	HRESULT AddSensor(ISensor* pSensor);
 	HRESULT RemoveSensor(ISensor* pSensor);
-	std::optional<std::wstring> GetDevicePath(ISensor* pSensor);
-
+	
 private:
+	bool initialized = false;
+
 	CComPtr<ISensorManager>			sp_sensor_manager;
 	std::unique_ptr<SensorEvents>	sp_sensor_events;
 	CAtlMap<SENSOR_ID, ISensor*>	sensor_map;
