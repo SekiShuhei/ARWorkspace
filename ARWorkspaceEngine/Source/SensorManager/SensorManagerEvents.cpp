@@ -63,19 +63,26 @@ HRESULT SensorManagerEvents::Initialize()
 		hr = this->sp_sensor_manager->SetEventSink(this);
 		if (SUCCEEDED(hr))
 		{
-			CComPtr<ISensorCollection> spSensors;
-			hr = this->sp_sensor_manager->GetSensorsByType(SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION, &spSensors);
-			if (SUCCEEDED(hr) && NULL != spSensors)
+			CComPtr<ISensorCollection> sp_sensors;
+			hr = this->sp_sensor_manager->GetSensorsByType(SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION, &sp_sensors);
+			
+			//hr = this->sp_sensor_manager->RequestPermissions(NULL, sp_sensors, TRUE);
+			//if (FAILED(hr))
+			//{
+			//	SENSOR_STATUS_DISABLED;
+			//}
+			
+			if (SUCCEEDED(hr) && NULL != sp_sensors)
 			{
 				ULONG ulCount = 0;
 				// ‚Æ‚è‚ ‚¦‚¸‚O”ÔƒZƒ“ƒT‚¾‚¯Œ©‚é.
-				//hr = spSensors->GetCount(&ulCount);
+				//hr = sp_sensors->GetCount(&ulCount);
 				if (SUCCEEDED(hr))
 				{
 					for (ULONG i = 0; i < 1; i++)
 					{
 						CComPtr<ISensor> spSensor;
-						hr = spSensors->GetAt(i, &spSensor);
+						hr = sp_sensors->GetAt(i, &spSensor);
 						if (SUCCEEDED(hr))
 						{
 							//if (SUCCEEDED(IsMoverio(spSensor)))
