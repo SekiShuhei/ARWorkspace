@@ -38,7 +38,7 @@ bool WinSensorManager::Initialize()
 		int i = 1;
 	}
 	//test
-	hr = this->p_sensor_manager->AddSensor(SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION);
+	//hr = this->p_sensor_manager->AddSensor(SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION);
 
 
 	return true;

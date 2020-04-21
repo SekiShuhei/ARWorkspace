@@ -71,14 +71,14 @@ HRESULT SensorManagerEvents::Initialize()
 HRESULT SensorManagerEvents::AddSensor(REFSENSOR_TYPE_ID sensor_type)
 {
 	std::vector<std::wstring> vid_list;
-	vid_list.emplace_back(L"VID_0483"); // BT-35E
-	vid_list.emplace_back(L"VID_04B8"); // BT-30C
-
+	//vid_list.emplace_back(L"VID_0483"); // BT-35E
+	//vid_list.emplace_back(L"VID_04B8"); // BT-30C
 
 	HRESULT hr;
 	CComPtr<ISensorCollection> sp_sensor_collection;
 	hr = this->sp_sensor_manager->GetSensorsByType(sensor_type, &sp_sensor_collection);
 	
+	// ユーザーアクセス許可がない場合.
 	//hr = this->sp_sensor_manager->RequestPermissions(NULL, sp_sensor_collection, TRUE);
 	//if (FAILED(hr))
 	//{
@@ -89,39 +89,48 @@ HRESULT SensorManagerEvents::AddSensor(REFSENSOR_TYPE_ID sensor_type)
 	{
 		return hr;
 	}
-
 	ULONG sensor_count = 0;
 	// とりあえず０番センサだけ見る.
 	hr = sp_sensor_collection->GetCount(&sensor_count);
-	if (SUCCEEDED(hr))
+	if (FAILED(hr))
 	{
-		for (ULONG i = 0; i < sensor_count; i++)
+		return hr;
+	}
+	for (ULONG i = 0; i < sensor_count; i++)
+	{
+		CComPtr<ISensor> sp_sensor;
+		hr = sp_sensor_collection->GetAt(i, &sp_sensor);
+		if (FAILED(hr))
 		{
-			CComPtr<ISensor> sp_sensor;
-			hr = sp_sensor_collection->GetAt(i, &sp_sensor);
+			continue;
+		}
+		if (vid_list.size() == 0)
+		{
+			hr = this->addSensor(sp_sensor);
 			if (SUCCEEDED(hr))
 			{
-				auto device_path = Utility::GetDevicePath(sp_sensor);
-				if (device_path)
+				// 接続1発目のデータ取得.
+				//hr = this->sp_sensor_events->GetSensorData(sp_sensor);
+				return hr;
+			}
+		} else {
+			auto device_path = Utility::GetDevicePath(sp_sensor);
+			if (device_path)
+			{
+				if (Utility::StringContains(device_path.value(), vid_list))
 				{
-					if (Utility::StringContains(device_path.value(), vid_list))
+					hr = this->addSensor(sp_sensor);
+					if (SUCCEEDED(hr))
 					{
-						hr = this->addSensor(sp_sensor);
-						if (SUCCEEDED(hr))
-						{
-							// 接続1発目のデータ取得.
-							//hr = this->sp_sensor_events->GetSensorData(sp_sensor);
-							return hr;
-						}
-
+						// 接続1発目のデータ取得.
+						//hr = this->sp_sensor_events->GetSensorData(sp_sensor);
+						return hr;
 					}
 				}
-				
 			}
 		}
 	}
 	return hr;
-
 }
 
 HRESULT SensorManagerEvents::Uninitialize()
