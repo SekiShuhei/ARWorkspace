@@ -95,6 +95,7 @@ HRESULT __stdcall SensorEvents::OnStateChanged(ISensor* p_sensor, SensorState st
 			//wprintf_s(L"Enable the sensor in the control panel.\n");
 		}
 	}
+	return hr;
 }
 
 }

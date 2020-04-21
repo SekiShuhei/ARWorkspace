@@ -127,10 +127,10 @@ HRESULT SensorManagerEvents::AddSensor(ISensor* p_sensor)
 	if (SUCCEEDED(hr))
 	{
 		//...
-		auto device_path = this->GetDevicePath(p_sensor);
+		auto device_path = Utility::GetDevicePath(p_sensor);
 		if (device_path)
 		{
-			device_path.value().compare(std::wstring(L"test"));
+			auto a = device_path.value().compare(std::wstring(L"test"));
 		}
 		////
 		p_sensor->AddRef();
@@ -156,19 +156,8 @@ HRESULT SensorManagerEvents::RemoveSensor(ISensor* p_sensor)
 		this->sensor_map.RemoveKey(sensor_id);
 		p_sensor->Release();
 	}
+	return hr;
 }
 
-std::optional<std::wstring> SensorManagerEvents::GetDevicePath(ISensor* p_sensor)
-{
-	HRESULT hr;
-	PROPVARIANT pv_device_path = {};
-	hr = p_sensor->GetProperty(SENSOR_PROPERTY_DEVICE_PATH, &pv_device_path);
-	if (SUCCEEDED(hr))
-	{
-		return std::wstring(pv_device_path.bstrVal);
-	}
-	PropVariantClear(&pv_device_path);
-	return std::nullopt;
-}
 
 }

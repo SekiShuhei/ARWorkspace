@@ -35,6 +35,7 @@ Float4AndTimestamp DataReporterQuaternion::GetValue() const
 		return Float4AndTimestamp(p_element[0], p_element[1],
 				p_element[2], p_element[3], this->time_stamp.GetValue());
 	}
+	return Float4AndTimestamp();
 }
 
 }
