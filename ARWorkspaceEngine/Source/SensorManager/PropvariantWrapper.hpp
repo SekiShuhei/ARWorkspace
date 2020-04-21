@@ -26,6 +26,14 @@ public:
 	{
 		return FAILED(this->result);
 	}
+	inline HRESULT GetResult() const
+	{
+		return this->result;
+	}
+	inline const PROPVARIANT& GetPropvariant() const
+	{
+		return this->pv_data;
+	}
 protected:
 	HRESULT		result = S_OK;
 	PROPVARIANT	pv_data;
