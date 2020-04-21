@@ -69,7 +69,7 @@ HRESULT SensorManagerEvents::Initialize()
 	return hr;
 }
 
-HRESULT SensorManagerEvents::AddSensor(SensorRequest request)
+HRESULT SensorManagerEvents::AddSensor(const SensorRequest& request)
 {
 	
 	HRESULT hr;
@@ -104,7 +104,7 @@ HRESULT SensorManagerEvents::AddSensor(SensorRequest request)
 		}
 		if (request.vid_list.size() == 0)
 		{
-			hr = this->addSensor(sp_sensor);
+			hr = this->addSensor(sp_sensor, request);
 			if (SUCCEEDED(hr))
 			{
 				// 接続1発目のデータ取得.
@@ -117,7 +117,7 @@ HRESULT SensorManagerEvents::AddSensor(SensorRequest request)
 			{
 				if (Utility::StringContains(device_path.value(), request.vid_list))
 				{
-					hr = this->addSensor(sp_sensor);
+					hr = this->addSensor(sp_sensor, request);
 					if (SUCCEEDED(hr))
 					{
 						// 接続1発目のデータ取得.
@@ -146,13 +146,22 @@ HRESULT SensorManagerEvents::Uninitialize()
 	return hr;
 }
 
-HRESULT SensorManagerEvents::addSensor(ISensor* p_sensor)
+HRESULT SensorManagerEvents::addSensor(ISensor* p_sensor, const SensorRequest& request)
 {
 	if (p_sensor == nullptr) 
 	{
 		return E_POINTER;
 	}
+	// TODO:
+	// ここでSensorEventを動的生成する.
+
+	// callbackはリクエスト構造体から取得.
+
+	// 生成したらコンテナに格納して管理.
+
+	// センサーの生ポインタは別途コンテナで管理したいが危ないので要注意.
 	HRESULT hr = S_OK;
+	// 今作ったSensorEventを登録.
 	hr = p_sensor->SetEventSink(this->sp_sensor_events.get());
 	SENSOR_ID sensor_id = GUID_NULL;
 	hr = p_sensor->GetID(&sensor_id);
@@ -173,6 +182,9 @@ HRESULT SensorManagerEvents::removeSensor(ISensor* p_sensor)
 	{
 		return E_POINTER;
 	}
+	// SensorEventも同時にリリースすること.
+	//...
+
 	HRESULT hr = S_OK;
 	hr = p_sensor->SetEventSink(NULL);
 	SENSOR_ID sensor_id = GUID_NULL;
