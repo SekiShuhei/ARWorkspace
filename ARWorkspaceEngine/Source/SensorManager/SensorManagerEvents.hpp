@@ -33,9 +33,12 @@ public:
 	HRESULT Uninitialize();
 
 	HRESULT AddSensor(REFSENSOR_TYPE_ID sensor_type);
-	HRESULT AddSensor(ISensor* pSensor);
-	HRESULT RemoveSensor(ISensor* pSensor);
 	
+private:
+	HRESULT addSensor(ISensor* pSensor);
+	HRESULT removeSensor(ISensor* pSensor);
+
+
 private:
 	bool initialized = false;
 

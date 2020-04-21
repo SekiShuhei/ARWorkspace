@@ -104,7 +104,7 @@ HRESULT SensorManagerEvents::AddSensor(REFSENSOR_TYPE_ID sensor_type)
 					{
 						if (Utility::StringContains(device_path.value(), vid_list))
 						{
-							hr = this->AddSensor(sp_sensor);
+							hr = this->addSensor(sp_sensor);
 							if (SUCCEEDED(hr))
 							{
 								// Ú‘±1”­–Ú‚Ìƒf[ƒ^Žæ“¾.
@@ -131,14 +131,14 @@ HRESULT SensorManagerEvents::Uninitialize()
 	while (NULL != pos)
 	{
 		ISensor* p_sensor = this->sensor_map.GetNextValue(pos);
-		this->RemoveSensor(p_sensor);
+		this->removeSensor(p_sensor);
 	}
 	hr = this->sp_sensor_manager->SetEventSink(NULL);
 
 	return hr;
 }
 
-HRESULT SensorManagerEvents::AddSensor(ISensor* p_sensor)
+HRESULT SensorManagerEvents::addSensor(ISensor* p_sensor)
 {
 	if (p_sensor == nullptr) 
 	{
@@ -159,7 +159,7 @@ HRESULT SensorManagerEvents::AddSensor(ISensor* p_sensor)
 	return hr;
 }
 
-HRESULT SensorManagerEvents::RemoveSensor(ISensor* p_sensor)
+HRESULT SensorManagerEvents::removeSensor(ISensor* p_sensor)
 {
 	if (p_sensor == nullptr)
 	{
