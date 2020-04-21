@@ -1,5 +1,6 @@
 
 #include <atlbase.h>
+#include "SensorRequest.hpp"
 #include "SensorManagerEvents.hpp"
 
 namespace WinSensor {
@@ -56,54 +57,78 @@ HRESULT __stdcall SensorManagerEvents::OnSensorEnter(ISensor* p_sensor, SensorSt
 HRESULT SensorManagerEvents::Initialize()
 {
 	HRESULT hr;
-	
 	hr = this->sp_sensor_manager.CoCreateInstance(CLSID_SensorManager);
 	if (SUCCEEDED(hr))
 	{
 		hr = this->sp_sensor_manager->SetEventSink(this);
 		if (SUCCEEDED(hr))
 		{
-			CComPtr<ISensorCollection> sp_sensors;
-			hr = this->sp_sensor_manager->GetSensorsByType(SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION, &sp_sensors);
-			
-			//hr = this->sp_sensor_manager->RequestPermissions(NULL, sp_sensors, TRUE);
-			//if (FAILED(hr))
-			//{
-			//	SENSOR_STATUS_DISABLED;
-			//}
-			
-			if (SUCCEEDED(hr) && NULL != sp_sensors)
+			this->initialized = true;
+		}
+	}
+	return hr;
+}
+
+HRESULT SensorManagerEvents::AddSensor(SensorRequest request)
+{
+	
+	HRESULT hr;
+	CComPtr<ISensorCollection> sp_sensor_collection;
+	hr = this->sp_sensor_manager->GetSensorsByType(request.type_id, &sp_sensor_collection);
+	
+	// ユーザーアクセス許可がない場合.
+	//hr = this->sp_sensor_manager->RequestPermissions(NULL, sp_sensor_collection, TRUE);
+	//if (FAILED(hr))
+	//{
+	//	SENSOR_STATUS_DISABLED;
+	//}
+	
+	if (FAILED(hr)) // || sp_sensor_collection == nullptr
+	{
+		return hr;
+	}
+	ULONG sensor_count = 0;
+	// とりあえず０番センサだけ見る.
+	hr = sp_sensor_collection->GetCount(&sensor_count);
+	if (FAILED(hr))
+	{
+		return hr;
+	}
+	for (ULONG i = 0; i < sensor_count; i++)
+	{
+		CComPtr<ISensor> sp_sensor;
+		hr = sp_sensor_collection->GetAt(i, &sp_sensor);
+		if (FAILED(hr))
+		{
+			continue;
+		}
+		if (request.vid_list.size() == 0)
+		{
+			hr = this->addSensor(sp_sensor);
+			if (SUCCEEDED(hr))
 			{
-				ULONG ulCount = 0;
-				// とりあえず０番センサだけ見る.
-				//hr = sp_sensors->GetCount(&ulCount);
-				if (SUCCEEDED(hr))
+				// 接続1発目のデータ取得.
+				//hr = this->sp_sensor_events->GetSensorData(sp_sensor);
+				return hr;
+			}
+		} else {
+			auto device_path = Utility::GetDevicePath(sp_sensor);
+			if (device_path)
+			{
+				if (Utility::StringContains(device_path.value(), request.vid_list))
 				{
-					for (ULONG i = 0; i < 1; i++)
+					hr = this->addSensor(sp_sensor);
+					if (SUCCEEDED(hr))
 					{
-						CComPtr<ISensor> spSensor;
-						hr = sp_sensors->GetAt(i, &spSensor);
-						if (SUCCEEDED(hr))
-						{
-							//if (SUCCEEDED(IsMoverio(spSensor)))
-							//{
-								hr = this->AddSensor(spSensor);
-								//if (SUCCEEDED(hr))
-								//{
-									///////// 
-									//hr = this->sp_sensor_events->GetSensorData(spSensor);
-								//}
-							//}
-						}
+						// 接続1発目のデータ取得.
+						//hr = this->sp_sensor_events->GetSensorData(sp_sensor);
+						return hr;
 					}
 				}
 			}
 		}
 	}
-
 	return hr;
-
-
 }
 
 HRESULT SensorManagerEvents::Uninitialize()
@@ -114,14 +139,14 @@ HRESULT SensorManagerEvents::Uninitialize()
 	while (NULL != pos)
 	{
 		ISensor* p_sensor = this->sensor_map.GetNextValue(pos);
-		this->RemoveSensor(p_sensor);
+		this->removeSensor(p_sensor);
 	}
 	hr = this->sp_sensor_manager->SetEventSink(NULL);
 
 	return hr;
 }
 
-HRESULT SensorManagerEvents::AddSensor(ISensor* p_sensor)
+HRESULT SensorManagerEvents::addSensor(ISensor* p_sensor)
 {
 	if (p_sensor == nullptr) 
 	{
@@ -133,13 +158,7 @@ HRESULT SensorManagerEvents::AddSensor(ISensor* p_sensor)
 	hr = p_sensor->GetID(&sensor_id);
 	if (SUCCEEDED(hr))
 	{
-		//...
-		auto device_path = Utility::GetDevicePath(p_sensor);
-		if (device_path)
-		{
-			auto a = device_path.value().compare(std::wstring(L"test"));
-		}
-		////
+		
 		p_sensor->AddRef();
 		this->sensor_map[sensor_id] = p_sensor;
 	}
@@ -148,7 +167,7 @@ HRESULT SensorManagerEvents::AddSensor(ISensor* p_sensor)
 	return hr;
 }
 
-HRESULT SensorManagerEvents::RemoveSensor(ISensor* p_sensor)
+HRESULT SensorManagerEvents::removeSensor(ISensor* p_sensor)
 {
 	if (p_sensor == nullptr)
 	{

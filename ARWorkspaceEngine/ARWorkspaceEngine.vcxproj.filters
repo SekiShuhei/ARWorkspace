@@ -108,6 +108,9 @@
     <ClInclude Include="Source\SensorManager\SensorUtility.hpp">
       <Filter>Sensor</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SensorManager\SensorRequest.hpp">
+      <Filter>Sensor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ARDisplay.cpp">

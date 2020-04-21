@@ -10,6 +10,7 @@
 #include <optional>
 #include "SensorManagerDefine.hpp"
 #include "SensorEvents.hpp"
+#include "SensorRequest.hpp"
 namespace WinSensor {
 class SensorManagerEvents : public ISensorManagerEvents
 {
@@ -32,11 +33,17 @@ public:
 	HRESULT Initialize();
 	HRESULT Uninitialize();
 
-	HRESULT AddSensor(ISensor* pSensor);
-	HRESULT RemoveSensor(ISensor* pSensor);
-	std::optional<std::wstring> GetDevicePath(ISensor* pSensor);
+	HRESULT AddSensor(SensorRequest request);
+	
+private:
+	
+	HRESULT addSensor(ISensor* pSensor);
+	HRESULT removeSensor(ISensor* pSensor);
+
 
 private:
+	bool initialized = false;
+
 	CComPtr<ISensorManager>			sp_sensor_manager;
 	std::unique_ptr<SensorEvents>	sp_sensor_events;
 	CAtlMap<SENSOR_ID, ISensor*>	sensor_map;
