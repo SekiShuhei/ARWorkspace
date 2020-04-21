@@ -182,6 +182,7 @@
     <ClInclude Include="Source\ScreenRegionGuideView.hpp" />
     <ClInclude Include="Source\GuiMenu.hpp" />
     <ClInclude Include="Source\KeyCommand.hpp" />
+    <ClInclude Include="Source\SensorManager\PropertyReporterString.hpp" />
     <ClInclude Include="Source\SensorManager\PropvariantWrapper.hpp" />
     <ClInclude Include="Source\SensorManager\DataReporterQuaternion.hpp" />
     <ClInclude Include="Source\SensorManager\DataReporterTimeStamp.hpp" />
@@ -212,6 +213,7 @@
     <ClCompile Include="Source\KeyCommand.cpp" />
     <ClCompile Include="Source\SensorManager\DataReporterQuaternion.cpp" />
     <ClCompile Include="Source\SensorManager\DataReporterTimeStamp.cpp" />
+    <ClCompile Include="Source\SensorManager\PropertyReporterString.cpp" />
     <ClCompile Include="Source\SensorManager\SensorEvents.cpp" />
     <ClCompile Include="Source\SensorManager\SensorManagerEvents.cpp" />
     <ClCompile Include="Source\SensorManager\SensorMapCollection.cpp" />
