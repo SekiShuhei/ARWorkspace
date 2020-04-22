@@ -81,7 +81,7 @@ HRESULT SensorManagerEvents::AddSensor(const SensorRequest& request)
 	//	SENSOR_STATUS_DISABLED;
 	//}
 	
-	if (FAILED(hr)) // || sp_sensor_collection == nullptr
+	if (FAILED(hr))
 	{
 		return hr;
 	}
@@ -146,14 +146,8 @@ HRESULT SensorManagerEvents::addSensor(ISensor* p_sensor, const SensorRequest& r
 	}
 	
 	HRESULT hr = S_OK;
-	//SENSOR_ID sensor_id = GUID_NULL;
-	//hr = p_sensor->GetID(&sensor_id);
-	//if (SUCCEEDED(hr))
-	//{
 	hr = this->info_manager.Add(p_sensor, request);
-	//}
 	
-
 	return hr;
 }
 
@@ -163,8 +157,11 @@ HRESULT SensorManagerEvents::removeSensor(ISensor* p_sensor)
 	{
 		return E_POINTER;
 	}
-	
 	HRESULT hr = S_OK;
+
+	//...
+	// ’Ç‰Á.
+
 	return hr;
 }
 

@@ -46,7 +46,7 @@ bool WinSensorManager::Initialize()
 		int i = 1;
 	}
 	//test 2‰ñ“o˜^ƒeƒXƒg.
-	//hr = this->p_sensor_manager->AddSensor(request);
+	hr = this->p_sensor_manager->AddSensor(request);
 
 
 	return true;
