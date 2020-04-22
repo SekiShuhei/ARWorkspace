@@ -13,7 +13,7 @@ namespace WinSensor {
 class SensorManagerEvents : public ISensorManagerEvents
 {
 public:
-	SensorManagerEvents(SensorEventCallbackFunction callback_func);
+	SensorManagerEvents();
 
 	//------------ IUnknownInterface.-------------
 public:
@@ -43,11 +43,10 @@ private:
 	bool initialized = false;
 
 	CComPtr<ISensorManager>			sp_sensor_manager;
-	std::unique_ptr<SensorEvents>	sp_sensor_events;
 	CAtlMap<SENSOR_ID, ISensor*>	sensor_map;
 
-
-	std::map<SENSOR_ID, std::shared_ptr<SensorEvents>> sensor_event_map;
+	//std::map<SENSOR_ID, SensorEvents*> sensor_event_map;
+	std::vector<std::unique_ptr<SensorEvents>> sensor_event_map;
 };
 
 }

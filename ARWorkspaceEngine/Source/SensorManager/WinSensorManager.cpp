@@ -8,17 +8,8 @@ namespace WinSensor {
 WinSensorManager::WinSensorManager()
 {
 	this->p_sensor_manager = 
-		std::make_unique<SensorManagerEvents>(
-			[this](ISensor* p_sensor, ISensorDataReport* p_data)
-			{
-				DataReporterQuaternion data_report(p_data);
-				if (!data_report.IsError())
-				{
-					this->last_quaternion_report = data_report.GetValue();
-				}
-				return data_report.GetResult();
-			});
-	//SensorManagerEvents([this](Float4AndTimestamp){return true;});
+		std::make_unique<SensorManagerEvents>();
+
 }
 
 
@@ -54,8 +45,8 @@ bool WinSensorManager::Initialize()
 	{
 		int i = 1;
 	}
-	//test
-	//hr = this->p_sensor_manager->AddSensor(SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION);
+	//test 2‰ñ“o˜^ƒeƒXƒg.
+	//hr = this->p_sensor_manager->AddSensor(request);
 
 
 	return true;
