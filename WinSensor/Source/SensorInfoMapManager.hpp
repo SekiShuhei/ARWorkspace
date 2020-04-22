@@ -21,13 +21,13 @@ public:
 	bool Set(SENSOR_ID key, ISensor* p_sensor, ISensorEvents* p_sensor_events);
 	// with ISensor* Release() and SetEventSink().
 	bool Remove(SENSOR_ID arg_sensor_id) noexcept;
-	//bool Remove(ISensor*);
+	
 	bool RemoveAll();
 private:
 	CAtlMap<SENSOR_ID, ISensor*>	inner_map;
 
 private:
-	bool addSensorInfo(ISensor* p_sensor, const SensorRequest& request) noexcept;
+	// ‰º‚Q‚Â‚Ípublic‚É‚·‚é.
 	bool removeSensorInfoFromID(SENSOR_ID arg_sensor_id) noexcept;
 	bool removeSensorInfoFromType(SENSOR_TYPE_ID arg_sensor_id) noexcept;
 	inline void deleteSensorInfo(SensorInfo* p_info) noexcept
@@ -39,10 +39,6 @@ private:
 	// ‚Ü‚¾’Ç‰Á‚¾‚¯.
 
 	std::vector<SensorInfo*> info_map;
-	//std::unordered_map<SENSOR_ID, SensorInfo*> info_map;
-	//std::unordered_map<SENSOR_ID, std::unique_ptr<SensorInfo>> info_map;
-	//std::unordered_map<SENSOR_ID, std::unique_ptr<SensorInfo>> info_map;
-	//std::unordered_map<SENSOR_ID, std::shared_ptr<SensorInfo>> info_map;
 };
 
 }

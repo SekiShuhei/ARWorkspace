@@ -14,6 +14,7 @@ SensorInfoMapManager::~SensorInfoMapManager()
 }
 bool SensorInfoMapManager::Add(ISensor* p_sensor, const SensorRequest& request) noexcept
 {
+
 	if (p_sensor == nullptr)
 	{
 		return false;
@@ -31,14 +32,11 @@ bool SensorInfoMapManager::Add(ISensor* p_sensor, const SensorRequest& request) 
 	// コンテナに重複キーがあったら削除を先にする.
 	this->removeSensorInfoFromID(sensor_id);
 
-
 	// SensorInfoの動的生成.
 	auto p_info = new SensorInfo(sensor_id, p_sensor, request);
-	//auto pair = std::pair<SENSOR_ID, std::shared_ptr<SensorInfo>>(sensor_id, sp_info);
 	// コンテナに入れる.
 	this->info_map.push_back(p_info);
-	//this->info_map.insert({sensor_id, p_info});
-
+	
 
 	return false;
 }
@@ -75,20 +73,7 @@ bool SensorInfoMapManager::Remove(SENSOR_ID arg_key) noexcept
 	this->inner_map.RemoveKey(arg_key);
 	/////////
 	
-	for (const auto& p_info : this->info_map)
-	{
-		if (p_info != nullptr)
-		{
-			if (p_info->GetSensorID() == arg_key)
-			{
-				
-				//delete (SensorInfo*)this->info_map[arg_key];
-				//this->info_map.erase(arg_key);
-
-
-			}
-		}
-	}
+	
 	return true;
 }
 
@@ -111,12 +96,7 @@ bool SensorInfoMapManager::RemoveAll()
 		deleteSensorInfo(*it);
 	}
 
-	//for(const auto& p_info : this->info_map)
-	//{
-	//	delete (SensorInfo*)p_info.second;
-	//}
-	//this->info_map.clear();
-
+	
 	return true;
 }
 
@@ -125,7 +105,6 @@ bool SensorInfoMapManager::removeSensorInfoFromID(SENSOR_ID arg_sensor_id) noexc
 	for (auto it = this->info_map.begin(); it != this->info_map.end();) 
 	{	
 		if (TRUE == ::IsEqualGUID((*it)->GetSensorID(), arg_sensor_id))
-		//if ((*it)->GetSensorID == arg_sensor_id)
 		{
 			it = this->info_map.erase(it);
 			deleteSensorInfo(*it);
@@ -141,7 +120,6 @@ bool SensorInfoMapManager::removeSensorInfoFromType(SENSOR_TYPE_ID arg_type_id) 
 	for (auto it = this->info_map.begin(); it != this->info_map.end();)
 	{
 		if (TRUE == ::IsEqualGUID((*it)->GetSensorTypeID(), arg_type_id))
-		//if ((*it)->GetSensorTypeID == arg_type_id)
 		{
 			it = this->info_map.erase(it);
 			deleteSensorInfo(*it);
