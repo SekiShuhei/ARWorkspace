@@ -18,9 +18,34 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\DataReporterQuaternion.cpp" />
+    <ClCompile Include="Source\DataReporterTimeStamp.cpp" />
+    <ClCompile Include="Source\PropertyReporterString.cpp" />
+    <ClCompile Include="Source\SensorEvents.cpp" />
+    <ClCompile Include="Source\SensorInfo.cpp" />
+    <ClCompile Include="Source\SensorInfoMap.cpp" />
+    <ClCompile Include="Source\SensorManagerEvents.cpp" />
+    <ClCompile Include="Source\SensorUtility.cpp" />
+    <ClCompile Include="Source\WinSensorManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\DataReporterQuaternion.hpp" />
+    <ClInclude Include="Source\DataReporterTimeStamp.hpp" />
+    <ClInclude Include="Source\PropertyReporterString.hpp" />
+    <ClInclude Include="Source\PropvariantWrapper.hpp" />
+    <ClInclude Include="Source\SensorEvents.hpp" />
+    <ClInclude Include="Source\SensorInfo.hpp" />
+    <ClInclude Include="Source\SensorInfoMap.hpp" />
+    <ClInclude Include="Source\SensorManagerDefine.hpp" />
+    <ClInclude Include="Source\SensorManagerEvents.hpp" />
+    <ClInclude Include="Source\SensorRequest.hpp" />
+    <ClInclude Include="Source\SensorUtility.hpp" />
+    <ClInclude Include="Source\WinSensorManager.hpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{17133D95-54B3-42BF-826A-C85BCFD18286}</ProjectGuid>
+    <ProjectGuid>{26E28814-4264-488B-9DCF-E38F23F9B85F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ARWorkspaceEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
@@ -170,41 +195,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="Source\DropDownMenu.hpp" />
-    <ClInclude Include="Source\framework.h" />
-    <ClInclude Include="Source\pch.h" />
-    <ClInclude Include="Source\ARDisplay.hpp" />
-    <ClInclude Include="Source\ARVirtualScreen.hpp" />
-    <ClInclude Include="Source\ARWorkspaceEngine.hpp" />
-    <ClInclude Include="Source\CustomCursor.hpp" />
-    <ClInclude Include="Source\ScreenRegion.hpp" />
-    <ClInclude Include="Source\ScreenRegionGuideView.hpp" />
-    <ClInclude Include="Source\GuiMenu.hpp" />
-    <ClInclude Include="Source\KeyCommand.hpp" />
-    <ClInclude Include="Source\SimpleCounter.hpp" />
-    <ClInclude Include="Source\Utility.hpp" />
-    <ClInclude Include="Source\ValueEditor.hpp" />
-    <ClInclude Include="Source\WinScreenCapture.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Source\DropDownMenu.cpp" />
-    <ClCompile Include="Source\pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Source\ARDisplay.cpp" />
-    <ClCompile Include="Source\ARVirtualScreen.cpp" />
-    <ClCompile Include="Source\CustomCursor.cpp" />
-    <ClCompile Include="Source\ScreenRegionGuideView.cpp" />
-    <ClCompile Include="Source\GuiMenu.cpp" />
-    <ClCompile Include="Source\KeyCommand.cpp" />
-    <ClCompile Include="Source\Utility.cpp" />
-    <ClCompile Include="Source\ValueEditor.cpp" />
-    <ClCompile Include="Source\WinScreenCapture.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

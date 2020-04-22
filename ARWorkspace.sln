@@ -5,12 +5,15 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "Test\Test.vcxproj", "{2BE70A85-165C-42AB-8804-94BF1F4D3DB7}"
 	ProjectSection(ProjectDependencies) = postProject
+		{26E28814-4264-488B-9DCF-E38F23F9B85F} = {26E28814-4264-488B-9DCF-E38F23F9B85F}
 		{17133D95-54B3-42BF-826A-C85BCFD18286} = {17133D95-54B3-42BF-826A-C85BCFD18286}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ARWorkspaceEngine", "ARWorkspaceEngine\ARWorkspaceEngine.vcxproj", "{17133D95-54B3-42BF-826A-C85BCFD18286}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesktopDuplicator", "DesktopDuplicator\DesktopDuplicator.vcxproj", "{CEB5DBAC-B9DF-4BF7-8437-ED2822F124E5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinSensor", "WinSensor\WinSensor.vcxproj", "{26E28814-4264-488B-9DCF-E38F23F9B85F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +43,14 @@ Global
 		{CEB5DBAC-B9DF-4BF7-8437-ED2822F124E5}.Release|x64.ActiveCfg = Release|x64
 		{CEB5DBAC-B9DF-4BF7-8437-ED2822F124E5}.Release|x64.Build.0 = Release|x64
 		{CEB5DBAC-B9DF-4BF7-8437-ED2822F124E5}.Release|x86.ActiveCfg = Release|x64
+		{26E28814-4264-488B-9DCF-E38F23F9B85F}.Debug|x64.ActiveCfg = Debug|x64
+		{26E28814-4264-488B-9DCF-E38F23F9B85F}.Debug|x64.Build.0 = Debug|x64
+		{26E28814-4264-488B-9DCF-E38F23F9B85F}.Debug|x86.ActiveCfg = Debug|Win32
+		{26E28814-4264-488B-9DCF-E38F23F9B85F}.Debug|x86.Build.0 = Debug|Win32
+		{26E28814-4264-488B-9DCF-E38F23F9B85F}.Release|x64.ActiveCfg = Release|x64
+		{26E28814-4264-488B-9DCF-E38F23F9B85F}.Release|x64.Build.0 = Release|x64
+		{26E28814-4264-488B-9DCF-E38F23F9B85F}.Release|x86.ActiveCfg = Release|Win32
+		{26E28814-4264-488B-9DCF-E38F23F9B85F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

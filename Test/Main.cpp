@@ -5,7 +5,7 @@
 #include "ARVirtualScreen.hpp"
 #include "GuiMenu.hpp"
 #include "KeyCommand.hpp"
-#include "SensorManager/WinSensorManager.hpp"
+#include "WinSensorManager.hpp"
 
 void Main()
 {

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Reporter">
+      <UniqueIdentifier>{6572a418-3752-4215-a5f4-c51512fe0614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{ec91dfc4-1fe2-4775-8253-448e1304897f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SensorInfo">
+      <UniqueIdentifier>{f5c53062-9d51-419c-a415-c11a788929aa}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\DataReporterQuaternion.cpp">
+      <Filter>Reporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DataReporterTimeStamp.cpp">
+      <Filter>Reporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PropertyReporterString.cpp">
+      <Filter>Reporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorUtility.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorInfo.cpp">
+      <Filter>SensorInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorInfoMap.cpp">
+      <Filter>SensorInfo</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\DataReporterQuaternion.hpp">
+      <Filter>Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DataReporterTimeStamp.hpp">
+      <Filter>Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PropertyReporterString.hpp">
+      <Filter>Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PropvariantWrapper.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorUtility.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorInfo.hpp">
+      <Filter>SensorInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorInfoMap.hpp">
+      <Filter>SensorInfo</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

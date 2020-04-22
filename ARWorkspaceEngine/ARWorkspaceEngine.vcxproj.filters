@@ -1,187 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="ARWorkspace">
-      <UniqueIdentifier>{a9bb7bb6-42d4-4805-aa90-53fa63386f39}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CustomGUI">
-      <UniqueIdentifier>{17ce6848-2169-470a-a822-dc760f99f209}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ScreenCapture">
-      <UniqueIdentifier>{a64c1318-afec-4557-a114-334aadb1e41c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Common">
-      <UniqueIdentifier>{2b8e8686-e5fc-464f-9151-e1b0d344fb5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sensor">
-      <UniqueIdentifier>{e42676c8-10b4-448e-8811-a873f770e930}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sensor\Reporter">
-      <UniqueIdentifier>{4c5831af-c89f-4b88-9c7a-8c74412a54f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sensor\SensorInfo">
-      <UniqueIdentifier>{c7c1a356-f04b-449d-bc35-4a72206a5cc2}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Source\ARDisplay.hpp">
-      <Filter>ARWorkspace</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ARVirtualScreen.hpp">
-      <Filter>ARWorkspace</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\WinScreenCapture.hpp">
-      <Filter>ScreenCapture</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Utility.hpp">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SimpleCounter.hpp">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\pch.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ARWorkspaceEngine.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\framework.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GuiMenu.hpp">
-      <Filter>ARWorkspace</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CustomCursor.hpp">
-      <Filter>ARWorkspace</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\KeyCommand.hpp">
-      <Filter>ARWorkspace</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\DropDownMenu.hpp">
-      <Filter>CustomGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ValueEditor.hpp">
-      <Filter>CustomGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ScreenRegion.hpp">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ScreenRegionGuideView.hpp">
-      <Filter>ScreenCapture</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SensorManager\WinSensorManager.hpp">
-      <Filter>Sensor</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SensorManager\SensorManagerEvents.hpp">
-      <Filter>Sensor</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SensorManager\SensorEvents.hpp">
-      <Filter>Sensor</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SensorManager\SensorManagerDefine.hpp">
-      <Filter>Sensor</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SensorManager\DataReporterTimeStamp.hpp">
-      <Filter>Sensor\Reporter</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SensorManager\DataReporterQuaternion.hpp">
-      <Filter>Sensor\Reporter</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SensorManager\PropvariantWrapper.hpp">
-      <Filter>Sensor\Reporter</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SensorManager\PropertyReporterString.hpp">
-      <Filter>Sensor\Reporter</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SensorManager\SensorUtility.hpp">
-      <Filter>Sensor</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SensorManager\SensorRequest.hpp">
-      <Filter>Sensor</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Source\SensorManager\SensorInfoMap.hpp">
-      <Filter>Sensor</Filter>
-=======
-    <ClInclude Include="Source\SensorManager\SensorInfo.hpp">
-      <Filter>Sensor\SensorInfo</Filter>
->>>>>>> master
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Source\ARDisplay.cpp">
-      <Filter>ARWorkspace</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ARVirtualScreen.cpp">
-      <Filter>ARWorkspace</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\WinScreenCapture.cpp">
-      <Filter>ScreenCapture</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\pch.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Utility.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GuiMenu.cpp">
-      <Filter>ARWorkspace</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CustomCursor.cpp">
-      <Filter>ARWorkspace</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\KeyCommand.cpp">
-      <Filter>ARWorkspace</Filter>
-    </ClCompile>
+    <ClCompile Include="Source\pch.cpp" />
+    <ClCompile Include="Source\ARDisplay.cpp" />
+    <ClCompile Include="Source\ARVirtualScreen.cpp" />
     <ClCompile Include="Source\DropDownMenu.cpp">
-      <Filter>CustomGUI</Filter>
+      <Filter>GUI</Filter>
     </ClCompile>
     <ClCompile Include="Source\ValueEditor.cpp">
-      <Filter>CustomGUI</Filter>
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WinScreenCapture.cpp">
+      <Filter>Capture</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuiMenu.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\KeyCommand.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CustomCursor.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="Source\ScreenRegionGuideView.cpp">
-      <Filter>ScreenCapture</Filter>
+      <Filter>Screen</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SensorManager\WinSensorManager.cpp">
-      <Filter>Sensor</Filter>
+    <ClCompile Include="Source\Utility.cpp">
+      <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SensorManager\SensorManagerEvents.cpp">
-      <Filter>Sensor</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SensorManager\SensorEvents.cpp">
-      <Filter>Sensor</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SensorManager\DataReporterQuaternion.cpp">
-      <Filter>Sensor\Reporter</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SensorManager\DataReporterTimeStamp.cpp">
-      <Filter>Sensor\Reporter</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SensorManager\PropertyReporterString.cpp">
-      <Filter>Sensor\Reporter</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SensorManager\SensorUtility.cpp">
-      <Filter>Sensor</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Source\SensorManager\SensorInfoMap.cpp">
-      <Filter>Sensor</Filter>
-=======
-    <ClCompile Include="Source\SensorManager\SensorInfo.cpp">
-      <Filter>Sensor\SensorInfo</Filter>
->>>>>>> master
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\framework.h" />
+    <ClInclude Include="Source\pch.h" />
+    <ClInclude Include="Source\ARDisplay.hpp" />
+    <ClInclude Include="Source\ARVirtualScreen.hpp" />
+    <ClInclude Include="Source\ARWorkspaceEngine.hpp" />
+    <ClInclude Include="Source\DropDownMenu.hpp">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ValueEditor.hpp">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WinScreenCapture.hpp">
+      <Filter>Capture</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\KeyCommand.hpp">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiMenu.hpp">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CustomCursor.hpp">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ScreenRegion.hpp">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ScreenRegionGuideView.hpp">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utility.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SimpleCounter.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{561d5df7-8649-46b8-b2a3-acee2a5e5892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Capture">
+      <UniqueIdentifier>{b339a0dc-2ff5-4e3b-8570-ccb84f45efeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{eb8199e6-57b3-4e23-bb95-e0372671f61f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Screen">
+      <UniqueIdentifier>{a77ea51a-7d25-4757-9822-015fa999609b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{f73744a7-84e0-4bcd-affe-1b3cc7c6802b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
