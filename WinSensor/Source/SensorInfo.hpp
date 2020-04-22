@@ -22,11 +22,19 @@ public:
 //private: //CreateŠÖ”‚©‚ç‚Ì‚Ý¶¬‚Å‚«‚é‚æ‚¤‚É‚·‚×‚«.
 	SensorInfo() = delete;
 	// with ISensor* AddRef() and SetEventSink().
-	SensorInfo(SENSOR_ID arg_sensor_id, ISensor* p_sensor, const SensorRequest& request);
+	SensorInfo(SENSOR_ID arg_sensor_id, ISensor* p_sensor, const SensorRequest& request) noexcept;
 public:
 	// with ISensor* Release() and SetEventSink().
 	~SensorInfo();
-
+public:
+	SENSOR_ID GetSensorID() const noexcept
+	{
+		return this->sensor_id;
+	}
+	SENSOR_TYPE_ID GetSensorTypeID() const noexcept
+	{
+		return this->type_id;
+	}
 private:
 	ISensor*		p_sensor;
 	SENSOR_ID		sensor_id;

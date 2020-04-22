@@ -4,7 +4,7 @@ namespace WinSensor {
 
 // 初期化エラーの場合は生成できないようにするべき.
 // static Createを定義する？？.
-SensorInfo::SensorInfo(SENSOR_ID arg_sensor_id, ISensor* p_sensor, const SensorRequest& request)
+SensorInfo::SensorInfo(SENSOR_ID arg_sensor_id, ISensor* p_sensor, const SensorRequest& request) noexcept
 {
 	// Create SensorEvents.
 	this->sp_sensor_events = std::make_unique<SensorEvents>(request.callback_func);
@@ -15,9 +15,13 @@ SensorInfo::SensorInfo(SENSOR_ID arg_sensor_id, ISensor* p_sensor, const SensorR
 	if (SUCCEEDED(hr))
 	{
 		p_sensor->AddRef();
+		this->sensor_id = arg_sensor_id;
+		this->type_id = request.type_id;
+
+		// return true.
 	}
-	this->sensor_id = arg_sensor_id;
-	this->type_id = request.type_id;
+	// return false.
+
 }
 
 SensorInfo::~SensorInfo()
