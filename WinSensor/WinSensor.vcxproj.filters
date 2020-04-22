@@ -30,7 +30,7 @@
     <ClCompile Include="Source\SensorEvents.cpp" />
     <ClCompile Include="Source\SensorManagerEvents.cpp" />
     <ClCompile Include="Source\WinSensorManager.cpp" />
-    <ClCompile Include="Source\SensorInfoMapManager.cpp">
+    <ClCompile Include="Source\SensorInfoManager.cpp">
       <Filter>SensorInfo</Filter>
     </ClCompile>
   </ItemGroup>
@@ -58,7 +58,7 @@
     <ClInclude Include="Source\SensorManagerEvents.hpp" />
     <ClInclude Include="Source\SensorRequest.hpp" />
     <ClInclude Include="Source\WinSensorManager.hpp" />
-    <ClInclude Include="Source\SensorInfoMapManager.hpp">
+    <ClInclude Include="Source\SensorInfoManager.hpp">
       <Filter>SensorInfo</Filter>
     </ClInclude>
   </ItemGroup>
