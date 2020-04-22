@@ -9,6 +9,7 @@ SensorManagerEvents::SensorManagerEvents()
 	this->ref_count = 0;
 	this->AddRef();
 
+	this->sensor_event_map.reserve(20);
 }
 ULONG __stdcall SensorManagerEvents::AddRef()
 {
@@ -150,18 +151,12 @@ HRESULT SensorManagerEvents::addSensor(ISensor* p_sensor, const SensorRequest& r
 	{
 		return E_POINTER;
 	}
-	// TODO:
-	// ここでSensorEventを動的生成する.
-	this->sp_sensor_events = std::make_unique<SensorEvents>(request.callback_func);
-
-	// callbackはリクエスト構造体から取得.
-
-	// 生成したらコンテナに格納して管理.
+	auto sp_sensor_events = std::make_unique<SensorEvents>(request.callback_func);
 
 	// センサーの生ポインタは別途コンテナで管理したいが危ないので要注意.
 	HRESULT hr = S_OK;
 	// 今作ったSensorEventを登録.
-	hr = p_sensor->SetEventSink(this->sp_sensor_events.get());
+	hr = p_sensor->SetEventSink(sp_sensor_events.get());
 	SENSOR_ID sensor_id = GUID_NULL;
 	hr = p_sensor->GetID(&sensor_id);
 	if (SUCCEEDED(hr))
@@ -171,6 +166,9 @@ HRESULT SensorManagerEvents::addSensor(ISensor* p_sensor, const SensorRequest& r
 		this->sensor_map[sensor_id] = p_sensor;
 	}
 	//...
+	// 生成したスマポをコンテナに格納して管理.
+	this->sensor_event_map.emplace_back(std::move(sp_sensor_events));
+
 
 	return hr;
 }
