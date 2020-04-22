@@ -140,7 +140,7 @@ HRESULT SensorManagerEvents::Uninitialize()
 	//	ISensor* p_sensor = this->sensor_map.GetNextValue(pos);
 	//	this->removeSensor(p_sensor);
 	//}
-	//hr = this->sp_sensor_manager->SetEventSink(NULL);
+	hr = this->sp_sensor_manager->SetEventSink(NULL);
 
 	return hr;
 }
@@ -161,7 +161,7 @@ HRESULT SensorManagerEvents::addSensor(ISensor* p_sensor, const SensorRequest& r
 	hr = p_sensor->GetID(&sensor_id);
 	if (SUCCEEDED(hr))
 	{
-		this->sensor_map.Set(sensor_id, p_sensor, sp_sensor_events.get());
+		this->sensor_map.Add(p_sensor, request);
 	//	
 	//	p_sensor->AddRef();
 	//	this->sensor_map[sensor_id] = p_sensor;

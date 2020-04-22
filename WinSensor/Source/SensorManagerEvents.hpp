@@ -45,7 +45,7 @@ private:
 
 	CComPtr<ISensorManager>			sp_sensor_manager;
 	//CAtlMap<SENSOR_ID, ISensor*>	sensor_map;
-	SensorInfoMapManager					sensor_map;
+	SensorInfoMapManager			sensor_map;
 
 	std::vector<std::unique_ptr<SensorEvents>> sensor_event_map;
 };

@@ -24,8 +24,9 @@ public:
 	// with ISensor* AddRef() and SetEventSink().
 	SensorInfo(SENSOR_ID arg_sensor_id, ISensor* p_sensor, const SensorRequest& request) noexcept;
 public:
+	~SensorInfo() noexcept;
 	// with ISensor* Release() and SetEventSink().
-	~SensorInfo();
+	void Release() noexcept;
 public:
 	SENSOR_ID GetSensorID() const noexcept
 	{

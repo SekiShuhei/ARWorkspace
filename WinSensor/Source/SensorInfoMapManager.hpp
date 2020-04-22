@@ -18,13 +18,13 @@ public:
 	bool Add(ISensor* p_sensor, const SensorRequest& request) noexcept;
 
 	// çÌèúó\íË.
-	bool Set(SENSOR_ID key, ISensor* p_sensor, ISensorEvents* p_sensor_events);
+	//bool Set(SENSOR_ID key, ISensor* p_sensor, ISensorEvents* p_sensor_events);
 	// with ISensor* Release() and SetEventSink().
 	bool Remove(SENSOR_ID arg_sensor_id) noexcept;
 	
 	bool RemoveAll();
 private:
-	CAtlMap<SENSOR_ID, ISensor*>	inner_map;
+	//CAtlMap<SENSOR_ID, ISensor*>	inner_map;
 
 private:
 	// â∫ÇQÇ¬ÇÕpublicÇ…Ç∑ÇÈ.
@@ -32,6 +32,7 @@ private:
 	bool removeSensorInfoFromType(SENSOR_TYPE_ID arg_sensor_id) noexcept;
 	inline void deleteSensorInfo(SensorInfo* p_info) noexcept
 	{
+		p_info->Release();
 		delete p_info;
 	}
 
