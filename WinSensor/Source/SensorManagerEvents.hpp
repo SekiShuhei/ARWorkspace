@@ -44,7 +44,7 @@ private:
 	bool initialized = false;
 
 	CComPtr<ISensorManager>		sp_sensor_manager;
-	SensorInfoManager			sensor_map;
+	SensorInfoManager			info_manager;
 
 };
 

@@ -132,7 +132,7 @@ HRESULT SensorManagerEvents::Uninitialize()
 {
 	HRESULT hr = S_OK;
 
-	this->sensor_map.RemoveAll();
+	this->info_manager.RemoveAll();
 	hr = this->sp_sensor_manager->SetEventSink(NULL);
 
 	return hr;
@@ -144,16 +144,14 @@ HRESULT SensorManagerEvents::addSensor(ISensor* p_sensor, const SensorRequest& r
 	{
 		return E_POINTER;
 	}
-	auto sp_sensor_events = std::make_unique<SensorEvents>(request.callback_func);
-
-	// センサーの生ポインタは別途コンテナで管理したいが危ないので要注意.
+	
 	HRESULT hr = S_OK;
-	SENSOR_ID sensor_id = GUID_NULL;
-	hr = p_sensor->GetID(&sensor_id);
-	if (SUCCEEDED(hr))
-	{
-		this->sensor_map.Add(p_sensor, request);
-	}
+	//SENSOR_ID sensor_id = GUID_NULL;
+	//hr = p_sensor->GetID(&sensor_id);
+	//if (SUCCEEDED(hr))
+	//{
+	hr = this->info_manager.Add(p_sensor, request);
+	//}
 	
 
 	return hr;

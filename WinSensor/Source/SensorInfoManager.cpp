@@ -12,30 +12,28 @@ SensorInfoManager::~SensorInfoManager()
 {
 	this->RemoveAll();
 }
-bool SensorInfoManager::Add(ISensor* p_sensor, const SensorRequest& request) noexcept
+HRESULT SensorInfoManager::Add(ISensor* p_sensor, const SensorRequest& request) noexcept
 {
-
+	HRESULT hr = S_OK;
 	if (p_sensor == nullptr)
 	{
-		return false;
+		return E_POINTER;
 	}
-	HRESULT hr = S_OK;
 	SENSOR_ID sensor_id = GUID_NULL;
 	{
 		hr = p_sensor->GetID(&sensor_id);
 		if (FAILED(hr))
 		{
-			return false;
+			return hr;
 		}
 	}
-
 	this->RemoveSensorInfoFromID(sensor_id);
 	auto p_info = SensorInfo::Create(sensor_id, p_sensor, request);
 	if (p_info)
 	{
 		this->p_info_list.push_back(p_info.value());
 	}
-	return false;
+	return hr;
 }
 
 bool SensorInfoManager::RemoveAll()

@@ -14,7 +14,7 @@ public:
 	SensorInfoManager();
 	~SensorInfoManager();
 	// with ISensor* AddRef() and SetEventSink().
-	bool Add(ISensor* p_sensor, const SensorRequest& request) noexcept;
+	HRESULT Add(ISensor* p_sensor, const SensorRequest& request) noexcept;
 
 	// with ISensor* Release() and SetEventSink().
 	bool RemoveSensorInfoFromID(SENSOR_ID arg_sensor_id) noexcept;
