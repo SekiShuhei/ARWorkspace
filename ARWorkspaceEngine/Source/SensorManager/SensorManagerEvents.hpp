@@ -9,6 +9,7 @@
 #include "SensorManagerDefine.hpp"
 #include "SensorEvents.hpp"
 #include "SensorRequest.hpp"
+#include "SensorInfoMap.hpp"
 namespace WinSensor {
 class SensorManagerEvents : public ISensorManagerEvents
 {
@@ -43,9 +44,9 @@ private:
 	bool initialized = false;
 
 	CComPtr<ISensorManager>			sp_sensor_manager;
-	CAtlMap<SENSOR_ID, ISensor*>	sensor_map;
+	//CAtlMap<SENSOR_ID, ISensor*>	sensor_map;
+	SensorInfoMap					sensor_map;
 
-	//std::map<SENSOR_ID, SensorEvents*> sensor_event_map;
 	std::vector<std::unique_ptr<SensorEvents>> sensor_event_map;
 };
 

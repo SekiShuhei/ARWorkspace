@@ -2,22 +2,24 @@
 #include "SensorEvents.hpp"
 
 namespace WinSensor {
-SensorMapCollction::SensorMapCollction()
+SensorInfoMap::SensorInfoMap()
 {
 
 }
-SensorMapCollction::~SensorMapCollction()
+SensorInfoMap::~SensorInfoMap()
 {
 	this->RemoveAll();
 }
-bool SensorMapCollction::Set(SENSOR_ID key, ISensor* p_sensor, ISensorEvents* p_sensor_events)
+bool SensorInfoMap::Set(SENSOR_ID key, ISensor* p_sensor, ISensorEvents* p_sensor_events)
 {
 	if( p_sensor == nullptr || p_sensor_events == nullptr)
 	{
 		return false;
 	}
-	this->Remove(key);
-
+	//if (this->inner_map[key] != nullptr)
+	//{
+	//	this->Remove(key);
+	//}
 	p_sensor->SetEventSink(p_sensor_events);
 	p_sensor->AddRef();
 	this->inner_map[key] = p_sensor;
@@ -25,7 +27,7 @@ bool SensorMapCollction::Set(SENSOR_ID key, ISensor* p_sensor, ISensorEvents* p_
 	return true;
 }
 
-bool SensorMapCollction::Remove(SENSOR_ID arg_key)
+bool SensorInfoMap::Remove(SENSOR_ID arg_key)
 {
 	auto p_sensor = this->inner_map[arg_key];
 	SENSOR_ID sensor_id = GUID_NULL;
@@ -39,7 +41,7 @@ bool SensorMapCollction::Remove(SENSOR_ID arg_key)
 	return true;
 }
 
-bool SensorMapCollction::RemoveAll()
+bool SensorInfoMap::RemoveAll()
 {
 	POSITION pos = this->inner_map.GetStartPosition();
 	while (NULL != pos)

@@ -131,15 +131,16 @@ HRESULT SensorManagerEvents::AddSensor(const SensorRequest& request)
 
 HRESULT SensorManagerEvents::Uninitialize()
 {
-	HRESULT hr;
+	HRESULT hr = S_OK;
 
-	POSITION pos = this->sensor_map.GetStartPosition();
-	while (NULL != pos)
-	{
-		ISensor* p_sensor = this->sensor_map.GetNextValue(pos);
-		this->removeSensor(p_sensor);
-	}
-	hr = this->sp_sensor_manager->SetEventSink(NULL);
+	this->sensor_map.RemoveAll();
+	//POSITION pos = this->sensor_map.GetStartPosition();
+	//while (NULL != pos)
+	//{
+	//	ISensor* p_sensor = this->sensor_map.GetNextValue(pos);
+	//	this->removeSensor(p_sensor);
+	//}
+	//hr = this->sp_sensor_manager->SetEventSink(NULL);
 
 	return hr;
 }
@@ -154,15 +155,16 @@ HRESULT SensorManagerEvents::addSensor(ISensor* p_sensor, const SensorRequest& r
 
 	// センサーの生ポインタは別途コンテナで管理したいが危ないので要注意.
 	HRESULT hr = S_OK;
-	// 今作ったSensorEventを登録.
-	hr = p_sensor->SetEventSink(sp_sensor_events.get());
+	//// 今作ったSensorEventを登録.
+	//hr = p_sensor->SetEventSink(sp_sensor_events.get());
 	SENSOR_ID sensor_id = GUID_NULL;
 	hr = p_sensor->GetID(&sensor_id);
 	if (SUCCEEDED(hr))
 	{
-		
-		p_sensor->AddRef();
-		this->sensor_map[sensor_id] = p_sensor;
+		this->sensor_map.Set(sensor_id, p_sensor, sp_sensor_events.get());
+	//	
+	//	p_sensor->AddRef();
+	//	this->sensor_map[sensor_id] = p_sensor;
 	}
 	//...
 	// 生成したスマポをコンテナに格納して管理.
@@ -180,16 +182,19 @@ HRESULT SensorManagerEvents::removeSensor(ISensor* p_sensor)
 	}
 	// SensorEventも同時にリリースすること.
 	//...
-
+	//////////////////
+	//this->sensor_map.Remove(sensor_id);
+	
+	
 	HRESULT hr = S_OK;
-	hr = p_sensor->SetEventSink(NULL);
-	SENSOR_ID sensor_id = GUID_NULL;
-	hr = p_sensor->GetID(&sensor_id);
-	if (SUCCEEDED(hr))
-	{
-		this->sensor_map.RemoveKey(sensor_id);
-		p_sensor->Release();
-	}
+	//hr = p_sensor->SetEventSink(NULL);
+	//SENSOR_ID sensor_id = GUID_NULL;
+	//hr = p_sensor->GetID(&sensor_id);
+	//if (SUCCEEDED(hr))
+	//{
+	//	this->sensor_map.RemoveKey(sensor_id);
+	//	p_sensor->Release();
+	//}
 	return hr;
 }
 

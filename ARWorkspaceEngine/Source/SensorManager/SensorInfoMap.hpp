@@ -5,12 +5,12 @@
 #include "SensorRequest.hpp"
 
 namespace WinSensor {
-class SensorMapCollction final
+class SensorInfoMap final
 {
 
 public:
-	SensorMapCollction();
-	~SensorMapCollction();
+	SensorInfoMap();
+	~SensorInfoMap();
 	// with ISensor* AddRef() and SetEventSink().
 	bool Set(SENSOR_ID key, ISensor* p_sensor, ISensorEvents* p_sensor_events);
 	// with ISensor* Release() and SetEventSink().
