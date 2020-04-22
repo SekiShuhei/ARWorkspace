@@ -87,7 +87,6 @@ HRESULT SensorManagerEvents::AddSensor(const SensorRequest& request)
 		return hr;
 	}
 	ULONG sensor_count = 0;
-	// ‚Æ‚è‚ ‚¦‚¸‚O”ÔƒZƒ“ƒT‚¾‚¯Œ©‚é.
 	hr = sp_sensor_collection->GetCount(&sensor_count);
 	if (FAILED(hr))
 	{

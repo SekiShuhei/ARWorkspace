@@ -90,9 +90,6 @@
     <ClInclude Include="Source\SensorManager\SensorManagerDefine.hpp">
       <Filter>Sensor</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SensorManager\SensorMapCollection.hpp">
-      <Filter>Sensor</Filter>
-    </ClInclude>
     <ClInclude Include="Source\SensorManager\DataReporterTimeStamp.hpp">
       <Filter>Sensor\Reporter</Filter>
     </ClInclude>
@@ -109,6 +106,9 @@
       <Filter>Sensor</Filter>
     </ClInclude>
     <ClInclude Include="Source\SensorManager\SensorRequest.hpp">
+      <Filter>Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorManager\SensorInfoMap.hpp">
       <Filter>Sensor</Filter>
     </ClInclude>
   </ItemGroup>
@@ -155,9 +155,6 @@
     <ClCompile Include="Source\SensorManager\SensorEvents.cpp">
       <Filter>Sensor</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SensorManager\SensorMapCollection.cpp">
-      <Filter>Sensor</Filter>
-    </ClCompile>
     <ClCompile Include="Source\SensorManager\DataReporterQuaternion.cpp">
       <Filter>Sensor\Reporter</Filter>
     </ClCompile>
@@ -168,6 +165,9 @@
       <Filter>Sensor\Reporter</Filter>
     </ClCompile>
     <ClCompile Include="Source\SensorManager\SensorUtility.cpp">
+      <Filter>Sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorManager\SensorInfoMap.cpp">
       <Filter>Sensor</Filter>
     </ClCompile>
   </ItemGroup>
