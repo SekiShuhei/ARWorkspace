@@ -1,16 +1,27 @@
-#include "SensorInfoMap.hpp"
+#include "SensorInfoMapManager.hpp"
 #include "SensorEvents.hpp"
 
 namespace WinSensor {
-SensorInfoMap::SensorInfoMap()
+SensorInfoMapManager::SensorInfoMapManager()
 {
 
 }
-SensorInfoMap::~SensorInfoMap()
+SensorInfoMapManager::~SensorInfoMapManager()
 {
 	this->RemoveAll();
 }
-bool SensorInfoMap::Set(SENSOR_ID key, ISensor* p_sensor, ISensorEvents* p_sensor_events)
+bool SensorInfoMapManager::Add(ISensor* p_sensor, const SensorRequest& request)
+{
+	// SENSOR_IDの取得.
+
+	// SensorInfoの動的生成.
+
+	// コンテナに入れる.
+
+
+	return false;
+}
+bool SensorInfoMapManager::Set(SENSOR_ID key, ISensor* p_sensor, ISensorEvents* p_sensor_events)
 {
 	if( p_sensor == nullptr || p_sensor_events == nullptr)
 	{
@@ -27,7 +38,7 @@ bool SensorInfoMap::Set(SENSOR_ID key, ISensor* p_sensor, ISensorEvents* p_senso
 	return true;
 }
 
-bool SensorInfoMap::Remove(SENSOR_ID arg_key)
+bool SensorInfoMapManager::Remove(SENSOR_ID arg_key)
 {
 	auto p_sensor = this->inner_map[arg_key];
 	SENSOR_ID sensor_id = GUID_NULL;
@@ -41,14 +52,18 @@ bool SensorInfoMap::Remove(SENSOR_ID arg_key)
 	return true;
 }
 
-bool SensorInfoMap::RemoveAll()
+bool SensorInfoMapManager::RemoveAll()
 {
+	// del...
 	POSITION pos = this->inner_map.GetStartPosition();
 	while (NULL != pos)
 	{
 		auto key = this->inner_map.GetNextKey(pos);
 		this->Remove(key);
 	}
+	///////////
+	this->info_map.clear();
+
 	return true;
 }
 
