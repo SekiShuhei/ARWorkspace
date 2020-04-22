@@ -10,21 +10,16 @@
 namespace WinSensor {
 class SensorInfoMapManager final
 {
-
 public:
 	SensorInfoMapManager();
 	~SensorInfoMapManager();
 	// with ISensor* AddRef() and SetEventSink().
 	bool Add(ISensor* p_sensor, const SensorRequest& request) noexcept;
 
-	// íœ—\’è.
-	//bool Set(SENSOR_ID key, ISensor* p_sensor, ISensorEvents* p_sensor_events);
 	// with ISensor* Release() and SetEventSink().
 	bool Remove(SENSOR_ID arg_sensor_id) noexcept;
 	
 	bool RemoveAll();
-private:
-	//CAtlMap<SENSOR_ID, ISensor*>	inner_map;
 
 private:
 	// ‰º‚Q‚Â‚Ípublic‚É‚·‚é.
