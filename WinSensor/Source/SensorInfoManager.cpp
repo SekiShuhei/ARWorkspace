@@ -30,8 +30,11 @@ bool SensorInfoManager::Add(ISensor* p_sensor, const SensorRequest& request) noe
 	}
 
 	this->RemoveSensorInfoFromID(sensor_id);
-	this->p_info_list.push_back(new SensorInfo(sensor_id, p_sensor, request));
-
+	auto p_info = SensorInfo::Create(sensor_id, p_sensor, request);
+	if (p_info)
+	{
+		this->p_info_list.push_back(p_info.value());
+	}
 	return false;
 }
 
