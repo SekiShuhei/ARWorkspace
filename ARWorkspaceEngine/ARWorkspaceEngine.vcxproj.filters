@@ -1,33 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Source\DropDownMenu.cpp" />
     <ClCompile Include="Source\pch.cpp" />
     <ClCompile Include="Source\ARDisplay.cpp" />
     <ClCompile Include="Source\ARVirtualScreen.cpp" />
-    <ClCompile Include="Source\CustomCursor.cpp" />
-    <ClCompile Include="Source\ScreenRegionGuideView.cpp" />
-    <ClCompile Include="Source\GuiMenu.cpp" />
-    <ClCompile Include="Source\KeyCommand.cpp" />
-    <ClCompile Include="Source\Utility.cpp" />
-    <ClCompile Include="Source\ValueEditor.cpp" />
-    <ClCompile Include="Source\WinScreenCapture.cpp" />
+    <ClCompile Include="Source\DropDownMenu.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ValueEditor.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WinScreenCapture.cpp">
+      <Filter>Capture</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuiMenu.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\KeyCommand.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CustomCursor.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ScreenRegionGuideView.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utility.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\DropDownMenu.hpp" />
     <ClInclude Include="Source\framework.h" />
     <ClInclude Include="Source\pch.h" />
     <ClInclude Include="Source\ARDisplay.hpp" />
     <ClInclude Include="Source\ARVirtualScreen.hpp" />
     <ClInclude Include="Source\ARWorkspaceEngine.hpp" />
-    <ClInclude Include="Source\CustomCursor.hpp" />
-    <ClInclude Include="Source\ScreenRegion.hpp" />
-    <ClInclude Include="Source\ScreenRegionGuideView.hpp" />
-    <ClInclude Include="Source\GuiMenu.hpp" />
-    <ClInclude Include="Source\KeyCommand.hpp" />
-    <ClInclude Include="Source\SimpleCounter.hpp" />
-    <ClInclude Include="Source\Utility.hpp" />
-    <ClInclude Include="Source\ValueEditor.hpp" />
-    <ClInclude Include="Source\WinScreenCapture.hpp" />
+    <ClInclude Include="Source\DropDownMenu.hpp">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ValueEditor.hpp">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WinScreenCapture.hpp">
+      <Filter>Capture</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\KeyCommand.hpp">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiMenu.hpp">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CustomCursor.hpp">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ScreenRegion.hpp">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ScreenRegionGuideView.hpp">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utility.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SimpleCounter.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{561d5df7-8649-46b8-b2a3-acee2a5e5892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Capture">
+      <UniqueIdentifier>{b339a0dc-2ff5-4e3b-8570-ccb84f45efeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{eb8199e6-57b3-4e23-bb95-e0372671f61f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Screen">
+      <UniqueIdentifier>{a77ea51a-7d25-4757-9822-015fa999609b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{f73744a7-84e0-4bcd-affe-1b3cc7c6802b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
