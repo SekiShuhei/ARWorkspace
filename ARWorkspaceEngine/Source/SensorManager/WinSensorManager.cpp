@@ -8,17 +8,8 @@ namespace WinSensor {
 WinSensorManager::WinSensorManager()
 {
 	this->p_sensor_manager = 
-		std::make_unique<SensorManagerEvents>(
-			[this](ISensor* p_sensor, ISensorDataReport* p_data)
-			{
-				DataReporterQuaternion data_report(p_data);
-				if (!data_report.IsError())
-				{
-					this->last_quaternion_report = data_report.GetValue();
-				}
-				return data_report.GetResult();
-			});
-	//SensorManagerEvents([this](Float4AndTimestamp){return true;});
+		std::make_unique<SensorManagerEvents>();
+
 }
 
 

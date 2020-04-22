@@ -4,7 +4,7 @@
 #include "SensorManagerEvents.hpp"
 
 namespace WinSensor {
-SensorManagerEvents::SensorManagerEvents(SensorEventCallbackFunction callback_func)
+SensorManagerEvents::SensorManagerEvents()
 {
 	this->ref_count = 0;
 	this->AddRef();
