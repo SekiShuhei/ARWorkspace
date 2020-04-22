@@ -9,8 +9,6 @@ SensorManagerEvents::SensorManagerEvents(SensorEventCallbackFunction callback_fu
 	this->ref_count = 0;
 	this->AddRef();
 
-	this->sp_sensor_events = std::make_unique<SensorEvents>(callback_func);
-
 }
 ULONG __stdcall SensorManagerEvents::AddRef()
 {
@@ -154,6 +152,7 @@ HRESULT SensorManagerEvents::addSensor(ISensor* p_sensor, const SensorRequest& r
 	}
 	// TODO:
 	// ここでSensorEventを動的生成する.
+	this->sp_sensor_events = std::make_unique<SensorEvents>(request.callback_func);
 
 	// callbackはリクエスト構造体から取得.
 
