@@ -31,6 +31,9 @@
     <Filter Include="Sensor\Reporter">
       <UniqueIdentifier>{4c5831af-c89f-4b88-9c7a-8c74412a54f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sensor\SensorInfo">
+      <UniqueIdentifier>{c7c1a356-f04b-449d-bc35-4a72206a5cc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ARDisplay.hpp">
@@ -108,8 +111,13 @@
     <ClInclude Include="Source\SensorManager\SensorRequest.hpp">
       <Filter>Sensor</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Source\SensorManager\SensorInfoMap.hpp">
       <Filter>Sensor</Filter>
+=======
+    <ClInclude Include="Source\SensorManager\SensorInfo.hpp">
+      <Filter>Sensor\SensorInfo</Filter>
+>>>>>>> master
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -167,8 +175,13 @@
     <ClCompile Include="Source\SensorManager\SensorUtility.cpp">
       <Filter>Sensor</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Source\SensorManager\SensorInfoMap.cpp">
       <Filter>Sensor</Filter>
+=======
+    <ClCompile Include="Source\SensorManager\SensorInfo.cpp">
+      <Filter>Sensor\SensorInfo</Filter>
+>>>>>>> master
     </ClCompile>
   </ItemGroup>
 </Project>
