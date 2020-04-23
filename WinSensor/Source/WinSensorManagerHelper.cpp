@@ -140,7 +140,25 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Gyrometer(WinSensorManag
 
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_GravityVector(WinSensorManager& manager) noexcept
 {
-	return SensorRequest();
+	SensorRequest request;
+	request.type_id = GUID_SensorType_GravityVector;
+	request.callback_func =
+		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
+	{
+		DataReporterVector3 data_report(
+			p_data,
+			SENSOR_DATA_TYPE_ACCELERATION_X_G,
+			SENSOR_DATA_TYPE_ACCELERATION_Y_G,
+			SENSOR_DATA_TYPE_ACCELERATION_Z_G);
+
+		if (!data_report.IsError())
+		{
+			manager.last_gravity_vector_report = data_report.GetValue();
+		}
+		return data_report.GetResult();
+	};
+	return request;
+
 }
 
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_LinearAccelerometer(WinSensorManager& manager) noexcept

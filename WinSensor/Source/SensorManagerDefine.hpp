@@ -4,6 +4,7 @@
 #include <sensorsapi.h>
 #include <sensors.h>
 #pragma comment(lib,"sensorsapi.lib")
+#include <sensorsdef.h>
 
 // Std.
 #include <tuple>

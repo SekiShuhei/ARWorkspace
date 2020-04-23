@@ -35,6 +35,7 @@ void Main()
 	sensor.AddSensor(WinSensor::SensorType::Accelerometer);
 	sensor.AddSensor(WinSensor::SensorType::Compass);
 	sensor.AddSensor(WinSensor::SensorType::Gyrometer);
+	sensor.AddSensor(WinSensor::SensorType::GravityVector);
 
 	while (System::Update())
 	{
@@ -97,6 +98,14 @@ void Main()
 				std::get<1>(sensor_val),
 				std::get<2>(sensor_val))).
 				draw(0.0, 340.0, Palette::Blue);
+		}
+		{
+			auto sensor_val = sensor.GetGravityVectorData();
+			font(U"gravity x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(
+				std::get<0>(sensor_val),
+				std::get<1>(sensor_val),
+				std::get<2>(sensor_val))).
+				draw(0.0, 400.0, Palette::Cyan);
 		}
 	}
 
