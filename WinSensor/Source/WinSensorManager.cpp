@@ -1,4 +1,5 @@
 
+#include "DeviceList.hpp"
 #include "WinSensorManagerHelper.hpp"
 #include "WinSensorManager.hpp"
 
@@ -50,11 +51,7 @@ bool WinSensorManager::AddSensor(const SensorType request_sensor_type)
 	HRESULT hr;
 	SensorRequest request;
 	request = Helper::MakeSensorRequest(*this, request_sensor_type);
-	// デバイス優先リストは外部から登録できるように.
-	// 全体リストとセンサ毎リストを統合して送る.
-	// 無視リストも必要？.
-	request.vid_list.emplace_back(L"VID_0483"); // BT-35E
-	request.vid_list.emplace_back(L"VID_04B8"); // BT-30C
+	request.vid_list = Device::VidList_SmartGrass;
 	hr = this->p_sensor_manager->AddSensor(request);
 	if (FAILED(hr))
 	{
