@@ -25,19 +25,7 @@ bool WinSensorManager::Initialize()
 		this->initialized = false;
 		return false;
 	}
-	// AddSensor()に分離.
-	SensorType	sensor_type = SensorType::AggregatedDeviceOrientation;
-	SensorRequest request;
-	request = Helper::MakeSensorRequest(*this, sensor_type);
-	request.vid_list.emplace_back(L"VID_0483"); // BT-35E
-	request.vid_list.emplace_back(L"VID_04B8"); // BT-30C
-	hr = this->p_sensor_manager->AddSensor(request);
-	if (FAILED(hr))
-	{
-		request = Helper::MakeSensorRequest(*this, sensor_type);
-		hr = this->p_sensor_manager->AddSensor(request);
-	}
-
+	
 	this->initialized = true;
 	return true;
 
@@ -49,6 +37,24 @@ bool WinSensorManager::Uninitialize()
 {
 	this->p_sensor_manager->Uninitialize();
 	return false;
+}
+
+bool WinSensorManager::AddSensor(const SensorType request_sensor_type)
+{
+	HRESULT hr;
+	SensorRequest request;
+	request = Helper::MakeSensorRequest(*this, request_sensor_type);
+	request.vid_list.emplace_back(L"VID_0483"); // BT-35E
+	request.vid_list.emplace_back(L"VID_04B8"); // BT-30C
+	hr = this->p_sensor_manager->AddSensor(request);
+	if (FAILED(hr))
+	{
+		// とりあえず開発チェック用にBTが見つからなかったらSurfaceセンサを見つける.
+		request = Helper::MakeSensorRequest(*this, request_sensor_type);
+		hr = this->p_sensor_manager->AddSensor(request);
+	}
+
+	return true;
 }
 
 const Float4AndTimestamp& WinSensorManager::GetAggregatedDeviceOrientationData() const noexcept

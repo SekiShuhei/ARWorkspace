@@ -30,7 +30,8 @@ void Main()
 	p_ar_screen->Initialize();
 	p_ar_screen->SetAutoResizeMode(true);
 	sensor.Initialize();
-	
+	sensor.AddSensor(WinSensor::SensorType::AggregatedDeviceOrientation);
+
 	while (System::Update())
 	{
 		
