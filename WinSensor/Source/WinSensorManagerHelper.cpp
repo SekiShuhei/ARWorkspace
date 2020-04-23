@@ -1,6 +1,7 @@
 
 #include "DataReporterQuaternion.hpp"
 #include "DataReporterFloatReport.hpp"
+#include "DataReporterVector3.hpp"
 
 #include "SensorType.hpp"
 #include "WinSensorManagerHelper.hpp"
@@ -73,7 +74,24 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AmbientLight(WinSensorMa
 
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_Accelerometer(WinSensorManager& manager) noexcept
 {
-	return SensorRequest();
+	SensorRequest request;
+	request.type_id = SENSOR_TYPE_ACCELEROMETER_3D;
+	request.callback_func =
+		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
+	{
+		DataReporterVector3 data_report(
+			p_data, 
+			SENSOR_DATA_TYPE_ACCELERATION_X_G,
+			SENSOR_DATA_TYPE_ACCELERATION_Y_G,
+			SENSOR_DATA_TYPE_ACCELERATION_Z_G);
+
+		if (!data_report.IsError())
+		{
+			manager.last_accelerometer_report = data_report.GetValue();
+		}
+		return data_report.GetResult();
+	};
+	return request;
 }
 
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_Compass(WinSensorManager& manager) noexcept
