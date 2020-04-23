@@ -36,6 +36,7 @@ void Main()
 	sensor.AddSensor(WinSensor::SensorType::Compass);
 	sensor.AddSensor(WinSensor::SensorType::Gyrometer);
 	sensor.AddSensor(WinSensor::SensorType::GravityVector);
+	sensor.AddSensor(WinSensor::SensorType::LinearAccelerometer);
 
 	while (System::Update())
 	{
@@ -106,6 +107,14 @@ void Main()
 				std::get<1>(sensor_val),
 				std::get<2>(sensor_val))).
 				draw(0.0, 400.0, Palette::Cyan);
+		}
+		{
+			auto sensor_val = sensor.GetLinearAccelerometerData();
+			font(U"linear_accel x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(
+				std::get<0>(sensor_val),
+				std::get<1>(sensor_val),
+				std::get<2>(sensor_val))).
+				draw(0.0, 460.0, Palette::Pink);
 		}
 	}
 

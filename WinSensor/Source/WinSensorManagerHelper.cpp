@@ -158,12 +158,28 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_GravityVector(WinSensorM
 		return data_report.GetResult();
 	};
 	return request;
-
 }
 
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_LinearAccelerometer(WinSensorManager& manager) noexcept
 {
-	return SensorRequest();
+	SensorRequest request;
+	request.type_id = GUID_SensorType_LinearAccelerometer;
+	request.callback_func =
+		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
+	{
+		DataReporterVector3 data_report(
+			p_data,
+			SENSOR_DATA_TYPE_ACCELERATION_X_G,
+			SENSOR_DATA_TYPE_ACCELERATION_Y_G,
+			SENSOR_DATA_TYPE_ACCELERATION_Z_G);
+
+		if (!data_report.IsError())
+		{
+			manager.last_linear_accelerometer_report = data_report.GetValue();
+		}
+		return data_report.GetResult();
+	};
+	return request;
 }
 
 }
