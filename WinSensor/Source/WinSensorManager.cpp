@@ -51,10 +51,11 @@ bool WinSensorManager::Uninitialize()
 	return false;
 }
 
-const Float4AndTimestamp& WinSensorManager::GetAggregatedDeviceOrientationData() const
+const Float4AndTimestamp& WinSensorManager::GetAggregatedDeviceOrientationData() const noexcept
 {
 	return this->last_quaternion_report;
 }
+
 
 
 }

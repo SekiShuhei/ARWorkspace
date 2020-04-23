@@ -19,13 +19,16 @@ public:
 	~WinSensorManager();
 	bool Initialize();
 	bool Uninitialize();
-	//std::optional<Vector3>		GetAccelerometerData();
-	//std::optional<Vector3>		GetCompassData();
-	//std::optional<Vector3>		GetGyrometerData();
-	//std::optional<float>		GetAmbientLightData();
-	//std::optional<Vector3>		GetGravityVectorData();
-	//std::optional<Vector3>		GetLinearAccelerometerData();
-	const Float4AndTimestamp&	GetAggregatedDeviceOrientationData() const;
+
+	bool AddSensor(const SensorType request_sensor_type);
+
+	const Double3AndTimestamp&	GetAccelerometerData() const noexcept;
+	const Double3AndTimestamp&	GetCompassData() const noexcept;
+	const Double3AndTimestamp&	GetGyrometerData() const noexcept;
+	const FloatAndTimestamp		GetAmbientLightData() const noexcept;
+	const Double3AndTimestamp&	GetGravityVectorData() const noexcept;
+	const Double3AndTimestamp&	GetLinearAccelerometerData() const noexcept;
+	const Float4AndTimestamp&	GetAggregatedDeviceOrientationData() const noexcept;
 
 private:
 	
