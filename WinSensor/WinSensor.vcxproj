@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\DataReporterFloat.cpp" />
+    <ClCompile Include="Source\DataReporterFloatReport.cpp" />
     <ClCompile Include="Source\DataReporterQuaternion.cpp" />
     <ClCompile Include="Source\DataReporterTimeStamp.cpp" />
     <ClCompile Include="Source\PropertyReporterString.cpp" />
@@ -33,6 +34,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DataReporterFloat.hpp" />
+    <ClInclude Include="Source\DataReporterFloatReport.hpp" />
+    <ClInclude Include="Source\HRESULT_Support.hpp" />
     <ClInclude Include="Source\SensorManagerState.hpp" />
     <ClInclude Include="Source\SensorType.hpp" />
     <ClInclude Include="Source\DataReporterQuaternion.hpp" />

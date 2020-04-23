@@ -40,6 +40,9 @@
     <ClCompile Include="Source\DataReporterFloat.cpp">
       <Filter>Reporter</Filter>
     </ClCompile>
+    <ClCompile Include="Source\DataReporterFloatReport.cpp">
+      <Filter>Reporter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DataReporterQuaternion.hpp">
@@ -79,6 +82,12 @@
     </ClInclude>
     <ClInclude Include="Source\DataReporterFloat.hpp">
       <Filter>Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DataReporterFloatReport.hpp">
+      <Filter>Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HRESULT_Support.hpp">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
