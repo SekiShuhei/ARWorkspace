@@ -27,9 +27,13 @@
     <ClCompile Include="Source\SensorInfo.cpp">
       <Filter>SensorInfo</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SensorInfoMap.cpp">
+    <ClCompile Include="Source\SensorEvents.cpp" />
+    <ClCompile Include="Source\SensorManagerEvents.cpp" />
+    <ClCompile Include="Source\WinSensorManager.cpp" />
+    <ClCompile Include="Source\SensorInfoManager.cpp">
       <Filter>SensorInfo</Filter>
     </ClCompile>
+    <ClCompile Include="Source\WinSensorManagerHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DataReporterQuaternion.hpp">
@@ -50,8 +54,14 @@
     <ClInclude Include="Source\SensorInfo.hpp">
       <Filter>SensorInfo</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SensorInfoMap.hpp">
+    <ClInclude Include="Source\SensorEvents.hpp" />
+    <ClInclude Include="Source\SensorManagerDefine.hpp" />
+    <ClInclude Include="Source\SensorManagerEvents.hpp" />
+    <ClInclude Include="Source\SensorRequest.hpp" />
+    <ClInclude Include="Source\WinSensorManager.hpp" />
+    <ClInclude Include="Source\SensorInfoManager.hpp">
       <Filter>SensorInfo</Filter>
     </ClInclude>
+    <ClInclude Include="Source\WinSensorManagerHelper.hpp" />
   </ItemGroup>
 </Project>

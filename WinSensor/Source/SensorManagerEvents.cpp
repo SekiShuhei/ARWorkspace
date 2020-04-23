@@ -9,7 +9,6 @@ SensorManagerEvents::SensorManagerEvents()
 	this->ref_count = 0;
 	this->AddRef();
 
-	this->sensor_event_map.reserve(20);
 }
 ULONG __stdcall SensorManagerEvents::AddRef()
 {
@@ -82,7 +81,7 @@ HRESULT SensorManagerEvents::AddSensor(const SensorRequest& request)
 	//	SENSOR_STATUS_DISABLED;
 	//}
 	
-	if (FAILED(hr)) // || sp_sensor_collection == nullptr
+	if (FAILED(hr))
 	{
 		return hr;
 	}
@@ -126,6 +125,7 @@ HRESULT SensorManagerEvents::AddSensor(const SensorRequest& request)
 			}
 		}
 	}
+	hr = E_FAIL;
 	return hr;
 }
 
@@ -133,14 +133,8 @@ HRESULT SensorManagerEvents::Uninitialize()
 {
 	HRESULT hr = S_OK;
 
-	this->sensor_map.RemoveAll();
-	//POSITION pos = this->sensor_map.GetStartPosition();
-	//while (NULL != pos)
-	//{
-	//	ISensor* p_sensor = this->sensor_map.GetNextValue(pos);
-	//	this->removeSensor(p_sensor);
-	//}
-	//hr = this->sp_sensor_manager->SetEventSink(NULL);
+	this->info_manager.RemoveAll();
+	hr = this->sp_sensor_manager->SetEventSink(NULL);
 
 	return hr;
 }
@@ -151,26 +145,10 @@ HRESULT SensorManagerEvents::addSensor(ISensor* p_sensor, const SensorRequest& r
 	{
 		return E_POINTER;
 	}
-	auto sp_sensor_events = std::make_unique<SensorEvents>(request.callback_func);
-
-	// センサーの生ポインタは別途コンテナで管理したいが危ないので要注意.
+	
 	HRESULT hr = S_OK;
-	//// 今作ったSensorEventを登録.
-	//hr = p_sensor->SetEventSink(sp_sensor_events.get());
-	SENSOR_ID sensor_id = GUID_NULL;
-	hr = p_sensor->GetID(&sensor_id);
-	if (SUCCEEDED(hr))
-	{
-		this->sensor_map.Set(sensor_id, p_sensor, sp_sensor_events.get());
-	//	
-	//	p_sensor->AddRef();
-	//	this->sensor_map[sensor_id] = p_sensor;
-	}
-	//...
-	// 生成したスマポをコンテナに格納して管理.
-	this->sensor_event_map.emplace_back(std::move(sp_sensor_events));
-
-
+	hr = this->info_manager.Add(p_sensor, request);
+	
 	return hr;
 }
 
@@ -180,21 +158,11 @@ HRESULT SensorManagerEvents::removeSensor(ISensor* p_sensor)
 	{
 		return E_POINTER;
 	}
-	// SensorEventも同時にリリースすること.
-	//...
-	//////////////////
-	//this->sensor_map.Remove(sensor_id);
-	
-	
 	HRESULT hr = S_OK;
-	//hr = p_sensor->SetEventSink(NULL);
-	//SENSOR_ID sensor_id = GUID_NULL;
-	//hr = p_sensor->GetID(&sensor_id);
-	//if (SUCCEEDED(hr))
-	//{
-	//	this->sensor_map.RemoveKey(sensor_id);
-	//	p_sensor->Release();
-	//}
+
+	//...
+	// 追加.
+
 	return hr;
 }
 

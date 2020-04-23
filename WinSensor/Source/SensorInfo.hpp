@@ -10,23 +10,32 @@ namespace WinSensor {
 class SensorInfo final
 {
 public:
-	// with ISensor* AddRef() and SetEventSink().
-	static std::optional<std::unique_ptr<SensorInfo>> 
-		Create(SENSOR_ID arg_sensor_id, ISensor* p_sensor, const SensorRequest& request);
+	// New SensorInfo Instance with ISensor* AddRef() and SetEventSink().
+	static std::optional<SensorInfo*> 
+		Create(SENSOR_ID sensor_id, ISensor* p_sensor, const SensorRequest& request);
 public:
 	SensorInfo(const SensorInfo&)				= delete;
 	SensorInfo& operator=(const SensorInfo&)	= delete;
 	SensorInfo(const SensorInfo&&)				= delete;
 	SensorInfo& operator=(SensorInfo&&)			= delete;
-public:
-//private: //CreateŠÖ”‚©‚ç‚Ì‚Ý¶¬‚Å‚«‚é‚æ‚¤‚É‚·‚×‚«.
-	SensorInfo() = delete;
+private:
 	// with ISensor* AddRef() and SetEventSink().
-	SensorInfo(SENSOR_ID arg_sensor_id, ISensor* p_sensor, const SensorRequest& request);
+	SensorInfo() noexcept;
 public:
+	~SensorInfo() noexcept;
 	// with ISensor* Release() and SetEventSink().
-	~SensorInfo();
-
+	void Release() noexcept;
+public:
+	SENSOR_ID GetSensorID() const noexcept
+	{
+		return this->sensor_id;
+	}
+	SENSOR_TYPE_ID GetSensorTypeID() const noexcept
+	{
+		return this->type_id;
+	}
+private:
+	bool initialize(SENSOR_ID arg_sensor_id, ISensor* p_sensor, const SensorRequest& request) noexcept;
 private:
 	ISensor*		p_sensor;
 	SENSOR_ID		sensor_id;

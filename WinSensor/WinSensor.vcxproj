@@ -24,8 +24,9 @@
     <ClCompile Include="Source\PropertyReporterString.cpp" />
     <ClCompile Include="Source\SensorEvents.cpp" />
     <ClCompile Include="Source\SensorInfo.cpp" />
-    <ClCompile Include="Source\SensorInfoMap.cpp" />
+    <ClCompile Include="Source\SensorInfoManager.cpp" />
     <ClCompile Include="Source\SensorManagerEvents.cpp" />
+    <ClCompile Include="Source\WinSensorManagerHelper.cpp" />
     <ClCompile Include="Source\SensorUtility.cpp" />
     <ClCompile Include="Source\WinSensorManager.cpp" />
   </ItemGroup>
@@ -36,10 +37,11 @@
     <ClInclude Include="Source\PropvariantWrapper.hpp" />
     <ClInclude Include="Source\SensorEvents.hpp" />
     <ClInclude Include="Source\SensorInfo.hpp" />
-    <ClInclude Include="Source\SensorInfoMap.hpp" />
+    <ClInclude Include="Source\SensorInfoManager.hpp" />
     <ClInclude Include="Source\SensorManagerDefine.hpp" />
     <ClInclude Include="Source\SensorManagerEvents.hpp" />
     <ClInclude Include="Source\SensorRequest.hpp" />
+    <ClInclude Include="Source\WinSensorManagerHelper.hpp" />
     <ClInclude Include="Source\SensorUtility.hpp" />
     <ClInclude Include="Source\WinSensorManager.hpp" />
   </ItemGroup>
