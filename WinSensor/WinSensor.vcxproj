@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\DataReporterFloat.cpp" />
     <ClCompile Include="Source\DataReporterQuaternion.cpp" />
     <ClCompile Include="Source\DataReporterTimeStamp.cpp" />
     <ClCompile Include="Source\PropertyReporterString.cpp" />
@@ -31,6 +32,7 @@
     <ClCompile Include="Source\WinSensorManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\DataReporterFloat.hpp" />
     <ClInclude Include="Source\SensorManagerState.hpp" />
     <ClInclude Include="Source\SensorType.hpp" />
     <ClInclude Include="Source\DataReporterQuaternion.hpp" />
