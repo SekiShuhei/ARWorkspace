@@ -96,7 +96,25 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Accelerometer(WinSensorM
 
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_Compass(WinSensorManager& manager) noexcept
 {
-	return SensorRequest();
+	SensorRequest request;
+	request.type_id = SENSOR_TYPE_COMPASS_3D;
+	request.callback_func =
+		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
+	{
+		DataReporterVector3 data_report(
+			p_data,
+			SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_X_MILLIGAUSS,
+			SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Y_MILLIGAUSS,
+			SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Z_MILLIGAUSS);
+
+		if (!data_report.IsError())
+		{
+			manager.last_compass_report = data_report.GetValue();
+		}
+		return data_report.GetResult();
+	};
+	return request;
+
 }
 
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_Gyrometer(WinSensorManager& manager) noexcept
