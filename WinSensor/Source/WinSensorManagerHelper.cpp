@@ -17,6 +17,20 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest(WinSensorManager& manage
 	case SensorType::AmbientLight:
 		return Helper::MakeSensorRequest_AmbientLight(manager);
 
+	case SensorType::Accelerometer:
+		return Helper::MakeSensorRequest_Accelerometer(manager);
+
+	case SensorType::Compass:
+		return Helper::MakeSensorRequest_Compass(manager);
+
+	case SensorType::GravityVector:
+		return Helper::MakeSensorRequest_GravityVector(manager);
+
+	case SensorType::Gyrometer:
+		return Helper::MakeSensorRequest_Gyrometer(manager);
+
+	case SensorType::LinearAccelerometer:
+		return Helper::MakeSensorRequest_LinearAccelerometer(manager);
 
 	default:
 		return SensorRequest();
