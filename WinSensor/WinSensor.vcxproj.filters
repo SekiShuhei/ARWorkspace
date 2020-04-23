@@ -37,7 +37,10 @@
       <Filter>SensorInfo</Filter>
     </ClCompile>
     <ClCompile Include="Source\WinSensorManagerHelper.cpp" />
-    <ClCompile Include="Source\DataReporterFloatReport.cpp" />
+    <ClCompile Include="Source\DataReporterFloatReport.cpp">
+      <Filter>Reporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DataReporterVector3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DataReporterQuaternion.hpp">
@@ -78,7 +81,12 @@
     <ClInclude Include="Source\HRESULT_Support.hpp">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Source\DataReporter.hpp" />
-    <ClInclude Include="Source\DataReporterFloatReport.hpp" />
+    <ClInclude Include="Source\DataReporterFloatReport.hpp">
+      <Filter>Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DataReporter.hpp">
+      <Filter>Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DataReporterVector3.hpp" />
   </ItemGroup>
 </Project>

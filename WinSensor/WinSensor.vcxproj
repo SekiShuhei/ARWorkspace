@@ -22,6 +22,7 @@
     <ClCompile Include="Source\DataReporterFloatReport.cpp" />
     <ClCompile Include="Source\DataReporterQuaternion.cpp" />
     <ClCompile Include="Source\DataReporterTimeStamp.cpp" />
+    <ClCompile Include="Source\DataReporterVector3.cpp" />
     <ClCompile Include="Source\PropertyReporterString.cpp" />
     <ClCompile Include="Source\SensorEvents.cpp" />
     <ClCompile Include="Source\SensorInfo.cpp" />
@@ -34,6 +35,7 @@
   <ItemGroup>
     <ClInclude Include="Source\DataReporter.hpp" />
     <ClInclude Include="Source\DataReporterFloatReport.hpp" />
+    <ClInclude Include="Source\DataReporterVector3.hpp" />
     <ClInclude Include="Source\HRESULT_Support.hpp" />
     <ClInclude Include="Source\SensorManagerState.hpp" />
     <ClInclude Include="Source\SensorType.hpp" />
