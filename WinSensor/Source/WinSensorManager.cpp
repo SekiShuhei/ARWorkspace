@@ -14,6 +14,7 @@ WinSensorManager::WinSensorManager()
 
 WinSensorManager::~WinSensorManager()
 {
+	this->Uninitialize();
 }
 
 bool WinSensorManager::Initialize()
@@ -22,11 +23,11 @@ bool WinSensorManager::Initialize()
 	hr = this->p_sensor_manager->Initialize();	
 	if (FAILED(hr))
 	{
-		this->initialized = false;
+		this->status = SensorManagerStatus::InitializeError;
 		return false;
 	}
 	
-	this->initialized = true;
+	this->status = SensorManagerStatus::InitializeCompleted;
 	return true;
 
 
@@ -35,8 +36,17 @@ bool WinSensorManager::Initialize()
 
 bool WinSensorManager::Uninitialize()
 {
-	this->p_sensor_manager->Uninitialize();
-	return false;
+	if (this->status != SensorManagerStatus::UnInitialized)
+	{
+		auto result = this->p_sensor_manager->Uninitialize();
+		if (SUCCEEDED(result))
+		{
+			this->status = SensorManagerStatus::UnInitialized;
+			return true;
+		}
+		return false;
+	}
+	return true;
 }
 
 bool WinSensorManager::AddSensor(const SensorType request_sensor_type)

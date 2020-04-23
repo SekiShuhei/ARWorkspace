@@ -8,6 +8,7 @@
 #include "SensorManagerDefine.hpp"
 #include "SensorManagerEvents.hpp"
 #include "SensorType.hpp"
+#include "SensorManagerStatus.hpp"
 
 namespace WinSensor {
 class WinSensorManager
@@ -33,8 +34,8 @@ public:
 private:
 	
 private:
-	bool initialized = false;
-	
+	SensorManagerStatus status = SensorManagerStatus::NotInitialized;
+
 	std::unique_ptr<WinSensor::SensorManagerEvents> p_sensor_manager;
 
 	Float4AndTimestamp	last_quaternion_report = Float4AndTimestamp();

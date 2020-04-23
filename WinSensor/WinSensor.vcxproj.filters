@@ -10,6 +10,9 @@
     <Filter Include="SensorInfo">
       <UniqueIdentifier>{f5c53062-9d51-419c-a415-c11a788929aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DefineAndEnum">
+      <UniqueIdentifier>{9574fdda-a6de-4f24-bf5d-2403ff76f5b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\DataReporterQuaternion.cpp">
@@ -55,7 +58,6 @@
       <Filter>SensorInfo</Filter>
     </ClInclude>
     <ClInclude Include="Source\SensorEvents.hpp" />
-    <ClInclude Include="Source\SensorManagerDefine.hpp" />
     <ClInclude Include="Source\SensorManagerEvents.hpp" />
     <ClInclude Include="Source\SensorRequest.hpp" />
     <ClInclude Include="Source\WinSensorManager.hpp" />
@@ -63,6 +65,14 @@
       <Filter>SensorInfo</Filter>
     </ClInclude>
     <ClInclude Include="Source\WinSensorManagerHelper.hpp" />
-    <ClInclude Include="Source\SensorType.hpp" />
+    <ClInclude Include="Source\SensorManagerDefine.hpp">
+      <Filter>DefineAndEnum</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorType.hpp">
+      <Filter>DefineAndEnum</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorManagerStatus.hpp">
+      <Filter>DefineAndEnum</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
