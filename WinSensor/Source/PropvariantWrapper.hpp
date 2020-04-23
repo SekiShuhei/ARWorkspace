@@ -3,9 +3,10 @@
 #pragma once
 
 #include "SensorManagerDefine.hpp"
+#include "HRESULT_Support.hpp"
 
 namespace WinSensor {
-class PropvariantWrapper
+class PropvariantWrapper : public HRESULT_Support
 {
 private:
 	PropvariantWrapper(const PropvariantWrapper&)				= delete;
@@ -22,20 +23,11 @@ public:
 	{
 		PropVariantClear(&this->pv_data);
 	}
-	inline bool IsError() const
-	{
-		return FAILED(this->result);
-	}
-	inline HRESULT GetResult() const
-	{
-		return this->result;
-	}
 	inline const PROPVARIANT& GetPropvariant() const
 	{
 		return this->pv_data;
 	}
 protected:
-	HRESULT		result = S_OK;
 	PROPVARIANT	pv_data;
 };
 

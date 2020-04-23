@@ -14,6 +14,7 @@ WinSensorManager::WinSensorManager()
 
 WinSensorManager::~WinSensorManager()
 {
+	this->Uninitialize();
 }
 
 bool WinSensorManager::Initialize()
@@ -22,38 +23,84 @@ bool WinSensorManager::Initialize()
 	hr = this->p_sensor_manager->Initialize();	
 	if (FAILED(hr))
 	{
-		this->initialized = false;
+		this->state = SensorManagerState::InitializeError;
 		return false;
 	}
-	// AddSensor()に分離.
+	this->state = SensorManagerState::InitializeCompleted;
+	return true;
+}
+
+bool WinSensorManager::Uninitialize()
+{
+	if (this->state != SensorManagerState::UnInitialized)
+	{
+		auto result = this->p_sensor_manager->Uninitialize();
+		if (SUCCEEDED(result))
+		{
+			this->state = SensorManagerState::UnInitialized;
+			return true;
+		}
+		return false;
+	}
+	return true;
+}
+
+bool WinSensorManager::AddSensor(const SensorType request_sensor_type)
+{
+	HRESULT hr;
 	SensorRequest request;
-	request = Helper::MakeSensorRequest_AggregatedDeviceOrientation(*this);
+	request = Helper::MakeSensorRequest(*this, request_sensor_type);
+	// デバイス優先リストは外部から登録できるように.
+	// 全体リストとセンサ毎リストを統合して送る.
+	// 無視リストも必要？.
 	request.vid_list.emplace_back(L"VID_0483"); // BT-35E
 	request.vid_list.emplace_back(L"VID_04B8"); // BT-30C
 	hr = this->p_sensor_manager->AddSensor(request);
 	if (FAILED(hr))
 	{
-		request = Helper::MakeSensorRequest_AggregatedDeviceOrientation(*this);
+		// とりあえず開発チェック用にBTが見つからなかったらSurfaceセンサを見つける.
+		request = Helper::MakeSensorRequest(*this, request_sensor_type);
 		hr = this->p_sensor_manager->AddSensor(request);
 	}
 
-	this->initialized = true;
 	return true;
-
-
-
 }
 
-bool WinSensorManager::Uninitialize()
+const Double3AndTimestamp& WinSensorManager::GetAccelerometerData() const noexcept
 {
-	this->p_sensor_manager->Uninitialize();
-	return false;
+	return this->last_accelerometer_report;
 }
 
-const Float4AndTimestamp& WinSensorManager::GetAggregatedDeviceOrientationData() const
+const Double3AndTimestamp& WinSensorManager::GetCompassData() const noexcept
 {
-	return this->last_quaternion_report;
+	return this->last_compass_report;
 }
+
+const Double3AndTimestamp& WinSensorManager::GetGyrometerData() const noexcept
+{
+	return this->last_gyrometer_report;
+}
+
+const FloatAndTimestamp WinSensorManager::GetAmbientLightData() const noexcept
+{
+	return this->last_ambient_light_report;
+}
+
+const Double3AndTimestamp& WinSensorManager::GetGravityVectorData() const noexcept
+{
+	return this->last_gravity_vector_report;
+}
+
+const Double3AndTimestamp& WinSensorManager::GetLinearAccelerometerData() const noexcept
+{
+	return this->last_linear_accelerometer_report;
+}
+
+const Float4AndTimestamp& WinSensorManager::GetAggregatedDeviceOrientationData() const noexcept
+{
+	return this->last_orientation_quaternion_report;
+}
+
 
 
 }

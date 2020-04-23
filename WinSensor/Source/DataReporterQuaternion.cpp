@@ -15,7 +15,6 @@ DataReporterQuaternion::DataReporterQuaternion(ISensorDataReport* p_report) :
 	}
 	else {
 		this->result = p_report->GetSensorValue(SENSOR_DATA_TYPE_QUATERNION, &this->pv_data);
-	
 	}
 }
 
