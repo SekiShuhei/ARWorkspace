@@ -125,6 +125,7 @@ HRESULT SensorManagerEvents::AddSensor(const SensorRequest& request)
 			}
 		}
 	}
+	hr = E_FAIL;
 	return hr;
 }
 

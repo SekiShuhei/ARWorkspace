@@ -33,6 +33,7 @@
     <ClCompile Include="Source\SensorInfoManager.cpp">
       <Filter>SensorInfo</Filter>
     </ClCompile>
+    <ClCompile Include="Source\WinSensorManagerHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DataReporterQuaternion.hpp">
@@ -61,5 +62,6 @@
     <ClInclude Include="Source\SensorInfoManager.hpp">
       <Filter>SensorInfo</Filter>
     </ClInclude>
+    <ClInclude Include="Source\WinSensorManagerHelper.hpp" />
   </ItemGroup>
 </Project>

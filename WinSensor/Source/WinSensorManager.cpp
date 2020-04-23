@@ -1,10 +1,9 @@
 
-#include "DataReporterQuaternion.hpp"
-
+#include "WinSensorManagerHelper.hpp"
 #include "WinSensorManager.hpp"
 
 namespace WinSensor {
-
+using Helper = WinSensorManagerHelper;
 WinSensorManager::WinSensorManager()
 {
 	this->p_sensor_manager = 
@@ -23,32 +22,22 @@ bool WinSensorManager::Initialize()
 	hr = this->p_sensor_manager->Initialize();	
 	if (FAILED(hr))
 	{
+		this->initialized = false;
 		return false;
 	}
+	// AddSensor()‚É•ª—£.
 	SensorRequest request;
-	request.type_id = SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION;
-	//request.vid_list.emplace_back(L"VID_0483"); // BT-35E
-	//request.vid_list.emplace_back(L"VID_04B8"); // BT-30C
-	request.callback_func = 
-		[this](ISensor * p_sensor, ISensorDataReport* p_data)
-		{
-			DataReporterQuaternion data_report(p_data);
-			if (!data_report.IsError())
-			{
-				this->last_quaternion_report = data_report.GetValue();
-			}
-			return data_report.GetResult();
-		};
-
+	request = Helper::MakeSensorRequest_AggregatedDeviceOrientation(*this);
+	request.vid_list.emplace_back(L"VID_0483"); // BT-35E
+	request.vid_list.emplace_back(L"VID_04B8"); // BT-30C
 	hr = this->p_sensor_manager->AddSensor(request);
 	if (FAILED(hr))
 	{
-		int i = 1;
+		request = Helper::MakeSensorRequest_AggregatedDeviceOrientation(*this);
+		hr = this->p_sensor_manager->AddSensor(request);
 	}
-	//test 2‰ñ“o˜^ƒeƒXƒg.
-	hr = this->p_sensor_manager->AddSensor(request);
 
-
+	this->initialized = true;
 	return true;
 
 
@@ -61,15 +50,9 @@ bool WinSensorManager::Uninitialize()
 	return false;
 }
 
-const Float4AndTimestamp& WinSensorManager::GetAggregatedDeviceOrientationData()
+const Float4AndTimestamp& WinSensorManager::GetAggregatedDeviceOrientationData() const
 {
-	//if (!this->intialized)
-	//{
-	//	return std::nullopt;
-	//}
-
 	return this->last_quaternion_report;
-
 }
 
 

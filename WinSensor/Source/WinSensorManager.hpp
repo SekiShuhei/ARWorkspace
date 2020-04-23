@@ -8,11 +8,10 @@
 #include "SensorManagerDefine.hpp"
 #include "SensorManagerEvents.hpp"
 namespace WinSensor {
-
-using Vector3 = std::tuple<double, double, double>;
-using Quaternion = std::tuple<double, double, double, double>;
 class WinSensorManager
 {
+friend class WinSensorManagerHelper;
+
 public:
 	WinSensorManager();
 	~WinSensorManager();
@@ -24,12 +23,12 @@ public:
 	//std::optional<float>		GetAmbientLightData();
 	//std::optional<Vector3>		GetGravityVectorData();
 	//std::optional<Vector3>		GetLinearAccelerometerData();
-	const Float4AndTimestamp&	GetAggregatedDeviceOrientationData();
+	const Float4AndTimestamp&	GetAggregatedDeviceOrientationData() const;
 
 private:
 	
 private:
-	bool intialized = false;
+	bool initialized = false;
 	
 	std::unique_ptr<WinSensor::SensorManagerEvents> p_sensor_manager;
 
