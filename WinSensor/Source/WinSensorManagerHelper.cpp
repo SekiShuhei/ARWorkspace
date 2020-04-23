@@ -114,12 +114,28 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Compass(WinSensorManager
 		return data_report.GetResult();
 	};
 	return request;
-
 }
 
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_Gyrometer(WinSensorManager& manager) noexcept
 {
-	return SensorRequest();
+	SensorRequest request;
+	request.type_id = SENSOR_TYPE_GYROMETER_3D;
+	request.callback_func =
+		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
+	{
+		DataReporterVector3 data_report(
+			p_data,
+			SENSOR_DATA_TYPE_ANGULAR_VELOCITY_X_DEGREES_PER_SECOND,
+			SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Y_DEGREES_PER_SECOND,
+			SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Z_DEGREES_PER_SECOND);
+
+		if (!data_report.IsError())
+		{
+			manager.last_gyrometer_report = data_report.GetValue();
+		}
+		return data_report.GetResult();
+	};
+	return request;
 }
 
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_GravityVector(WinSensorManager& manager) noexcept

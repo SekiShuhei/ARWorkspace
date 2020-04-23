@@ -90,6 +90,14 @@ void Main()
 				std::get<2>(sensor_val))).
 				draw(0.0, 280.0, Palette::Beige);
 		}
+		{
+			auto sensor_val = sensor.GetGyrometerData();
+			font(U"gyro x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(
+				std::get<0>(sensor_val),
+				std::get<1>(sensor_val),
+				std::get<2>(sensor_val))).
+				draw(0.0, 340.0, Palette::Blue);
+		}
 	}
 
 	p_ar_screen->WriteConfigFile();
