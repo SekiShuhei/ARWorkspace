@@ -63,5 +63,6 @@
       <Filter>SensorInfo</Filter>
     </ClInclude>
     <ClInclude Include="Source\WinSensorManagerHelper.hpp" />
+    <ClInclude Include="Source\SensorType.hpp" />
   </ItemGroup>
 </Project>

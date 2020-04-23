@@ -1,9 +1,22 @@
 
 #include "DataReporterQuaternion.hpp"
 
+#include "SensorType.hpp"
 #include "WinSensorManagerHelper.hpp"
 
 namespace WinSensor {
+using Helper = WinSensorManagerHelper;
+SensorRequest WinSensorManagerHelper::MakeSensorRequest(WinSensorManager& manager, const SensorType sensor_type) noexcept
+{
+	switch (sensor_type)
+	{
+	case SensorType::AggregatedDeviceOrientation:
+		return Helper::MakeSensorRequest_AggregatedDeviceOrientation(manager);
+	default:
+		return SensorRequest();
+	}
+}
+
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientation(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;

@@ -26,14 +26,15 @@ bool WinSensorManager::Initialize()
 		return false;
 	}
 	// AddSensor()‚É•ª—£.
+	SensorType	sensor_type = SensorType::AggregatedDeviceOrientation;
 	SensorRequest request;
-	request = Helper::MakeSensorRequest_AggregatedDeviceOrientation(*this);
+	request = Helper::MakeSensorRequest(*this, sensor_type);
 	request.vid_list.emplace_back(L"VID_0483"); // BT-35E
 	request.vid_list.emplace_back(L"VID_04B8"); // BT-30C
 	hr = this->p_sensor_manager->AddSensor(request);
 	if (FAILED(hr))
 	{
-		request = Helper::MakeSensorRequest_AggregatedDeviceOrientation(*this);
+		request = Helper::MakeSensorRequest(*this, sensor_type);
 		hr = this->p_sensor_manager->AddSensor(request);
 	}
 

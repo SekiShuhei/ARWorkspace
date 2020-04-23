@@ -7,6 +7,8 @@
 
 #include "SensorManagerDefine.hpp"
 #include "SensorManagerEvents.hpp"
+#include "SensorType.hpp"
+
 namespace WinSensor {
 class WinSensorManager
 {
@@ -33,6 +35,10 @@ private:
 	std::unique_ptr<WinSensor::SensorManagerEvents> p_sensor_manager;
 
 	Float4AndTimestamp	last_quaternion_report = Float4AndTimestamp();
+
+	// TODO:
+	// グローバル優先デバイスリスト.
+	// センサー別優先デバイスリスト.
 };
 
 }
