@@ -6,7 +6,7 @@
 #include "DataReporterTimeStamp.hpp"
 
 namespace WinSensor {
-class DataReporterFloatReport : HRESULT_Support
+class DataReporterFloatReport : public HRESULT_Support
 {
 private:
 	DataReporterFloatReport() = delete;

@@ -1,5 +1,6 @@
 
 #include "DataReporterQuaternion.hpp"
+#include "DataReporterFloatReport.hpp"
 
 #include "SensorType.hpp"
 #include "WinSensorManagerHelper.hpp"
@@ -12,6 +13,11 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest(WinSensorManager& manage
 	{
 	case SensorType::AggregatedDeviceOrientation:
 		return Helper::MakeSensorRequest_AggregatedDeviceOrientation(manager);
+
+	case SensorType::AmbientLight:
+		return Helper::MakeSensorRequest_AmbientLight(manager);
+
+
 	default:
 		return SensorRequest();
 	}
@@ -41,11 +47,10 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AmbientLight(WinSensorMa
 	request.callback_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
-		///
-		DataReporterQuaternion data_report(p_data);
+		DataReporterFloatReport data_report(p_data, SENSOR_DATA_TYPE_LIGHT_LEVEL_LUX);
 		if (!data_report.IsError())
 		{
-			manager.last_orientation_quaternion_report = data_report.GetValue();
+			manager.last_ambient_light_report = data_report.GetValue();
 		}
 		return data_report.GetResult();
 	};
