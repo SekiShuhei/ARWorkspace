@@ -27,7 +27,7 @@ FloatAndTimestamp DataReporterFloatReport::GetValue() const
 	if (!this->IsError())
 	{
 		return FloatAndTimestamp(
-			this->data_float.GetValue(), this->time_stamp.GetValue());
+			this->data_float.GetValue<float>(), this->time_stamp.GetValue());
 	}
 	return FloatAndTimestamp();
 }

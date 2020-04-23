@@ -2,7 +2,7 @@
 
 #include "SensorManagerDefine.hpp"
 #include "HRESULT_Support.hpp"
-#include "DataReporterFloat.hpp"
+#include "DataReporter.hpp"
 #include "DataReporterTimeStamp.hpp"
 
 namespace WinSensor {
@@ -16,7 +16,7 @@ public:
 
 	FloatAndTimestamp GetValue() const;
 private:
-	DataReporterFloat		data_float;
+	DataReporter			data_float;
 	DataReporterTimeStamp	time_stamp;
 };
 
