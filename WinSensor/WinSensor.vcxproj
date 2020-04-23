@@ -19,8 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\DataReporter.cpp" />
-    <ClCompile Include="Source\DataReporterFloat.cpp" />
     <ClCompile Include="Source\DataReporterFloatReport.cpp" />
     <ClCompile Include="Source\DataReporterQuaternion.cpp" />
     <ClCompile Include="Source\DataReporterTimeStamp.cpp" />
@@ -35,7 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DataReporter.hpp" />
-    <ClInclude Include="Source\DataReporterFloat.hpp" />
     <ClInclude Include="Source\DataReporterFloatReport.hpp" />
     <ClInclude Include="Source\HRESULT_Support.hpp" />
     <ClInclude Include="Source\SensorManagerState.hpp" />

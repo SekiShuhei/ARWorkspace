@@ -34,7 +34,14 @@ public:
 		}
 		return 0;
 	}
-
+	template<> const double GetValue<double>() const noexcept
+	{
+		if (!this->IsError())
+		{
+			return this->pv_data.dblVal;
+		}
+		return 0;
+	}
 };
 
 }
