@@ -30,8 +30,9 @@ void Main()
 	p_ar_screen->Initialize();
 	p_ar_screen->SetAutoResizeMode(true);
 	sensor.Initialize();
-	//sensor.AddSensor(WinSensor::SensorType::AggregatedDeviceOrientation);
-	auto a = sensor.AddSensor(WinSensor::SensorType::AmbientLight);
+	sensor.AddSensor(WinSensor::SensorType::AggregatedDeviceOrientation);
+	sensor.AddSensor(WinSensor::SensorType::AmbientLight);
+	sensor.AddSensor(WinSensor::SensorType::Accelerometer);
 
 	while (System::Update())
 	{
@@ -65,13 +66,20 @@ void Main()
 			//font(U"x:{},y:{},z:{},w:{}"_fmt(x, y, z,w)).draw(0.0, 100.0, Palette::Green);
 			font(U"angle x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(x, y, z)).draw(0.0, 100.0, Palette::Green);
 		}
-	
-	
 		{
 			auto sensor_val = sensor.GetAmbientLightData();
 			float f = std::get<0>(sensor_val);
 			float t = std::get<1>(sensor_val);
-			font(U"light:{:.2f},time:{:.2f}"_fmt(f,t)).draw(0.0, 150.0, Palette::Green);
+			font(U"light:{:.2f},time:{:.2f}"_fmt(f,t)).draw(0.0, 160.0, Palette::Aqua);
+		}
+		{
+			auto sensor_val = sensor.GetAccelerometerData();
+			font(U"accel x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(
+					std::get<0>(sensor_val), 
+					std::get<1>(sensor_val), 
+					std::get<2>(sensor_val))).
+				draw(0.0, 220.0, Palette::Green);
+
 		}
 	
 	}
