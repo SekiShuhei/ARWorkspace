@@ -11,9 +11,10 @@ public:
 	{
 
 	};
-
+	std::wstring				caption;
 	SENSOR_TYPE_ID				type_id;
 	std::vector<std::wstring>	vid_list;
+
 	SensorEventCallbackFunction	callback_func = 
 		[](ISensor*, ISensorDataReport*){ return false; };
 };

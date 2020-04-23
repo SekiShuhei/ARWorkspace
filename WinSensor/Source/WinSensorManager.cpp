@@ -51,7 +51,7 @@ bool WinSensorManager::AddSensor(const SensorType request_sensor_type)
 	HRESULT hr;
 	SensorRequest request;
 	request = Helper::MakeSensorRequest(*this, request_sensor_type);
-	request.vid_list = Device::VidList_SmartGrass;
+	request.vid_list = this->priority_vid_list;
 	hr = this->p_sensor_manager->AddSensor(request);
 	if (FAILED(hr))
 	{
