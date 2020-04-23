@@ -23,11 +23,11 @@ bool WinSensorManager::Initialize()
 	hr = this->p_sensor_manager->Initialize();	
 	if (FAILED(hr))
 	{
-		this->status = SensorManagerStatus::InitializeError;
+		this->state = SensorManagerState::InitializeError;
 		return false;
 	}
 	
-	this->status = SensorManagerStatus::InitializeCompleted;
+	this->state = SensorManagerState::InitializeCompleted;
 	return true;
 
 
@@ -36,12 +36,12 @@ bool WinSensorManager::Initialize()
 
 bool WinSensorManager::Uninitialize()
 {
-	if (this->status != SensorManagerStatus::UnInitialized)
+	if (this->state != SensorManagerState::UnInitialized)
 	{
 		auto result = this->p_sensor_manager->Uninitialize();
 		if (SUCCEEDED(result))
 		{
-			this->status = SensorManagerStatus::UnInitialized;
+			this->state = SensorManagerState::UnInitialized;
 			return true;
 		}
 		return false;

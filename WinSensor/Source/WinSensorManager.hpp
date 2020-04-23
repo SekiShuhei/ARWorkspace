@@ -8,7 +8,7 @@
 #include "SensorManagerDefine.hpp"
 #include "SensorManagerEvents.hpp"
 #include "SensorType.hpp"
-#include "SensorManagerStatus.hpp"
+#include "SensorManagerState.hpp"
 
 namespace WinSensor {
 class WinSensorManager
@@ -31,10 +31,15 @@ public:
 	const Double3AndTimestamp&	GetLinearAccelerometerData() const noexcept;
 	const Float4AndTimestamp&	GetAggregatedDeviceOrientationData() const noexcept;
 
+	const SensorManagerState	GetState() const noexcept
+	{
+		return this->state;
+	}
+
 private:
 	
 private:
-	SensorManagerStatus status = SensorManagerStatus::NotInitialized;
+	SensorManagerState state = SensorManagerState::NotInitialized;
 
 	std::unique_ptr<WinSensor::SensorManagerEvents> p_sensor_manager;
 

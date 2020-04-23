@@ -71,7 +71,7 @@
     <ClInclude Include="Source\SensorType.hpp">
       <Filter>DefineAndEnum</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SensorManagerStatus.hpp">
+    <ClInclude Include="Source\SensorManagerState.hpp">
       <Filter>DefineAndEnum</Filter>
     </ClInclude>
   </ItemGroup>

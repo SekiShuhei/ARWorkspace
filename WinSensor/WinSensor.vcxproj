@@ -31,7 +31,7 @@
     <ClCompile Include="Source\WinSensorManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\SensorManagerStatus.hpp" />
+    <ClInclude Include="Source\SensorManagerState.hpp" />
     <ClInclude Include="Source\SensorType.hpp" />
     <ClInclude Include="Source\DataReporterQuaternion.hpp" />
     <ClInclude Include="Source\DataReporterTimeStamp.hpp" />
