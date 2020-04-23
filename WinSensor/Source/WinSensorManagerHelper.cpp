@@ -27,7 +27,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientat
 			DataReporterQuaternion data_report(p_data);
 			if (!data_report.IsError())
 			{
-				manager.last_quaternion_report = data_report.GetValue();
+				manager.last_orientation_quaternion_report = data_report.GetValue();
 			}
 			return data_report.GetResult();
 		};

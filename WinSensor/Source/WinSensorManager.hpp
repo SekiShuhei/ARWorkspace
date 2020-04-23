@@ -43,7 +43,13 @@ private:
 
 	std::unique_ptr<WinSensor::SensorManagerEvents> p_sensor_manager;
 
-	Float4AndTimestamp	last_quaternion_report = Float4AndTimestamp();
+	Double3AndTimestamp	last_accelerometer_report			= Double3AndTimestamp();
+	Double3AndTimestamp	last_compass_report					= Double3AndTimestamp();
+	Double3AndTimestamp	last_gyrometer_report				= Double3AndTimestamp();
+	Double3AndTimestamp	last_gravity_vector_report			= Double3AndTimestamp();
+	Double3AndTimestamp	last_linear_accelerometer_report	= Double3AndTimestamp();
+	FloatAndTimestamp	last_ambient_light_report			= FloatAndTimestamp();
+	Float4AndTimestamp	last_orientation_quaternion_report	= Float4AndTimestamp();
 
 	// TODO:
 	// グローバル優先デバイスリスト.
