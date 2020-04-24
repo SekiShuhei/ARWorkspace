@@ -1,5 +1,5 @@
 ﻿#define SIV3D_WINDOWS_HIGH_DPI
-# include <Siv3D.hpp> // OpenSiv3D v0.4.2
+#include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
 
 #include "ARVirtualScreen.hpp"
@@ -30,6 +30,7 @@ void Main()
 	p_ar_screen->Initialize();
 	p_ar_screen->SetAutoResizeMode(true);
 	sensor.Initialize();
+	sensor.SetPriorityVidList(WinSensor::Device::VidList_SmartGrass);
 	sensor.AddSensor(WinSensor::SensorType::AggregatedDeviceOrientation);
 	sensor.AddSensor(WinSensor::SensorType::AmbientLight);
 	sensor.AddSensor(WinSensor::SensorType::Accelerometer);

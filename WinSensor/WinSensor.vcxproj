@@ -36,6 +36,7 @@
     <ClInclude Include="Source\DataReporter.hpp" />
     <ClInclude Include="Source\DataReporterFloatReport.hpp" />
     <ClInclude Include="Source\DataReporterVector3.hpp" />
+    <ClInclude Include="Source\DeviceList.hpp" />
     <ClInclude Include="Source\HRESULT_Support.hpp" />
     <ClInclude Include="Source\SensorManagerState.hpp" />
     <ClInclude Include="Source\SensorType.hpp" />

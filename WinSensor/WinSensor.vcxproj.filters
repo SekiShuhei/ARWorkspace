@@ -40,7 +40,9 @@
     <ClCompile Include="Source\DataReporterFloatReport.cpp">
       <Filter>Reporter</Filter>
     </ClCompile>
-    <ClCompile Include="Source\DataReporterVector3.cpp" />
+    <ClCompile Include="Source\DataReporterVector3.cpp">
+      <Filter>Reporter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DataReporterQuaternion.hpp">
@@ -87,6 +89,9 @@
     <ClInclude Include="Source\DataReporter.hpp">
       <Filter>Reporter</Filter>
     </ClInclude>
-    <ClInclude Include="Source\DataReporterVector3.hpp" />
+    <ClInclude Include="Source\DataReporterVector3.hpp">
+      <Filter>Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DeviceList.hpp" />
   </ItemGroup>
 </Project>

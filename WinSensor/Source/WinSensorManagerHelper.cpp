@@ -41,6 +41,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest(WinSensorManager& manage
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientation(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
+	request.name = L"AGGREGATED_DEVICE_ORIENTATION";
 	request.type_id = SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION;
 	request.callback_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
@@ -58,6 +59,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientat
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_AmbientLight(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
+	request.name = L"AMBIENT_LIGHT";
 	request.type_id = SENSOR_TYPE_AMBIENT_LIGHT;
 	request.callback_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
@@ -75,6 +77,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AmbientLight(WinSensorMa
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_Accelerometer(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
+	request.name = L"ACCELEROMETER_3D";
 	request.type_id = SENSOR_TYPE_ACCELEROMETER_3D;
 	request.callback_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
@@ -97,6 +100,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Accelerometer(WinSensorM
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_Compass(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
+	request.name = L"COMPASS_3D";
 	request.type_id = SENSOR_TYPE_COMPASS_3D;
 	request.callback_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
@@ -119,6 +123,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Compass(WinSensorManager
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_Gyrometer(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
+	request.name = L"GYROMETER_3D";
 	request.type_id = SENSOR_TYPE_GYROMETER_3D;
 	request.callback_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
@@ -141,6 +146,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Gyrometer(WinSensorManag
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_GravityVector(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
+	request.name = L"GravityVector";
 	request.type_id = GUID_SensorType_GravityVector;
 	request.callback_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
@@ -163,6 +169,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_GravityVector(WinSensorM
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_LinearAccelerometer(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
+	request.name = L"LinearAccelerometer";
 	request.type_id = GUID_SensorType_LinearAccelerometer;
 	request.callback_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)

@@ -1,4 +1,5 @@
 
+#include "DeviceList.hpp"
 #include "WinSensorManagerHelper.hpp"
 #include "WinSensorManager.hpp"
 
@@ -47,23 +48,17 @@ bool WinSensorManager::Uninitialize()
 
 bool WinSensorManager::AddSensor(const SensorType request_sensor_type)
 {
-	HRESULT hr;
-	SensorRequest request;
-	request = Helper::MakeSensorRequest(*this, request_sensor_type);
-	// デバイス優先リストは外部から登録できるように.
-	// 全体リストとセンサ毎リストを統合して送る.
-	// 無視リストも必要？.
-	request.vid_list.emplace_back(L"VID_0483"); // BT-35E
-	request.vid_list.emplace_back(L"VID_04B8"); // BT-30C
-	hr = this->p_sensor_manager->AddSensor(request);
-	if (FAILED(hr))
+	bool result = this->addSensor(request_sensor_type, this->priority_vid_list);
+	if (! result)
 	{
-		// とりあえず開発チェック用にBTが見つからなかったらSurfaceセンサを見つける.
-		request = Helper::MakeSensorRequest(*this, request_sensor_type);
-		hr = this->p_sensor_manager->AddSensor(request);
+		this->addSensor(request_sensor_type);
 	}
-
 	return true;
+}
+
+bool WinSensorManager::AddSensorFromVidList(const SensorType request_sensor_type, const std::vector<std::wstring>& vid_list)
+{
+	return this->addSensor(request_sensor_type, vid_list);
 }
 
 const Double3AndTimestamp& WinSensorManager::GetAccelerometerData() const noexcept
@@ -99,6 +94,27 @@ const Double3AndTimestamp& WinSensorManager::GetLinearAccelerometerData() const 
 const Float4AndTimestamp& WinSensorManager::GetAggregatedDeviceOrientationData() const noexcept
 {
 	return this->last_orientation_quaternion_report;
+}
+
+bool WinSensorManager::addSensor(const SensorType request_sensor_type, 
+	const std::optional<const std::vector<std::wstring>>& vid_list)
+{
+	HRESULT hr;
+	SensorRequest request;
+	request = Helper::MakeSensorRequest(*this, request_sensor_type);
+	if (vid_list)
+	{
+		if (vid_list.value().size() > 0)
+		{
+			request.vid_list = vid_list.value();
+		}
+	}
+	hr = this->p_sensor_manager->AddSensor(request);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+	return true;
 }
 
 
