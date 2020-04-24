@@ -11,7 +11,7 @@ public:
 	{
 
 	};
-	std::wstring				caption;
+	std::wstring				name;
 	SENSOR_TYPE_ID				type_id;
 	std::vector<std::wstring>	vid_list;
 
