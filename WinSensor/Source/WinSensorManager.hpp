@@ -26,7 +26,6 @@ public:
 	bool AddSensorFromVidList(
 		const SensorType request_sensor_type, const std::vector<std::wstring>& vid_list);
 
-
 	const Double3AndTimestamp&	GetAccelerometerData() const noexcept;
 	const Double3AndTimestamp&	GetCompassData() const noexcept;
 	const Double3AndTimestamp&	GetGyrometerData() const noexcept;
@@ -62,11 +61,12 @@ private:
 	FloatAndTimestamp	last_ambient_light_report			= FloatAndTimestamp();
 	Float4AndTimestamp	last_orientation_quaternion_report	= Float4AndTimestamp();
 
-	// TODO:
-	// グローバル優先デバイスリスト.
 	std::vector<std::wstring> priority_vid_list;
 
-	// センサー別優先デバイスリスト.
+	// TODO:
+	// リクエスト情報を保持.
+	// 接続デバイス情報を保持.
+
 };
 
 }
