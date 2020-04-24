@@ -30,7 +30,7 @@ public:
 	const Double3AndTimestamp&	GetAccelerometerData() const noexcept;
 	const Double3AndTimestamp&	GetCompassData() const noexcept;
 	const Double3AndTimestamp&	GetGyrometerData() const noexcept;
-	const FloatAndTimestamp		GetAmbientLightData() const noexcept;
+	const FloatAndTimestamp&	GetAmbientLightData() const noexcept;
 	const Double3AndTimestamp&	GetGravityVectorData() const noexcept;
 	const Double3AndTimestamp&	GetLinearAccelerometerData() const noexcept;
 	const Float4AndTimestamp&	GetAggregatedDeviceOrientationData() const noexcept;

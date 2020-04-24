@@ -40,8 +40,8 @@ private:
 
 
 private:
+	// WinSensorManager‚ÅŠÇ—‚·‚×‚«.
 	bool initialized = false;
-
 	CComPtr<ISensorManager>		sp_sensor_manager;
 	SensorInfoManager			info_manager;
 

@@ -76,7 +76,7 @@ const Double3AndTimestamp& WinSensorManager::GetGyrometerData() const noexcept
 	return this->last_gyrometer_report;
 }
 
-const FloatAndTimestamp WinSensorManager::GetAmbientLightData() const noexcept
+const FloatAndTimestamp& WinSensorManager::GetAmbientLightData() const noexcept
 {
 	return this->last_ambient_light_report;
 }

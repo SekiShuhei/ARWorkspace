@@ -63,8 +63,9 @@ HRESULT __stdcall SensorEvents::OnDataUpdated(ISensor* p_sensor, ISensorDataRepo
 	return hr;
 }
 
-HRESULT __stdcall SensorEvents::OnLeave(REFSENSOR_ID sensorID)
+HRESULT __stdcall SensorEvents::OnLeave(__RPC__in REFSENSOR_ID sensorID)
 {
+	//RemoveSensor(sensorID);
 	return S_OK;
 }
 
@@ -84,9 +85,8 @@ HRESULT __stdcall SensorEvents::OnStateChanged(ISensor* p_sensor, SensorState st
 			//hr = this->GetSensorData(p_sensor);
 		}
 		else if (state == SENSOR_STATE_ACCESS_DENIED)
-		{	
-			//wprintf_s(L"\nNo permission for the time sensor.\n");
-			//wprintf_s(L"Enable the sensor in the control panel.\n");
+		{
+			//...
 		}
 	}
 	return hr;

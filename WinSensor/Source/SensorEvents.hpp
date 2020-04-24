@@ -20,10 +20,10 @@ private:
 
 	// -------------ISensorEvents.-------------
 public:
-	HRESULT __stdcall OnEvent(ISensor* pSensor, REFGUID eventID, IPortableDeviceValues* pEventData);
-	HRESULT __stdcall OnDataUpdated(ISensor* pSensor, ISensorDataReport* pNewData);
-	HRESULT __stdcall OnLeave(REFSENSOR_ID sensorID);
-	HRESULT __stdcall OnStateChanged(ISensor* pSensor, SensorState state);
+	HRESULT __stdcall OnEvent(__RPC__in_opt ISensor* p_sensor, REFGUID eventID, IPortableDeviceValues* p_event_data);
+	HRESULT __stdcall OnDataUpdated(__RPC__in_opt ISensor* p_sensor, ISensorDataReport* p_data);
+	HRESULT __stdcall OnLeave(__RPC__in REFSENSOR_ID sensorID);
+	HRESULT __stdcall OnStateChanged(__RPC__in_opt ISensor* p_sensor, SensorState state);
 	// ---------------------------------------
 public:
 

@@ -130,7 +130,7 @@ HRESULT SensorManagerEvents::AddSensor(const SensorRequest& request)
 			}
 		}
 	}
-	hr = E_FAIL;
+	hr = HRESULT_FROM_WIN32(ERROR_NOT_FOUND);
 	return hr;
 }
 
