@@ -1,7 +1,6 @@
 #pragma once
 
 #include <atlbase.h>
-#include <atlcoll.h>
 #include <memory>
 #include <string>
 #include <optional>
@@ -26,7 +25,7 @@ private:
 
 	//------------ ISensorManagerEvents.-------------
 public:
-	HRESULT __stdcall OnSensorEnter(ISensor* pSensor, SensorState state);
+	HRESULT __stdcall OnSensorEnter(__RPC__in_opt ISensor* pSensor, SensorState state);
 	// ----------------------------------------------
 public:
 	HRESULT Initialize();

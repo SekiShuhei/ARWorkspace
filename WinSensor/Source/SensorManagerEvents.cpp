@@ -47,8 +47,13 @@ HRESULT __stdcall SensorManagerEvents::QueryInterface(const IID& iid, void** ppv
 	return S_OK;
 }
 
-HRESULT __stdcall SensorManagerEvents::OnSensorEnter(ISensor* p_sensor, SensorState state)
+HRESULT __stdcall SensorManagerEvents::OnSensorEnter(__RPC__in_opt ISensor* p_sensor, SensorState state)
 {
+	// TODO:
+	// リクエスト中のセンサが接続されたら自動的に追加されるようにしたい.
+	// マネージャ側でリクエスト情報を保持しておく必要がある.
+	//...
+
 	return S_OK;
 }
 
