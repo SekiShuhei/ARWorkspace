@@ -23,6 +23,9 @@ public:
 	bool Uninitialize();
 
 	bool AddSensor(const SensorType request_sensor_type);
+	bool AddSensorFromVidList(
+		const SensorType request_sensor_type, const std::vector<std::wstring>& vid_list);
+
 
 	const Double3AndTimestamp&	GetAccelerometerData() const noexcept;
 	const Double3AndTimestamp&	GetCompassData() const noexcept;
@@ -42,7 +45,10 @@ public:
 	}
 
 private:
-	
+	bool addSensor(
+		const SensorType request_sensor_type, 
+		const std::optional<const std::vector<std::wstring>>& vid_list = std::nullopt);
+
 private:
 	SensorManagerState state = SensorManagerState::NotInitialized;
 
