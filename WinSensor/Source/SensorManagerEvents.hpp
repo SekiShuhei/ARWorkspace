@@ -27,23 +27,6 @@ private:
 public:
 	HRESULT __stdcall OnSensorEnter(__RPC__in_opt ISensor* pSensor, SensorState state);
 	// ----------------------------------------------
-public:
-	HRESULT Initialize();
-	HRESULT Uninitialize();
-
-	HRESULT AddSensor(const SensorRequest& request);
-	
-private:
-	
-	HRESULT addSensor(ISensor* pSensor, const SensorRequest& request);
-	HRESULT removeSensor(ISensor* pSensor);
-
-
-private:
-	// WinSensorManagerÇ≈ä«óùÇ∑Ç◊Ç´.
-	bool initialized = false;
-	CComPtr<ISensorManager>		sp_sensor_manager;
-	SensorInfoManager			info_manager;
 
 };
 
