@@ -13,8 +13,8 @@ namespace WinSensor {
 class SensorManagerEvents : public ISensorManagerEvents
 {
 public:
-	SensorManagerEvents();
-
+	SensorManagerEvents() = delete;
+	SensorManagerEvents(SensorManagerEventsCallbackFunction arg_callback_func);
 	//------------ IUnknownInterface.-------------
 public:
 	ULONG __stdcall AddRef();
@@ -27,7 +27,8 @@ private:
 public:
 	HRESULT __stdcall OnSensorEnter(__RPC__in_opt ISensor* pSensor, SensorState state);
 	// ----------------------------------------------
-
+private:
+	SensorManagerEventsCallbackFunction callback_func;
 };
 
 }

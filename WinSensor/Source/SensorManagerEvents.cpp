@@ -4,12 +4,18 @@
 #include "SensorManagerEvents.hpp"
 
 namespace WinSensor {
-SensorManagerEvents::SensorManagerEvents()
+//SensorManagerEvents::SensorManagerEvents()
+//{
+//	this->ref_count = 0;
+//	this->AddRef();
+//}
+SensorManagerEvents::SensorManagerEvents(SensorManagerEventsCallbackFunction arg_callback_func) :
+	callback_func(arg_callback_func)
 {
 	this->ref_count = 0;
 	this->AddRef();
-
 }
+
 ULONG __stdcall SensorManagerEvents::AddRef()
 {
 	return InterlockedIncrement(&this->ref_count);
@@ -49,11 +55,7 @@ HRESULT __stdcall SensorManagerEvents::QueryInterface(const IID& iid, void** ppv
 
 HRESULT __stdcall SensorManagerEvents::OnSensorEnter(__RPC__in_opt ISensor* p_sensor, SensorState state)
 {
-	// TODO:
-	// リクエスト中のセンサが接続されたら自動的に追加されるようにしたい.
-	// マネージャ側でリクエスト情報を保持しておく必要がある.
-	//...
-
+	this->callback_func(p_sensor, state);
 	return S_OK;
 }
 

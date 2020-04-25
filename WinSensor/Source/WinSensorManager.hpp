@@ -51,10 +51,6 @@ private:
 	HRESULT addSensor(const SensorRequest& request);
 
 private:
-	SensorManagerState state = SensorManagerState::NotInitialized;
-
-	std::unique_ptr<WinSensor::SensorManagerEvents> sp_sensor_manager_events;
-
 	Double3AndTimestamp	last_accelerometer_report			= Double3AndTimestamp();
 	Double3AndTimestamp	last_compass_report					= Double3AndTimestamp();
 	Double3AndTimestamp	last_gyrometer_report				= Double3AndTimestamp();
@@ -69,10 +65,11 @@ private:
 	// リクエスト情報を保持.
 	// 接続デバイス情報を保持.
 
-	// SensorManagerEventsより移管.
-	bool initialized = false;
+	SensorManagerState			state = SensorManagerState::NotInitialized;
 	CComPtr<ISensorManager>		sp_sensor_manager;
 	SensorInfoManager			info_manager;
+	std::unique_ptr<WinSensor::SensorManagerEvents> sp_sensor_manager_events;
+
 
 };
 
