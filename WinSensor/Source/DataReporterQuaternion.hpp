@@ -2,7 +2,6 @@
 
 #include "SensorManagerDefine.hpp"
 #include "PropvariantWrapper.hpp"
-#include "DataReporterTimeStamp.hpp"
 
 namespace WinSensor {
 class DataReporterQuaternion : public PropvariantWrapper
@@ -15,7 +14,6 @@ public:
 
 	Float4AndTimestamp GetValue() const;
 private:
-	DataReporterTimeStamp time_stamp;
 };
 
 }

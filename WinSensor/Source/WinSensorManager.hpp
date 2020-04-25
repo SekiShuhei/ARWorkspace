@@ -71,10 +71,19 @@ private:
 
 	SensorManagerState			state = SensorManagerState::NotInitialized;
 	CComPtr<ISensorManager>		sp_sensor_manager;
-	SensorControlManager			info_manager;
+	SensorControlManager		info_manager;
 	std::unique_ptr<WinSensor::SensorManagerEvents> sp_sensor_manager_events;
 
-
+//////////////////////////////
+	// TODO(タイムスタンプ処理分岐スイッチ):
+private:
+	static const bool use_timestamp = true;
+public:
+	constexpr static bool UsingTimestamp()
+	{
+		return WinSensorManager::use_timestamp;
+	}
+//////////////////////////////
 };
 
 }

@@ -19,6 +19,8 @@ public:
 	static SensorRequest MakeSensorRequest_GravityVector(WinSensorManager& manager) noexcept;
 	static SensorRequest MakeSensorRequest_LinearAccelerometer(WinSensorManager& manager) noexcept;
 
+
+	
 };
 
 }

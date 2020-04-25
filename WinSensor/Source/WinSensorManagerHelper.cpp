@@ -1,7 +1,9 @@
 
+#include "DataReporter.hpp"
 #include "DataReporterQuaternion.hpp"
-#include "DataReporterFloatReport.hpp"
 #include "DataReporterVector3.hpp"
+#include "DataReporterTimestamp.hpp"
+#include "DataReporterHelper.hpp"
 
 #include "SensorType.hpp"
 #include "WinSensorManagerHelper.hpp"
@@ -46,11 +48,22 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientat
 	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 		{
+			Float4AndTimestamp result_data;
 			DataReporterQuaternion data_report(p_data);
-			if (!data_report.IsError())
+			if (data_report.IsError())
 			{
-				manager.last_orientation_quaternion_report = data_report.GetValue();
+				return data_report.GetResult();
 			}
+			result_data = data_report.GetValue();
+			if (WinSensorManager::UsingTimestamp())
+			{
+				DataReporterTimeStamp time_stamp(p_data);
+				if (!time_stamp.IsError())
+				{
+					std::get<4>(result_data) = time_stamp.GetValue();
+				}
+			}
+			manager.last_orientation_quaternion_report = std::move(result_data);
 			return data_report.GetResult();
 		};
 	return request;
@@ -64,12 +77,24 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AmbientLight(WinSensorMa
 	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
-		DataReporterFloatReport data_report(p_data, SENSOR_DATA_TYPE_LIGHT_LEVEL_LUX);
-		if (!data_report.IsError())
+		FloatAndTimestamp result_data;
+		DataReporter data_float(p_data, SENSOR_DATA_TYPE_LIGHT_LEVEL_LUX);
+		if (data_float.IsError())
 		{
-			manager.last_ambient_light_report = data_report.GetValue();
+			return data_float.GetResult();
 		}
-		return data_report.GetResult();
+		std::get<0>(result_data) = data_float.GetValue<float>();
+		
+		if (WinSensorManager::UsingTimestamp())
+		{
+			DataReporterTimeStamp time_stamp(p_data);
+			if (!time_stamp.IsError())
+			{
+				std::get<1>(result_data) = time_stamp.GetValue();
+			}
+		}
+		manager.last_ambient_light_report = std::move(result_data);
+		return data_float.GetResult();
 	};
 	return request;
 }
@@ -82,16 +107,13 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Accelerometer(WinSensorM
 	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
-		DataReporterVector3 data_report(
-			p_data, 
+		Double3AndTimestamp	result_data;
+		DataReporterVector3 data_report(p_data, 
 			SENSOR_DATA_TYPE_ACCELERATION_X_G,
 			SENSOR_DATA_TYPE_ACCELERATION_Y_G,
 			SENSOR_DATA_TYPE_ACCELERATION_Z_G);
-
-		if (!data_report.IsError())
-		{
-			manager.last_accelerometer_report = data_report.GetValue();
-		}
+		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report);
+		manager.last_accelerometer_report = std::move(result_data);
 		return data_report.GetResult();
 	};
 	return request;
@@ -105,16 +127,13 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Compass(WinSensorManager
 	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
-		DataReporterVector3 data_report(
-			p_data,
+		Double3AndTimestamp	result_data;
+		DataReporterVector3 data_report(p_data,
 			SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_X_MILLIGAUSS,
 			SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Y_MILLIGAUSS,
 			SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Z_MILLIGAUSS);
-
-		if (!data_report.IsError())
-		{
-			manager.last_compass_report = data_report.GetValue();
-		}
+		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report);
+		manager.last_compass_report = std::move(result_data);
 		return data_report.GetResult();
 	};
 	return request;
@@ -128,16 +147,13 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Gyrometer(WinSensorManag
 	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
-		DataReporterVector3 data_report(
-			p_data,
+		Double3AndTimestamp	result_data;
+		DataReporterVector3 data_report(p_data,
 			SENSOR_DATA_TYPE_ANGULAR_VELOCITY_X_DEGREES_PER_SECOND,
 			SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Y_DEGREES_PER_SECOND,
 			SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Z_DEGREES_PER_SECOND);
-
-		if (!data_report.IsError())
-		{
-			manager.last_gyrometer_report = data_report.GetValue();
-		}
+		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report);
+		manager.last_gyrometer_report = std::move(result_data);
 		return data_report.GetResult();
 	};
 	return request;
@@ -151,16 +167,13 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_GravityVector(WinSensorM
 	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
-		DataReporterVector3 data_report(
-			p_data,
+		Double3AndTimestamp	result_data;
+		DataReporterVector3 data_report(p_data,
 			SENSOR_DATA_TYPE_ACCELERATION_X_G,
 			SENSOR_DATA_TYPE_ACCELERATION_Y_G,
 			SENSOR_DATA_TYPE_ACCELERATION_Z_G);
-
-		if (!data_report.IsError())
-		{
-			manager.last_gravity_vector_report = data_report.GetValue();
-		}
+		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report);
+		manager.last_gravity_vector_report = std::move(result_data);
 		return data_report.GetResult();
 	};
 	return request;
@@ -174,17 +187,27 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_LinearAccelerometer(WinS
 	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
-		DataReporterVector3 data_report(
-			p_data,
+		//DataReporterVector3 data_report(
+		//	p_data,
+		//	SENSOR_DATA_TYPE_ACCELERATION_X_G,
+		//	SENSOR_DATA_TYPE_ACCELERATION_Y_G,
+		//	SENSOR_DATA_TYPE_ACCELERATION_Z_G);
+		//
+		//if (!data_report.IsError())
+		//{
+		//	manager.last_linear_accelerometer_report = data_report.GetValue();
+		//}
+		//return data_report.GetResult();
+		/////
+		Double3AndTimestamp	result_data;
+		DataReporterVector3 data_report(p_data,
 			SENSOR_DATA_TYPE_ACCELERATION_X_G,
 			SENSOR_DATA_TYPE_ACCELERATION_Y_G,
 			SENSOR_DATA_TYPE_ACCELERATION_Z_G);
-
-		if (!data_report.IsError())
-		{
-			manager.last_linear_accelerometer_report = data_report.GetValue();
-		}
+		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report);
+		manager.last_linear_accelerometer_report = std::move(result_data);
 		return data_report.GetResult();
+
 	};
 	return request;
 }
