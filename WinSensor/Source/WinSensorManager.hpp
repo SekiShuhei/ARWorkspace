@@ -64,8 +64,10 @@ private:
 	// TODO:
 	// リクエスト情報を保持.
 	// std::vector<SensorRequest>.
+	// リクエスト結果（エラー情報）なども格納のうえリストで保持しておく.
 
 	// 接続デバイス情報を保持.
+	// 接続成功した場合はRequestから接続情報を生成してリスト管理する.
 
 	SensorManagerState			state = SensorManagerState::NotInitialized;
 	CComPtr<ISensorManager>		sp_sensor_manager;
