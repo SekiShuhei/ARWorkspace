@@ -4,14 +4,18 @@
 #include "SensorManagerDefine.hpp"
 
 namespace WinSensor {
-
-//TODO:
-// リクエスト結果enum class（エラー情報含む）の定義.
-// リクエスト結果を構造体内に保持する
+enum class SensorRequestState
+{
+	Default = 0,
+	Requesting,
+	SensorTypeError,
+	SensorNotFound,
+	DeviceNotFound,
+	RequestError,
+	Connected,
+	Disconnected,
+};
 	
-// 接続情報のstructを新設.
-// 共通で扱われるセンサ情報は別途構造体として独立させる.
-
 struct SensorRequest
 {
 public:
@@ -20,6 +24,7 @@ public:
 
 	};
 	std::wstring				name;
+	SensorRequestState			state = SensorRequestState::Default;
 	SENSOR_TYPE_ID				type_id;
 	std::vector<std::wstring>	vid_list;
 

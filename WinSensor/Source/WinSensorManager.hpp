@@ -48,7 +48,7 @@ private:
 		const SensorType request_sensor_type, 
 		const std::optional<const std::vector<std::wstring>>& vid_list = std::nullopt);
 
-	HRESULT addSensor(const SensorRequest& request);
+	HRESULT addSensor(SensorRequest& request);
 
 private:
 	Double3AndTimestamp	last_accelerometer_report			= Double3AndTimestamp();
@@ -71,7 +71,7 @@ private:
 
 	SensorManagerState			state = SensorManagerState::NotInitialized;
 	CComPtr<ISensorManager>		sp_sensor_manager;
-	SensorControlManager		info_manager;
+	SensorControlManager		sensor_control_manager;
 	std::unique_ptr<WinSensor::SensorManagerEvents> sp_sensor_manager_events;
 
 //////////////////////////////

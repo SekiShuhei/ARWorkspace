@@ -51,7 +51,7 @@ bool WinSensorManager::Uninitialize()
 	if (this->state != SensorManagerState::UnInitialized)
 	{
 		HRESULT result = S_OK;
-		this->info_manager.RemoveAll();
+		this->sensor_control_manager.RemoveAll();
 		result = this->sp_sensor_manager->SetEventSink(NULL);
 		if (SUCCEEDED(result))
 		{
@@ -134,21 +134,21 @@ bool WinSensorManager::addSensor(const SensorType request_sensor_type,
 	return true;
 }
 
-HRESULT WinSensorManager::addSensor(const SensorRequest& request)
+HRESULT WinSensorManager::addSensor(SensorRequest& request)
 {
-
 	HRESULT hr;
 	CComPtr<ISensorCollection> sp_sensor_collection;
 	hr = this->sp_sensor_manager->GetSensorsByType(request.type_id, &sp_sensor_collection);
-
 	if (FAILED(hr))
 	{
+		request.state = SensorRequestState::SensorTypeError;
 		return hr;
 	}
 	ULONG sensor_count = 0;
 	hr = sp_sensor_collection->GetCount(&sensor_count);
 	if (FAILED(hr))
 	{
+		request.state = SensorRequestState::SensorNotFound;
 		return hr;
 	}
 	for (ULONG i = 0; i < sensor_count; i++)
@@ -157,6 +157,7 @@ HRESULT WinSensorManager::addSensor(const SensorRequest& request)
 		hr = sp_sensor_collection->GetAt(i, &sp_sensor);
 		if (FAILED(hr))
 		{
+			request.state = SensorRequestState::SensorNotFound;
 			continue;
 		}
 		// ここでセンサステートを見て、DENIEDだったらアクセスパーミッションを要求する.
@@ -170,12 +171,10 @@ HRESULT WinSensorManager::addSensor(const SensorRequest& request)
 
 		if (request.vid_list.size() == 0)
 		{
-			hr = this->info_manager.Add(sp_sensor, request);
-			//hr = this->addSensor(sp_sensor, request);
+			hr = this->sensor_control_manager.Add(sp_sensor, request);
 			if (SUCCEEDED(hr))
 			{
-				// 接続1発目のデータ取得.
-				//hr = this->sp_sensor_events->GetSensorData(sp_sensor);
+				request.state = SensorRequestState::Connected;
 				return hr;
 			}
 		}
@@ -185,19 +184,17 @@ HRESULT WinSensorManager::addSensor(const SensorRequest& request)
 			{
 				if (Utility::StringContains(device_path.value(), request.vid_list))
 				{
-					hr = this->info_manager.Add(sp_sensor, request);
-
-					//hr = this->addSensor(sp_sensor, request);
+					hr = this->sensor_control_manager.Add(sp_sensor, request);
 					if (SUCCEEDED(hr))
 					{
-						// 接続1発目のデータ取得.
-						//hr = this->sp_sensor_events->GetSensorData(sp_sensor);
+						request.state = SensorRequestState::Connected;
 						return hr;
 					}
 				}
 			}
 		}
 	}
+	request.state = SensorRequestState::DeviceNotFound;
 	hr = HRESULT_FROM_WIN32(ERROR_NOT_FOUND);
 	return hr;
 }
