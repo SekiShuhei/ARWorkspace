@@ -1,7 +1,6 @@
 #pragma once
 
 #include <atlbase.h>
-#include <atlcoll.h>
 #include <memory>
 #include <string>
 #include <optional>
@@ -9,13 +8,13 @@
 #include "SensorManagerDefine.hpp"
 #include "SensorEvents.hpp"
 #include "SensorRequest.hpp"
-#include "SensorInfoManager.hpp"
+#include "SensorControlManager.hpp"
 namespace WinSensor {
 class SensorManagerEvents : public ISensorManagerEvents
 {
 public:
-	SensorManagerEvents();
-
+	SensorManagerEvents() = delete;
+	SensorManagerEvents(SensorManagerEventsCallbackFunction arg_callback_func);
 	//------------ IUnknownInterface.-------------
 public:
 	ULONG __stdcall AddRef();
@@ -26,26 +25,10 @@ private:
 
 	//------------ ISensorManagerEvents.-------------
 public:
-	HRESULT __stdcall OnSensorEnter(ISensor* pSensor, SensorState state);
+	HRESULT __stdcall OnSensorEnter(__RPC__in_opt ISensor* pSensor, SensorState state);
 	// ----------------------------------------------
-public:
-	HRESULT Initialize();
-	HRESULT Uninitialize();
-
-	HRESULT AddSensor(const SensorRequest& request);
-	
 private:
-	
-	HRESULT addSensor(ISensor* pSensor, const SensorRequest& request);
-	HRESULT removeSensor(ISensor* pSensor);
-
-
-private:
-	bool initialized = false;
-
-	CComPtr<ISensorManager>		sp_sensor_manager;
-	SensorInfoManager			info_manager;
-
+	SensorManagerEventsCallbackFunction callback_func;
 };
 
 }

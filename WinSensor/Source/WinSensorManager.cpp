@@ -7,8 +7,17 @@ namespace WinSensor {
 using Helper = WinSensorManagerHelper;
 WinSensorManager::WinSensorManager()
 {
-	this->p_sensor_manager = 
-		std::make_unique<SensorManagerEvents>();
+	this->sp_sensor_manager_events = 
+		std::make_unique<SensorManagerEvents>(
+			[](ISensor* p_sensor, SensorState state) // SensorManagerEvents::OnSensorEnter.
+			{
+				// TODO:
+				// リクエスト中のセンサが接続されたら自動的に追加されるようにしたい.
+				// マネージャ側でリクエスト情報を保持しておく必要がある.
+				//...
+
+				return S_OK; 
+			});
 
 }
 
@@ -21,12 +30,20 @@ WinSensorManager::~WinSensorManager()
 bool WinSensorManager::Initialize()
 {
 	HRESULT hr;
-	hr = this->p_sensor_manager->Initialize();	
-	if (FAILED(hr))
+	//hr = this->sp_sensor_manager_events->Initialize();	
+	/////
+	
+	hr = this->sp_sensor_manager.CoCreateInstance(CLSID_SensorManager);
+	if (SUCCEEDED(hr))
 	{
-		this->state = SensorManagerState::InitializeError;
-		return false;
+		hr = this->sp_sensor_manager->SetEventSink(this->sp_sensor_manager_events.get());
+		if (FAILED(hr))
+		{
+			this->state = SensorManagerState::InitializeError;
+			return false;
+		}
 	}
+	//////
 	this->state = SensorManagerState::InitializeCompleted;
 	return true;
 }
@@ -35,7 +52,12 @@ bool WinSensorManager::Uninitialize()
 {
 	if (this->state != SensorManagerState::UnInitialized)
 	{
-		auto result = this->p_sensor_manager->Uninitialize();
+		HRESULT result = S_OK;
+		//auto result = this->sp_sensor_manager_events->Uninitialize();
+		////////////
+		this->info_manager.RemoveAll();
+		result = this->sp_sensor_manager->SetEventSink(NULL);
+		////////////
 		if (SUCCEEDED(result))
 		{
 			this->state = SensorManagerState::UnInitialized;
@@ -76,7 +98,7 @@ const Double3AndTimestamp& WinSensorManager::GetGyrometerData() const noexcept
 	return this->last_gyrometer_report;
 }
 
-const FloatAndTimestamp WinSensorManager::GetAmbientLightData() const noexcept
+const FloatAndTimestamp& WinSensorManager::GetAmbientLightData() const noexcept
 {
 	return this->last_ambient_light_report;
 }
@@ -109,13 +131,82 @@ bool WinSensorManager::addSensor(const SensorType request_sensor_type,
 			request.vid_list = vid_list.value();
 		}
 	}
-	hr = this->p_sensor_manager->AddSensor(request);
+	hr = this->addSensor(request);
 	if (FAILED(hr))
 	{
 		return false;
 	}
 	return true;
 }
+
+HRESULT WinSensorManager::addSensor(const SensorRequest& request)
+{
+
+	HRESULT hr;
+	CComPtr<ISensorCollection> sp_sensor_collection;
+	hr = this->sp_sensor_manager->GetSensorsByType(request.type_id, &sp_sensor_collection);
+
+	// ユーザーアクセス許可がない場合.
+	hr = this->sp_sensor_manager->RequestPermissions(NULL, sp_sensor_collection, TRUE);
+	if (FAILED(hr))
+	{
+		//this->state = SensorManagerState::
+		//SENSOR_STATUS_DISABLED;
+	}
+
+	if (FAILED(hr))
+	{
+		return hr;
+	}
+	ULONG sensor_count = 0;
+	hr = sp_sensor_collection->GetCount(&sensor_count);
+	if (FAILED(hr))
+	{
+		return hr;
+	}
+	for (ULONG i = 0; i < sensor_count; i++)
+	{
+		CComPtr<ISensor> sp_sensor;
+		hr = sp_sensor_collection->GetAt(i, &sp_sensor);
+		if (FAILED(hr))
+		{
+			continue;
+		}
+		if (request.vid_list.size() == 0)
+		{
+			hr = this->info_manager.Add(sp_sensor, request);
+			//hr = this->addSensor(sp_sensor, request);
+			if (SUCCEEDED(hr))
+			{
+				// 接続1発目のデータ取得.
+				//hr = this->sp_sensor_events->GetSensorData(sp_sensor);
+				return hr;
+			}
+		}
+		else {
+			auto device_path = Utility::GetDevicePath(sp_sensor);
+			if (device_path)
+			{
+				if (Utility::StringContains(device_path.value(), request.vid_list))
+				{
+					hr = this->info_manager.Add(sp_sensor, request);
+
+					//hr = this->addSensor(sp_sensor, request);
+					if (SUCCEEDED(hr))
+					{
+						// 接続1発目のデータ取得.
+						//hr = this->sp_sensor_events->GetSensorData(sp_sensor);
+						return hr;
+					}
+				}
+			}
+		}
+	}
+	hr = HRESULT_FROM_WIN32(ERROR_NOT_FOUND);
+	return hr;
+}
+
+
 
 
 

@@ -1,18 +1,18 @@
 
 #include <algorithm>
-#include "SensorInfoManager.hpp"
+#include "SensorControlManager.hpp"
 #include "SensorEvents.hpp"
 
 namespace WinSensor {
-SensorInfoManager::SensorInfoManager()
+SensorControlManager::SensorControlManager()
 {
 	this->p_info_list.reserve(20);
 }
-SensorInfoManager::~SensorInfoManager()
+SensorControlManager::~SensorControlManager()
 {
 	this->RemoveAll();
 }
-HRESULT SensorInfoManager::Add(ISensor* p_sensor, const SensorRequest& request) noexcept
+HRESULT SensorControlManager::Add(ISensor* p_sensor, const SensorRequest& request) noexcept
 {
 	HRESULT hr = S_OK;
 	if (p_sensor == nullptr)
@@ -28,7 +28,7 @@ HRESULT SensorInfoManager::Add(ISensor* p_sensor, const SensorRequest& request) 
 		}
 	}
 	this->RemoveSensorInfoFromID(sensor_id);
-	auto p_info = SensorInfo::Create(sensor_id, p_sensor, request);
+	auto p_info = SensorControl::Create(sensor_id, p_sensor, request);
 	if (p_info)
 	{
 		this->p_info_list.push_back(p_info.value());
@@ -36,7 +36,7 @@ HRESULT SensorInfoManager::Add(ISensor* p_sensor, const SensorRequest& request) 
 	return hr;
 }
 
-bool SensorInfoManager::RemoveAll()
+bool SensorControlManager::RemoveAll()
 {
 
 	// 逆順イテレータを使いたいがとりあえず.
@@ -50,7 +50,7 @@ bool SensorInfoManager::RemoveAll()
 	return true;
 }
 
-bool SensorInfoManager::RemoveSensorInfoFromID(SENSOR_ID arg_sensor_id) noexcept
+bool SensorControlManager::RemoveSensorInfoFromID(SENSOR_ID arg_sensor_id) noexcept
 {
 	for (auto it = this->p_info_list.begin(); it != this->p_info_list.end();) 
 	{	
@@ -65,7 +65,7 @@ bool SensorInfoManager::RemoveSensorInfoFromID(SENSOR_ID arg_sensor_id) noexcept
 	return true;
 }
 
-bool SensorInfoManager::RemoveSensorInfoFromType(SENSOR_TYPE_ID arg_type_id) noexcept
+bool SensorControlManager::RemoveSensorInfoFromType(SENSOR_TYPE_ID arg_type_id) noexcept
 {
 	for (auto it = this->p_info_list.begin(); it != this->p_info_list.end();)
 	{
