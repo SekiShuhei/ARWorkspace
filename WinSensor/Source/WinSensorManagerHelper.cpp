@@ -55,7 +55,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientat
 				return data_report.GetResult();
 			}
 			result_data = data_report.GetValue();
-			if (WinSensorManager::UsingTimestamp())
+			if (manager.IsUsingTimestamp())
 			{
 				DataReporterTimeStamp time_stamp(p_data);
 				if (!time_stamp.IsError())
@@ -85,7 +85,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AmbientLight(WinSensorMa
 		}
 		std::get<0>(result_data) = data_float.GetValue<float>();
 		
-		if (WinSensorManager::UsingTimestamp())
+		if (manager.IsUsingTimestamp())
 		{
 			DataReporterTimeStamp time_stamp(p_data);
 			if (!time_stamp.IsError())
@@ -112,7 +112,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Accelerometer(WinSensorM
 			SENSOR_DATA_TYPE_ACCELERATION_X_G,
 			SENSOR_DATA_TYPE_ACCELERATION_Y_G,
 			SENSOR_DATA_TYPE_ACCELERATION_Z_G);
-		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report);
+		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report, manager.IsUsingTimestamp());
 		manager.last_accelerometer_report = std::move(result_data);
 		return data_report.GetResult();
 	};
@@ -132,7 +132,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Compass(WinSensorManager
 			SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_X_MILLIGAUSS,
 			SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Y_MILLIGAUSS,
 			SENSOR_DATA_TYPE_MAGNETIC_FIELD_STRENGTH_Z_MILLIGAUSS);
-		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report);
+		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report, manager.IsUsingTimestamp());
 		manager.last_compass_report = std::move(result_data);
 		return data_report.GetResult();
 	};
@@ -152,7 +152,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Gyrometer(WinSensorManag
 			SENSOR_DATA_TYPE_ANGULAR_VELOCITY_X_DEGREES_PER_SECOND,
 			SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Y_DEGREES_PER_SECOND,
 			SENSOR_DATA_TYPE_ANGULAR_VELOCITY_Z_DEGREES_PER_SECOND);
-		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report);
+		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report, manager.IsUsingTimestamp());
 		manager.last_gyrometer_report = std::move(result_data);
 		return data_report.GetResult();
 	};
@@ -172,7 +172,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_GravityVector(WinSensorM
 			SENSOR_DATA_TYPE_ACCELERATION_X_G,
 			SENSOR_DATA_TYPE_ACCELERATION_Y_G,
 			SENSOR_DATA_TYPE_ACCELERATION_Z_G);
-		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report);
+		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report, manager.IsUsingTimestamp());
 		manager.last_gravity_vector_report = std::move(result_data);
 		return data_report.GetResult();
 	};
@@ -187,24 +187,12 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_LinearAccelerometer(WinS
 	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
-		//DataReporterVector3 data_report(
-		//	p_data,
-		//	SENSOR_DATA_TYPE_ACCELERATION_X_G,
-		//	SENSOR_DATA_TYPE_ACCELERATION_Y_G,
-		//	SENSOR_DATA_TYPE_ACCELERATION_Z_G);
-		//
-		//if (!data_report.IsError())
-		//{
-		//	manager.last_linear_accelerometer_report = data_report.GetValue();
-		//}
-		//return data_report.GetResult();
-		/////
 		Double3AndTimestamp	result_data;
 		DataReporterVector3 data_report(p_data,
 			SENSOR_DATA_TYPE_ACCELERATION_X_G,
 			SENSOR_DATA_TYPE_ACCELERATION_Y_G,
 			SENSOR_DATA_TYPE_ACCELERATION_Z_G);
-		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report);
+		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report, manager.IsUsingTimestamp());
 		manager.last_linear_accelerometer_report = std::move(result_data);
 		return data_report.GetResult();
 
