@@ -32,7 +32,9 @@ void SensorInfo::Release() noexcept
 bool SensorInfo::initialize(SENSOR_ID arg_sensor_id, ISensor* arg_p_sensor, const SensorRequest& request) noexcept
 {
 	// Create SensorEvents.
-	this->sp_sensor_events = std::make_unique<SensorEvents>(request.callback_func);
+	this->sp_sensor_events = std::make_unique<SensorEvents>(
+			request.callback_data_updated_func,
+			request.callback_sensor_leaved_func);
 
 	// ISensor.
 	HRESULT hr;

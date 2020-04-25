@@ -43,7 +43,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientat
 	SensorRequest request;
 	request.name = L"AGGREGATED_DEVICE_ORIENTATION";
 	request.type_id = SENSOR_TYPE_AGGREGATED_DEVICE_ORIENTATION;
-	request.callback_func =
+	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 		{
 			DataReporterQuaternion data_report(p_data);
@@ -61,7 +61,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AmbientLight(WinSensorMa
 	SensorRequest request;
 	request.name = L"AMBIENT_LIGHT";
 	request.type_id = SENSOR_TYPE_AMBIENT_LIGHT;
-	request.callback_func =
+	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
 		DataReporterFloatReport data_report(p_data, SENSOR_DATA_TYPE_LIGHT_LEVEL_LUX);
@@ -79,7 +79,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Accelerometer(WinSensorM
 	SensorRequest request;
 	request.name = L"ACCELEROMETER_3D";
 	request.type_id = SENSOR_TYPE_ACCELEROMETER_3D;
-	request.callback_func =
+	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
 		DataReporterVector3 data_report(
@@ -102,7 +102,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Compass(WinSensorManager
 	SensorRequest request;
 	request.name = L"COMPASS_3D";
 	request.type_id = SENSOR_TYPE_COMPASS_3D;
-	request.callback_func =
+	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
 		DataReporterVector3 data_report(
@@ -125,7 +125,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Gyrometer(WinSensorManag
 	SensorRequest request;
 	request.name = L"GYROMETER_3D";
 	request.type_id = SENSOR_TYPE_GYROMETER_3D;
-	request.callback_func =
+	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
 		DataReporterVector3 data_report(
@@ -148,7 +148,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_GravityVector(WinSensorM
 	SensorRequest request;
 	request.name = L"GravityVector";
 	request.type_id = GUID_SensorType_GravityVector;
-	request.callback_func =
+	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
 		DataReporterVector3 data_report(
@@ -171,7 +171,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_LinearAccelerometer(WinS
 	SensorRequest request;
 	request.name = L"LinearAccelerometer";
 	request.type_id = GUID_SensorType_LinearAccelerometer;
-	request.callback_func =
+	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
 		DataReporterVector3 data_report(

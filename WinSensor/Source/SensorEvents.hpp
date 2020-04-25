@@ -9,7 +9,9 @@ namespace WinSensor {
 class SensorEvents : public ISensorEvents
 {
 public:
-	SensorEvents(SensorEventCallbackFunction callback_data_updated);
+	SensorEvents(
+		SensorEventCallback_OnDataUpdatedFunction	arg_callback_data_updated,
+		SensorEventCallback_OnLeavedFunction		arg_callback_sensor_leaved);
 	// -------------IUnknownInterface.-------------
 	ULONG __stdcall AddRef();
 	ULONG __stdcall Release();
@@ -24,8 +26,8 @@ public:
 	HRESULT __stdcall OnStateChanged(__RPC__in_opt ISensor* p_sensor, SensorState state);
 	// ---------------------------------------
 private:
-	SensorEventCallbackFunction callback_data_updated;
-	//SensorEventCallbackFunction callback_sensor_leaved;
+	SensorEventCallback_OnDataUpdatedFunction	callback_data_updated;
+	SensorEventCallback_OnLeavedFunction		callback_sensor_leaved;
 
 };
 

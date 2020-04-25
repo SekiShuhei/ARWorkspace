@@ -4,12 +4,21 @@
 #include "SensorEvents.hpp"
 
 namespace WinSensor {
-SensorEvents::SensorEvents(SensorEventCallbackFunction arg_callback_func) :
-	callback_data_updated(arg_callback_func)
+//SensorEvents::SensorEvents(SensorEventCallbackFunction arg_callback_func) :
+//	callback_data_updated(arg_callback_func)
+//{
+//	this->ref_count = 0;
+//	this->AddRef();
+//
+//}
+SensorEvents::SensorEvents(
+	SensorEventCallback_OnDataUpdatedFunction arg_callback_data_updated, 
+	SensorEventCallback_OnLeavedFunction arg_callback_sensor_leaved) :
+	callback_data_updated(arg_callback_data_updated),
+	callback_sensor_leaved(arg_callback_sensor_leaved)
 {
 	this->ref_count = 0;
 	this->AddRef();
-
 }
 ULONG __stdcall SensorEvents::AddRef()
 {
@@ -64,8 +73,9 @@ HRESULT __stdcall SensorEvents::OnDataUpdated(__RPC__in_opt ISensor* p_sensor, I
 	return hr;
 }
 
-HRESULT __stdcall SensorEvents::OnLeave(__RPC__in REFSENSOR_ID sensorID)
+HRESULT __stdcall SensorEvents::OnLeave(__RPC__in REFSENSOR_ID sensor_id)
 {
+	this->callback_sensor_leaved(sensor_id);
 	//RemoveSensor(sensorID);
 	return S_OK;
 }
@@ -88,7 +98,6 @@ HRESULT __stdcall SensorEvents::OnStateChanged(__RPC__in_opt ISensor* p_sensor, 
 			if (SUCCEEDED(hr))
 			{
 				hr = this->callback_data_updated(p_sensor, sp_data);
-
 			}
 		}
 		else if (state == SENSOR_STATE_ACCESS_DENIED)
