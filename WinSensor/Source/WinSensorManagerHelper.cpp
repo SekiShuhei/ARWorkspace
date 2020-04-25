@@ -47,23 +47,21 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientat
 	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 		{
-			Float4AndTimestamp resieve_data;
-			// TODO.
-			// タイムスタンプ処理（およびレポーター）を分離させる.
+			Float4AndTimestamp result_data;
 			DataReporterQuaternion data_report(p_data);
 			if (!data_report.IsError())
 			{
-				resieve_data = data_report.GetValue();
+				result_data = data_report.GetValue();
 			}
 			if (WinSensorManager::UsingTimestamp())
 			{
 				DataReporterTimeStamp time_stamp(p_data);
 				if (!time_stamp.IsError())
 				{
-					std::get<4>(resieve_data) = time_stamp.GetValue();
+					std::get<4>(result_data) = time_stamp.GetValue();
 				}
 			}
-			manager.last_orientation_quaternion_report = std::move(resieve_data);
+			manager.last_orientation_quaternion_report = std::move(result_data);
 			return data_report.GetResult();
 
 		};
@@ -78,12 +76,30 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AmbientLight(WinSensorMa
 	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
-		DataReporterFloatReport data_report(p_data, SENSOR_DATA_TYPE_LIGHT_LEVEL_LUX);
-		if (!data_report.IsError())
+		FloatAndTimestamp result_data;
+		DataReporter data_float(p_data, SENSOR_DATA_TYPE_LIGHT_LEVEL_LUX);
+		if (!data_float.IsError())
 		{
-			manager.last_ambient_light_report = data_report.GetValue();
+			std::get<0>(result_data) = data_float.GetValue<float>();
 		}
-		return data_report.GetResult();
+		if (WinSensorManager::UsingTimestamp())
+		{
+			DataReporterTimeStamp time_stamp(p_data);
+			if (!time_stamp.IsError())
+			{
+				std::get<1>(result_data) = time_stamp.GetValue();
+			}
+		}
+		manager.last_ambient_light_report = std::move(result_data);
+		return data_float.GetResult();
+/////////.
+
+		//DataReporterFloatReport data_report(p_data, SENSOR_DATA_TYPE_LIGHT_LEVEL_LUX);
+		//if (!data_report.IsError())
+		//{
+		//	manager.last_ambient_light_report = data_report.GetValue();
+		//}
+		//return data_report.GetResult();
 	};
 	return request;
 }
