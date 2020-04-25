@@ -3,6 +3,7 @@
 #include "DataReporterQuaternion.hpp"
 #include "DataReporterVector3.hpp"
 #include "DataReporterTimestamp.hpp"
+#include "DataReporterHelper.hpp"
 
 #include "SensorType.hpp"
 #include "WinSensorManagerHelper.hpp"
@@ -113,19 +114,21 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Accelerometer(WinSensorM
 			SENSOR_DATA_TYPE_ACCELERATION_Y_G,
 			SENSOR_DATA_TYPE_ACCELERATION_Z_G);
 
-		if (data_report.IsError())
-		{
-			return data_report.GetResult();
-		}
-		result_data = data_report.GetValue();
-		if (WinSensorManager::UsingTimestamp())
-		{
-			DataReporterTimeStamp time_stamp(p_data);
-			if (!time_stamp.IsError())
-			{
-				std::get<3>(result_data) = time_stamp.GetValue();
-			}
-		}
+		DataReporterHelper::GetReportVector3(p_sensor, p_data, result_data, data_report);
+
+		//if (data_report.IsError())
+		//{
+		//	return data_report.GetResult();
+		//}
+		//result_data = data_report.GetValue();
+		//if (WinSensorManager::UsingTimestamp())
+		//{
+		//	DataReporterTimeStamp time_stamp(p_data);
+		//	if (!time_stamp.IsError())
+		//	{
+		//		std::get<3>(result_data) = time_stamp.GetValue();
+		//	}
+		//}
 		manager.last_accelerometer_report = std::move(result_data);
 		return data_report.GetResult();
 	};
