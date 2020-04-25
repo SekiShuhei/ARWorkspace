@@ -39,6 +39,11 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest(WinSensorManager& manage
 	}
 }
 
+static HRESULT func(ISensor* p_sensor, ISensorDataReport* p_data)
+{
+		
+}
+
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientation(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
@@ -49,10 +54,11 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientat
 		{
 			Float4AndTimestamp result_data;
 			DataReporterQuaternion data_report(p_data);
-			if (!data_report.IsError())
+			if (data_report.IsError())
 			{
-				result_data = data_report.GetValue();
+				return data_report.GetResult();
 			}
+			result_data = data_report.GetValue();
 			if (WinSensorManager::UsingTimestamp())
 			{
 				DataReporterTimeStamp time_stamp(p_data);
@@ -63,7 +69,6 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientat
 			}
 			manager.last_orientation_quaternion_report = std::move(result_data);
 			return data_report.GetResult();
-
 		};
 	return request;
 }
@@ -78,10 +83,12 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AmbientLight(WinSensorMa
 	{
 		FloatAndTimestamp result_data;
 		DataReporter data_float(p_data, SENSOR_DATA_TYPE_LIGHT_LEVEL_LUX);
-		if (!data_float.IsError())
+		if (data_float.IsError())
 		{
-			std::get<0>(result_data) = data_float.GetValue<float>();
+			return data_float.GetResult();
 		}
+		std::get<0>(result_data) = data_float.GetValue<float>();
+		
 		if (WinSensorManager::UsingTimestamp())
 		{
 			DataReporterTimeStamp time_stamp(p_data);
@@ -92,14 +99,6 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AmbientLight(WinSensorMa
 		}
 		manager.last_ambient_light_report = std::move(result_data);
 		return data_float.GetResult();
-/////////.
-
-		//DataReporterFloatReport data_report(p_data, SENSOR_DATA_TYPE_LIGHT_LEVEL_LUX);
-		//if (!data_report.IsError())
-		//{
-		//	manager.last_ambient_light_report = data_report.GetValue();
-		//}
-		//return data_report.GetResult();
 	};
 	return request;
 }
@@ -112,16 +111,28 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Accelerometer(WinSensorM
 	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 	{
+		Double3AndTimestamp	result_data;
 		DataReporterVector3 data_report(
 			p_data, 
 			SENSOR_DATA_TYPE_ACCELERATION_X_G,
 			SENSOR_DATA_TYPE_ACCELERATION_Y_G,
 			SENSOR_DATA_TYPE_ACCELERATION_Z_G);
 
-		if (!data_report.IsError())
+		if (data_report.IsError())
 		{
-			manager.last_accelerometer_report = data_report.GetValue();
+			return data_report.GetResult();
 		}
+		/////////
+		if (WinSensorManager::UsingTimestamp())
+		{
+			DataReporterTimeStamp time_stamp(p_data);
+			if (!time_stamp.IsError())
+			{
+				std::get<3>(result_data) = time_stamp.GetValue();
+			}
+		}
+		manager.last_accelerometer_report = data_report.GetValue();
+		/////////
 		return data_report.GetResult();
 	};
 	return request;
