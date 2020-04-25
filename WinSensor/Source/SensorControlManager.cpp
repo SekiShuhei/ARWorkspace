@@ -1,7 +1,6 @@
 
-#include <algorithm>
+//#include <algorithm>
 #include "SensorControlManager.hpp"
-#include "SensorEvents.hpp"
 
 namespace WinSensor {
 SensorControlManager::SensorControlManager()
@@ -28,6 +27,11 @@ HRESULT SensorControlManager::Add(ISensor* p_sensor, const SensorRequest& reques
 		}
 	}
 	this->RemoveSensorInfoFromID(sensor_id);
+	//////
+	// TODO:
+	// OnLeavedイベントコールバックにセンサー削除処理を追加する
+	//request.callback_sensor_leaved_func =
+
 	auto p_info = SensorControl::Create(sensor_id, p_sensor, request);
 	if (p_info)
 	{

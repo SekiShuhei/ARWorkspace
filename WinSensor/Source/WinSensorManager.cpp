@@ -11,12 +11,13 @@ WinSensorManager::WinSensorManager()
 	
 	this->sp_sensor_manager_events = 
 		std::make_unique<SensorManagerEvents>(
-			[](ISensor* p_sensor, SensorState state) // SensorManagerEvents::OnSensorEnter.
+			[](ISensor* p_sensor, SensorState state)
 			{
 				// TODO:
 				// リクエスト中のセンサが接続されたら自動的に追加されるようにしたい.
 				// マネージャ側でリクエスト情報を保持しておく必要がある.
 				//...
+				//p_sensor->GetCategory()
 
 				return S_OK; 
 			});
