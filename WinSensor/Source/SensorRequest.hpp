@@ -4,6 +4,14 @@
 #include "SensorManagerDefine.hpp"
 
 namespace WinSensor {
+
+//TODO:
+// リクエスト結果enum class（エラー情報含む）の定義.
+// リクエスト結果を構造体内に保持する
+	
+// 接続情報のstructを新設.
+// 共通で扱われるセンサ情報は別途構造体として独立させる.
+
 struct SensorRequest
 {
 public:
