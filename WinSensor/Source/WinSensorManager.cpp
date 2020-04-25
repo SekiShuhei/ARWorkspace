@@ -147,11 +147,12 @@ HRESULT WinSensorManager::addSensor(const SensorRequest& request)
 	hr = this->sp_sensor_manager->GetSensorsByType(request.type_id, &sp_sensor_collection);
 
 	// ユーザーアクセス許可がない場合.
-	//hr = this->sp_sensor_manager->RequestPermissions(NULL, sp_sensor_collection, TRUE);
-	//if (FAILED(hr))
-	//{
-	//	SENSOR_STATUS_DISABLED;
-	//}
+	hr = this->sp_sensor_manager->RequestPermissions(NULL, sp_sensor_collection, TRUE);
+	if (FAILED(hr))
+	{
+		//this->state = SensorManagerState::
+		//SENSOR_STATUS_DISABLED;
+	}
 
 	if (FAILED(hr))
 	{

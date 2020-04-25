@@ -63,6 +63,8 @@ private:
 
 	// TODO:
 	// リクエスト情報を保持.
+	// std::vector<SensorRequest>.
+
 	// 接続デバイス情報を保持.
 
 	SensorManagerState			state = SensorManagerState::NotInitialized;
