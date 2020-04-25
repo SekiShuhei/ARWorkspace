@@ -1,16 +1,16 @@
-#include "SensorInfo.hpp"
+#include "SensorControl.hpp"
 
 namespace WinSensor {
-std::optional<SensorInfo*> SensorInfo::Create(SENSOR_ID sensor_id, ISensor* p_sensor, const SensorRequest& request)
+std::optional<SensorControl*> SensorControl::Create(SENSOR_ID sensor_id, ISensor* p_sensor, const SensorRequest& request)
 {
-	auto p = new SensorInfo();
+	auto p = new SensorControl();
 	if (! p->initialize(sensor_id, p_sensor, request))
 	{
 		return std::nullopt;
 	}
 	return p;
 }
-SensorInfo::SensorInfo() noexcept :
+SensorControl::SensorControl() noexcept :
 	p_sensor(nullptr),
 	sensor_id(GUID_NULL),
 	type_id(GUID_NULL)
@@ -18,18 +18,18 @@ SensorInfo::SensorInfo() noexcept :
 	
 }
 
-SensorInfo::~SensorInfo()
+SensorControl::~SensorControl()
 {
 }
 
-void SensorInfo::Release() noexcept
+void SensorControl::Release() noexcept
 {
 	// ISensor.
 	this->p_sensor->SetEventSink(NULL);
 	this->p_sensor->Release();
 }
 
-bool SensorInfo::initialize(SENSOR_ID arg_sensor_id, ISensor* arg_p_sensor, const SensorRequest& request) noexcept
+bool SensorControl::initialize(SENSOR_ID arg_sensor_id, ISensor* arg_p_sensor, const SensorRequest& request) noexcept
 {
 	// Create SensorEvents.
 	this->sp_sensor_events = std::make_unique<SensorEvents>(

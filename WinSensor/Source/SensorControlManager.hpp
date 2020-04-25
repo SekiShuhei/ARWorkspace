@@ -6,13 +6,13 @@
 #include "SensorManagerDefine.hpp"
 #include "SensorRequest.hpp"
 #include "SensorEvents.hpp"
-#include "SensorInfo.hpp"
+#include "SensorControl.hpp"
 namespace WinSensor {
-class SensorInfoManager final
+class SensorControlManager final
 {
 public:
-	SensorInfoManager();
-	~SensorInfoManager();
+	SensorControlManager();
+	~SensorControlManager();
 	// with ISensor* AddRef() and SetEventSink().
 	HRESULT Add(ISensor* p_sensor, const SensorRequest& request) noexcept;
 
@@ -22,14 +22,14 @@ public:
 	bool RemoveAll();
 
 private:
-	inline void deleteSensorInfo(SensorInfo* p_info) noexcept
+	inline void deleteSensorInfo(SensorControl* p_info) noexcept
 	{
 		p_info->Release();
 		delete p_info;
 	}
 
 private:
-	std::vector<SensorInfo*> p_info_list;
+	std::vector<SensorControl*> p_info_list;
 };
 
 }

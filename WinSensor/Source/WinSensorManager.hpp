@@ -67,7 +67,7 @@ private:
 
 	SensorManagerState			state = SensorManagerState::NotInitialized;
 	CComPtr<ISensorManager>		sp_sensor_manager;
-	SensorInfoManager			info_manager;
+	SensorControlManager			info_manager;
 	std::unique_ptr<WinSensor::SensorManagerEvents> sp_sensor_manager_events;
 
 

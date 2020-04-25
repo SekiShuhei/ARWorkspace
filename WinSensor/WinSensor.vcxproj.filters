@@ -7,14 +7,14 @@
     <Filter Include="Utility">
       <UniqueIdentifier>{ec91dfc4-1fe2-4775-8253-448e1304897f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SensorInfo">
-      <UniqueIdentifier>{f5c53062-9d51-419c-a415-c11a788929aa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DefineAndEnum">
       <UniqueIdentifier>{9574fdda-a6de-4f24-bf5d-2403ff76f5b5}</UniqueIdentifier>
     </Filter>
     <Filter Include="ISensorInterface">
       <UniqueIdentifier>{44cb6794-367c-4742-b339-27e3960dbddc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SensorControl">
+      <UniqueIdentifier>{f5c53062-9d51-419c-a415-c11a788929aa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,13 +30,7 @@
     <ClCompile Include="Source\SensorUtility.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SensorInfo.cpp">
-      <Filter>SensorInfo</Filter>
-    </ClCompile>
     <ClCompile Include="Source\WinSensorManager.cpp" />
-    <ClCompile Include="Source\SensorInfoManager.cpp">
-      <Filter>SensorInfo</Filter>
-    </ClCompile>
     <ClCompile Include="Source\WinSensorManagerHelper.cpp" />
     <ClCompile Include="Source\DataReporterFloatReport.cpp">
       <Filter>Reporter</Filter>
@@ -49,6 +43,12 @@
     </ClCompile>
     <ClCompile Include="Source\SensorManagerEvents.cpp">
       <Filter>ISensorInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorControl.cpp">
+      <Filter>SensorControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorControlManager.cpp">
+      <Filter>SensorControl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,14 +67,8 @@
     <ClInclude Include="Source\SensorUtility.hpp">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SensorInfo.hpp">
-      <Filter>SensorInfo</Filter>
-    </ClInclude>
     <ClInclude Include="Source\SensorRequest.hpp" />
     <ClInclude Include="Source\WinSensorManager.hpp" />
-    <ClInclude Include="Source\SensorInfoManager.hpp">
-      <Filter>SensorInfo</Filter>
-    </ClInclude>
     <ClInclude Include="Source\WinSensorManagerHelper.hpp" />
     <ClInclude Include="Source\SensorManagerDefine.hpp">
       <Filter>DefineAndEnum</Filter>
@@ -103,6 +97,12 @@
     </ClInclude>
     <ClInclude Include="Source\SensorEvents.hpp">
       <Filter>ISensorInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorControl.hpp">
+      <Filter>SensorControl</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorControlManager.hpp">
+      <Filter>SensorControl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

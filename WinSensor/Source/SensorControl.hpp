@@ -7,22 +7,22 @@
 #include "SensorRequest.hpp"
 
 namespace WinSensor {
-class SensorInfo final
+class SensorControl final
 {
 public:
-	// New SensorInfo Instance with ISensor* AddRef() and SetEventSink().
-	static std::optional<SensorInfo*> 
+	// New SensorControl Instance with ISensor* AddRef() and SetEventSink().
+	static std::optional<SensorControl*> 
 		Create(SENSOR_ID sensor_id, ISensor* p_sensor, const SensorRequest& request);
 public:
-	SensorInfo(const SensorInfo&)				= delete;
-	SensorInfo& operator=(const SensorInfo&)	= delete;
-	SensorInfo(const SensorInfo&&)				= delete;
-	SensorInfo& operator=(SensorInfo&&)			= delete;
+	SensorControl(const SensorControl&)				= delete;
+	SensorControl& operator=(const SensorControl&)	= delete;
+	SensorControl(const SensorControl&&)				= delete;
+	SensorControl& operator=(SensorControl&&)			= delete;
 private:
 	// with ISensor* AddRef() and SetEventSink().
-	SensorInfo() noexcept;
+	SensorControl() noexcept;
 public:
-	~SensorInfo() noexcept;
+	~SensorControl() noexcept;
 	// with ISensor* Release() and SetEventSink().
 	void Release() noexcept;
 public:

@@ -8,7 +8,7 @@
 #include "SensorManagerDefine.hpp"
 #include "SensorEvents.hpp"
 #include "SensorRequest.hpp"
-#include "SensorInfoManager.hpp"
+#include "SensorControlManager.hpp"
 namespace WinSensor {
 class SensorManagerEvents : public ISensorManagerEvents
 {
