@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\DataReporterFloatReport.cpp" />
     <ClCompile Include="Source\DataReporterQuaternion.cpp" />
     <ClCompile Include="Source\DataReporterTimeStamp.cpp" />
     <ClCompile Include="Source\DataReporterVector3.cpp" />
@@ -34,7 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DataReporter.hpp" />
-    <ClInclude Include="Source\DataReporterFloatReport.hpp" />
     <ClInclude Include="Source\DataReporterVector3.hpp" />
     <ClInclude Include="Source\DeviceList.hpp" />
     <ClInclude Include="Source\HRESULT_Support.hpp" />

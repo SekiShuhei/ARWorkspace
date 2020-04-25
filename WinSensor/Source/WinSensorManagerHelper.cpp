@@ -1,6 +1,6 @@
 
+#include "DataReporter.hpp"
 #include "DataReporterQuaternion.hpp"
-#include "DataReporterFloatReport.hpp"
 #include "DataReporterVector3.hpp"
 #include "DataReporterTimestamp.hpp"
 
