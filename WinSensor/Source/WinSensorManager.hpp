@@ -75,13 +75,20 @@ private:
 	std::unique_ptr<WinSensor::SensorManagerEvents> sp_sensor_manager_events;
 
 //////////////////////////////
-	// TODO(タイムスタンプ処理分岐スイッチ):
 private:
-	static const bool use_timestamp = true;
+	bool use_timestamp;
 public:
-	constexpr static bool UsingTimestamp()
+	inline bool IsUsingTimestamp()
 	{
-		return WinSensorManager::use_timestamp;
+		return this->use_timestamp;
+	}
+	inline void UseTimestamp()
+	{
+		WinSensorManager::use_timestamp = true;
+	}
+	inline void NotUseTimestamp()
+	{
+		WinSensorManager::use_timestamp = false;
 	}
 //////////////////////////////
 };
