@@ -2,6 +2,7 @@
 #include "DataReporterQuaternion.hpp"
 #include "DataReporterFloatReport.hpp"
 #include "DataReporterVector3.hpp"
+#include "DataReporterTimestamp.hpp"
 
 #include "SensorType.hpp"
 #include "WinSensorManagerHelper.hpp"
@@ -46,14 +47,25 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientat
 	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 		{
+			Float4AndTimestamp resieve_data;
 			// TODO.
 			// タイムスタンプ処理（およびレポーター）を分離させる.
 			DataReporterQuaternion data_report(p_data);
 			if (!data_report.IsError())
 			{
-				manager.last_orientation_quaternion_report = data_report.GetValue();
+				resieve_data = data_report.GetValue();
 			}
+			if (WinSensorManager::UsingTimestamp())
+			{
+				DataReporterTimeStamp time_stamp(p_data);
+				if (!time_stamp.IsError())
+				{
+					std::get<4>(resieve_data) = time_stamp.GetValue();
+				}
+			}
+			manager.last_orientation_quaternion_report = std::move(resieve_data);
 			return data_report.GetResult();
+
 		};
 	return request;
 }
