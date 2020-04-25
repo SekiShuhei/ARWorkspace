@@ -4,13 +4,6 @@
 #include "SensorEvents.hpp"
 
 namespace WinSensor {
-//SensorEvents::SensorEvents(SensorEventCallbackFunction arg_callback_func) :
-//	callback_data_updated(arg_callback_func)
-//{
-//	this->ref_count = 0;
-//	this->AddRef();
-//
-//}
 SensorEvents::SensorEvents(
 	SensorEventCallback_OnDataUpdatedFunction arg_callback_data_updated, 
 	SensorEventCallback_OnLeavedFunction arg_callback_sensor_leaved) :
@@ -76,7 +69,6 @@ HRESULT __stdcall SensorEvents::OnDataUpdated(__RPC__in_opt ISensor* p_sensor, I
 HRESULT __stdcall SensorEvents::OnLeave(__RPC__in REFSENSOR_ID sensor_id)
 {
 	this->callback_sensor_leaved(sensor_id);
-	//RemoveSensor(sensorID);
 	return S_OK;
 }
 

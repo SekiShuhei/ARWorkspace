@@ -7,9 +7,6 @@ namespace WinSensor {
 using Helper = WinSensorManagerHelper;
 WinSensorManager::WinSensorManager()
 {
-	//SensorManagerEventsCallbackFunction
-	//SensorManagerEvents(
-	//	[](ISensor* p_sensor, SensorState state){return S_OK;});
 	this->sp_sensor_manager_events = 
 		std::make_unique<SensorManagerEvents>(
 			[](ISensor* p_sensor, SensorState state) // SensorManagerEvents::OnSensorEnter.
