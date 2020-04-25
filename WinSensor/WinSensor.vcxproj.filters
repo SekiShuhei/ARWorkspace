@@ -47,6 +47,9 @@
     <ClCompile Include="Source\SensorControlManager.cpp">
       <Filter>SensorControl</Filter>
     </ClCompile>
+    <ClCompile Include="Source\DataReporterHelper.cpp">
+      <Filter>Reporter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DataReporterQuaternion.hpp">
@@ -97,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="Source\SensorControlManager.hpp">
       <Filter>SensorControl</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DataReporterHelper.hpp">
+      <Filter>Reporter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

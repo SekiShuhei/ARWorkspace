@@ -39,33 +39,6 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest(WinSensorManager& manage
 	}
 }
 
-//static HRESULT func(ISensor* p_sensor, ISensorDataReport* p_data,
-//	)
-//{
-//	Double3AndTimestamp	result_data;
-//	DataReporterVector3 data_report(
-//		p_data,
-//		SENSOR_DATA_TYPE_ACCELERATION_X_G,
-//		SENSOR_DATA_TYPE_ACCELERATION_Y_G,
-//		SENSOR_DATA_TYPE_ACCELERATION_Z_G);
-//
-//	if (data_report.IsError())
-//	{
-//		return data_report.GetResult();
-//	}
-//	result_data = data_report.GetValue();
-//	if (WinSensorManager::UsingTimestamp())
-//	{
-//		DataReporterTimeStamp time_stamp(p_data);
-//		if (!time_stamp.IsError())
-//		{
-//			std::get<3>(result_data) = time_stamp.GetValue();
-//		}
-//	}
-//	manager.last_accelerometer_report = std::move(result_data);
-//	return data_report.GetResult();
-//}
-
 SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientation(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
