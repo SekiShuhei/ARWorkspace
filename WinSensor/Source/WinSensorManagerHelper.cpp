@@ -46,6 +46,8 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientat
 	request.callback_data_updated_func =
 		[&manager](ISensor* p_sensor, ISensorDataReport* p_data)
 		{
+			// TODO.
+			// タイムスタンプ処理（およびレポーター）を分離させる.
 			DataReporterQuaternion data_report(p_data);
 			if (!data_report.IsError())
 			{
