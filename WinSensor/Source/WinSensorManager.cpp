@@ -31,9 +31,6 @@ WinSensorManager::~WinSensorManager()
 bool WinSensorManager::Initialize()
 {
 	HRESULT hr;
-	//hr = this->sp_sensor_manager_events->Initialize();	
-	/////
-	
 	hr = this->sp_sensor_manager.CoCreateInstance(CLSID_SensorManager);
 	if (SUCCEEDED(hr))
 	{
@@ -54,11 +51,8 @@ bool WinSensorManager::Uninitialize()
 	if (this->state != SensorManagerState::UnInitialized)
 	{
 		HRESULT result = S_OK;
-		//auto result = this->sp_sensor_manager_events->Uninitialize();
-		////////////
 		this->info_manager.RemoveAll();
 		result = this->sp_sensor_manager->SetEventSink(NULL);
-		////////////
 		if (SUCCEEDED(result))
 		{
 			this->state = SensorManagerState::UnInitialized;
@@ -147,14 +141,6 @@ HRESULT WinSensorManager::addSensor(const SensorRequest& request)
 	CComPtr<ISensorCollection> sp_sensor_collection;
 	hr = this->sp_sensor_manager->GetSensorsByType(request.type_id, &sp_sensor_collection);
 
-	// ユーザーアクセス許可がない場合.
-	//hr = this->sp_sensor_manager->RequestPermissions(NULL, sp_sensor_collection, TRUE);
-	//if (FAILED(hr))
-	//{
-	//	//this->state = SensorManagerState::
-	//	//SENSOR_STATUS_DISABLED;
-	//}
-
 	if (FAILED(hr))
 	{
 		return hr;
@@ -173,6 +159,15 @@ HRESULT WinSensorManager::addSensor(const SensorRequest& request)
 		{
 			continue;
 		}
+		// ここでセンサステートを見て、DENIEDだったらアクセスパーミッションを要求する.
+		//hr = p_sensor->GetState(&state);
+		//if (state == SENSOR_STATE_ACCESS_DENIED)
+		// ユーザーアクセス許可がない場合.
+		//hr = this->sp_sensor_manager->RequestPermissions(NULL, sp_sensor_collection, TRUE);
+		//if (FAILED(hr))
+		//{
+		//}
+
 		if (request.vid_list.size() == 0)
 		{
 			hr = this->info_manager.Add(sp_sensor, request);
