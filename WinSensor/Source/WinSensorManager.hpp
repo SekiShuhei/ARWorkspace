@@ -76,7 +76,7 @@ private:
 
 //////////////////////////////
 private:
-	bool use_timestamp;
+	bool use_timestamp = true;
 public:
 	inline bool IsUsingTimestamp()
 	{
