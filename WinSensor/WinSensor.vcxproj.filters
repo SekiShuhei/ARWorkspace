@@ -16,6 +16,9 @@
     <Filter Include="SensorControl">
       <UniqueIdentifier>{f5c53062-9d51-419c-a415-c11a788929aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SensorRequest">
+      <UniqueIdentifier>{1c8c2563-05a6-43e6-a29a-528fcf175bf1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\DataReporterQuaternion.cpp">
@@ -31,7 +34,6 @@
       <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="Source\WinSensorManager.cpp" />
-    <ClCompile Include="Source\WinSensorManagerHelper.cpp" />
     <ClCompile Include="Source\DataReporterVector3.cpp">
       <Filter>Reporter</Filter>
     </ClCompile>
@@ -50,6 +52,10 @@
     <ClCompile Include="Source\DataReporterHelper.cpp">
       <Filter>Reporter</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SensorMethodHelper.cpp" />
+    <ClCompile Include="Source\SensorRequestHelper.cpp">
+      <Filter>SensorRequest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DataReporterQuaternion.hpp">
@@ -67,9 +73,7 @@
     <ClInclude Include="Source\SensorUtility.hpp">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SensorRequest.hpp" />
     <ClInclude Include="Source\WinSensorManager.hpp" />
-    <ClInclude Include="Source\WinSensorManagerHelper.hpp" />
     <ClInclude Include="Source\SensorManagerDefine.hpp">
       <Filter>DefineAndEnum</Filter>
     </ClInclude>
@@ -103,6 +107,13 @@
     </ClInclude>
     <ClInclude Include="Source\DataReporterHelper.hpp">
       <Filter>Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorMethodHelper.hpp" />
+    <ClInclude Include="Source\SensorRequestHelper.hpp">
+      <Filter>SensorRequest</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorRequest.hpp">
+      <Filter>SensorRequest</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

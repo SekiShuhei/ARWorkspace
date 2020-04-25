@@ -1,10 +1,10 @@
 
 #include "DeviceList.hpp"
-#include "WinSensorManagerHelper.hpp"
+#include "SensorRequestHelper.hpp"
 #include "WinSensorManager.hpp"
 
 namespace WinSensor {
-using Helper = WinSensorManagerHelper;
+using Helper = SensorRequestHelper;
 WinSensorManager::WinSensorManager()
 {
 	

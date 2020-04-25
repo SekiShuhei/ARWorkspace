@@ -14,7 +14,7 @@
 namespace WinSensor {
 class WinSensorManager
 {
-friend class WinSensorManagerHelper;
+friend class SensorRequestHelper;
 
 public:
 	WinSensorManager();
