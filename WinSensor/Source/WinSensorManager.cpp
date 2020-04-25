@@ -128,6 +128,10 @@ bool WinSensorManager::addSensor(const SensorType request_sensor_type,
 		}
 	}
 	hr = SensorMethodHelper::AddSensor(request, this->sp_sensor_manager, this->sensor_control_manager);
+	// TODO:
+	// requestの結果を見る（GUID指定エラーなど明らかなミスリクエストは捨てる）.
+	// requestを保存しておく　線形リストでよい.
+	
 	if (FAILED(hr))
 	{
 		return false;
