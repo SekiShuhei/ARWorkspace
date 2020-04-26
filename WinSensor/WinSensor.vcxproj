@@ -28,7 +28,8 @@
     <ClCompile Include="Source\SensorControl.cpp" />
     <ClCompile Include="Source\SensorControlManager.cpp" />
     <ClCompile Include="Source\SensorManagerEvents.cpp" />
-    <ClCompile Include="Source\WinSensorManagerHelper.cpp" />
+    <ClCompile Include="Source\SensorMethodHelper.cpp" />
+    <ClCompile Include="Source\SensorRequestHelper.cpp" />
     <ClCompile Include="Source\SensorUtility.cpp" />
     <ClCompile Include="Source\WinSensorManager.cpp" />
   </ItemGroup>
@@ -39,6 +40,8 @@
     <ClInclude Include="Source\DeviceList.hpp" />
     <ClInclude Include="Source\HRESULT_Support.hpp" />
     <ClInclude Include="Source\SensorManagerState.hpp" />
+    <ClInclude Include="Source\SensorMethodHelper.hpp" />
+    <ClInclude Include="Source\SensorRequestHelper.hpp" />
     <ClInclude Include="Source\SensorType.hpp" />
     <ClInclude Include="Source\DataReporterQuaternion.hpp" />
     <ClInclude Include="Source\DataReporterTimeStamp.hpp" />
@@ -50,7 +53,6 @@
     <ClInclude Include="Source\SensorManagerDefine.hpp" />
     <ClInclude Include="Source\SensorManagerEvents.hpp" />
     <ClInclude Include="Source\SensorRequest.hpp" />
-    <ClInclude Include="Source\WinSensorManagerHelper.hpp" />
     <ClInclude Include="Source\SensorUtility.hpp" />
     <ClInclude Include="Source\WinSensorManager.hpp" />
   </ItemGroup>

@@ -4,6 +4,24 @@
 #include "SensorManagerDefine.hpp"
 
 namespace WinSensor {
+enum class SensorRequestState
+{
+	Default = 0,
+	Requesting,
+	SensorTypeError,
+	SensorNotFound,
+	DeviceNotFound,
+	RequestError,
+	Connected,
+	Disconnected,
+};
+	
+enum class SensorRequestTargetState
+{
+	Generic = 0,
+	Priority,
+};
+
 struct SensorRequest
 {
 public:
@@ -11,7 +29,13 @@ public:
 	{
 
 	};
+
+
+
+public:
 	std::wstring				name;
+	SensorRequestState			state			= SensorRequestState::Default;
+	SensorRequestTargetState	target_state	= SensorRequestTargetState::Generic;
 	SENSOR_TYPE_ID				type_id;
 	std::vector<std::wstring>	vid_list;
 

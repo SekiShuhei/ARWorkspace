@@ -6,7 +6,7 @@
 namespace WinSensor {
 enum class SensorType;
 
-class WinSensorManagerHelper
+class SensorRequestHelper
 {
 public:	
 	static SensorRequest MakeSensorRequest(WinSensorManager& manager, const SensorType sensor_type) noexcept;

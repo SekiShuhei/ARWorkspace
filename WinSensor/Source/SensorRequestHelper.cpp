@@ -6,11 +6,11 @@
 #include "DataReporterHelper.hpp"
 
 #include "SensorType.hpp"
-#include "WinSensorManagerHelper.hpp"
+#include "SensorRequestHelper.hpp"
 
 namespace WinSensor {
-using Helper = WinSensorManagerHelper;
-SensorRequest WinSensorManagerHelper::MakeSensorRequest(WinSensorManager& manager, const SensorType sensor_type) noexcept
+using Helper = SensorRequestHelper;
+SensorRequest SensorRequestHelper::MakeSensorRequest(WinSensorManager& manager, const SensorType sensor_type) noexcept
 {
 	switch (sensor_type)
 	{
@@ -40,7 +40,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest(WinSensorManager& manage
 	}
 }
 
-SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientation(WinSensorManager& manager) noexcept
+SensorRequest SensorRequestHelper::MakeSensorRequest_AggregatedDeviceOrientation(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
 	request.name = L"AGGREGATED_DEVICE_ORIENTATION";
@@ -69,7 +69,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AggregatedDeviceOrientat
 	return request;
 }
 
-SensorRequest WinSensorManagerHelper::MakeSensorRequest_AmbientLight(WinSensorManager& manager) noexcept
+SensorRequest SensorRequestHelper::MakeSensorRequest_AmbientLight(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
 	request.name = L"AMBIENT_LIGHT";
@@ -99,7 +99,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_AmbientLight(WinSensorMa
 	return request;
 }
 
-SensorRequest WinSensorManagerHelper::MakeSensorRequest_Accelerometer(WinSensorManager& manager) noexcept
+SensorRequest SensorRequestHelper::MakeSensorRequest_Accelerometer(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
 	request.name = L"ACCELEROMETER_3D";
@@ -119,7 +119,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Accelerometer(WinSensorM
 	return request;
 }
 
-SensorRequest WinSensorManagerHelper::MakeSensorRequest_Compass(WinSensorManager& manager) noexcept
+SensorRequest SensorRequestHelper::MakeSensorRequest_Compass(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
 	request.name = L"COMPASS_3D";
@@ -139,7 +139,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Compass(WinSensorManager
 	return request;
 }
 
-SensorRequest WinSensorManagerHelper::MakeSensorRequest_Gyrometer(WinSensorManager& manager) noexcept
+SensorRequest SensorRequestHelper::MakeSensorRequest_Gyrometer(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
 	request.name = L"GYROMETER_3D";
@@ -159,7 +159,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_Gyrometer(WinSensorManag
 	return request;
 }
 
-SensorRequest WinSensorManagerHelper::MakeSensorRequest_GravityVector(WinSensorManager& manager) noexcept
+SensorRequest SensorRequestHelper::MakeSensorRequest_GravityVector(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
 	request.name = L"GravityVector";
@@ -179,7 +179,7 @@ SensorRequest WinSensorManagerHelper::MakeSensorRequest_GravityVector(WinSensorM
 	return request;
 }
 
-SensorRequest WinSensorManagerHelper::MakeSensorRequest_LinearAccelerometer(WinSensorManager& manager) noexcept
+SensorRequest SensorRequestHelper::MakeSensorRequest_LinearAccelerometer(WinSensorManager& manager) noexcept
 {
 	SensorRequest request;
 	request.name = L"LinearAccelerometer";
