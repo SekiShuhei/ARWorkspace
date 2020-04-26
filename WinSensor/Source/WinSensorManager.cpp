@@ -163,30 +163,31 @@ bool WinSensorManager::addRequest(SensorRequest& request)
 
 HRESULT WinSensorManager::onSensorEnterEvent(ISensor* p_sensor, SensorState state)
 {
-	HRESULT hr;
-	SENSOR_TYPE_ID type_id;
-	hr = p_sensor->GetType(&type_id);
-	if (FAILED(hr)) 
-	{
-		return hr;
-	}
-	for (const auto& connected_sensor : this->connect_list)
-	{
-		if (::IsEqualGUID(type_id, connected_sensor.type_id))
-		{
-			//if (connected_sensor.target_state == SensorRequestTargetState::Priority)
-			{
-				return hr;
-			}
-		}
-	}
-	for (auto& requested_sensor : this->request_list)
-	{
-		if (::IsEqualGUID(type_id, requested_sensor.type_id))
-		{
-			this->addSensor(requested_sensor);
-		}
-	}
+	// 
+	//HRESULT hr;
+	//SENSOR_TYPE_ID type_id;
+	//hr = p_sensor->GetType(&type_id);
+	//if (FAILED(hr)) 
+	//{
+	//	return hr;
+	//}
+	//for (const auto& connected_sensor : this->connect_list)
+	//{
+	//	if (::IsEqualGUID(type_id, connected_sensor.type_id))
+	//	{
+	//		//if (connected_sensor.target_state == SensorRequestTargetState::Priority)
+	//		{
+	//			return hr;
+	//		}
+	//	}
+	//}
+	//for (auto& requested_sensor : this->request_list)
+	//{
+	//	if (::IsEqualGUID(type_id, requested_sensor.type_id))
+	//	{
+	//		this->addSensor(requested_sensor);
+	//	}
+	//}
 	return S_OK;
 
 }
