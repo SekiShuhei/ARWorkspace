@@ -14,7 +14,7 @@ public:
 	SensorControlManager();
 	~SensorControlManager();
 	// with ISensor* AddRef() and SetEventSink().
-	HRESULT Add(ISensor* p_sensor, const SensorRequest& request) noexcept;
+	HRESULT Add(ISensor* p_sensor, SensorRequest& request) noexcept;
 
 	// with ISensor* Release() and SetEventSink().
 	bool RemoveSensorInfoFromID(SENSOR_ID arg_sensor_id) noexcept;
@@ -29,7 +29,7 @@ private:
 	}
 
 private:
-	std::vector<SensorControl*> p_info_list;
+	std::vector<SensorControl*> p_control_list;
 };
 
 }

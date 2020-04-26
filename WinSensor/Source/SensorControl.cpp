@@ -25,8 +25,18 @@ SensorControl::~SensorControl()
 void SensorControl::Release() noexcept
 {
 	// ISensor.
-	this->p_sensor->SetEventSink(NULL);
-	this->p_sensor->Release();
+	if (this->p_sensor == nullptr)
+	{
+		return;
+	}
+	HRESULT hr = S_OK;
+	SENSOR_ID id = GUID_NULL;
+	hr = this->p_sensor->SetEventSink(NULL);
+	hr = p_sensor->GetID(&id);
+	if (SUCCEEDED(hr))
+	{
+		this->p_sensor->Release();
+	}
 }
 
 bool SensorControl::initialize(SENSOR_ID arg_sensor_id, ISensor* arg_p_sensor, const SensorRequest& request) noexcept
