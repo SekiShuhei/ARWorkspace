@@ -117,7 +117,6 @@ const Float4AndTimestamp& WinSensorManager::GetAggregatedDeviceOrientationData()
 bool WinSensorManager::addSensorWithMakeRequest(const SensorType request_sensor_type, 
 	const std::optional<const std::vector<std::wstring>>& vid_list)
 {
-	HRESULT hr;
 	SensorRequest request;
 	request = Helper::MakeSensorRequest(*this, request_sensor_type);
 	if (vid_list)
