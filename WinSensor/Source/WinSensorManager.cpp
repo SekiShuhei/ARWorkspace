@@ -29,6 +29,8 @@ WinSensorManager::~WinSensorManager()
 
 bool WinSensorManager::Initialize()
 {
+	// TODO:
+	// ISensorManagerWrapper‚ðì‚Á‚ÄCOMŽü‚è‚ð“Æ—§ŠÇ—‚³‚¹‚½‚¢.
 	HRESULT hr;
 	hr = this->sp_sensor_manager.CoCreateInstance(CLSID_SensorManager);
 	if (SUCCEEDED(hr))
