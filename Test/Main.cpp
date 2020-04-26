@@ -1,11 +1,11 @@
 ﻿#define SIV3D_WINDOWS_HIGH_DPI
-# include <Siv3D.hpp> // OpenSiv3D v0.4.2
+#include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
 
 #include "ARVirtualScreen.hpp"
 #include "GuiMenu.hpp"
 #include "KeyCommand.hpp"
-#include "SensorManager/WinSensorManager.hpp"
+#include "WinSensorManager.hpp"
 
 void Main()
 {
@@ -30,26 +30,23 @@ void Main()
 	p_ar_screen->Initialize();
 	p_ar_screen->SetAutoResizeMode(true);
 	sensor.Initialize();
+	sensor.SetPriorityVidList(WinSensor::Device::VidList_SmartGrass);
+	sensor.AddSensor(WinSensor::SensorType::AggregatedDeviceOrientation);
 	
 	while (System::Update())
 	{
 		
 
-		//key_command.Update();
-		//p_ar_screen->Draw();
-		//gui_capture_menu.Draw();
+		key_command.Update();
+		p_ar_screen->Draw();
+		gui_capture_menu.Draw();
 
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
 		
-		double x = 0.0, y = 0.0, z = 0.0, w = 0.0;
-		////auto sensor_val = sensor.GetAmbientLightData();
-		//
-		////auto sensor_val = sensor.GetAccelerometerData();
-		auto sensor_val = sensor.GetAggregatedDeviceOrientationData();
-		//if (sensor_val)
-		//{
-			//float f = (sensor_val.value());
-			//font(U"light:{:.0f}"_fmt(f)).draw(0.0, 100.0, Palette::Green);
+		{
+			// orientation quaternion to radian angle.
+			double x = 0.0, y = 0.0, z = 0.0, w = 0.0;
+			auto sensor_val = sensor.GetAggregatedDeviceOrientationData();
 			auto  q = s3d::Quaternion(
 				std::get<0>(sensor_val),
 				std::get<1>(sensor_val),
@@ -66,13 +63,10 @@ void Main()
 			y = (double)rt_q.first.y;
 			z = (double)rt_q.first.z;
 			//font(U"x:{},y:{},z:{},w:{}"_fmt(x, y, z,w)).draw(0.0, 100.0, Palette::Green);
-			font(U"x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(x, y, z)).draw(0.0, 100.0, Palette::Green);
-		//}
-	
-	
+			font(U"angle x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(x, y, z)).draw(0.0, 100.0, Palette::Green);
+		}
+		
 	}
-
 	p_ar_screen->WriteConfigFile();
 
-	sensor.Uninitialize();
 }

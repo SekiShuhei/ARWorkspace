@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Reporter">
+      <UniqueIdentifier>{6572a418-3752-4215-a5f4-c51512fe0614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{ec91dfc4-1fe2-4775-8253-448e1304897f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DefineAndEnum">
+      <UniqueIdentifier>{9574fdda-a6de-4f24-bf5d-2403ff76f5b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ISensorInterface">
+      <UniqueIdentifier>{44cb6794-367c-4742-b339-27e3960dbddc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SensorControl">
+      <UniqueIdentifier>{f5c53062-9d51-419c-a415-c11a788929aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SensorRequest">
+      <UniqueIdentifier>{1c8c2563-05a6-43e6-a29a-528fcf175bf1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\DataReporterQuaternion.cpp">
+      <Filter>Reporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DataReporterTimeStamp.cpp">
+      <Filter>Reporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PropertyReporterString.cpp">
+      <Filter>Reporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorUtility.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WinSensorManager.cpp" />
+    <ClCompile Include="Source\DataReporterVector3.cpp">
+      <Filter>Reporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorEvents.cpp">
+      <Filter>ISensorInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorManagerEvents.cpp">
+      <Filter>ISensorInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorControl.cpp">
+      <Filter>SensorControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorControlManager.cpp">
+      <Filter>SensorControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DataReporterHelper.cpp">
+      <Filter>Reporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SensorMethodHelper.cpp" />
+    <ClCompile Include="Source\SensorRequestHelper.cpp">
+      <Filter>SensorRequest</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\DataReporterQuaternion.hpp">
+      <Filter>Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DataReporterTimeStamp.hpp">
+      <Filter>Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PropertyReporterString.hpp">
+      <Filter>Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PropvariantWrapper.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorUtility.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WinSensorManager.hpp" />
+    <ClInclude Include="Source\SensorManagerDefine.hpp">
+      <Filter>DefineAndEnum</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorType.hpp">
+      <Filter>DefineAndEnum</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorManagerState.hpp">
+      <Filter>DefineAndEnum</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HRESULT_Support.hpp">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DataReporter.hpp">
+      <Filter>Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DataReporterVector3.hpp">
+      <Filter>Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DeviceList.hpp" />
+    <ClInclude Include="Source\SensorManagerEvents.hpp">
+      <Filter>ISensorInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorEvents.hpp">
+      <Filter>ISensorInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorControl.hpp">
+      <Filter>SensorControl</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorControlManager.hpp">
+      <Filter>SensorControl</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DataReporterHelper.hpp">
+      <Filter>Reporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorMethodHelper.hpp" />
+    <ClInclude Include="Source\SensorRequestHelper.hpp">
+      <Filter>SensorRequest</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SensorRequest.hpp">
+      <Filter>SensorRequest</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
