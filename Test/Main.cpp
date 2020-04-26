@@ -32,20 +32,14 @@ void Main()
 	sensor.Initialize();
 	sensor.SetPriorityVidList(WinSensor::Device::VidList_SmartGrass);
 	sensor.AddSensor(WinSensor::SensorType::AggregatedDeviceOrientation);
-	sensor.AddSensor(WinSensor::SensorType::AmbientLight);
-	sensor.AddSensor(WinSensor::SensorType::Accelerometer);
-	sensor.AddSensor(WinSensor::SensorType::Compass);
-	sensor.AddSensor(WinSensor::SensorType::Gyrometer);
-	sensor.AddSensor(WinSensor::SensorType::GravityVector);
-	sensor.AddSensor(WinSensor::SensorType::LinearAccelerometer);
-
+	
 	while (System::Update())
 	{
 		
 
-		//key_command.Update();
-		//p_ar_screen->Draw();
-		//gui_capture_menu.Draw();
+		key_command.Update();
+		p_ar_screen->Draw();
+		gui_capture_menu.Draw();
 
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
 		
@@ -71,54 +65,8 @@ void Main()
 			//font(U"x:{},y:{},z:{},w:{}"_fmt(x, y, z,w)).draw(0.0, 100.0, Palette::Green);
 			font(U"angle x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(x, y, z)).draw(0.0, 100.0, Palette::Green);
 		}
-		{
-			auto sensor_val = sensor.GetAmbientLightData();
-			float f = std::get<0>(sensor_val);
-			float t = std::get<1>(sensor_val);
-			font(U"light:{:.2f},time:{:.2f}"_fmt(f,t)).draw(0.0, 160.0, Palette::Aqua);
-		}
-		{
-			auto sensor_val = sensor.GetAccelerometerData();
-			font(U"accel x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(
-					std::get<0>(sensor_val), 
-					std::get<1>(sensor_val), 
-					std::get<2>(sensor_val))).
-				draw(0.0, 220.0, Palette::Green);
-		}
-		{
-			auto sensor_val = sensor.GetCompassData();
-			font(U"compass x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(
-				std::get<0>(sensor_val),
-				std::get<1>(sensor_val),
-				std::get<2>(sensor_val))).
-				draw(0.0, 280.0, Palette::Beige);
-		}
-		{
-			auto sensor_val = sensor.GetGyrometerData();
-			font(U"gyro x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(
-				std::get<0>(sensor_val),
-				std::get<1>(sensor_val),
-				std::get<2>(sensor_val))).
-				draw(0.0, 340.0, Palette::Blue);
-		}
-		{
-			auto sensor_val = sensor.GetGravityVectorData();
-			font(U"gravity x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(
-				std::get<0>(sensor_val),
-				std::get<1>(sensor_val),
-				std::get<2>(sensor_val))).
-				draw(0.0, 400.0, Palette::Cyan);
-		}
-		{
-			auto sensor_val = sensor.GetLinearAccelerometerData();
-			font(U"linear_accel x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(
-				std::get<0>(sensor_val),
-				std::get<1>(sensor_val),
-				std::get<2>(sensor_val))).
-				draw(0.0, 460.0, Palette::Pink);
-		}
+		
 	}
-
 	p_ar_screen->WriteConfigFile();
 
 }
