@@ -49,7 +49,9 @@ private:
 		const std::optional<const std::vector<std::wstring>>& vid_list = std::nullopt);
 	bool addSensor(SensorRequest& request);
 
-	HRESULT OnSensorEnterEvent(ISensor* p_sensor, SensorState state);
+	bool addRequest(SensorRequest& request);
+
+	HRESULT onSensorEnterEvent(ISensor* p_sensor, SensorState state);
 	
 private:
 	Double3AndTimestamp	last_accelerometer_report			= Double3AndTimestamp();

@@ -16,7 +16,7 @@ WinSensorManager::WinSensorManager()
 		std::make_unique<SensorManagerEvents>(
 			[this](ISensor* p_sensor, SensorState state)
 			{
-				return this->OnSensorEnterEvent(p_sensor, state);
+				return this->onSensorEnterEvent(p_sensor, state);
 			});
 
 }
@@ -127,21 +127,8 @@ bool WinSensorManager::addSensorWithMakeRequest(const SensorType request_sensor_
 		}
 	}
 	bool result = this->addSensor(request);
-
-	// addRequest.
-	if (request.state != SensorRequestState::SensorTypeError &&
-		request.state != SensorRequestState::RequestError)
-	{
-		//if (std::find(this->request_list.begin(),
-		//	this->request_list.end(), request) == this->request_list.end())
-		//{
-			this->request_list.emplace_back(request);
-		//}
-		if (request.state == SensorRequestState::Connected)
-		{
-			this->connect_list.emplace_back(request);
-		}
-	}
+	this->addRequest(request);
+	
 	return result;
 }
 bool WinSensorManager::addSensor(SensorRequest& request)
@@ -155,7 +142,26 @@ bool WinSensorManager::addSensor(SensorRequest& request)
 	return true;
 }
 
-HRESULT WinSensorManager::OnSensorEnterEvent(ISensor* p_sensor, SensorState state)
+bool WinSensorManager::addRequest(SensorRequest& request)
+{
+	if (request.state != SensorRequestState::SensorTypeError &&
+		request.state != SensorRequestState::RequestError)
+	{
+		//if (std::find(this->request_list.begin(),
+		//	this->request_list.end(), request) == this->request_list.end())
+		//{
+		this->request_list.emplace_back(request);
+		//}
+		if (request.state == SensorRequestState::Connected)
+		{
+			this->connect_list.emplace_back(request);
+		}
+		return true;
+	}
+	return false;
+}
+
+HRESULT WinSensorManager::onSensorEnterEvent(ISensor* p_sensor, SensorState state)
 {
 	HRESULT hr;
 	SENSOR_TYPE_ID type_id;
