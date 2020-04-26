@@ -11,6 +11,8 @@ public:
 
 public:
 
+
+
 	void SetEyeAngle(double arg_x, double arg_y, double arg_z);
 	void SetEyePoint(int64_t arg_x, int64_t arg_y);
 	
