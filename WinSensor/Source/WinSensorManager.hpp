@@ -59,16 +59,9 @@ private:
 	FloatAndTimestamp	last_ambient_light_report			= FloatAndTimestamp();
 	Float4AndTimestamp	last_orientation_quaternion_report	= Float4AndTimestamp();
 
-	std::vector<std::wstring> priority_vid_list;
-
-	// TODO:
-	// リクエスト情報を保持.
-	// std::vector<SensorRequest>.
-	// リクエスト結果（エラー情報）なども格納のうえリストで保持しておく.
-
-	// 接続デバイス情報を保持.
-	// 接続成功した場合はRequestから接続情報を生成してリスト管理する.
-
+	std::vector<std::wstring>	priority_vid_list;
+	std::vector<SensorRequest>	request_list;
+	
 	SensorManagerState			state = SensorManagerState::NotInitialized;
 	CComPtr<ISensorManager>		sp_sensor_manager;
 	SensorControlManager		sensor_control_manager;
