@@ -1,7 +1,7 @@
 ﻿#define SIV3D_WINDOWS_HIGH_DPI
 #include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
-
+#include "ARWorkspace.hpp"
 #include "ARVirtualScreen.hpp"
 #include "GuiMenu.hpp"
 #include "KeyCommand.hpp"
@@ -18,6 +18,7 @@ void Main()
 	auto p_ar_screen = std::make_shared<ARWorkspace::ARVirtualScreen>();
 	p_ar_screen->ReadConfigFile();
 
+	ARWorkspace::ARWorkspace	ar_workspace;
 	ARWorkspace::GuiMenu		gui_capture_menu(p_ar_screen);
 	ARWorkspace::KeyCommand		key_command(p_ar_screen);
 
@@ -38,7 +39,7 @@ void Main()
 		
 
 		key_command.Update();
-		p_ar_screen->Draw();
+		//p_ar_screen->Draw();
 		gui_capture_menu.Draw();
 
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
@@ -52,20 +53,38 @@ void Main()
 				std::get<1>(sensor_val),
 				std::get<2>(sensor_val),
 				std::get<3>(sensor_val));
+
 			x = std::get<0>(sensor_val); //test
 			y = std::get<1>(sensor_val); //test
 			z = std::get<2>(sensor_val); //test
 			w = std::get<3>(sensor_val); //test
-
-			auto rt_q = q.toAxisAngle();
 			
-			x = (double)rt_q.first.x;
-			y = (double)rt_q.first.y;
-			z = (double)rt_q.first.z;
+			q.normalize();
+			
+			auto rt_q = q.toAxisAngle();
+			auto a = q.toAxisAngle().second;
+
+			x = s3d::ToDegrees((double)rt_q.first.x);
+			y = s3d::ToDegrees((double)rt_q.first.y);
+			z = s3d::ToDegrees((double)rt_q.first.z);
 			//font(U"x:{},y:{},z:{},w:{}"_fmt(x, y, z,w)).draw(0.0, 100.0, Palette::Green);
 			font(U"angle x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(x, y, z)).draw(0.0, 100.0, Palette::Green);
-		}
 		
+			//// to ARWS
+			ar_workspace.SetEyeAngle(x, y, z);
+		}
+		{
+			auto pt = ar_workspace.GetEyePoint();
+			int x = std::get<0>(pt);
+			int y = std::get<1>(pt);
+			font(U"eye_pt x:{},y:{}"_fmt(x, y)).draw(0.0, 200.0, Palette::Blueviolet);
+		
+			Circle(x, y, 30).draw();
+		
+		}
+
+
+
 	}
 	p_ar_screen->WriteConfigFile();
 

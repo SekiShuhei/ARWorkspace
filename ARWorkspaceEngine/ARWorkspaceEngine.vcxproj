@@ -174,7 +174,7 @@
     <ClInclude Include="Source\DropDownMenu.hpp" />
     <ClInclude Include="Source\framework.h" />
     <ClInclude Include="Source\pch.h" />
-    <ClInclude Include="Source\ARDisplay.hpp" />
+    <ClInclude Include="Source\ARWorkspace.hpp" />
     <ClInclude Include="Source\ARVirtualScreen.hpp" />
     <ClInclude Include="Source\ARWorkspaceEngine.hpp" />
     <ClInclude Include="Source\CustomCursor.hpp" />
@@ -195,7 +195,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Source\ARDisplay.cpp" />
+    <ClCompile Include="Source\ARWorkspace.cpp" />
     <ClCompile Include="Source\ARVirtualScreen.cpp" />
     <ClCompile Include="Source\CustomCursor.cpp" />
     <ClCompile Include="Source\ScreenRegionGuideView.cpp" />
