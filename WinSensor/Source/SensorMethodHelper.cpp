@@ -15,12 +15,7 @@ HRESULT SensorMethodHelper::AddSensor(
 	hr = p_sensor_manager->GetSensorsByType(request.type_id, &sp_sensor_collection);
 	if (FAILED(hr))
 	{
-		if (hr = ERROR_NOT_FOUND)
-		{
-			request.state = SensorRequestState::SensorNotFound;
-		} else {
-			request.state = SensorRequestState::SensorTypeError;
-		}
+		request.state = SensorRequestState::SensorNotFound;
 		return hr;
 	}
 	ULONG sensor_count = 0;

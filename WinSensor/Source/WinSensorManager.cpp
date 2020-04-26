@@ -9,19 +9,14 @@ using Helper = SensorRequestHelper;
 WinSensorManager::WinSensorManager()
 {
 	this->request_list.reserve(20);
+	this->connect_list.reserve(20);
 	this->priority_vid_list.reserve(20);
 	
 	this->sp_sensor_manager_events = 
 		std::make_unique<SensorManagerEvents>(
-			[](ISensor* p_sensor, SensorState state)
+			[this](ISensor* p_sensor, SensorState state)
 			{
-				// TODO:
-				// リクエスト中のセンサが接続されたら自動的に追加されるようにしたい.
-				// マネージャ側でリクエスト情報を保持しておく必要がある.
-				//...
-				//p_sensor->GetCategory()
-
-				return S_OK; 
+				return this->OnSensorEnterEvent(p_sensor, state);
 			});
 
 }
@@ -69,17 +64,17 @@ bool WinSensorManager::Uninitialize()
 
 bool WinSensorManager::AddSensor(const SensorType request_sensor_type)
 {
-	bool result = this->addSensor(request_sensor_type, this->priority_vid_list);
+	bool result = this->addSensorWithMakeRequest(request_sensor_type, this->priority_vid_list);
 	if (! result)
 	{
-		this->addSensor(request_sensor_type);
+		this->addSensorWithMakeRequest(request_sensor_type);
 	}
 	return true;
 }
 
 bool WinSensorManager::AddSensorFromVidList(const SensorType request_sensor_type, const std::vector<std::wstring>& vid_list)
 {
-	return this->addSensor(request_sensor_type, vid_list);
+	return this->addSensorWithMakeRequest(request_sensor_type, vid_list);
 }
 
 const Double3AndTimestamp& WinSensorManager::GetAccelerometerData() const noexcept
@@ -117,7 +112,7 @@ const Float4AndTimestamp& WinSensorManager::GetAggregatedDeviceOrientationData()
 	return this->last_orientation_quaternion_report;
 }
 
-bool WinSensorManager::addSensor(const SensorType request_sensor_type, 
+bool WinSensorManager::addSensorWithMakeRequest(const SensorType request_sensor_type, 
 	const std::optional<const std::vector<std::wstring>>& vid_list)
 {
 	HRESULT hr;
@@ -127,22 +122,67 @@ bool WinSensorManager::addSensor(const SensorType request_sensor_type,
 	{
 		if (vid_list.value().size() > 0)
 		{
+			request.target_state = SensorRequestTargetState::Priority;
 			request.vid_list = vid_list.value();
 		}
 	}
-	hr = SensorMethodHelper::AddSensor(request, this->sp_sensor_manager, this->sensor_control_manager);
-	
+	bool result = this->addSensor(request);
+
+	// addRequest.
 	if (request.state != SensorRequestState::SensorTypeError &&
 		request.state != SensorRequestState::RequestError)
 	{
-		this->request_list.emplace_back(request);
+		//if (std::find(this->request_list.begin(),
+		//	this->request_list.end(), request) == this->request_list.end())
+		//{
+			this->request_list.emplace_back(request);
+		//}
+		if (request.state == SensorRequestState::Connected)
+		{
+			this->connect_list.emplace_back(request);
+		}
 	}
-
+	return result;
+}
+bool WinSensorManager::addSensor(SensorRequest& request)
+{
+	HRESULT hr;
+	hr = SensorMethodHelper::AddSensor(request, this->sp_sensor_manager, this->sensor_control_manager);	
 	if (FAILED(hr))
 	{
 		return false;
 	}
 	return true;
+}
+
+HRESULT WinSensorManager::OnSensorEnterEvent(ISensor* p_sensor, SensorState state)
+{
+	HRESULT hr;
+	SENSOR_TYPE_ID type_id;
+	hr = p_sensor->GetType(&type_id);
+	if (FAILED(hr)) 
+	{
+		return hr;
+	}
+	for (const auto& connected_sensor : this->connect_list)
+	{
+		if (::IsEqualGUID(type_id, connected_sensor.type_id))
+		{
+			//if (connected_sensor.target_state == SensorRequestTargetState::Priority)
+			{
+				return hr;
+			}
+		}
+	}
+	for (auto& requested_sensor : this->request_list)
+	{
+		if (::IsEqualGUID(type_id, requested_sensor.type_id))
+		{
+			this->addSensor(requested_sensor);
+		}
+	}
+	return S_OK;
+
 }
 
 

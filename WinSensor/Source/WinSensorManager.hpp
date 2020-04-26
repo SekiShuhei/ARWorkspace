@@ -44,12 +44,13 @@ public:
 	}
 
 private:
-	bool addSensor(
+	bool addSensorWithMakeRequest(
 		const SensorType request_sensor_type, 
 		const std::optional<const std::vector<std::wstring>>& vid_list = std::nullopt);
+	bool addSensor(SensorRequest& request);
 
-	HRESULT addSensor(SensorRequest& request);
-
+	HRESULT OnSensorEnterEvent(ISensor* p_sensor, SensorState state);
+	
 private:
 	Double3AndTimestamp	last_accelerometer_report			= Double3AndTimestamp();
 	Double3AndTimestamp	last_compass_report					= Double3AndTimestamp();
@@ -61,7 +62,8 @@ private:
 
 	std::vector<std::wstring>	priority_vid_list;
 	std::vector<SensorRequest>	request_list;
-	
+	std::vector<SensorRequest>	connect_list;
+
 	SensorManagerState			state = SensorManagerState::NotInitialized;
 	CComPtr<ISensorManager>		sp_sensor_manager;
 	SensorControlManager		sensor_control_manager;
