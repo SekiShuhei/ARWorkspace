@@ -17,15 +17,7 @@ void ARWorkspace::Update()
 
 	this->DrawSensorCursor(this->eye_point_x, this->eye_point_y,
 		offset_x, offset_y, scale,
-		this->eye_angle, U"eye_pt", Palette::Aquamarine);
-
-	scale = 300.0;
-	this->DrawSensorCursor(
-		this->v3_gravity.x, 
-		this->v3_gravity.y,
-		offset_x, offset_y, scale,
-		this->v3_gravity.z, 
-		U"gravity", Palette::Purple);
+		this->eye_angle, U"gyro integral", Palette::Aquamarine);
 
 	scale = -1.0;
 	this->DrawSensorCursor(
@@ -51,8 +43,21 @@ void ARWorkspace::SetGravityVector(const Vector3AndTimestamp& arg_gravity, const
 	this->v3_gravity.y = std::get<1>(arg_gravity);
 	this->v3_gravity.z = std::get<2>(arg_gravity);
 
-	
-	auto a = this->v3_gravity.dot(s3d::Vec3::UnitY());
+	{
+		auto a = this->v3_gravity.dot(s3d::Vec3::UnitY());
+		auto angle = s3d::ToDegrees(std::acos(a));
+		this->DebugString(U"gravity_V_dot:{:.3f},angle{:.1f}"_fmt(a, angle));
+	}
+	{
+		auto a = this->v3_gravity.dot(s3d::Vec3::UnitZ());
+		auto angle = s3d::ToDegrees(std::acos(a));
+		this->DebugString(U"gravity_H_dot:{:.3f},angle{:.1f}"_fmt(a, angle));
+	}
+	{
+		auto a = this->v3_gravity.dot(s3d::Vec3::UnitX());
+		auto angle = s3d::ToDegrees(std::acos(a));
+		this->DebugString(U"gravity_H2_dot:{:.3f},angle{:.1f}"_fmt(a, angle));
+	}
 }
 
 void ARWorkspace::SetCompassVector(const Vector3AndTimestamp& arg_compass, const double delta_t)
@@ -68,20 +73,16 @@ void ARWorkspace::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const doubl
 	this->v3_gyro.y = std::get<0>(arg_gyro) * -1; //BT30 X axis => -Y
 	this->v3_gyro.z = std::get<2>(arg_gyro) * -1;
 
-	this->DebugString(U"gyro:{},{},{}"_fmt
-	(this->v3_gyro.x, this->v3_gyro.y, this->v3_gyro.z));
-	
-
-	//this->font(U"gyro:{},{},{}"_fmt
-	//(this->v3_gyro.x, this->v3_gyro.y, this->v3_gyro.z))
-	//	.draw(0, 100);
-
 	double scale = 30;
 	this->eye_point_x	+= this->v3_gyro.x * scale * delta_t * -1;
 	this->eye_point_y	+= this->v3_gyro.y * scale * delta_t * -1;
 	this->eye_angle		+= this->v3_gyro.z * 0.02 * delta_t  * -1;
 
-	
+	{
+		// ジャイロ角速度の積分値.
+		//this->DebugString(U"gyro integral x:{:.3f},angle{:.1f}"_fmt
+		//(this->eye_point_x, this->eye_point_y, this->eye_angle));
+	}
 }
 
 void ARWorkspace::SetOrientationQuaternion(const Float4AndTimestamp& arg_quaternion, const double delta_t)
@@ -145,7 +146,7 @@ void ARWorkspace::drawDebugString(int arg_x, int arg_y)
 	int counter = 0;
 	for (const auto& string : this->debug_strings)
 	{
-		this->font(string).draw(x, y + (counter * 30), HSV(counter * 30));
+		this->font(string).draw(x, y + (counter * 50), HSV(counter * 100));
 		++counter;
 	}
 	this->debug_strings.clear();
