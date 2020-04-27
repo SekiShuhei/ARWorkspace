@@ -40,6 +40,12 @@ void ARWorkspace::Update()
 		offset_x, offset_y, scale,
 		this->eye_angle, U"gyro integral", Palette::Aquamarine);
 
+	scale = 1.0;
+	this->DrawSensorCursor(this->v3_gyro.x, this->v3_gyro.y,
+		offset_x, offset_y, scale,
+		this->v3_gyro.z / 100, U"gyro", Palette::Ivory);
+
+
 	scale = -1.0;
 	this->DrawSensorCursor(
 		this->v3_compass.x,
@@ -150,11 +156,15 @@ void ARWorkspace::DrawSensorCursor(double x, double y,
 
 	int disp_x = (x * display_scale) + offset_x;
 	int disp_y = (y * display_scale) + offset_y;
-
-	Triangle(disp_x, disp_y, 100).
+	int width = 40;
+	int height = 50;
+	Triangle(
+		Vec2(disp_x, disp_y - height),
+		Vec2(disp_x - width, disp_y + height),
+		Vec2(disp_x + width, disp_y + height)).
 		rotated(angle).draw(color);
 
-	font(name + U" x:{},y:{},angle{:.2f}"_fmt(x, y, angle)).
+	font(name + U" x:{:.2f},y:{:.2f},angle{:.2f}"_fmt(x, y, angle)).
 		draw(disp_x + string_offset_x, disp_y, color);
 }
 
