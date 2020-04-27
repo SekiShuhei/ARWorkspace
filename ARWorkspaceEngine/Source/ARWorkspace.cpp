@@ -96,6 +96,10 @@ void ARWorkspace::SetCompassVector(const Vector3AndTimestamp& arg_compass, const
 
 void ARWorkspace::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const double delta_t)
 {
+	this->v3_gyro_raw.x = std::get<0>(arg_gyro);
+	this->v3_gyro_raw.y = std::get<1>(arg_gyro);
+	this->v3_gyro_raw.z = std::get<2>(arg_gyro);
+
 	this->v3_gyro.x = std::get<1>(arg_gyro) * -1; //BT30 Y axis => -X
 	this->v3_gyro.y = std::get<0>(arg_gyro) * -1; //BT30 X axis => -Y
 	this->v3_gyro.z = std::get<2>(arg_gyro) * -1;

@@ -50,6 +50,7 @@ private:
 	s3d::Vec3	v3_gravity;
 	s3d::Vec3	v3_compass;
 	s3d::Vec3	v3_gyro;
+	s3d::Vec3	v3_gyro_raw; //to Madgwick Filter
 	s3d::Vec3	v3_orientation;
 	s3d::Vec3	v3_accel;
 
