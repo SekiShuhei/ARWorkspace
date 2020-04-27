@@ -32,8 +32,10 @@ void Main()
 	p_ar_screen->SetAutoResizeMode(true);
 	sensor.Initialize();
 	sensor.SetPriorityVidList(WinSensor::Device::VidList_SmartGrass);
-	sensor.AddSensor(WinSensor::SensorType::AggregatedDeviceOrientation);
-	
+	sensor.AddSensor(WinSensor::SensorType::GravityVector);
+	sensor.AddSensor(WinSensor::SensorType::Compass);
+	sensor.AddSensor(WinSensor::SensorType::Gyrometer);
+
 	while (System::Update())
 	{
 		
@@ -45,33 +47,33 @@ void Main()
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
 		
 		{
-			// orientation quaternion to radian angle.
-			double x = 0.0, y = 0.0, z = 0.0, w = 0.0;
-			auto sensor_val = sensor.GetAggregatedDeviceOrientationData();
-			auto  q = s3d::Quaternion(
-				std::get<0>(sensor_val),
-				std::get<1>(sensor_val),
-				std::get<2>(sensor_val),
-				std::get<3>(sensor_val));
+			double delta_t = s3d::Scene::DeltaTime();
 
-			x = std::get<0>(sensor_val); //test
-			y = std::get<1>(sensor_val); //test
-			z = std::get<2>(sensor_val); //test
-			w = std::get<3>(sensor_val); //test
-			
-			q.normalize();
-			
-			auto rt_q = q.toAxisAngle();
-			auto a = q.toAxisAngle().second;
+			ar_workspace.SetGravityVector(sensor.GetGravityVectorData(), delta_t);
+			ar_workspace.SetCompassVector(sensor.GetCompassData(), delta_t);
+			ar_workspace.SetGyroVector(sensor.GetGyrometerData(), delta_t);
 
-			x = s3d::ToDegrees((double)rt_q.first.x);
-			y = s3d::ToDegrees((double)rt_q.first.y);
-			z = s3d::ToDegrees((double)rt_q.first.z);
-			//font(U"x:{},y:{},z:{},w:{}"_fmt(x, y, z,w)).draw(0.0, 100.0, Palette::Green);
-			font(U"angle x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(x, y, z)).draw(0.0, 100.0, Palette::Green);
+			//double x = 0.0, y = 0.0, z = 0.0, w = 0.0;
+			//auto sensor_val = sensor.GetGravityVectorData();
+			//auto  v3 = s3d::Vector3D(
+			//	std::get<0>(sensor_val),
+			//	std::get<1>(sensor_val),
+			//	std::get<2>(sensor_val));
+			//
+			//auto a = s3d::ToDegrees(v3);
+			//
+			//x = a.x;
+			//y = a.y;
+			//z = a.z;
+			//
+			//
+			////x = s3d::ToDegrees((double)v3.x);
+			////y = s3d::ToDegrees((double)v3.y);
+			////z = s3d::ToDegrees((double)v3.z);
+			//font(U"angle x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(x, y, z)).draw(0.0, 100.0, Palette::Green);
 		
+
 			//// to ARWS
-			ar_workspace.SetEyeAngle(x, y, z);
 		}
 		{
 			auto pt = ar_workspace.GetEyePoint();
@@ -79,7 +81,6 @@ void Main()
 			int y = std::get<1>(pt);
 			font(U"eye_pt x:{},y:{}"_fmt(x, y)).draw(0.0, 200.0, Palette::Blueviolet);
 		
-			Circle(x, y, 30).draw();
 		
 		}
 
