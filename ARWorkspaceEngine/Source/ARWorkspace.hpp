@@ -4,6 +4,9 @@
 #include <tuple>
 #include <Siv3D.hpp>
 
+
+#include "ThirdParty/MadgwickAHRS/MadgwickAHRS.h"
+
 namespace ARWorkspace {
 class ARWorkspace
 {
@@ -62,6 +65,10 @@ private:
 
 
 	std::vector<s3d::String> debug_strings = std::vector<s3d::String>(30);
+
+
+	Madgwick madgwick_filter;
+
 };
 
 }

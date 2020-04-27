@@ -1,10 +1,12 @@
 
-#include "MadgwickAHRS/MadgwickAHRS.h"
 #include "ARWorkspace.hpp"
 
 namespace ARWorkspace {
 ARWorkspace::ARWorkspace()
 {
+	float delta_time = 0.02;
+	float Hz = 1 / delta_time;
+	this->madgwick_filter.begin(Hz);
 }
 
 void ARWorkspace::Update()
@@ -106,7 +108,6 @@ void ARWorkspace::SetEyeAngle(double arg_x, double arg_y, double arg_z)
 
 	//this->SetEyePoint((int64_t)x, (int64_t)y);
 
-	//Madgwick madgwick_filter;
 	
 
 }

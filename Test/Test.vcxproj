@@ -73,7 +73,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MinimalRebuild>false</MinimalRebuild>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(solutiondir)WinSensor\Source;$(solutiondir)ARWorkspaceEngine\Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(solutiondir)WinSensor\Source;$(solutiondir)ARWorkspaceEngine\Source;$(solutiondir)ARWorkspaceEngine\Library</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -103,7 +103,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(solutiondir)WinSensor\Source;$(solutiondir)ARWorkspaceEngine\Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(solutiondir)WinSensor\Source;$(solutiondir)ARWorkspaceEngine\Source;$(solutiondir)ARWorkspaceEngine\Library</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -68,6 +68,7 @@
       <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="Source\ARWorkspace.hpp" />
+    <ClInclude Include="Library\ThirdParty\MadgwickAHRS\MadgwickAHRS.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GUI">
@@ -88,5 +89,8 @@
     <Filter Include="ThirdParty">
       <UniqueIdentifier>{9d433397-7ab9-41c4-8a93-74eac52bbd33}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Library\ThirdParty\MadgwickAHRS\LICENSE.txt" />
   </ItemGroup>
 </Project>
