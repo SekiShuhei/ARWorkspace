@@ -11,6 +11,25 @@ ARWorkspace::ARWorkspace()
 
 void ARWorkspace::Update()
 {
+	{
+		float gyro_x = this->v3_gyro.x;
+		float gyro_y = this->v3_gyro.y;
+		float gyro_z = this->v3_gyro.z;
+		float accel_x = this->v3_accel.x;
+		float accel_y = this->v3_accel.y;
+		float accel_z = this->v3_accel.z;
+		this->madgwick_filter.updateIMU(gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z);
+			
+		auto roll = this->madgwick_filter.getRoll();
+		auto pitch = this->madgwick_filter.getPitch();
+		auto yaw = this->madgwick_filter.getYaw();
+		
+		this->DebugString(U"madgwick_filter roll:{:.1f},pitch:{:.1f},yaw{:.1f}"_fmt
+		(roll, pitch, yaw));
+
+
+	}
+
 	this->drawDebugString(0, 100);
 
 	double scale = 1.0;
@@ -80,11 +99,15 @@ void ARWorkspace::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const doubl
 	this->eye_point_y	+= this->v3_gyro.y * scale * delta_t * -1;
 	this->eye_angle		+= this->v3_gyro.z * 0.02 * delta_t  * -1;
 
-	{
-		// ジャイロ角速度の積分値.
-		//this->DebugString(U"gyro integral x:{:.3f},angle{:.1f}"_fmt
-		//(this->eye_point_x, this->eye_point_y, this->eye_angle));
-	}
+	
+}
+
+void ARWorkspace::SetAccelVector(const Vector3AndTimestamp& arg_accel, const double delta_t)
+{
+	this->v3_accel.x = std::get<0>(arg_accel);
+	this->v3_accel.y = std::get<1>(arg_accel);
+	this->v3_accel.z = std::get<2>(arg_accel);
+
 }
 
 void ARWorkspace::SetOrientationQuaternion(const Float4AndTimestamp& arg_quaternion, const double delta_t)
