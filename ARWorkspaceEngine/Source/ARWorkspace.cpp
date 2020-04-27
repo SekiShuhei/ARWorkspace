@@ -11,6 +11,12 @@ ARWorkspace::ARWorkspace()
 
 void ARWorkspace::Update()
 {
+	this->drawDebugString(0, 100);
+
+	double scale = 1.0;
+	int offset_x = 500;
+	int offset_y = 500;
+
 	{
 		float gyro_x = this->v3_gyro_raw.x;
 		float gyro_y = this->v3_gyro_raw.y;
@@ -27,15 +33,13 @@ void ARWorkspace::Update()
 		this->DebugString(U"madgwick_filter roll:{:.1f},pitch:{:.1f},yaw{:.1f}"_fmt
 		(roll, pitch, yaw));
 
+		scale = 8.0;
+		this->DrawSensorCursor(yaw, pitch, offset_x - 1200, offset_y, scale, roll / 8,
+			U"MadgwickAngle", Palette::Cadetblue);
 
 	}
 
-	this->drawDebugString(0, 100);
-
-	double scale = 1.0;
-	int offset_x = 500;
-	int offset_y = 500;
-
+	scale = 1.0;
 	this->DrawSensorCursor(this->eye_point_x, this->eye_point_y,
 		offset_x, offset_y, scale,
 		this->eye_angle, U"gyro integral", Palette::Aquamarine);
@@ -46,21 +50,21 @@ void ARWorkspace::Update()
 		this->v3_gyro.z / 100, U"gyro", Palette::Ivory);
 
 
-	scale = -1.0;
-	this->DrawSensorCursor(
-		this->v3_compass.x,
-		this->v3_compass.y,
-		offset_x, offset_y, scale,
-		this->v3_compass.z, 
-		U"compass", Palette::Gold);
+	//scale = -1.0;
+	//this->DrawSensorCursor(
+	//	this->v3_compass.x,
+	//	this->v3_compass.y,
+	//	offset_x, offset_y, scale,
+	//	this->v3_compass.z, 
+	//	U"compass", Palette::Gold);
 
 	scale = 300.0;
-	this->DrawSensorCursor(
-		this->v3_orientation.x,
-		this->v3_orientation.y,
-		offset_x, offset_y, scale,
-		this->v3_orientation.z, 
-		U"orientation", Palette::Lightgreen);
+	//this->DrawSensorCursor(
+	//	this->v3_orientation.x,
+	//	this->v3_orientation.y,
+	//	offset_x, offset_y, scale,
+	//	this->v3_orientation.z, 
+	//	U"orientation", Palette::Lightgreen);
 
 }
 
