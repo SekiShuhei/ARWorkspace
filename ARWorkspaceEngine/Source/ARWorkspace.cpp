@@ -1,3 +1,5 @@
+
+#include "MadgwickAHRS/MadgwickAHRS.h"
 #include "ARWorkspace.hpp"
 
 namespace ARWorkspace {
@@ -46,6 +48,10 @@ void ARWorkspace::SetEyeAngle(double arg_x, double arg_y, double arg_z)
 	double z = (arg_z - this->start_angle_z) * this->eye_angle_scale;
 
 	//this->SetEyePoint((int64_t)x, (int64_t)y);
+
+	//Madgwick madgwick_filter;
+	
+
 }
 
 void ARWorkspace::SetEyePoint(int64_t arg_x, int64_t arg_y)

@@ -28,6 +28,9 @@
       <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="Source\ARWorkspace.cpp" />
+    <ClCompile Include="Library\ThirdParty\MadgwickAHRS\MadgwickAHRS.cpp">
+      <Filter>ThirdParty</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\framework.h" />
@@ -81,6 +84,9 @@
     </Filter>
     <Filter Include="Utility">
       <UniqueIdentifier>{f73744a7-84e0-4bcd-affe-1b3cc7c6802b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty">
+      <UniqueIdentifier>{9d433397-7ab9-41c4-8a93-74eac52bbd33}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
