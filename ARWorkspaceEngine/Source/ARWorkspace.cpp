@@ -9,6 +9,8 @@ ARWorkspace::ARWorkspace()
 
 void ARWorkspace::Update()
 {
+	this->drawDebugString(0, 100);
+
 	double scale = 1.0;
 	int offset_x = 500;
 	int offset_y = 500;
@@ -48,6 +50,9 @@ void ARWorkspace::SetGravityVector(const Vector3AndTimestamp& arg_gravity, const
 	this->v3_gravity.x = std::get<0>(arg_gravity);
 	this->v3_gravity.y = std::get<1>(arg_gravity);
 	this->v3_gravity.z = std::get<2>(arg_gravity);
+
+	
+	auto a = this->v3_gravity.dot(s3d::Vec3::UnitY());
 }
 
 void ARWorkspace::SetCompassVector(const Vector3AndTimestamp& arg_compass, const double delta_t)
@@ -63,9 +68,13 @@ void ARWorkspace::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const doubl
 	this->v3_gyro.y = std::get<0>(arg_gyro) * -1; //BT30 X axis => -Y
 	this->v3_gyro.z = std::get<2>(arg_gyro) * -1;
 
-	this->font(U"gyro:{},{},{}"_fmt
-	(this->v3_gyro.x, this->v3_gyro.y, this->v3_gyro.z))
-		.draw(0, 100);
+	this->DebugString(U"gyro:{},{},{}"_fmt
+	(this->v3_gyro.x, this->v3_gyro.y, this->v3_gyro.z));
+	
+
+	//this->font(U"gyro:{},{},{}"_fmt
+	//(this->v3_gyro.x, this->v3_gyro.y, this->v3_gyro.z))
+	//	.draw(0, 100);
 
 	double scale = 30;
 	this->eye_point_x	+= this->v3_gyro.x * scale * delta_t * -1;
@@ -109,9 +118,7 @@ void ARWorkspace::SetEyePoint(int64_t arg_x, int64_t arg_y)
 
 
 void ARWorkspace::DrawSensorCursor(double x, double y, 
-	int offset_x, int offset_y,
-	double display_scale,
-	double angle, 
+	int offset_x, int offset_y, double display_scale, double angle, 
 	const s3d::String& name, s3d::Color color)
 {
 	int string_offset_x = 60;
@@ -125,5 +132,25 @@ void ARWorkspace::DrawSensorCursor(double x, double y,
 	font(name + U" x:{},y:{},angle{:.2f}"_fmt(x, y, angle)).
 		draw(disp_x + string_offset_x, disp_y, color);
 }
+
+void ARWorkspace::DebugString(const s3d::String& arg_string)
+{
+	this->debug_strings.emplace_back(arg_string);
+}
+
+void ARWorkspace::drawDebugString(int arg_x, int arg_y)
+{
+	int x = arg_x;
+	int y = arg_y;
+	int counter = 0;
+	for (const auto& string : this->debug_strings)
+	{
+		this->font(string).draw(x, y + (counter * 30), HSV(counter * 30));
+		++counter;
+	}
+	this->debug_strings.clear();
+}
+
+
 
 }

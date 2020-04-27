@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <tuple>
 #include <Siv3D.hpp>
 
@@ -25,6 +26,10 @@ public:
 	void SetEyePoint(int64_t arg_x, int64_t arg_y);
 
 	void DrawSensorCursor(double x, double y, int offset_x, int offset_y, double display_scale, double angle, const s3d::String& name, s3d::Color color);
+
+	void DebugString(const s3d::String& arg_string);
+
+	void drawDebugString(int arg_x, int arg_y);
 
 	
 
@@ -54,6 +59,9 @@ private:
 	double	display_scale = 1.0;
 	int		display_size_x = 800;
 	int		display_size_y = 600;
+
+
+	std::vector<s3d::String> debug_strings = std::vector<s3d::String>(30);
 };
 
 }
