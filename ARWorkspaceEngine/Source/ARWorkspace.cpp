@@ -7,6 +7,15 @@ ARWorkspace::ARWorkspace()
 {
 }
 
+void ARWorkspace::Update()
+{
+
+	this->DrawSensorCursor(this->eye_point_x, this->eye_point_y, 
+		this->eye_angle, U"test", Palette::Aquamarine);
+
+
+}
+
 void ARWorkspace::SetGravityVector(const Vector3AndTimestamp& arg_gravity, const double delta_t)
 {
 	this->v3_gravity.x = std::get<0>(arg_gravity);
@@ -36,9 +45,7 @@ void ARWorkspace::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const doubl
 	this->eye_point_y	+= this->v3_gyro.y * scale * delta_t * -1;
 	this->eye_angle		+= this->v3_gyro.z * 0.02 * delta_t  * -1;
 
-	Triangle(this->eye_point_x + 500, this->eye_point_y + 500, 150).
-		rotated(this->eye_angle).draw();
-
+	
 }
 
 void ARWorkspace::SetEyeAngle(double arg_x, double arg_y, double arg_z)
@@ -58,6 +65,20 @@ void ARWorkspace::SetEyePoint(int64_t arg_x, int64_t arg_y)
 {
 	this->eye_point_x = arg_x;
 	this->eye_point_y = arg_y;
+}
+
+
+void ARWorkspace::DrawSensorCursor(int x, int y, double angle, const s3d::String& name, s3d::Color color)
+{
+	int offset_x = 500;
+	int offset_y = 500;
+	int string_offset_x = 60;
+
+	Triangle(x + offset_x, y + offset_y, 100).
+		rotated(this->eye_angle).draw(color);
+
+	font(name + U" x:{},y:{},angle{:.2f}"_fmt(x, y, angle)).
+		draw(x + offset_x + string_offset_x, y + offset_y, color);
 }
 
 }

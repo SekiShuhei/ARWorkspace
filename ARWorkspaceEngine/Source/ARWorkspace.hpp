@@ -12,13 +12,18 @@ public:
 
 public:
 
+	void Update();
+
 	void SetGravityVector(const Vector3AndTimestamp& arg_gravity, const double delta_t);
 	void SetCompassVector(const Vector3AndTimestamp& arg_compass, const double delta_t);
 	void SetGyroVector(const  Vector3AndTimestamp& arg_gyro, const double delta_t);
 
 	void SetEyeAngle(double arg_x, double arg_y, double arg_z);
 	void SetEyePoint(int64_t arg_x, int64_t arg_y);
-	
+
+	void DrawSensorCursor(int x, int y, double angle, const s3d::String& name, s3d::Color color);
+
+
 	std::tuple<int64_t, int64_t> GetEyePoint() const
 	{
 		return std::tuple<int64_t, int64_t>(this->eye_point_x, this->eye_point_y);
@@ -26,7 +31,7 @@ public:
 
 private:
 
-	const s3d::Font	font = s3d::Font(30);
+	const s3d::Font	font = s3d::Font(40);
 
 	s3d::Vec3	v3_gravity;
 	s3d::Vec3	v3_compass;

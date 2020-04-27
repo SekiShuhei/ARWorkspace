@@ -53,35 +53,12 @@ void Main()
 			ar_workspace.SetCompassVector(sensor.GetCompassData(), delta_t);
 			ar_workspace.SetGyroVector(sensor.GetGyrometerData(), delta_t);
 
-			//double x = 0.0, y = 0.0, z = 0.0, w = 0.0;
-			//auto sensor_val = sensor.GetGravityVectorData();
-			//auto  v3 = s3d::Vector3D(
-			//	std::get<0>(sensor_val),
-			//	std::get<1>(sensor_val),
-			//	std::get<2>(sensor_val));
-			//
-			//auto a = s3d::ToDegrees(v3);
-			//
-			//x = a.x;
-			//y = a.y;
-			//z = a.z;
-			//
-			//
-			////x = s3d::ToDegrees((double)v3.x);
-			////y = s3d::ToDegrees((double)v3.y);
-			////z = s3d::ToDegrees((double)v3.z);
-			//font(U"angle x:{:.2f},y:{:.2f},z:{:.2f}"_fmt(x, y, z)).draw(0.0, 100.0, Palette::Green);
-		
-
+			
 			//// to ARWS
 		}
 		{
-			auto pt = ar_workspace.GetEyePoint();
-			int x = std::get<0>(pt);
-			int y = std::get<1>(pt);
-			font(U"eye_pt x:{},y:{}"_fmt(x, y)).draw(0.0, 200.0, Palette::Blueviolet);
 		
-		
+			ar_workspace.Update();
 		}
 
 
