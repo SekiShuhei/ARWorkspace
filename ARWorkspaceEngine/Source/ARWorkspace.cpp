@@ -9,10 +9,37 @@ ARWorkspace::ARWorkspace()
 
 void ARWorkspace::Update()
 {
+	double scale = 1.0;
+	int offset_x = 500;
+	int offset_y = 500;
 
-	this->DrawSensorCursor(this->eye_point_x, this->eye_point_y, 
-		this->eye_angle, U"test", Palette::Aquamarine);
+	this->DrawSensorCursor(this->eye_point_x, this->eye_point_y,
+		offset_x, offset_y, scale,
+		this->eye_angle, U"eye_pt", Palette::Aquamarine);
 
+	scale = 300.0;
+	this->DrawSensorCursor(
+		this->v3_gravity.x, 
+		this->v3_gravity.y,
+		offset_x, offset_y, scale,
+		this->v3_gravity.z, 
+		U"gravity", Palette::Purple);
+
+	scale = -1.0;
+	this->DrawSensorCursor(
+		this->v3_compass.x,
+		this->v3_compass.y,
+		offset_x, offset_y, scale,
+		this->v3_compass.z, 
+		U"compass", Palette::Gold);
+
+	scale = 300.0;
+	this->DrawSensorCursor(
+		this->v3_orientation.x,
+		this->v3_orientation.y,
+		offset_x, offset_y, scale,
+		this->v3_orientation.z, 
+		U"orientation", Palette::Lightgreen);
 
 }
 
@@ -48,6 +75,19 @@ void ARWorkspace::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const doubl
 	
 }
 
+void ARWorkspace::SetOrientationQuaternion(const Float4AndTimestamp& arg_quaternion, const double delta_t)
+{
+	auto q = s3d::Quaternion(
+		std::get<0>(arg_quaternion),
+		std::get<1>(arg_quaternion),
+		std::get<2>(arg_quaternion),
+		std::get<3>(arg_quaternion));
+
+	this->v3_orientation = q.toAxisAngle().first;
+
+	
+}
+
 void ARWorkspace::SetEyeAngle(double arg_x, double arg_y, double arg_z)
 {
 	double x = (arg_x - this->start_angle_x) * this->eye_angle_scale;
@@ -68,17 +108,22 @@ void ARWorkspace::SetEyePoint(int64_t arg_x, int64_t arg_y)
 }
 
 
-void ARWorkspace::DrawSensorCursor(int x, int y, double angle, const s3d::String& name, s3d::Color color)
+void ARWorkspace::DrawSensorCursor(double x, double y, 
+	int offset_x, int offset_y,
+	double display_scale,
+	double angle, 
+	const s3d::String& name, s3d::Color color)
 {
-	int offset_x = 500;
-	int offset_y = 500;
 	int string_offset_x = 60;
 
-	Triangle(x + offset_x, y + offset_y, 100).
-		rotated(this->eye_angle).draw(color);
+	int disp_x = (x * display_scale) + offset_x;
+	int disp_y = (y * display_scale) + offset_y;
+
+	Triangle(disp_x, disp_y, 100).
+		rotated(angle).draw(color);
 
 	font(name + U" x:{},y:{},angle{:.2f}"_fmt(x, y, angle)).
-		draw(x + offset_x + string_offset_x, y + offset_y, color);
+		draw(disp_x + string_offset_x, disp_y, color);
 }
 
 }
