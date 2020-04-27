@@ -12,9 +12,9 @@ ARWorkspace::ARWorkspace()
 void ARWorkspace::Update()
 {
 	{
-		float gyro_x = this->v3_gyro.x;
-		float gyro_y = this->v3_gyro.y;
-		float gyro_z = this->v3_gyro.z;
+		float gyro_x = this->v3_gyro_raw.x;
+		float gyro_y = this->v3_gyro_raw.y;
+		float gyro_z = this->v3_gyro_raw.z;
 		float accel_x = this->v3_accel.x;
 		float accel_y = this->v3_accel.y;
 		float accel_z = this->v3_accel.z;
@@ -96,9 +96,9 @@ void ARWorkspace::SetCompassVector(const Vector3AndTimestamp& arg_compass, const
 
 void ARWorkspace::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const double delta_t)
 {
-	this->v3_gyro_raw.x = std::get<0>(arg_gyro);
-	this->v3_gyro_raw.y = std::get<1>(arg_gyro);
-	this->v3_gyro_raw.z = std::get<2>(arg_gyro);
+	this->v3_gyro_raw.x = std::get<2>(arg_gyro);
+	this->v3_gyro_raw.y = std::get<0>(arg_gyro);
+	this->v3_gyro_raw.z = std::get<1>(arg_gyro);
 
 	this->v3_gyro.x = std::get<1>(arg_gyro) * -1; //BT30 Y axis => -X
 	this->v3_gyro.y = std::get<0>(arg_gyro) * -1; //BT30 X axis => -Y

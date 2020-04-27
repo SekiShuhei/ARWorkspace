@@ -37,7 +37,7 @@ void Main()
 	sensor.AddSensor(WinSensor::SensorType::Gyrometer);
 	sensor.AddSensor(WinSensor::SensorType::AggregatedDeviceOrientation);
 	sensor.AddSensor(WinSensor::SensorType::LinearAccelerometer);
-
+	
 	while (System::Update())
 	{
 		
