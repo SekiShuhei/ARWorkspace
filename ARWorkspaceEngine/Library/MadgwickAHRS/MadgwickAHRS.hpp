@@ -57,8 +57,6 @@ public:
     {
         return std::tuple<double, double, double, double>(this->q0, this->q1, this->q2, this->q3);
     }
-
-    //void getEulerAngle(double* val); // old.
     
     [[nodiscord]]
     inline std::tuple<double, double, double> GetEulerAngleRad() const noexcept
@@ -85,13 +83,6 @@ MadgwickFilter::MadgwickFilter(double B) {
     q3 = 0.0f;
 }
 
-//void MadgwickFilter::getEulerAngle(double* val) {
-//    double q0q0 = q0 * q0, q1q1q2q2 = q1 * q1 - q2 * q2, q3q3 = q3 * q3;
-//    val[0] = (atan2(2.0f * (q0 * q1 + q2 * q3), q0q0 - q1q1q2q2 + q3q3));
-//    val[1] = (-asin(2.0f * (q1 * q3 - q0 * q2)));
-//    val[2] = (atan2(2.0f * (q1 * q2 + q0 * q3), q0q0 + q1q1q2q2 - q3q3));
-//}
-
 //---------------------------------------------------------------------------------------------------
 // AHRS algorithm update
 
@@ -101,7 +92,6 @@ inline void MadgwickFilter::MadgwickAHRSupdate(
     double mx, double my, double mz, double delta_t) {
 
     double acc_norm;
-    //static double delta_t = 0;
     static unsigned int newTime = 0, oldTime = 0;
     double recipNorm;
     double s0, s1, s2, s3;
@@ -214,7 +204,6 @@ inline void MadgwickFilter::MadgwickAHRSupdateIMU(
     double gx, double gy, double gz, 
     double ax, double ay, double az, double delta_t) 
 {
-    //static double delta_t = 0;
     static unsigned int newTime = 0, oldTime = 0;
     double recipNorm;
     double s0, s1, s2, s3;
@@ -229,8 +218,8 @@ inline void MadgwickFilter::MadgwickAHRSupdateIMU(
     qDot4 = 0.5f * (q0 * gz + q1 * gy - q2 * gx);
 
     // Compute feedback only if accelerometer measurement valid (avoids NaN in accelerometer normalisation)
-    if (!((ax == 0.0f) && (ay == 0.0f) && (az == 0.0f))) {
-
+    if (!((ax == 0.0f) && (ay == 0.0f) && (az == 0.0f))) 
+    {
         // Normalise accelerometer measurement
         acc_norm = sqrt(ax * ax + ay * ay + az * az);
         recipNorm = 1.0 / acc_norm;
