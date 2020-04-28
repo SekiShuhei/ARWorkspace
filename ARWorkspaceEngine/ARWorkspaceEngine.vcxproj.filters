@@ -31,7 +31,6 @@
     <ClCompile Include="Library\ThirdParty\MadgwickAHRS\MadgwickAHRS.cpp">
       <Filter>ThirdParty</Filter>
     </ClCompile>
-    <ClCompile Include="Library\MadgwickAHRS\MadgwickAHRS.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\framework.h" />
@@ -70,7 +69,6 @@
     </ClInclude>
     <ClInclude Include="Source\ARWorkspace.hpp" />
     <ClInclude Include="Library\ThirdParty\MadgwickAHRS\MadgwickAHRS.h" />
-    <ClInclude Include="Library\MadgwickAHRS\MadgwickAHRS.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GUI">

@@ -169,7 +169,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Library\MadgwickAHRS\MadgwickAHRS.h" />
     <ClInclude Include="Library\ThirdParty\MadgwickAHRS\MadgwickAHRS.h" />
     <ClInclude Include="Source\DropDownMenu.hpp" />
     <ClInclude Include="Source\framework.h" />
@@ -188,7 +187,6 @@
     <ClInclude Include="Source\WinScreenCapture.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Library\MadgwickAHRS\MadgwickAHRS.c" />
     <ClCompile Include="Library\ThirdParty\MadgwickAHRS\MadgwickAHRS.cpp" />
     <ClCompile Include="Source\DropDownMenu.cpp" />
     <ClCompile Include="Source\pch.cpp">
