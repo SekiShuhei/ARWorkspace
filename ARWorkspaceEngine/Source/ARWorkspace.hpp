@@ -53,11 +53,14 @@ private:
 	s3d::Vec3	compass;
 	s3d::Vec3	gyro;
 	s3d::Vec3	gyro_raw; //to Madgwick Filter
+	s3d::Vec3	gyro_integral;
 	s3d::Vec3	orientation;
 	s3d::Vec3	accel;
 
-	s3d::Vec3	eye_point;
-	s3d::Vec3	eye_point2; // 重力内積を基にした注視点
+	bool		compass_startup_initialized = false;
+	s3d::Vec3	compass_startup;
+	s3d::Vec3	eye_point1;	// 重力内積+ジャイロ積分.
+	s3d::Vec3	eye_point2; // 重力内積+コンパス差分.
 	double		compass_diff = 0.0;
 	double		compass_diff_integral = 0.0;
 

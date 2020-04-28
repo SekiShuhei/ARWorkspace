@@ -27,7 +27,7 @@ void ARWorkspace::Update(const double delta_t)
 
 		auto roll  = this->madgwick_filter.getRollRadians() ;
 		auto pitch = this->madgwick_filter.getPitchRadians();
-		auto yaw   = this->madgwick_filter.getYawRadians()  ;
+		auto yaw   = this->madgwick_filter.getYawRadians() + 2;
 
 		this->DebugString(U"madgwick_filter roll:{:.1f},pitch:{:.1f},yaw{:.1f}"_fmt
 		(roll, pitch, yaw));
@@ -39,9 +39,9 @@ void ARWorkspace::Update(const double delta_t)
 	}
 
 	scale = 0.3 * 30;
-	this->DrawSensorCursor(this->eye_point.x, this->eye_point.y,
+	this->DrawSensorCursor(this->gyro_integral.x, this->gyro_integral.y,
 		offset_x, offset_y, scale,
-		this->eye_point.z * 0.018, U"gyro integral", Palette::Aquamarine);
+		this->gyro_integral.z * 0.018, U"gyro integral", Palette::Aquamarine);
 
 	scale = 1.0;
 	this->DrawSensorCursor(this->gyro.x, this->gyro.y,
@@ -49,22 +49,22 @@ void ARWorkspace::Update(const double delta_t)
 		this->gyro.z / 100, U"gyro", Palette::Ivory);
 
 	scale = 300.0;
-	this->DrawSensorCursor(this->gravity_dot.x, this->gravity_dot.y,
+	this->DrawSensorCursor(
+		this->eye_point1.x, this->eye_point1.y,
 		offset_x, offset_y, scale,
-		this->gravity_dot.z, U"gravity dot", Palette::Lightgreen);
+		this->eye_point1.z * 1.7, 
+		U"eye_pt1", Palette::Lightgreen);
 
 	scale = 300.0;
 	this->DrawSensorCursor(
-		this->orientation.x,
-		this->orientation.y,
+		this->orientation.x, this->orientation.y,
 		offset_x, offset_y, scale,
 		this->orientation.z, 
 		U"orientation", Palette::Beige);
 
 	scale = 300.0;
 	this->DrawSensorCursor(
-		this->eye_point2.x,
-		this->eye_point2.y,
+		this->eye_point2.x, this->eye_point2.y,
 		offset_x, offset_y, scale,
 		this->eye_point2.z * 1.7,
 		U"eye_pt2", Palette::Orange);
@@ -117,9 +117,9 @@ void ARWorkspace::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const doubl
 	this->gyro.y = std::get<0>(arg_gyro) * -1; //BT30 X axis => -Y
 	this->gyro.z = std::get<2>(arg_gyro) * -1;
 
-	this->eye_point.x += this->gyro.x * delta_t; // * -1;
-	this->eye_point.y += this->gyro.y * delta_t; // * -1;
-	this->eye_point.z += this->gyro.z * delta_t; // * -1;
+	this->gyro_integral.x += this->gyro.x * delta_t; // * -1;
+	this->gyro_integral.y += this->gyro.y * delta_t; // * -1;
+	this->gyro_integral.z += this->gyro.z * delta_t; // * -1;
 
 	
 }
@@ -194,16 +194,28 @@ void ARWorkspace::drawDebugString(int arg_x, int arg_y)
 
 void ARWorkspace::updateEyePoint()
 {
+	if (! this->compass_startup_initialized)
+	{
+		this->compass_startup_initialized = true;
+		this->compass_startup = this->compass;
+	}
 
 	if (this->gravity_dot.y <= 0)
 	{
 		return;
 	}
+	this->eye_point1.y = this->gravity_dot.z;
+	this->eye_point1.z = this->gravity_dot.x * -1;
+
 	this->eye_point2.y = this->gravity_dot.z;
 	this->eye_point2.z = this->gravity_dot.x * -1;
 
 	// ƒˆ[Šp‚Í‘¼‚©‚ç‚à‚Á‚Ä‚­‚é.
-	this->eye_point2.x = this->compass_diff_integral / 100;
+	this->eye_point1.x = this->gyro_integral.x / 100;
+
+	this->eye_point2.x = (this->compass.x - this->compass_startup.x) / 100 * -1;
+
+	//this->eye_point2.x = this->compass_dsiff_integral / 100;
 
 	
 }
