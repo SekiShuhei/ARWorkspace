@@ -23,8 +23,7 @@
 #pragma once
 
 #include <math.h>
-//#include "mbed.h"
-//#include "Quaternion.hpp"
+#include <tuple>
 
 #define BETA_DEF 0.1
 
@@ -33,104 +32,76 @@ class MadgwickFilter
 {
 
 public:
-    /**
-      @bref   マドグウィックフィルター(マッジュウィックフィルター)クラスのコンストラクタ
-        @param  B   double型, この値を大きくすると重力の影響を大きく取るようになります．
-        @note   引数無しの場合，B = 0.1fが代入されます．
-    */
+    // この値を大きくすると重力の影響を大きく取るようになります．
     MadgwickFilter(double B = BETA_DEF);
 
 public:
-    /**
-        @bref   MadgwickFilterによって角速度・加速度・地磁気データを統合し，姿勢計算します．
-        @param  gx,gy,gz    角速度データ，[rad]に変換してから入れてください．
-        @param  ax,ay,az    加速度データ, 特に規格化は必要ありません
-        @param  mx,my,mz    地磁気データ, キャリブレーションを確実に行って下さい．
-        @note   角速度は[rad]にしてください．この関数は出来るだけ高速に呼び出し続けた方が良いと思います．
-        @note   外部でローパスフィルタなどをかけることをお勧めします．
-    */
-    void MadgwickAHRSupdate(double gx, double gy, double gz, double ax, double ay, double az, double mx, double my, double mz);
+    // MadgwickFilterによって角速度・加速度・地磁気データを統合し，姿勢計算します．
+    // gx,gy,gz    ジャイロ角速度データ[rad\s].
+    // ax,ay,az    加速度データ, 特に規格化は必要ありません
+    // mx,my,mz    地磁気データ, キャリブレーションを確実に行って下さい．
+    void MadgwickAHRSupdate(
+        double gx, double gy, double gz, 
+        double ax, double ay, double az, 
+        double mx, double my, double mz, double delta_t);
 
-    /**
-        @bref   MadgwickFilterを角速度と加速度のみで動かし，姿勢計算を更新します．
-        @param  gx,gy,gz    角速度データ，[rad]に変換してから入れてください．
-        @param  ax,ay,az    加速度データ, 特に規格化は必要ありません
-        @note   通常の関数でも，地磁気成分を0.0にすればこの関数が呼ばれます．
-    */
-    void MadgwickAHRSupdateIMU(double gx, double gy, double gz, double ax, double ay, double az);
+    // MadgwickFilterを角速度と加速度のみで動かし，姿勢計算を更新します．
+    // 通常の関数でも，地磁気成分を0.0にすればこの関数が呼ばれます．
+    void MadgwickAHRSupdateIMU(
+        double gx, double gy, double gz, 
+        double ax, double ay, double az, double delta_t);
 
-    /**
-        @bref   姿勢を四元数で取得します．
-        @param  Q   クォータニオンクラスのインスタンスアドレス, w・i・j・kを更新します．
-        @note   unityに入れる際は軸方向を修正してください．
-    */
-    //void getAttitude(Quaternion* Q);
+    
+    [[nodiscord]]
+    inline std::tuple<double, double, double, double> GetQuaternion() const noexcept
+    {
+        return std::tuple<double, double, double, double>(this->q0, this->q1, this->q2, this->q3);
+    }
 
-    /**
-        @bref   姿勢を四元数で取得します．
-        @param  _q0 実部w, double型, アドレス
-        @param  _q1 虚部i, double型, アドレス
-        @param  _q2 虚部j, double型, アドレス
-        @param  _q3 虚部k, double型, アドレス
-        @note   unityに入れる際は軸方向を修正してください．
-    */
-    //void getAttitude(double* _q0, double* _q1, double* _q2, double* _q3);
+    //void getEulerAngle(double* val); // old.
+    
+    [[nodiscord]]
+    inline std::tuple<double, double, double> GetEulerAngleRad() const noexcept
+    {
+        double q0q0 = q0 * q0;
+        double q1q1q2q2 = q1 * q1 - q2 * q2;
+        double q3q3 = q3 * q3;
+        double roll  = (atan2(2.0f * (q0 * q1 + q2 * q3), q0q0 - q1q1q2q2 + q3q3));
+        double pitch = (-asin(2.0f * (q1 * q3 - q0 * q2)));
+        double yaw   = (atan2(2.0f * (q1 * q2 + q0 * q3), q0q0 + q1q1q2q2 - q3q3));
+        return std::tuple<double, double, double>(roll, pitch, yaw);
+    }
 
-    /**
-    @bref   オイラー角で姿勢を取得します．
-    @param  val ロール，ピッチ，ヨーの順に配列に格納します．３つ以上の要素の配列を入れてください．
-    @note   値は[rad]です．[degree]に変換が必要な場合は別途計算して下さい．
-    */
-    void getEulerAngle(double* val);
-public:
-    //Timer madgwickTimer;
-    //Quaternion q;
-    double q0, q1, q2, q3;  // quaternion
+private:
+    double q0, q1, q2, q3;  // quaternion.
     double beta;
 };
 
 MadgwickFilter::MadgwickFilter(double B) {
-    //q.w = 1.0f;
-    //q.x = 0.0f;
-    //q.y = 0.0f;
-    //q.z = 0.0f;
     beta = B;
     q0 = 1.0f;
     q1 = 0.0f;
     q2 = 0.0f;
     q3 = 0.0f;
-    //madgwickTimer.start();
 }
 
-//void MadgwickFilter::getAttitude(Quaternion* Q) {
-//    *Q = q;
-//    return;
+//void MadgwickFilter::getEulerAngle(double* val) {
+//    double q0q0 = q0 * q0, q1q1q2q2 = q1 * q1 - q2 * q2, q3q3 = q3 * q3;
+//    val[0] = (atan2(2.0f * (q0 * q1 + q2 * q3), q0q0 - q1q1q2q2 + q3q3));
+//    val[1] = (-asin(2.0f * (q1 * q3 - q0 * q2)));
+//    val[2] = (atan2(2.0f * (q1 * q2 + q0 * q3), q0q0 + q1q1q2q2 - q3q3));
 //}
 
-
-
-//void MadgwickFilter::getAttitude(double* _q0, double* _q1, double* _q2, double* _q3) {
-//    *_q0 = q0;
-//    *_q1 = q1;
-//    *_q2 = q2;
-//    *_q3 = q3;
-//    return;
-//}
-
-
-void MadgwickFilter::getEulerAngle(double* val) {
-    double q0q0 = q0 * q0, q1q1q2q2 = q1 * q1 - q2 * q2, q3q3 = q3 * q3;
-    val[0] = (atan2(2.0f * (q0 * q1 + q2 * q3), q0q0 - q1q1q2q2 + q3q3));
-    val[1] = (-asin(2.0f * (q1 * q3 - q0 * q2)));
-    val[2] = (atan2(2.0f * (q1 * q2 + q0 * q3), q0q0 + q1q1q2q2 - q3q3));
-}
 //---------------------------------------------------------------------------------------------------
 // AHRS algorithm update
 
-inline void MadgwickFilter::MadgwickAHRSupdate(double gx, double gy, double gz, double ax, double ay, double az, double mx, double my, double mz) {
+inline void MadgwickFilter::MadgwickAHRSupdate(
+    double gx, double gy, double gz, 
+    double ax, double ay, double az, 
+    double mx, double my, double mz, double delta_t) {
 
     double acc_norm;
-    static double deltaT = 0;
+    //static double delta_t = 0;
     static unsigned int newTime = 0, oldTime = 0;
     double recipNorm;
     double s0, s1, s2, s3;
@@ -139,8 +110,9 @@ inline void MadgwickFilter::MadgwickAHRSupdate(double gx, double gy, double gz, 
     double _2q0mx, _2q0my, _2q0mz, _2q1mx, _2bx, _2bz, _4bx, _4bz, _2q0, _2q1, _2q2, _2q3, _2q0q2, _2q2q3, q0q0, q0q1, q0q2, q0q3, q1q1, q1q2, q1q3, q2q2, q2q3, q3q3;
 
     // Use IMU algorithm if magnetometer measurement invalid (avoids NaN in magnetometer normalisation)
-    if ((mx == 0.0f) && (my == 0.0f) && (mz == 0.0f)) {
-        MadgwickAHRSupdateIMU(gx, gy, gz, ax, ay, az);
+    if ((mx == 0.0f) && (my == 0.0f) && (mz == 0.0f)) 
+    {
+        MadgwickAHRSupdateIMU(gx, gy, gz, ax, ay, az, delta_t);
         return;
     }
 
@@ -221,17 +193,10 @@ inline void MadgwickFilter::MadgwickAHRSupdate(double gx, double gy, double gz, 
         qDot4 -= beta * s3;
     }
 
-    // Integrate rate of change of quaternion to yield quaternion
-    //newTime = (unsigned int)madgwickTimer.read_us();
-    //deltaT = (newTime - oldTime) / 1000000.0;
-    //deltaT = fabs(deltaT);
-    //oldTime = newTime;
-    deltaTは引数で直接指定;
-
-    q0 += qDot1 * deltaT;//(1.0f / sampleFreq);
-    q1 += qDot2 * deltaT;//(1.0f / sampleFreq);
-    q2 += qDot3 * deltaT;//(1.0f / sampleFreq);
-    q3 += qDot4 * deltaT;//(1.0f / sampleFreq);
+    q0 += qDot1 * delta_t;//(1.0f / sampleFreq);
+    q1 += qDot2 * delta_t;//(1.0f / sampleFreq);
+    q2 += qDot3 * delta_t;//(1.0f / sampleFreq);
+    q3 += qDot4 * delta_t;//(1.0f / sampleFreq);
 
     // Normalise quaternion
     recipNorm = 1.0 / sqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
@@ -240,17 +205,16 @@ inline void MadgwickFilter::MadgwickAHRSupdate(double gx, double gy, double gz, 
     q2 *= recipNorm;
     q3 *= recipNorm;
 
-    //q.w = q0;
-    //q.x = q1;
-    //q.y = q2;
-    //q.z = q3;
 }
 
 //---------------------------------------------------------------------------------------------------
 // IMU algorithm update
 
-inline void MadgwickFilter::MadgwickAHRSupdateIMU(double gx, double gy, double gz, double ax, double ay, double az) {
-    static double deltaT = 0;
+inline void MadgwickFilter::MadgwickAHRSupdateIMU(
+    double gx, double gy, double gz, 
+    double ax, double ay, double az, double delta_t) 
+{
+    //static double delta_t = 0;
     static unsigned int newTime = 0, oldTime = 0;
     double recipNorm;
     double s0, s1, s2, s3;
@@ -311,18 +275,10 @@ inline void MadgwickFilter::MadgwickAHRSupdateIMU(double gx, double gy, double g
         qDot4 -= beta * s3;
     }
 
-    // Integrate rate of change of quaternion to yield quaternion
-    //newTime = (unsigned int)madgwickTimer.read_us();
-    //deltaT = (newTime - oldTime) / 1000000.0;
-    //deltaT = fabs(deltaT);
-    //oldTime = newTime;
-    deltaTは引数で直接指定;
-
-
-    q0 += qDot1 * deltaT;;
-    q1 += qDot2 * deltaT;;
-    q2 += qDot3 * deltaT;;
-    q3 += qDot4 * deltaT;;
+    q0 += qDot1 * delta_t;;
+    q1 += qDot2 * delta_t;;
+    q2 += qDot3 * delta_t;;
+    q3 += qDot4 * delta_t;;
 
     // Normalise quaternion
     recipNorm = 1.0 / sqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
@@ -331,10 +287,6 @@ inline void MadgwickFilter::MadgwickAHRSupdateIMU(double gx, double gy, double g
     q2 *= recipNorm;
     q3 *= recipNorm;
 
-    //q.w = q0;
-    //q.x = q1;
-    //q.y = q2;
-    //q.z = q3;
 };
 
 }
