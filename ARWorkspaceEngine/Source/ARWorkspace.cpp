@@ -9,6 +9,9 @@ ARWorkspace::ARWorkspace()
 
 void ARWorkspace::Update(const double delta_t)
 {
+
+	this->updateEyePoint();
+
 	this->drawDebugString(0, 100);
 
 	double scale = 1.0;
@@ -38,7 +41,7 @@ void ARWorkspace::Update(const double delta_t)
 	scale = 0.3 * 30;
 	this->DrawSensorCursor(this->eye_point.x, this->eye_point.y,
 		offset_x, offset_y, scale,
-		this->eye_point.z * 0.02, U"gyro integral", Palette::Aquamarine);
+		this->eye_point.z * 0.018, U"gyro integral", Palette::Aquamarine);
 
 	scale = 1.0;
 	this->DrawSensorCursor(this->gyro.x, this->gyro.y,
@@ -50,21 +53,21 @@ void ARWorkspace::Update(const double delta_t)
 		offset_x, offset_y, scale,
 		this->gravity_dot.z, U"gravity dot", Palette::Lightgreen);
 
-	//scale = -1.0;
-	//this->DrawSensorCursor(
-	//	this->compass.x,
-	//	this->compass.y,
-	//	offset_x, offset_y, scale,
-	//	this->compass.z, 
-	//	U"compass", Palette::Gold);
+	scale = 300.0;
+	this->DrawSensorCursor(
+		this->orientation.x,
+		this->orientation.y,
+		offset_x, offset_y, scale,
+		this->orientation.z, 
+		U"orientation", Palette::Beige);
 
 	scale = 300.0;
-	//this->DrawSensorCursor(
-	//	this->orientation.x,
-	//	this->orientation.y,
-	//	offset_x, offset_y, scale,
-	//	this->orientation.z, 
-	//	U"orientation", Palette::Lightgreen);
+	this->DrawSensorCursor(
+		this->eye_point2.x,
+		this->eye_point2.y,
+		offset_x, offset_y, scale,
+		this->eye_point2.z * 1.7,
+		U"eye_pt2", Palette::Orange);
 
 }
 
@@ -96,6 +99,9 @@ void ARWorkspace::SetGravityVector(const Vector3AndTimestamp& arg_gravity, const
 
 void ARWorkspace::SetCompassVector(const Vector3AndTimestamp& arg_compass, const double delta_t)
 {
+	this->compass_diff = this->compass.x - std::get<0>(arg_compass);
+	this->compass_diff_integral += this->compass_diff;
+
 	this->compass.x = std::get<0>(arg_compass);
 	this->compass.y = std::get<1>(arg_compass);
 	this->compass.z = std::get<2>(arg_compass);
@@ -184,6 +190,22 @@ void ARWorkspace::drawDebugString(int arg_x, int arg_y)
 		++counter;
 	}
 	this->debug_strings.clear();
+}
+
+void ARWorkspace::updateEyePoint()
+{
+
+	if (this->gravity_dot.y <= 0)
+	{
+		return;
+	}
+	this->eye_point2.y = this->gravity_dot.z;
+	this->eye_point2.z = this->gravity_dot.x * -1;
+
+	// ƒˆ[Šp‚Í‘¼‚©‚ç‚à‚Á‚Ä‚­‚é.
+	this->eye_point2.x = this->compass_diff_integral / 100;
+
+	
 }
 
 

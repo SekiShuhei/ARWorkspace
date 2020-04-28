@@ -35,12 +35,14 @@ public:
 
 	void drawDebugString(int arg_x, int arg_y);
 
-	
 
 	std::tuple<int64_t, int64_t> GetEyePoint() const
 	{
 		return std::tuple<int64_t, int64_t>(0,0);
 	}
+
+private:
+	void updateEyePoint();
 
 private:
 
@@ -55,6 +57,10 @@ private:
 	s3d::Vec3	accel;
 
 	s3d::Vec3	eye_point;
+	s3d::Vec3	eye_point2; // d—Í“àÏ‚ğŠî‚É‚µ‚½’‹“_
+	double		compass_diff = 0.0;
+	double		compass_diff_integral = 0.0;
+
 
 	double	start_angle_x = 0.0;
 	double	start_angle_y = 0.0;
