@@ -22,14 +22,14 @@ void ARWorkspace::Update(const double delta_t)
 			this->compass.x, this->compass.y, this->compass.z,
 			delta_t);
 
-		auto roll  = this->madgwick_filter.getRoll() ;
-		auto pitch = this->madgwick_filter.getPitch();
-		auto yaw   = this->madgwick_filter.getYaw()  ;
+		auto roll  = this->madgwick_filter.getRollRadians() ;
+		auto pitch = this->madgwick_filter.getPitchRadians();
+		auto yaw   = this->madgwick_filter.getYawRadians()  ;
 
 		this->DebugString(U"madgwick_filter roll:{:.1f},pitch:{:.1f},yaw{:.1f}"_fmt
 		(roll, pitch, yaw));
 
-		scale = 8.0;
+		scale = 8.0 * 50;
 		this->DrawSensorCursor(yaw, pitch, offset_x - 1400, offset_y, scale, roll / 12,
 			U"MadgwickAngle", Palette::Goldenrod);
 
