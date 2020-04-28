@@ -9,6 +9,14 @@ ARWorkspace::ARWorkspace()
 
 void ARWorkspace::Update(const double delta_t)
 {
+	if (this->IsDeviceRollFlat())
+	{
+		this->font(U"IsDeviceRollFlat = true").draw(Vec2(0, 600));
+	}
+	if (this->IsDeviceNearlyCompassStartAngle())
+	{
+		this->font(U"IsDeviceNearlyCompassStartAngle = true").draw(Vec2(0, 660));
+	}
 
 	this->updateEyePoint();
 
@@ -99,12 +107,20 @@ void ARWorkspace::SetGravityVector(const Vector3AndTimestamp& arg_gravity, const
 
 void ARWorkspace::SetCompassVector(const Vector3AndTimestamp& arg_compass, const double delta_t)
 {
+
 	this->compass_diff = this->compass.x - std::get<0>(arg_compass);
 	this->compass_diff_integral += this->compass_diff;
 
 	this->compass.x = std::get<0>(arg_compass);
 	this->compass.y = std::get<1>(arg_compass);
 	this->compass.z = std::get<2>(arg_compass);
+	
+
+	if (!this->compass_startup_initialized)
+	{
+		this->compass_startup_initialized = true;
+		this->compass_startup = this->compass;
+	}
 }
 
 void ARWorkspace::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const double delta_t)
@@ -192,14 +208,34 @@ void ARWorkspace::drawDebugString(int arg_x, int arg_y)
 	this->debug_strings.clear();
 }
 
+bool ARWorkspace::IsDeviceRollFlat() const
+{
+	if (this->gravity_dot.y < 0.0)
+	{
+		return false;
+	}
+	if (ARWorkspace::IsApprox(this->gravity_dot.x, 0.0, 
+		this->device_roll_flat_margin))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool ARWorkspace::IsDeviceNearlyCompassStartAngle() const
+{
+	return 
+		(ARWorkspace::IsApprox(this->compass.x, this->compass_startup.x, 
+			this->device_nearly_compass_start_margin) &&
+		ARWorkspace::IsApprox(this->compass.y, this->compass_startup.y, 
+			this->device_nearly_compass_start_margin) &&
+		ARWorkspace::IsApprox(this->compass.z, this->compass_startup.z, 
+			this->device_nearly_compass_start_margin));
+}
+
 void ARWorkspace::updateEyePoint()
 {
-	if (! this->compass_startup_initialized)
-	{
-		this->compass_startup_initialized = true;
-		this->compass_startup = this->compass;
-	}
-
+	
 	if (this->gravity_dot.y <= 0)
 	{
 		return;
@@ -219,6 +255,7 @@ void ARWorkspace::updateEyePoint()
 
 	
 }
+
 
 
 

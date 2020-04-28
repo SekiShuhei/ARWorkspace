@@ -34,7 +34,8 @@ public:
 	void DebugString(const s3d::String& arg_string);
 
 	void drawDebugString(int arg_x, int arg_y);
-
+	bool IsDeviceRollFlat() const;
+	bool IsDeviceNearlyCompassStartAngle() const;
 
 	std::tuple<int64_t, int64_t> GetEyePoint() const
 	{
@@ -44,6 +45,10 @@ public:
 private:
 	void updateEyePoint();
 
+	inline static bool IsApprox(double base, double target, double margin)
+	{
+		return (base > target - margin && base < target + margin);
+	}
 private:
 
 	const s3d::Font	font = s3d::Font(40);
@@ -64,11 +69,14 @@ private:
 	double		compass_diff = 0.0;
 	double		compass_diff_integral = 0.0;
 
+	double		device_roll_flat_margin = 0.20;
+	double		device_nearly_compass_start_margin = 30.0;
+
+
 
 	double	start_angle_x = 0.0;
 	double	start_angle_y = 0.0;
 	double	start_angle_z = 0.0;
-
 	
 	double	display_scale = 1.0;
 	int		display_size_x = 800;
