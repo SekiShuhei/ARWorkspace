@@ -4,12 +4,10 @@
 namespace ARWorkspace {
 ARWorkspace::ARWorkspace()
 {
-	float delta_time = 0.02;
-	float Hz = 1 / delta_time;
-	this->madgwick_filter.begin(Hz);
+
 }
 
-void ARWorkspace::Update()
+void ARWorkspace::Update(const double delta_t)
 {
 	this->drawDebugString(0, 100);
 
@@ -18,109 +16,114 @@ void ARWorkspace::Update()
 	int offset_y = 500;
 
 	{
-		float gyro_x = this->v3_gyro_raw.x;
-		float gyro_y = this->v3_gyro_raw.y;
-		float gyro_z = this->v3_gyro_raw.z;
-		float accel_x = this->v3_accel.x;
-		float accel_y = this->v3_accel.y;
-		float accel_z = this->v3_accel.z;
-		this->madgwick_filter.updateIMU(gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z);
-			
-		auto roll = this->madgwick_filter.getRoll();
+		this->madgwick_filter.Update(
+			this->gyro_raw.x, this->gyro_raw.y, this->gyro_raw.z,
+			this->accel.x, this->accel.y, this->accel.z,
+			this->compass.x, this->compass.y, this->compass.z,
+			delta_t);
+
+		auto roll  = this->madgwick_filter.getRoll() ;
 		auto pitch = this->madgwick_filter.getPitch();
-		auto yaw = this->madgwick_filter.getYaw();
-		
+		auto yaw   = this->madgwick_filter.getYaw()  ;
+
 		this->DebugString(U"madgwick_filter roll:{:.1f},pitch:{:.1f},yaw{:.1f}"_fmt
 		(roll, pitch, yaw));
 
 		scale = 8.0;
-		this->DrawSensorCursor(yaw, pitch, offset_x - 1200, offset_y, scale, roll / 8,
-			U"MadgwickAngle", Palette::Cadetblue);
+		this->DrawSensorCursor(yaw, pitch, offset_x - 1400, offset_y, scale, roll / 12,
+			U"MadgwickAngle", Palette::Goldenrod);
 
 	}
 
-	scale = 1.0;
+	scale = 0.3;
 	this->DrawSensorCursor(this->eye_point_x, this->eye_point_y,
 		offset_x, offset_y, scale,
 		this->eye_angle, U"gyro integral", Palette::Aquamarine);
 
 	scale = 1.0;
-	this->DrawSensorCursor(this->v3_gyro.x, this->v3_gyro.y,
+	this->DrawSensorCursor(this->gyro.x, this->gyro.y,
 		offset_x, offset_y, scale,
-		this->v3_gyro.z / 100, U"gyro", Palette::Ivory);
+		this->gyro.z / 100, U"gyro", Palette::Ivory);
 
+	scale = 300.0;
+	this->DrawSensorCursor(this->gravity_dot.x, this->gravity_dot.y,
+		offset_x, offset_y, scale,
+		this->gravity_dot.z, U"gravity dot", Palette::Lightgreen);
 
 	//scale = -1.0;
 	//this->DrawSensorCursor(
-	//	this->v3_compass.x,
-	//	this->v3_compass.y,
+	//	this->compass.x,
+	//	this->compass.y,
 	//	offset_x, offset_y, scale,
-	//	this->v3_compass.z, 
+	//	this->compass.z, 
 	//	U"compass", Palette::Gold);
 
 	scale = 300.0;
 	//this->DrawSensorCursor(
-	//	this->v3_orientation.x,
-	//	this->v3_orientation.y,
+	//	this->orientation.x,
+	//	this->orientation.y,
 	//	offset_x, offset_y, scale,
-	//	this->v3_orientation.z, 
+	//	this->orientation.z, 
 	//	U"orientation", Palette::Lightgreen);
 
 }
 
 void ARWorkspace::SetGravityVector(const Vector3AndTimestamp& arg_gravity, const double delta_t)
 {
-	this->v3_gravity.x = std::get<0>(arg_gravity);
-	this->v3_gravity.y = std::get<1>(arg_gravity);
-	this->v3_gravity.z = std::get<2>(arg_gravity);
+	this->gravity.x = std::get<0>(arg_gravity);
+	this->gravity.y = std::get<1>(arg_gravity);
+	this->gravity.z = std::get<2>(arg_gravity);
 
 	{
-		auto a = this->v3_gravity.dot(s3d::Vec3::UnitY());
-		auto angle = s3d::ToDegrees(std::acos(a));
-		this->DebugString(U"gravity_V_dot:{:.3f},angle{:.1f}"_fmt(a, angle));
+		this->gravity_dot.y = this->gravity.dot(s3d::Vec3::UnitY());
+		auto angle = s3d::ToDegrees(std::acos(this->gravity_dot.y));
+		this->DebugString(U"gravity_V_dot:{:.3f},angle{:.1f}"_fmt(this->gravity_dot.y, angle));
 	}
 	{
-		auto a = this->v3_gravity.dot(s3d::Vec3::UnitZ());
-		auto angle = s3d::ToDegrees(std::acos(a));
-		this->DebugString(U"gravity_H_dot:{:.3f},angle{:.1f}"_fmt(a, angle));
+		this->gravity_dot.z = this->gravity.dot(s3d::Vec3::UnitZ());
+		auto angle = s3d::ToDegrees(std::acos(this->gravity_dot.z));
+		this->DebugString(U"gravity_H_dot:{:.3f},angle{:.1f}"_fmt(this->gravity_dot.z, angle));
 	}
 	{
-		auto a = this->v3_gravity.dot(s3d::Vec3::UnitX());
-		auto angle = s3d::ToDegrees(std::acos(a));
-		this->DebugString(U"gravity_H2_dot:{:.3f},angle{:.1f}"_fmt(a, angle));
+		this->gravity_dot.x = this->gravity.dot(s3d::Vec3::UnitX());
+		auto angle = s3d::ToDegrees(std::acos(this->gravity_dot.x));
+		this->DebugString(U"gravity_H2_dot:{:.3f},angle{:.1f}"_fmt(this->gravity_dot.x, angle));
+	}
+	{
+
 	}
 }
 
 void ARWorkspace::SetCompassVector(const Vector3AndTimestamp& arg_compass, const double delta_t)
 {
-	this->v3_compass.x = std::get<0>(arg_compass);
-	this->v3_compass.y = std::get<1>(arg_compass);
-	this->v3_compass.z = std::get<2>(arg_compass);
+	this->compass.x = std::get<0>(arg_compass);
+	this->compass.y = std::get<1>(arg_compass);
+	this->compass.z = std::get<2>(arg_compass);
 }
 
 void ARWorkspace::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const double delta_t)
 {
-	this->v3_gyro_raw.x = std::get<2>(arg_gyro);
-	this->v3_gyro_raw.y = std::get<0>(arg_gyro);
-	this->v3_gyro_raw.z = std::get<1>(arg_gyro);
+	this->gyro_raw.x = std::get<2>(arg_gyro) * -1;
+	this->gyro_raw.y = std::get<0>(arg_gyro) * -1;
+	this->gyro_raw.z = std::get<1>(arg_gyro) * -1;
 
-	this->v3_gyro.x = std::get<1>(arg_gyro) * -1; //BT30 Y axis => -X
-	this->v3_gyro.y = std::get<0>(arg_gyro) * -1; //BT30 X axis => -Y
-	this->v3_gyro.z = std::get<2>(arg_gyro) * -1;
+	this->gyro.x = std::get<1>(arg_gyro) * -1; //BT30 Y axis => -X
+	this->gyro.y = std::get<0>(arg_gyro) * -1; //BT30 X axis => -Y
+	this->gyro.z = std::get<2>(arg_gyro) * -1;
 
 	double scale = 30;
-	this->eye_point_x	+= this->v3_gyro.x * scale * delta_t * -1;
-	this->eye_point_y	+= this->v3_gyro.y * scale * delta_t * -1;
-	this->eye_angle		+= this->v3_gyro.z * 0.02 * delta_t  * -1;
+	this->eye_point_x	+= this->gyro.x * scale * delta_t * -1;
+	this->eye_point_y	+= this->gyro.y * scale * delta_t * -1;
+	this->eye_angle		+= this->gyro.z * 0.02 * delta_t  * -1;
 
 	
 }
 
 void ARWorkspace::SetAccelVector(const Vector3AndTimestamp& arg_accel, const double delta_t)
 {
-	this->v3_accel.x = std::get<0>(arg_accel);
-	this->v3_accel.y = std::get<1>(arg_accel);
-	this->v3_accel.z = std::get<2>(arg_accel);
+	this->accel.x = std::get<0>(arg_accel);
+	this->accel.y = std::get<1>(arg_accel);
+	this->accel.z = std::get<2>(arg_accel);
 
 }
 
@@ -132,7 +135,7 @@ void ARWorkspace::SetOrientationQuaternion(const Float4AndTimestamp& arg_quatern
 		std::get<2>(arg_quaternion),
 		std::get<3>(arg_quaternion));
 
-	this->v3_orientation = q.toAxisAngle().first;
+	this->orientation = q.toAxisAngle().first;
 
 	
 }

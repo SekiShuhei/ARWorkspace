@@ -3,9 +3,8 @@
 #include <vector>
 #include <tuple>
 #include <Siv3D.hpp>
+#include "ThirdParty/ArduinoMadgwickAHRS/MadgwickAHRS.hpp"
 
-
-#include "ThirdParty/MadgwickAHRS/MadgwickAHRS.h"
 
 namespace ARWorkspace {
 class ARWorkspace
@@ -18,7 +17,7 @@ public:
 
 public:
 
-	void Update();
+	void Update(const double delta_t);
 
 	void SetGravityVector(const Vector3AndTimestamp& arg_gravity, const double delta_t);
 	void SetCompassVector(const Vector3AndTimestamp& arg_compass, const double delta_t);
@@ -47,12 +46,13 @@ private:
 
 	const s3d::Font	font = s3d::Font(40);
 
-	s3d::Vec3	v3_gravity;
-	s3d::Vec3	v3_compass;
-	s3d::Vec3	v3_gyro;
-	s3d::Vec3	v3_gyro_raw; //to Madgwick Filter
-	s3d::Vec3	v3_orientation;
-	s3d::Vec3	v3_accel;
+	s3d::Vec3	gravity;
+	s3d::Vec3	gravity_dot; // 重力ベクトルの各規準軸との内積[cos].
+	s3d::Vec3	compass;
+	s3d::Vec3	gyro;
+	s3d::Vec3	gyro_raw; //to Madgwick Filter
+	s3d::Vec3	orientation;
+	s3d::Vec3	accel;
 
 	double	start_angle_x = 0.0;
 	double	start_angle_y = 0.0;
@@ -71,7 +71,7 @@ private:
 	std::vector<s3d::String> debug_strings = std::vector<s3d::String>(30);
 
 
-	Madgwick madgwick_filter;
+	Madgwick::MadgwickFilter madgwick_filter;
 
 };
 

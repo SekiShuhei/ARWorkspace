@@ -57,11 +57,10 @@ void Main()
 			ar_workspace.SetOrientationQuaternion(sensor.GetAggregatedDeviceOrientationData(), delta_t);
 			ar_workspace.SetAccelVector(sensor.GetLinearAccelerometerData(), delta_t);
 			
-			//// to ARWS
+			ar_workspace.Update(delta_t);
 		}
 		{
 		
-			ar_workspace.Update();
 		}
 
 
