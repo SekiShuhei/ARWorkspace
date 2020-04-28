@@ -140,7 +140,7 @@ void MadgwickFilter::Update(
 	q1 *= recipNorm;
 	q2 *= recipNorm;
 	q3 *= recipNorm;
-	anglesComputed = 0;
+	anglesComputed = false;
 }
 
 //-------------------------------------------------------------------------------------------
@@ -245,7 +245,7 @@ void MadgwickFilter::computeAngles()
 	roll = atan2f(q0*q1 + q2*q3, 0.5f - q1*q1 - q2*q2);
 	pitch = asinf(-2.0f * (q1*q3 - q0*q2));
 	yaw = atan2f(q1*q2 + q0*q3, 0.5f - q2*q2 - q3*q3);
-	anglesComputed = 1;
+	anglesComputed = true;
 }
 
 
