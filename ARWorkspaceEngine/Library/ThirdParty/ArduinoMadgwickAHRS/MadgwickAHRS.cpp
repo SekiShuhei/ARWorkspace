@@ -23,26 +23,16 @@
 #include <math.h>
 
 namespace Madgwick {
-//-------------------------------------------------------------------------------------------
-// Definitions
-
-#define sampleFreqDef   512.0f          // sample frequency in Hz
-#define betaDef         0.1f            // 2 * proportional gain
-
-
-//============================================================================================
-// Functions
 
 //-------------------------------------------------------------------------------------------
 // AHRS algorithm Update
 
 MadgwickFilter::MadgwickFilter() {
-	beta = betaDef;
+	beta = 0.1f; // 2 * proportional gain;
 	q0 = 1.0f;
 	q1 = 0.0f;
 	q2 = 0.0f;
 	q3 = 0.0f;
-	invSampleFreq = 1.0f / sampleFreqDef;
 	anglesComputed = 0;
 }
 
@@ -139,10 +129,10 @@ void MadgwickFilter::Update(
 	}
 
 	// Integrate rate of change of quaternion to yield quaternion
-	q0 += qDot1 * invSampleFreq;
-	q1 += qDot2 * invSampleFreq;
-	q2 += qDot3 * invSampleFreq;
-	q3 += qDot4 * invSampleFreq;
+	q0 += qDot1 * delta_t; // * invSampleFreq;
+	q1 += qDot2 * delta_t; // * invSampleFreq;
+	q2 += qDot3 * delta_t; // * invSampleFreq;
+	q3 += qDot4 * delta_t; // * invSampleFreq;
 
 	// Normalise quaternion
 	recipNorm = invSqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
@@ -219,10 +209,10 @@ void MadgwickFilter::UpdateIMU(
 	}
 
 	// Integrate rate of change of quaternion to yield quaternion
-	q0 += qDot1 * invSampleFreq;
-	q1 += qDot2 * invSampleFreq;
-	q2 += qDot3 * invSampleFreq;
-	q3 += qDot4 * invSampleFreq;
+	q0 += qDot1 * delta_t; // * invSampleFreq;
+	q1 += qDot2 * delta_t; // * invSampleFreq;
+	q2 += qDot3 * delta_t; // * invSampleFreq;
+	q3 += qDot4 * delta_t; // * invSampleFreq;
 
 	// Normalise quaternion
 	recipNorm = invSqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);

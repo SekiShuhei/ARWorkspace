@@ -46,12 +46,13 @@ private:
 
 	const s3d::Font	font = s3d::Font(40);
 
-	s3d::Vec3	v3_gravity;
-	s3d::Vec3	v3_compass;
-	s3d::Vec3	v3_gyro;
-	s3d::Vec3	v3_gyro_raw; //to Madgwick Filter
-	s3d::Vec3	v3_orientation;
-	s3d::Vec3	v3_accel;
+	s3d::Vec3	gravity;
+	s3d::Vec3	gravity_dot; // 重力ベクトルの各規準軸との内積[cos].
+	s3d::Vec3	compass;
+	s3d::Vec3	gyro;
+	s3d::Vec3	gyro_raw; //to Madgwick Filter
+	s3d::Vec3	orientation;
+	s3d::Vec3	accel;
 
 	double	start_angle_x = 0.0;
 	double	start_angle_y = 0.0;
