@@ -14,13 +14,12 @@
 // 02/10/2011	SOH Madgwick	Optimised for reduced CPU load
 //
 //=============================================================================================
-#ifndef MadgwickAHRS_h
-#define MadgwickAHRS_h
+#pragma once
 #include <math.h>
-
 //--------------------------------------------------------------------------------------------
 // Variable declaration
-class Madgwick{
+namespace Madgwick {
+class MadgwickFilter{
 private:
     static float invSqrt(float x);
     float beta;				// algorithm gain
@@ -38,10 +37,15 @@ private:
 //-------------------------------------------------------------------------------------------
 // Function declarations
 public:
-    Madgwick(void);
+    MadgwickFilter(void);
     void begin(float sampleFrequency) { invSampleFreq = 1.0f / sampleFrequency; }
-    void update(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz);
-    void updateIMU(float gx, float gy, float gz, float ax, float ay, float az);
+    void Update(
+        float gx, float gy, float gz, 
+        float ax, float ay, float az, 
+        float mx, float my, float mz, double delta_t);
+    void UpdateIMU(
+        float gx, float gy, float gz, 
+        float ax, float ay, float az, double delta_t);
     //float getPitch(){return atan2f(2.0f * q2 * q3 - 2.0f * q0 * q1, 2.0f * q0 * q0 + 2.0f * q3 * q3 - 1.0f);};
     //float getRoll(){return -1.0f * asinf(2.0f * q1 * q3 + 2.0f * q0 * q2);};
     //float getYaw(){return atan2f(2.0f * q1 * q2 - 2.0f * q0 * q3, 2.0f * q0 * q0 + 2.0f * q1 * q1 - 1.0f);};
@@ -70,5 +74,6 @@ public:
         return yaw;
     }
 };
-#endif
+
+}
 

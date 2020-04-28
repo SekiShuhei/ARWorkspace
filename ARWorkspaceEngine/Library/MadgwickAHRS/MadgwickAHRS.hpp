@@ -32,22 +32,30 @@ class MadgwickFilter
 {
 
 public:
+    
     // この値を大きくすると重力の影響を大きく取るようになります．
-    MadgwickFilter(double B = BETA_DEF);
+    MadgwickFilter(double B = BETA_DEF)
+    {
+        beta = B;
+        q0 = 1.0f;
+        q1 = 0.0f;
+        q2 = 0.0f;
+        q3 = 0.0f;
+    }
 
 public:
     // MadgwickFilterによって角速度・加速度・地磁気データを統合し，姿勢計算します．
     // gx,gy,gz    ジャイロ角速度データ[rad\s].
     // ax,ay,az    加速度データ, 特に規格化は必要ありません
     // mx,my,mz    地磁気データ, キャリブレーションを確実に行って下さい．
-    void MadgwickAHRSupdate(
+    void Update(
         double gx, double gy, double gz, 
         double ax, double ay, double az, 
         double mx, double my, double mz, double delta_t);
 
     // MadgwickFilterを角速度と加速度のみで動かし，姿勢計算を更新します．
     // 通常の関数でも，地磁気成分を0.0にすればこの関数が呼ばれます．
-    void MadgwickAHRSupdateIMU(
+    void UpdateIMU(
         double gx, double gy, double gz, 
         double ax, double ay, double az, double delta_t);
 
@@ -58,6 +66,7 @@ public:
         return std::tuple<double, double, double, double>(this->q0, this->q1, this->q2, this->q3);
     }
     
+    // Get roll, pitch, yaw.
     [[nodiscord]]
     inline std::tuple<double, double, double> GetEulerAngleRad() const noexcept
     {
@@ -75,18 +84,18 @@ private:
     double beta;
 };
 
-MadgwickFilter::MadgwickFilter(double B) {
-    beta = B;
-    q0 = 1.0f;
-    q1 = 0.0f;
-    q2 = 0.0f;
-    q3 = 0.0f;
-}
+//MadgwickFilter::MadgwickFilter(double B) {
+//    beta = B;
+//    q0 = 1.0f;
+//    q1 = 0.0f;
+//    q2 = 0.0f;
+//    q3 = 0.0f;
+//}
 
 //---------------------------------------------------------------------------------------------------
 // AHRS algorithm update
 
-inline void MadgwickFilter::MadgwickAHRSupdate(
+inline void MadgwickFilter::Update(
     double gx, double gy, double gz, 
     double ax, double ay, double az, 
     double mx, double my, double mz, double delta_t) {
@@ -102,7 +111,7 @@ inline void MadgwickFilter::MadgwickAHRSupdate(
     // Use IMU algorithm if magnetometer measurement invalid (avoids NaN in magnetometer normalisation)
     if ((mx == 0.0f) && (my == 0.0f) && (mz == 0.0f)) 
     {
-        MadgwickAHRSupdateIMU(gx, gy, gz, ax, ay, az, delta_t);
+        this->UpdateIMU(gx, gy, gz, ax, ay, az, delta_t);
         return;
     }
 
@@ -200,7 +209,7 @@ inline void MadgwickFilter::MadgwickAHRSupdate(
 //---------------------------------------------------------------------------------------------------
 // IMU algorithm update
 
-inline void MadgwickFilter::MadgwickAHRSupdateIMU(
+inline void MadgwickFilter::UpdateIMU(
     double gx, double gy, double gz, 
     double ax, double ay, double az, double delta_t) 
 {

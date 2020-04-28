@@ -3,10 +3,8 @@
 #include <vector>
 #include <tuple>
 #include <Siv3D.hpp>
+#include "ThirdParty/ArduinoMadgwickAHRS/MadgwickAHRS.hpp"
 
-
-#include "ThirdParty/MadgwickAHRS/MadgwickAHRS.h"
-//#include "MadgwickAHRS/MadgwickAHRS.hpp"
 
 namespace ARWorkspace {
 class ARWorkspace
@@ -19,7 +17,7 @@ public:
 
 public:
 
-	void Update();
+	void Update(const double delta_t);
 
 	void SetGravityVector(const Vector3AndTimestamp& arg_gravity, const double delta_t);
 	void SetCompassVector(const Vector3AndTimestamp& arg_compass, const double delta_t);
@@ -72,7 +70,7 @@ private:
 	std::vector<s3d::String> debug_strings = std::vector<s3d::String>(30);
 
 
-	Madgwick madgwick_filter;
+	Madgwick::MadgwickFilter madgwick_filter;
 
 };
 

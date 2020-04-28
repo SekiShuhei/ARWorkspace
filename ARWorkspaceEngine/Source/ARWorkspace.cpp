@@ -4,12 +4,12 @@
 namespace ARWorkspace {
 ARWorkspace::ARWorkspace()
 {
-	float delta_time = 0.02;
-	float Hz = 1 / delta_time;
+	double delta_t = 0.02;
+	double Hz = 1 / delta_t;
 	this->madgwick_filter.begin(Hz);
 }
 
-void ARWorkspace::Update()
+void ARWorkspace::Update(const double delta_t)
 {
 	this->drawDebugString(0, 100);
 
@@ -18,24 +18,22 @@ void ARWorkspace::Update()
 	int offset_y = 500;
 
 	{
-		float gyro_x = this->v3_gyro_raw.x;
-		float gyro_y = this->v3_gyro_raw.y;
-		float gyro_z = this->v3_gyro_raw.z;
-		float accel_x = this->v3_accel.x;
-		float accel_y = this->v3_accel.y;
-		float accel_z = this->v3_accel.z;
-		this->madgwick_filter.updateIMU(gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z);
-			
-		auto roll = this->madgwick_filter.getRoll();
+		this->madgwick_filter.Update(
+			this->v3_gyro_raw.x, this->v3_gyro_raw.y, this->v3_gyro_raw.z,
+			this->v3_accel.x, this->v3_accel.y, this->v3_accel.z,
+			this->v3_compass.x, this->v3_compass.y, this->v3_compass.z,
+			0.0001);
+
+		auto roll  = this->madgwick_filter.getRoll() ;
 		auto pitch = this->madgwick_filter.getPitch();
-		auto yaw = this->madgwick_filter.getYaw();
-		
+		auto yaw   = this->madgwick_filter.getYaw()  ;
+
 		this->DebugString(U"madgwick_filter roll:{:.1f},pitch:{:.1f},yaw{:.1f}"_fmt
 		(roll, pitch, yaw));
 
 		scale = 8.0;
 		this->DrawSensorCursor(yaw, pitch, offset_x - 1200, offset_y, scale, roll / 8,
-			U"MadgwickAngle", Palette::Cadetblue);
+			U"MadgwickAngle", Palette::Goldenrod);
 
 	}
 
@@ -100,9 +98,9 @@ void ARWorkspace::SetCompassVector(const Vector3AndTimestamp& arg_compass, const
 
 void ARWorkspace::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const double delta_t)
 {
-	this->v3_gyro_raw.x = std::get<2>(arg_gyro);
-	this->v3_gyro_raw.y = std::get<0>(arg_gyro);
-	this->v3_gyro_raw.z = std::get<1>(arg_gyro);
+	this->v3_gyro_raw.x = std::get<2>(arg_gyro) * -1;
+	this->v3_gyro_raw.y = std::get<0>(arg_gyro) * -1;
+	this->v3_gyro_raw.z = std::get<1>(arg_gyro) * -1;
 
 	this->v3_gyro.x = std::get<1>(arg_gyro) * -1; //BT30 Y axis => -X
 	this->v3_gyro.y = std::get<0>(arg_gyro) * -1; //BT30 X axis => -Y

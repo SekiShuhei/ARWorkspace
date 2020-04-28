@@ -28,9 +28,7 @@
       <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="Source\ARWorkspace.cpp" />
-    <ClCompile Include="Library\ThirdParty\MadgwickAHRS\MadgwickAHRS.cpp">
-      <Filter>ThirdParty</Filter>
-    </ClCompile>
+    <ClCompile Include="Library\ThirdParty\ArduinoMadgwickAHRS\MadgwickAHRS.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\framework.h" />
@@ -68,7 +66,7 @@
       <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="Source\ARWorkspace.hpp" />
-    <ClInclude Include="Library\ThirdParty\MadgwickAHRS\MadgwickAHRS.h" />
+    <ClInclude Include="Library\ThirdParty\ArduinoMadgwickAHRS\MadgwickAHRS.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GUI">
@@ -91,6 +89,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Library\ThirdParty\MadgwickAHRS\LICENSE.txt" />
+    <Text Include="Library\ThirdParty\ArduinoMadgwickAHRS\LICENSE.txt" />
   </ItemGroup>
 </Project>
