@@ -35,10 +35,10 @@ void ARWorkspace::Update(const double delta_t)
 
 	}
 
-	scale = 0.3;
-	this->DrawSensorCursor(this->eye_point_x, this->eye_point_y,
+	scale = 0.3 * 30;
+	this->DrawSensorCursor(this->eye_point.x, this->eye_point.y,
 		offset_x, offset_y, scale,
-		this->eye_angle, U"gyro integral", Palette::Aquamarine);
+		this->eye_point.z * 0.02, U"gyro integral", Palette::Aquamarine);
 
 	scale = 1.0;
 	this->DrawSensorCursor(this->gyro.x, this->gyro.y,
@@ -111,10 +111,9 @@ void ARWorkspace::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const doubl
 	this->gyro.y = std::get<0>(arg_gyro) * -1; //BT30 X axis => -Y
 	this->gyro.z = std::get<2>(arg_gyro) * -1;
 
-	double scale = 30;
-	this->eye_point_x	+= this->gyro.x * scale * delta_t * -1;
-	this->eye_point_y	+= this->gyro.y * scale * delta_t * -1;
-	this->eye_angle		+= this->gyro.z * 0.02 * delta_t  * -1;
+	this->eye_point.x += this->gyro.x * delta_t; // * -1;
+	this->eye_point.y += this->gyro.y * delta_t; // * -1;
+	this->eye_point.z += this->gyro.z * delta_t; // * -1;
 
 	
 }
@@ -142,20 +141,10 @@ void ARWorkspace::SetOrientationQuaternion(const Float4AndTimestamp& arg_quatern
 
 void ARWorkspace::SetEyeAngle(double arg_x, double arg_y, double arg_z)
 {
-	double x = (arg_x - this->start_angle_x) * this->eye_angle_scale;
-	double y = (arg_y - this->start_angle_y) * this->eye_angle_scale;
-	double z = (arg_z - this->start_angle_z) * this->eye_angle_scale;
-
-	//this->SetEyePoint((int64_t)x, (int64_t)y);
-
-	
-
 }
 
 void ARWorkspace::SetEyePoint(int64_t arg_x, int64_t arg_y)
 {
-	this->eye_point_x = arg_x;
-	this->eye_point_y = arg_y;
 }
 
 

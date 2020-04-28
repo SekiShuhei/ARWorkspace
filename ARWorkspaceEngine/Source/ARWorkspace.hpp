@@ -39,7 +39,7 @@ public:
 
 	std::tuple<int64_t, int64_t> GetEyePoint() const
 	{
-		return std::tuple<int64_t, int64_t>(this->eye_point_x, this->eye_point_y);
+		return std::tuple<int64_t, int64_t>(0,0);
 	}
 
 private:
@@ -54,15 +54,13 @@ private:
 	s3d::Vec3	orientation;
 	s3d::Vec3	accel;
 
+	s3d::Vec3	eye_point;
+
 	double	start_angle_x = 0.0;
 	double	start_angle_y = 0.0;
 	double	start_angle_z = 0.0;
 
-	double	eye_angle_scale = 5.0;
-	double	eye_angle = 0.0;
-	int64_t	eye_point_x = 0;
-	int64_t	eye_point_y = 0;
-
+	
 	double	display_scale = 1.0;
 	int		display_size_x = 800;
 	int		display_size_y = 600;
