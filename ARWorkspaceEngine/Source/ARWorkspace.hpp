@@ -49,6 +49,17 @@ private:
 	{
 		return (base > target - margin && base < target + margin);
 	}
+	inline static double Smoothing(double base, double target, double ratio)
+	{
+		if (ratio <= 0.0)
+		{
+			return base;
+		}
+		ratio = (ratio > 1.0 ? 1.0 : ratio);
+		return base + ((target - base) / ratio);
+	}
+
+
 private:
 
 	const s3d::Font	font = s3d::Font(40);

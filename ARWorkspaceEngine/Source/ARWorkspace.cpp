@@ -11,6 +11,9 @@ void ARWorkspace::Update(const double delta_t)
 {
 	if (this->IsDeviceRollFlat())
 	{
+		this->gyro_integral.y 
+			= Smoothing(this->gyro_integral.y, this->compass.y, 0.1);
+
 		this->font(U"IsDeviceRollFlat = true").draw(Vec2(0, 600));
 	}
 	if (this->IsDeviceNearlyCompassStartAngle())
