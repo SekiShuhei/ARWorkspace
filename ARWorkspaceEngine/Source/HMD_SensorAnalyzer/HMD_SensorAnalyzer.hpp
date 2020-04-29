@@ -89,7 +89,6 @@ private:
 	inline bool IsDeviceStaticAngle() const
 	{
 		return this->gyro.GetInput().IsRange(0.0, 1.5);
-		//return IsRange(this->gyro.GetInput(), 0.0, 1.5);
 	}
 	inline void ResetGyroIntegral()
 	{
@@ -102,22 +101,12 @@ private:
 
 	s3d::Vec3	gravity;
 	s3d::Vec3	gravity_dot; // 重力ベクトルの各規準軸との内積[cos].
-	//s3d::Vec3	compass;
 	s3d::Vec3	gyro_raw; //to Madgwick Filter
-	SensorVectorIntegral	gyro;
-	//s3d::Vec3	gyro;
-	//s3d::Vec3	gyro_integral;
 	s3d::Vec3	orientation;
 	s3d::Vec3	accel;
 
+	SensorVectorIntegral	gyro;
 	SensorVectorRelative	compass;
-	//bool		compass_startup_initialized = false;
-	//s3d::Vec3	compass_startup;
-	//double		compass_diff = 0.0;
-	//double		compass_diff_integral = 0.0;
-
-	//bool		madgwick_startup_initialized = false;
-	//s3d::Vec3	madgwick_startup;
 	SensorVectorRelative	madgwick;
 
 	s3d::Vec3	eye_point1;	// 重力内積+ジャイロ積分.
