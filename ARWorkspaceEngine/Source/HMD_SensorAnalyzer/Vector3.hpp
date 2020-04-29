@@ -66,6 +66,11 @@ public:
 		return Vector3(this->x / arg.x, this->y / arg.y, this->z / arg.z);
 	}
 
+public:
+	constexpr double Dot(const Vector3& v) const noexcept
+	{
+		return x * v.x + y * v.y + z * v.z;
+	}
 
 public:
 	inline static bool IsRange(double base, double target, double range)
@@ -115,7 +120,6 @@ public:
 		Vector3::Smoothing(this->y, target, ratio);
 		Vector3::Smoothing(this->z, target, ratio);
 	}
-public:
 public:
 	double x = 0.0;
 	double y = 0.0;

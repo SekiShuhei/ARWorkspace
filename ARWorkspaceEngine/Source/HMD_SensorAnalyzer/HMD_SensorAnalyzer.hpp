@@ -38,6 +38,7 @@ public:
 	bool IsDeviceRollFlat() const;
 	bool IsDeviceNearlyCompassStartAngle() const;
 	bool IsDeviceNearlyStartAngle() const;
+	bool IsDeviceNearlyCompassCenterAngle() const;
 
 	std::tuple<int64_t, int64_t> GetEyePoint() const
 	{
@@ -47,44 +48,6 @@ public:
 private:
 	void updateEyePoint();
 
-	inline static bool IsRange(double base, double target, double range)
-	{
-		return (base > target - range && base < target + range);
-	}
-	inline static bool IsRange(Vec3 base, Vec3 target, double range)
-	{
-		return (
-			IsRange(base.x, target.x, range) &&
-			IsRange(base.y, target.y, range) &&
-			IsRange(base.z, target.z, range));
-	}
-	inline static bool IsRange(Vec3 base, double target, double range)
-	{
-		return (
-			IsRange(base.x, target, range) &&
-			IsRange(base.y, target, range) &&
-			IsRange(base.z, target, range));
-	}
-	inline static bool Smoothing(double& base, double target, double ratio)
-	{
-		if (ratio <= 0.0)
-		{
-			return false;
-		}
-		ratio = (ratio > 1.0 ? 1.0 : ratio);
-		base += ((target - base) * ratio);
-		return true;
-	}
-	inline static bool Smoothing(Vec3& base, double target, double ratio)
-	{
-		if (ratio <= 0.0)
-		{
-			return false;
-		}
-		Smoothing(base.x, target, ratio);
-		Smoothing(base.y, target, ratio);
-		Smoothing(base.z, target, ratio);
-	}
 
 	inline bool IsDeviceStaticAngle() const
 	{
@@ -100,7 +63,7 @@ private:
 	const s3d::Font	font = s3d::Font(40);
 
 	s3d::Vec3	gravity;
-	s3d::Vec3	gravity_dot; // 重力ベクトルの各規準軸との内積[cos].
+	Vector3		gravity_dot; // 重力ベクトルの各規準軸との内積[cos].
 	s3d::Vec3	gyro_raw; //to Madgwick Filter
 	s3d::Vec3	orientation;
 	s3d::Vec3	accel;
