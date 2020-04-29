@@ -27,8 +27,12 @@
     <ClCompile Include="Source\Utility.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Library\ThirdParty\ArduinoMadgwickAHRS\MadgwickAHRS.cpp" />
-    <ClCompile Include="Source\HMD_SensorAnalyzer.cpp" />
+    <ClCompile Include="Library\ThirdParty\ArduinoMadgwickAHRS\MadgwickAHRS.cpp">
+      <Filter>HMD_SensorAnalyzer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HMD_SensorAnalyzer\HMD_SensorAnalyzer.cpp">
+      <Filter>HMD_SensorAnalyzer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\framework.h" />
@@ -65,8 +69,14 @@
     <ClInclude Include="Source\SimpleCounter.hpp">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Library\ThirdParty\ArduinoMadgwickAHRS\MadgwickAHRS.hpp" />
-    <ClInclude Include="Source\HMD_SensorAnalyzer.hpp" />
+    <ClInclude Include="Library\ThirdParty\ArduinoMadgwickAHRS\MadgwickAHRS.hpp">
+      <Filter>HMD_SensorAnalyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HMD_SensorAnalyzer\HMD_SensorAnalyzer.hpp">
+      <Filter>HMD_SensorAnalyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HMD_SensorAnalyzer\Vector3.hpp" />
+    <ClInclude Include="Source\HMD_SensorAnalyzer\SensorVectorRelative.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GUI">
@@ -86,6 +96,9 @@
     </Filter>
     <Filter Include="ThirdParty">
       <UniqueIdentifier>{9d433397-7ab9-41c4-8a93-74eac52bbd33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HMD_SensorAnalyzer">
+      <UniqueIdentifier>{8542ef98-f6e5-48fd-95d0-931a344a5ccb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

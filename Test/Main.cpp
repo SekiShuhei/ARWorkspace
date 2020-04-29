@@ -1,7 +1,7 @@
 ﻿#define SIV3D_WINDOWS_HIGH_DPI
 #include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
-#include "HMD_SensorAnalyzer.hpp"
+#include "HMD_SensorAnalyzer/HMD_SensorAnalyzer.hpp"
 #include "ARVirtualScreen.hpp"
 #include "GuiMenu.hpp"
 #include "KeyCommand.hpp"
