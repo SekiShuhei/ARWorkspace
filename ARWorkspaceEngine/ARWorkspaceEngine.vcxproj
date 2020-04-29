@@ -172,6 +172,7 @@
     <ClInclude Include="Library\ThirdParty\ArduinoMadgwickAHRS\MadgwickAHRS.hpp" />
     <ClInclude Include="Source\DropDownMenu.hpp" />
     <ClInclude Include="Source\framework.h" />
+    <ClInclude Include="Source\HMD_SensorAnalyzer\SensorVectorIntegral.hpp" />
     <ClInclude Include="Source\HMD_SensorAnalyzer\SensorVectorRelative.hpp" />
     <ClInclude Include="Source\HMD_SensorAnalyzer\Vector3.hpp" />
     <ClInclude Include="Source\pch.h" />

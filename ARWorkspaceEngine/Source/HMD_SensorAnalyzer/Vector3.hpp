@@ -31,6 +31,20 @@ public:
 	{
 		return Vector3(this->x + arg.x, this->y + arg.y, this->z + arg.z);
 	}
+	Vector3& operator += (const Vector3& arg)
+	{
+		this->x += arg.x;
+		this->y += arg.y;
+		this->z += arg.z;
+		return *this;
+	}
+	Vector3& operator -= (const Vector3& arg)
+	{
+		this->x -= arg.x;
+		this->y -= arg.y;
+		this->z -= arg.z;
+		return *this;
+	}
 	Vector3 operator - (const Vector3& arg)
 	{
 		return Vector3(this->x - arg.x, this->y - arg.y, this->z - arg.z);
