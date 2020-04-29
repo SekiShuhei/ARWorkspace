@@ -36,6 +36,7 @@ public:
 	void drawDebugString(int arg_x, int arg_y);
 	bool IsDeviceRollFlat() const;
 	bool IsDeviceNearlyCompassStartAngle() const;
+	bool IsDeviceNearlyStartAngle() const;
 
 	std::tuple<int64_t, int64_t> GetEyePoint() const
 	{
@@ -84,9 +85,9 @@ private:
 		Smoothing(base.z, target, ratio);
 	}
 
-	inline bool IsDeviceStaticPosition() const
+	inline bool IsDeviceStaticAngle() const
 	{
-		return IsRange(this->gyro, 0.0, 0.1);
+		return IsRange(this->gyro, 0.0, 1.0);
 	}
 	inline void ResetGyroIntegral()
 	{

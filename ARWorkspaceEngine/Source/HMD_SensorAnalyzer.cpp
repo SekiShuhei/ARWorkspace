@@ -15,12 +15,18 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 	}
 	if (this->IsDeviceNearlyCompassStartAngle())
 	{
-		if (this->IsDeviceRollFlat())
+		this->font(U"IsDeviceNearlyCompassStartAngle = true").draw(Vec2(0, 660));
+	}
+	if (this->IsDeviceNearlyStartAngle())
+	{
+		if (this->IsDeviceRollFlat() && this->IsDeviceStaticAngle())
 		{
 			Smoothing(this->gyro_integral, 0.0, 10 * delta_t);
-			this->font(U"IsDeviceNearlyCompassStartAngle = true").draw(Vec2(0, 660));
+			//Smoothing(this->madgwick_startup, , 10 * delta_t);
+			this->font(U"IsDeviceNearlyStartAngle = true").draw(Vec2(0, 720));
 		}
 	}
+
 
 	this->updateEyePoint();
 
@@ -246,6 +252,16 @@ bool HMD_SensorAnalyzer::IsDeviceNearlyCompassStartAngle() const
 {
 	return HMD_SensorAnalyzer::IsRange(this->compass, this->compass_startup, 
 			this->device_nearly_compass_start_margin);
+}
+
+bool HMD_SensorAnalyzer::IsDeviceNearlyStartAngle() const
+{
+	bool result;
+	result = this->IsDeviceNearlyCompassStartAngle();
+
+	HMD_SensorAnalyzer::IsRange(this->gyro_integral, 0.0, 0.5);
+
+	return result;
 }
 
 void HMD_SensorAnalyzer::updateEyePoint()
