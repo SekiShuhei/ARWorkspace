@@ -11,14 +11,15 @@ void ARWorkspace::Update(const double delta_t)
 {
 	if (this->IsDeviceRollFlat())
 	{
-		this->gyro_integral.y 
-			= Smoothing(this->gyro_integral.y, this->compass.y, 0.1);
-
 		this->font(U"IsDeviceRollFlat = true").draw(Vec2(0, 600));
 	}
 	if (this->IsDeviceNearlyCompassStartAngle())
 	{
-		this->font(U"IsDeviceNearlyCompassStartAngle = true").draw(Vec2(0, 660));
+		if (this->IsDeviceRollFlat())
+		{
+			Smoothing(this->gyro_integral, 0.0, 10 * delta_t);
+			this->font(U"IsDeviceNearlyCompassStartAngle = true").draw(Vec2(0, 660));
+		}
 	}
 
 	this->updateEyePoint();
@@ -36,15 +37,24 @@ void ARWorkspace::Update(const double delta_t)
 			this->compass.x, this->compass.y, this->compass.z,
 			delta_t);
 
-		auto roll  = this->madgwick_filter.getRollRadians() ;
+		auto roll  = this->madgwick_filter.getRollRadians() + 1;
 		auto pitch = this->madgwick_filter.getPitchRadians();
 		auto yaw   = this->madgwick_filter.getYawRadians() + 2;
+
+		if (! this->madgwick_startup_initialized)
+		{
+			this->madgwick_startup_initialized = true;
+			this->madgwick_startup.x = yaw;
+			this->madgwick_startup.y = pitch;
+			this->madgwick_startup.z = roll;
+		}
 
 		this->DebugString(U"madgwick_filter roll:{:.1f},pitch:{:.1f},yaw{:.1f}"_fmt
 		(roll, pitch, yaw));
 
 		scale = 8.0 * 50;
-		this->DrawSensorCursor(yaw, pitch, offset_x - 1400, offset_y, scale, roll / 12,
+		this->DrawSensorCursor(yaw, pitch, offset_x - 1100, offset_y, 
+			scale, roll * 2,
 			U"MadgwickAngle", Palette::Goldenrod);
 
 	}
@@ -79,6 +89,13 @@ void ARWorkspace::Update(const double delta_t)
 		offset_x, offset_y, scale,
 		this->eye_point2.z * 1.7,
 		U"eye_pt2", Palette::Orange);
+
+	scale = 300.0;
+	this->DrawSensorCursor(
+		this->eye_point3.x, this->eye_point3.y,
+		offset_x, offset_y, scale,
+		this->eye_point3.z * 1.7,
+		U"eye_pt3", Palette::Pink);
 
 }
 
@@ -129,8 +146,8 @@ void ARWorkspace::SetCompassVector(const Vector3AndTimestamp& arg_compass, const
 void ARWorkspace::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const double delta_t)
 {
 	this->gyro_raw.x = std::get<2>(arg_gyro) * -1;
-	this->gyro_raw.y = std::get<0>(arg_gyro) * -1;
-	this->gyro_raw.z = std::get<1>(arg_gyro) * -1;
+	this->gyro_raw.y = std::get<1>(arg_gyro);
+	this->gyro_raw.z = std::get<0>(arg_gyro) * -1;
 
 	this->gyro.x = std::get<1>(arg_gyro) * -1; //BT30 Y axis => -X
 	this->gyro.y = std::get<0>(arg_gyro) * -1; //BT30 X axis => -Y
@@ -217,7 +234,7 @@ bool ARWorkspace::IsDeviceRollFlat() const
 	{
 		return false;
 	}
-	if (ARWorkspace::IsApprox(this->gravity_dot.x, 0.0, 
+	if (ARWorkspace::IsRange(this->gravity_dot.x, 0.0, 
 		this->device_roll_flat_margin))
 	{
 		return true;
@@ -227,13 +244,8 @@ bool ARWorkspace::IsDeviceRollFlat() const
 
 bool ARWorkspace::IsDeviceNearlyCompassStartAngle() const
 {
-	return 
-		(ARWorkspace::IsApprox(this->compass.x, this->compass_startup.x, 
-			this->device_nearly_compass_start_margin) &&
-		ARWorkspace::IsApprox(this->compass.y, this->compass_startup.y, 
-			this->device_nearly_compass_start_margin) &&
-		ARWorkspace::IsApprox(this->compass.z, this->compass_startup.z, 
-			this->device_nearly_compass_start_margin));
+	return ARWorkspace::IsRange(this->compass, this->compass_startup, 
+			this->device_nearly_compass_start_margin);
 }
 
 void ARWorkspace::updateEyePoint()
@@ -245,17 +257,28 @@ void ARWorkspace::updateEyePoint()
 	}
 	this->eye_point1.y = this->gravity_dot.z;
 	this->eye_point1.z = this->gravity_dot.x * -1;
-
 	this->eye_point2.y = this->gravity_dot.z;
 	this->eye_point2.z = this->gravity_dot.x * -1;
+	this->eye_point3.y = this->gravity_dot.z;
+	this->eye_point3.z = this->gravity_dot.x * -1;
 
 	// ƒˆ[Šp‚Í‘¼‚©‚ç‚à‚Á‚Ä‚­‚é.
-	this->eye_point1.x = this->gyro_integral.x / 100;
+
+	this->eye_point1.x = this->gyro_integral.x / 30;
 
 	this->eye_point2.x = (this->compass.x - this->compass_startup.x) / 100 * -1;
 
-	//this->eye_point2.x = this->compass_dsiff_integral / 100;
-
+	this->eye_point3.x = 
+		(this->madgwick_filter.getYawRadians() + 2) - this->madgwick_startup.x;
+	
+	//if (this->IsDeviceRollFlat())
+	//{
+	//	//this->eye_point1.x 
+	//		//	= Smoothing(this->eye_point1.x, this->eye_point2.x, 100 * delta_t);
+	//	this->eye_point3.x = this->eye_point2.x;
+	//} else {
+	//	this->eye_point3.x = this->eye_point1.x;
+	//}
 	
 }
 
