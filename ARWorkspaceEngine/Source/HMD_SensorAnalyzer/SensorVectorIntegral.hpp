@@ -6,14 +6,14 @@ namespace ARWorkspace {
 class SensorVectorIntegral
 {
 public:
-	void SetData(const double& x, const double& y, const double& z)
+	void SetData(const double& x, const double& y, const double& z, double delta_t)
 	{
-		this->SetData(Vector3(x, y, z));
+		this->SetData(Vector3(x, y, z), delta_t);
 	}
-	void SetData(const Vector3 arg)
+	void SetData(const Vector3 arg, double delta_t)
 	{
 		this->input = arg;
-		this->update_value();
+		this->integral += (this->input * delta_t);
 	}
 	const Vector3& GetInput() const
 	{
@@ -23,15 +23,16 @@ public:
 	{
 		return this->integral;
 	}
+	void ResetIntegral()
+	{
+		this->integral = Vector3();
+	}
 public:
-private:
+//private:
 	Vector3	input;
 	Vector3	integral;
 private:
-	void update_value()
-	{
-		this->integral += this->input;
-	}
+	
 private:
 };
 

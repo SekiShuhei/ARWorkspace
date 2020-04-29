@@ -21,7 +21,8 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 	{
 		if (this->IsDeviceRollFlat() && this->IsDeviceStaticAngle())
 		{
-			Smoothing(this->gyro_integral, 0.0, 10 * delta_t);
+			this->gyro.integral.Smoothing(0.0, 10 * delta_t);
+			//Smoothing(this->gyro.GetIntegral(), 0.0, 10 * delta_t);
 			//Smoothing(this->madgwick_startup, , 10 * delta_t);
 			this->font(U"IsDeviceNearlyStartAngle = true").draw(Vec2(0, 720));
 		}
@@ -69,14 +70,14 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 	}
 
 	scale = 0.3 * 30;
-	this->DrawSensorCursor(this->gyro_integral.x, this->gyro_integral.y,
+	this->DrawSensorCursor(this->gyro.GetIntegral().x, this->gyro.GetIntegral().y,
 		offset_x, offset_y, scale,
-		this->gyro_integral.z * 0.018, U"gyro integral", Palette::Aquamarine);
+		this->gyro.GetIntegral().z * 0.018, U"gyro integral", Palette::Aquamarine);
 
 	scale = 1.0;
-	this->DrawSensorCursor(this->gyro.x, this->gyro.y,
+	this->DrawSensorCursor(this->gyro.GetInput().x, this->gyro.GetInput().y,
 		offset_x, offset_y, scale,
-		this->gyro.z / 100, U"gyro", Palette::Ivory);
+		this->gyro.GetInput().z / 100, U"gyro", Palette::Ivory);
 
 	scale = 300.0;
 	this->DrawSensorCursor(
@@ -161,13 +162,18 @@ void HMD_SensorAnalyzer::SetGyroVector(const Vector3AndTimestamp& arg_gyro, cons
 	this->gyro_raw.y = std::get<1>(arg_gyro);
 	this->gyro_raw.z = std::get<0>(arg_gyro) * -1;
 
-	this->gyro.x = std::get<1>(arg_gyro) * -1; //BT30 Y axis => -X
-	this->gyro.y = std::get<0>(arg_gyro) * -1; //BT30 X axis => -Y
-	this->gyro.z = std::get<2>(arg_gyro) * -1;
+	this->gyro.SetData(
+		std::get<1>(arg_gyro) * -1,
+		std::get<0>(arg_gyro) * -1,
+		std::get<2>(arg_gyro) * -1, delta_t);
 
-	this->gyro_integral.x += this->gyro.x * delta_t; // * -1;
-	this->gyro_integral.y += this->gyro.y * delta_t; // * -1;
-	this->gyro_integral.z += this->gyro.z * delta_t; // * -1;
+	//this->gyro.x = std::get<1>(arg_gyro) * -1; //BT30 Y axis => -X
+	//this->gyro.y = std::get<0>(arg_gyro) * -1; //BT30 X axis => -Y
+	//this->gyro.z = std::get<2>(arg_gyro) * -1;
+	//
+	//this->gyro_integral.x += this->gyro.x * delta_t; // * -1;
+	//this->gyro_integral.y += this->gyro.y * delta_t; // * -1;
+	//this->gyro_integral.z += this->gyro.z * delta_t; // * -1;
 
 	
 }
@@ -266,7 +272,8 @@ bool HMD_SensorAnalyzer::IsDeviceNearlyStartAngle() const
 	bool result;
 	result = this->IsDeviceNearlyCompassStartAngle();
 
-	HMD_SensorAnalyzer::IsRange(this->gyro_integral, 0.0, 0.5);
+	this->gyro.GetIntegral().IsRange(0.0, 0.5);
+	//HMD_SensorAnalyzer::IsRange(this->gyro_integral, 0.0, 0.5);
 
 	return result;
 }
@@ -287,7 +294,7 @@ void HMD_SensorAnalyzer::updateEyePoint()
 
 	// ƒˆ[Šp‚Í‘¼‚©‚ç‚à‚Á‚Ä‚­‚é.
 
-	this->eye_point1.x = this->gyro_integral.x / 30;
+	this->eye_point1.x = this->gyro.GetIntegral().x / 30;
 
 	this->eye_point2.x = (this->compass.GetRelative().x) / 100 * -1;
 

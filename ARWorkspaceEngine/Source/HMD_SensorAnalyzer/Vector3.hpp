@@ -23,13 +23,21 @@ public:
 		this->z = arg.z;
 		return *this;
 	}
-	bool operator == (const Vector3& arg)
+	bool operator == (const Vector3& arg) const
 	{
 		return (this->x == arg.x && this->y == arg.y && this->z == arg.z);
 	}
-	Vector3 operator + (const Vector3& arg)
+	Vector3 operator + (const Vector3& arg) const
 	{
 		return Vector3(this->x + arg.x, this->y + arg.y, this->z + arg.z);
+	}
+	Vector3 operator - (const Vector3& arg) const
+	{
+		return Vector3(this->x - arg.x, this->y - arg.y, this->z - arg.z);
+	}
+	Vector3 operator - (const double& arg) const
+	{
+		return Vector3(this->x - arg, this->y - arg, this->z - arg);
 	}
 	Vector3& operator += (const Vector3& arg)
 	{
@@ -45,11 +53,18 @@ public:
 		this->z -= arg.z;
 		return *this;
 	}
-	Vector3 operator - (const Vector3& arg)
+	Vector3 operator * (const Vector3& arg) const
 	{
-		return Vector3(this->x - arg.x, this->y - arg.y, this->z - arg.z);
+		return Vector3(this->x * arg.x, this->y * arg.y, this->z * arg.z);
 	}
-
+	Vector3 operator * (const double& arg) const
+	{
+		return Vector3(this->x * arg, this->y * arg, this->z * arg);
+	}
+	Vector3 operator / (const Vector3& arg) const
+	{
+		return Vector3(this->x / arg.x, this->y / arg.y, this->z / arg.z);
+	}
 
 
 public:
@@ -78,18 +93,28 @@ public:
 			return false;
 		}
 		ratio = (ratio > 1.0 ? 1.0 : ratio);
-		base += ((target - base) * ratio);
+		base += ((base - target) * ratio);
 		return true;
 	}
-	inline static bool Smoothing(Vector3& base, double target, double ratio)
+	inline bool Smoothing(const Vector3& target, double ratio)
 	{
 		if (ratio <= 0.0)
 		{
 			return false;
 		}
-		Smoothing(base.x, target, ratio);
-		Smoothing(base.y, target, ratio);
-		Smoothing(base.z, target, ratio);
+		this->x = Vector3::Smoothing(this->x, target.x, ratio);
+		this->y = Vector3::Smoothing(this->y, target.y, ratio);
+		this->z = Vector3::Smoothing(this->z, target.z, ratio);
+	}
+	inline bool Smoothing(const double& target, double ratio)
+	{
+		if (ratio <= 0.0)
+		{
+			return false;
+		}
+		this->x = Vector3::Smoothing(this->x, target, ratio);
+		this->y = Vector3::Smoothing(this->y, target, ratio);
+		this->z = Vector3::Smoothing(this->z, target, ratio);
 	}
 public:
 public:

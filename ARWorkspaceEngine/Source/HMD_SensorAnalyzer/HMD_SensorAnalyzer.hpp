@@ -5,6 +5,7 @@
 #include <Siv3D.hpp>
 #include "ThirdParty/ArduinoMadgwickAHRS/MadgwickAHRS.hpp"
 #include "SensorVectorRelative.hpp"
+#include "SensorVectorIntegral.hpp"
 
 namespace ARWorkspace {
 class HMD_SensorAnalyzer
@@ -87,11 +88,12 @@ private:
 
 	inline bool IsDeviceStaticAngle() const
 	{
-		return IsRange(this->gyro, 0.0, 1.5);
+		return this->gyro.GetInput().IsRange(0.0, 1.5);
+		//return IsRange(this->gyro.GetInput(), 0.0, 1.5);
 	}
 	inline void ResetGyroIntegral()
 	{
-		this->gyro_integral = Vec3();
+		this->gyro.ResetIntegral();
 	}
 
 private:
@@ -101,9 +103,10 @@ private:
 	s3d::Vec3	gravity;
 	s3d::Vec3	gravity_dot; // 重力ベクトルの各規準軸との内積[cos].
 	//s3d::Vec3	compass;
-	s3d::Vec3	gyro;
 	s3d::Vec3	gyro_raw; //to Madgwick Filter
-	s3d::Vec3	gyro_integral;
+	SensorVectorIntegral	gyro;
+	//s3d::Vec3	gyro;
+	//s3d::Vec3	gyro_integral;
 	s3d::Vec3	orientation;
 	s3d::Vec3	accel;
 
