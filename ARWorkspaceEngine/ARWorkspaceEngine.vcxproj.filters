@@ -27,8 +27,8 @@
     <ClCompile Include="Source\Utility.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ARWorkspace.cpp" />
     <ClCompile Include="Library\ThirdParty\ArduinoMadgwickAHRS\MadgwickAHRS.cpp" />
+    <ClCompile Include="Source\HMD_SensorAnalyzer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\framework.h" />
@@ -65,8 +65,8 @@
     <ClInclude Include="Source\SimpleCounter.hpp">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ARWorkspace.hpp" />
     <ClInclude Include="Library\ThirdParty\ArduinoMadgwickAHRS\MadgwickAHRS.hpp" />
+    <ClInclude Include="Source\HMD_SensorAnalyzer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GUI">

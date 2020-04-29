@@ -1,13 +1,13 @@
 
-#include "ARWorkspace.hpp"
+#include "HMD_SensorAnalyzer.hpp"
 
 namespace ARWorkspace {
-ARWorkspace::ARWorkspace()
+HMD_SensorAnalyzer::HMD_SensorAnalyzer()
 {
 
 }
 
-void ARWorkspace::Update(const double delta_t)
+void HMD_SensorAnalyzer::Update(const double delta_t)
 {
 	if (this->IsDeviceRollFlat())
 	{
@@ -99,7 +99,7 @@ void ARWorkspace::Update(const double delta_t)
 
 }
 
-void ARWorkspace::SetGravityVector(const Vector3AndTimestamp& arg_gravity, const double delta_t)
+void HMD_SensorAnalyzer::SetGravityVector(const Vector3AndTimestamp& arg_gravity, const double delta_t)
 {
 	this->gravity.x = std::get<0>(arg_gravity);
 	this->gravity.y = std::get<1>(arg_gravity);
@@ -125,7 +125,7 @@ void ARWorkspace::SetGravityVector(const Vector3AndTimestamp& arg_gravity, const
 	}
 }
 
-void ARWorkspace::SetCompassVector(const Vector3AndTimestamp& arg_compass, const double delta_t)
+void HMD_SensorAnalyzer::SetCompassVector(const Vector3AndTimestamp& arg_compass, const double delta_t)
 {
 
 	this->compass_diff = this->compass.x - std::get<0>(arg_compass);
@@ -143,7 +143,7 @@ void ARWorkspace::SetCompassVector(const Vector3AndTimestamp& arg_compass, const
 	}
 }
 
-void ARWorkspace::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const double delta_t)
+void HMD_SensorAnalyzer::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const double delta_t)
 {
 	this->gyro_raw.x = std::get<2>(arg_gyro) * -1;
 	this->gyro_raw.y = std::get<1>(arg_gyro);
@@ -160,7 +160,7 @@ void ARWorkspace::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const doubl
 	
 }
 
-void ARWorkspace::SetAccelVector(const Vector3AndTimestamp& arg_accel, const double delta_t)
+void HMD_SensorAnalyzer::SetAccelVector(const Vector3AndTimestamp& arg_accel, const double delta_t)
 {
 	this->accel.x = std::get<0>(arg_accel);
 	this->accel.y = std::get<1>(arg_accel);
@@ -168,7 +168,7 @@ void ARWorkspace::SetAccelVector(const Vector3AndTimestamp& arg_accel, const dou
 
 }
 
-void ARWorkspace::SetOrientationQuaternion(const Float4AndTimestamp& arg_quaternion, const double delta_t)
+void HMD_SensorAnalyzer::SetOrientationQuaternion(const Float4AndTimestamp& arg_quaternion, const double delta_t)
 {
 	auto q = s3d::Quaternion(
 		std::get<0>(arg_quaternion),
@@ -181,16 +181,16 @@ void ARWorkspace::SetOrientationQuaternion(const Float4AndTimestamp& arg_quatern
 	
 }
 
-void ARWorkspace::SetEyeAngle(double arg_x, double arg_y, double arg_z)
+void HMD_SensorAnalyzer::SetEyeAngle(double arg_x, double arg_y, double arg_z)
 {
 }
 
-void ARWorkspace::SetEyePoint(int64_t arg_x, int64_t arg_y)
+void HMD_SensorAnalyzer::SetEyePoint(int64_t arg_x, int64_t arg_y)
 {
 }
 
 
-void ARWorkspace::DrawSensorCursor(double x, double y, 
+void HMD_SensorAnalyzer::DrawSensorCursor(double x, double y, 
 	int offset_x, int offset_y, double display_scale, double angle, 
 	const s3d::String& name, s3d::Color color)
 {
@@ -210,12 +210,12 @@ void ARWorkspace::DrawSensorCursor(double x, double y,
 		draw(disp_x + string_offset_x, disp_y, color);
 }
 
-void ARWorkspace::DebugString(const s3d::String& arg_string)
+void HMD_SensorAnalyzer::DebugString(const s3d::String& arg_string)
 {
 	this->debug_strings.emplace_back(arg_string);
 }
 
-void ARWorkspace::drawDebugString(int arg_x, int arg_y)
+void HMD_SensorAnalyzer::drawDebugString(int arg_x, int arg_y)
 {
 	int x = arg_x;
 	int y = arg_y;
@@ -228,13 +228,13 @@ void ARWorkspace::drawDebugString(int arg_x, int arg_y)
 	this->debug_strings.clear();
 }
 
-bool ARWorkspace::IsDeviceRollFlat() const
+bool HMD_SensorAnalyzer::IsDeviceRollFlat() const
 {
 	if (this->gravity_dot.y < 0.0)
 	{
 		return false;
 	}
-	if (ARWorkspace::IsRange(this->gravity_dot.x, 0.0, 
+	if (HMD_SensorAnalyzer::IsRange(this->gravity_dot.x, 0.0, 
 		this->device_roll_flat_margin))
 	{
 		return true;
@@ -242,13 +242,13 @@ bool ARWorkspace::IsDeviceRollFlat() const
 	return false;
 }
 
-bool ARWorkspace::IsDeviceNearlyCompassStartAngle() const
+bool HMD_SensorAnalyzer::IsDeviceNearlyCompassStartAngle() const
 {
-	return ARWorkspace::IsRange(this->compass, this->compass_startup, 
+	return HMD_SensorAnalyzer::IsRange(this->compass, this->compass_startup, 
 			this->device_nearly_compass_start_margin);
 }
 
-void ARWorkspace::updateEyePoint()
+void HMD_SensorAnalyzer::updateEyePoint()
 {
 	
 	if (this->gravity_dot.y <= 0)

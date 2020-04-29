@@ -1,7 +1,7 @@
 ﻿#define SIV3D_WINDOWS_HIGH_DPI
 #include <Siv3D.hpp> // OpenSiv3D v0.4.2
 
-#include "ARWorkspace.hpp"
+#include "HMD_SensorAnalyzer.hpp"
 #include "ARVirtualScreen.hpp"
 #include "GuiMenu.hpp"
 #include "KeyCommand.hpp"
@@ -18,9 +18,9 @@ void Main()
 	auto p_ar_screen = std::make_shared<ARWorkspace::ARVirtualScreen>();
 	p_ar_screen->ReadConfigFile();
 
-	ARWorkspace::ARWorkspace	ar_workspace;
-	ARWorkspace::GuiMenu		gui_capture_menu(p_ar_screen);
-	ARWorkspace::KeyCommand		key_command(p_ar_screen);
+	ARWorkspace::HMD_SensorAnalyzer	hmd_analyzer;
+	ARWorkspace::GuiMenu			gui_capture_menu(p_ar_screen);
+	ARWorkspace::KeyCommand			key_command(p_ar_screen);
 
 	WinSensor::WinSensorManager	sensor;
 
@@ -51,13 +51,13 @@ void Main()
 		{
 			double delta_t = s3d::Scene::DeltaTime();
 
-			ar_workspace.SetGravityVector(sensor.GetGravityVectorData(), delta_t);
-			ar_workspace.SetCompassVector(sensor.GetCompassData(), delta_t);
-			ar_workspace.SetGyroVector(sensor.GetGyrometerData(), delta_t);
-			ar_workspace.SetOrientationQuaternion(sensor.GetAggregatedDeviceOrientationData(), delta_t);
-			ar_workspace.SetAccelVector(sensor.GetAccelerometerData(), delta_t);
+			hmd_analyzer.SetGravityVector(sensor.GetGravityVectorData(), delta_t);
+			hmd_analyzer.SetCompassVector(sensor.GetCompassData(), delta_t);
+			hmd_analyzer.SetGyroVector(sensor.GetGyrometerData(), delta_t);
+			hmd_analyzer.SetOrientationQuaternion(sensor.GetAggregatedDeviceOrientationData(), delta_t);
+			hmd_analyzer.SetAccelVector(sensor.GetAccelerometerData(), delta_t);
 			
-			ar_workspace.Update(delta_t);
+			hmd_analyzer.Update(delta_t);
 		}
 		{
 		

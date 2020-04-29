@@ -7,13 +7,13 @@
 
 
 namespace ARWorkspace {
-class ARWorkspace
+class HMD_SensorAnalyzer
 {
 using Vector3AndTimestamp = std::tuple<double, double, double, uint64_t>;
 using Float4AndTimestamp = std::tuple<float, float, float, float, uint64_t>;
 
 public:
-	ARWorkspace();
+	HMD_SensorAnalyzer();
 
 public:
 
