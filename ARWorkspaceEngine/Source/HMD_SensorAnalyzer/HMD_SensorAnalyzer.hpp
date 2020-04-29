@@ -4,7 +4,7 @@
 #include <tuple>
 #include <Siv3D.hpp>
 #include "ThirdParty/ArduinoMadgwickAHRS/MadgwickAHRS.hpp"
-
+#include "SensorVectorRelative.hpp"
 
 namespace ARWorkspace {
 class HMD_SensorAnalyzer
@@ -87,7 +87,7 @@ private:
 
 	inline bool IsDeviceStaticAngle() const
 	{
-		return IsRange(this->gyro, 0.0, 1.0);
+		return IsRange(this->gyro, 0.0, 1.5);
 	}
 	inline void ResetGyroIntegral()
 	{
@@ -100,23 +100,26 @@ private:
 
 	s3d::Vec3	gravity;
 	s3d::Vec3	gravity_dot; // 重力ベクトルの各規準軸との内積[cos].
-	s3d::Vec3	compass;
+	//s3d::Vec3	compass;
 	s3d::Vec3	gyro;
 	s3d::Vec3	gyro_raw; //to Madgwick Filter
 	s3d::Vec3	gyro_integral;
 	s3d::Vec3	orientation;
 	s3d::Vec3	accel;
 
-	bool		compass_startup_initialized = false;
-	s3d::Vec3	compass_startup;
+	SensorVectorRelative	compass;
+	//bool		compass_startup_initialized = false;
+	//s3d::Vec3	compass_startup;
+	//double		compass_diff = 0.0;
+	//double		compass_diff_integral = 0.0;
+
 	bool		madgwick_startup_initialized = false;
-	s3d::Vec3	madgwick_startup;
+	//s3d::Vec3	madgwick_startup;
+	SensorVectorRelative	madgwick;
+
 	s3d::Vec3	eye_point1;	// 重力内積+ジャイロ積分.
 	s3d::Vec3	eye_point2; // 重力内積+コンパス差分.
 	s3d::Vec3	eye_point3; // 重力内積＋Madgwickヨー角.
-
-	double		compass_diff = 0.0;
-	double		compass_diff_integral = 0.0;
 
 	double		device_roll_flat_margin = 0.20;
 	double		device_nearly_compass_start_margin = 30.0;

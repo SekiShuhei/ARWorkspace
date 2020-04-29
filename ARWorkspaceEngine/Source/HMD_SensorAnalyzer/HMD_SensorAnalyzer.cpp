@@ -40,20 +40,23 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 		this->madgwick_filter.Update(
 			this->gyro_raw.x, this->gyro_raw.y, this->gyro_raw.z,
 			this->accel.x, this->accel.y, this->accel.z,
-			this->compass.x, this->compass.y, this->compass.z,
+			this->compass.GetRelative().x, 
+			this->compass.GetRelative().y, 
+			this->compass.GetRelative().z,
 			delta_t);
 
 		auto roll  = this->madgwick_filter.getRollRadians() + 1;
 		auto pitch = this->madgwick_filter.getPitchRadians();
 		auto yaw   = this->madgwick_filter.getYawRadians() + 2;
 
-		if (! this->madgwick_startup_initialized)
-		{
-			this->madgwick_startup_initialized = true;
-			this->madgwick_startup.x = yaw;
-			this->madgwick_startup.y = pitch;
-			this->madgwick_startup.z = roll;
-		}
+		this->madgwick.SetData(Vector3(yaw, pitch, roll));
+		//if (! this->madgwick_startup_initialized)
+		//{
+		//	this->madgwick_startup_initialized = true;
+		//	this->madgwick_startup.x = yaw;
+		//	this->madgwick_startup.y = pitch;
+		//	this->madgwick_startup.z = roll;
+		//}
 
 		this->DebugString(U"madgwick_filter roll:{:.1f},pitch:{:.1f},yaw{:.1f}"_fmt
 		(roll, pitch, yaw));
@@ -134,19 +137,22 @@ void HMD_SensorAnalyzer::SetGravityVector(const Vector3AndTimestamp& arg_gravity
 void HMD_SensorAnalyzer::SetCompassVector(const Vector3AndTimestamp& arg_compass, const double delta_t)
 {
 
-	this->compass_diff = this->compass.x - std::get<0>(arg_compass);
-	this->compass_diff_integral += this->compass_diff;
+	//this->compass_diff = this->compass.x - std::get<0>(arg_compass);
+	//this->compass_diff_integral += this->compass_diff;
 
-	this->compass.x = std::get<0>(arg_compass);
-	this->compass.y = std::get<1>(arg_compass);
-	this->compass.z = std::get<2>(arg_compass);
+	this->compass.SetData(
+		std::get<0>(arg_compass),
+		std::get<1>(arg_compass),
+		std::get<2>(arg_compass));
+	//this->compass.x = std::get<0>(arg_compass);
+	//this->compass.y = std::get<1>(arg_compass);
+	//this->compass.z = std::get<2>(arg_compass);
 	
-
-	if (!this->compass_startup_initialized)
-	{
-		this->compass_startup_initialized = true;
-		this->compass_startup = this->compass;
-	}
+	//if (!this->compass_startup_initialized)
+	//{
+	//	this->compass_startup_initialized = true;
+	//	this->compass_startup = this->compass;
+	//}
 }
 
 void HMD_SensorAnalyzer::SetGyroVector(const Vector3AndTimestamp& arg_gyro, const double delta_t)
@@ -250,8 +256,9 @@ bool HMD_SensorAnalyzer::IsDeviceRollFlat() const
 
 bool HMD_SensorAnalyzer::IsDeviceNearlyCompassStartAngle() const
 {
-	return HMD_SensorAnalyzer::IsRange(this->compass, this->compass_startup, 
-			this->device_nearly_compass_start_margin);
+	return this->compass.GetRelative().IsRange(
+		0.0,
+		this->device_nearly_compass_start_margin);
 }
 
 bool HMD_SensorAnalyzer::IsDeviceNearlyStartAngle() const
@@ -282,10 +289,10 @@ void HMD_SensorAnalyzer::updateEyePoint()
 
 	this->eye_point1.x = this->gyro_integral.x / 30;
 
-	this->eye_point2.x = (this->compass.x - this->compass_startup.x) / 100 * -1;
+	this->eye_point2.x = (this->compass.GetRelative().x) / 100 * -1;
 
-	this->eye_point3.x = 
-		(this->madgwick_filter.getYawRadians() + 2) - this->madgwick_startup.x;
+	this->eye_point3.x = this->madgwick.GetRelative().x;
+	//	(this->madgwick_filter.getYawRadians() + 2) - this->madgwick_startup.x;
 	
 	//if (this->IsDeviceRollFlat())
 	//{

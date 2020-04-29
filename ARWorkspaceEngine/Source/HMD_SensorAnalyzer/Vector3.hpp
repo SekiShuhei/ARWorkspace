@@ -43,7 +43,14 @@ public:
 	{
 		return (base > target - range && base < target + range);
 	}
-	inline bool IsRange(const Vector3& target, const double range)
+	inline bool IsRange(const double& target, const double range) const
+	{
+		return (
+			Vector3::IsRange(this->x, target, range) &&
+			Vector3::IsRange(this->y, target, range) &&
+			Vector3::IsRange(this->z, target, range));
+	}
+	inline bool IsRange(const Vector3& target, const double range) const
 	{
 		return (
 			Vector3::IsRange(this->x, target.x, range) &&
