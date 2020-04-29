@@ -45,20 +45,53 @@ public:
 private:
 	void updateEyePoint();
 
-	inline static bool IsApprox(double base, double target, double margin)
+	inline static bool IsRange(double base, double target, double range)
 	{
-		return (base > target - margin && base < target + margin);
+		return (base > target - range && base < target + range);
 	}
-	inline static double Smoothing(double base, double target, double ratio)
+	inline static bool IsRange(Vec3 base, Vec3 target, double range)
+	{
+		return (
+			IsRange(base.x, target.x, range) &&
+			IsRange(base.y, target.y, range) &&
+			IsRange(base.z, target.z, range));
+	}
+	inline static bool IsRange(Vec3 base, double target, double range)
+	{
+		return (
+			IsRange(base.x, target, range) &&
+			IsRange(base.y, target, range) &&
+			IsRange(base.z, target, range));
+	}
+	inline static bool Smoothing(double& base, double target, double ratio)
 	{
 		if (ratio <= 0.0)
 		{
-			return base;
+			return false;
 		}
 		ratio = (ratio > 1.0 ? 1.0 : ratio);
-		return base + ((target - base) / ratio);
+		base += ((target - base) * ratio);
+		return true;
+	}
+	inline static bool Smoothing(Vec3& base, double target, double ratio)
+	{
+		if (ratio <= 0.0)
+		{
+			return false;
+		}
+		Smoothing(base.x, target, ratio);
+		Smoothing(base.y, target, ratio);
+		Smoothing(base.z, target, ratio);
 	}
 
+	inline bool IsDeviceStaticPosition() const
+	{
+		return IsRange(this->gyro, 0.0, 0.1);
+	}
+	inline void ResetGyroIntegral()
+	{
+		this->gyro_integral = Vec3();
+	}
 
 private:
 
@@ -75,8 +108,12 @@ private:
 
 	bool		compass_startup_initialized = false;
 	s3d::Vec3	compass_startup;
+	bool		madgwick_startup_initialized = false;
+	s3d::Vec3	madgwick_startup;
 	s3d::Vec3	eye_point1;	// 重力内積+ジャイロ積分.
 	s3d::Vec3	eye_point2; // 重力内積+コンパス差分.
+	s3d::Vec3	eye_point3; // 重力内積＋Madgwickヨー角.
+
 	double		compass_diff = 0.0;
 	double		compass_diff_integral = 0.0;
 

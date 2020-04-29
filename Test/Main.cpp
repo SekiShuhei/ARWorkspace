@@ -36,7 +36,7 @@ void Main()
 	sensor.AddSensor(WinSensor::SensorType::Compass);
 	sensor.AddSensor(WinSensor::SensorType::Gyrometer);
 	sensor.AddSensor(WinSensor::SensorType::AggregatedDeviceOrientation);
-	sensor.AddSensor(WinSensor::SensorType::LinearAccelerometer);
+	sensor.AddSensor(WinSensor::SensorType::Accelerometer);
 	
 	while (System::Update())
 	{
@@ -55,7 +55,7 @@ void Main()
 			ar_workspace.SetCompassVector(sensor.GetCompassData(), delta_t);
 			ar_workspace.SetGyroVector(sensor.GetGyrometerData(), delta_t);
 			ar_workspace.SetOrientationQuaternion(sensor.GetAggregatedDeviceOrientationData(), delta_t);
-			ar_workspace.SetAccelVector(sensor.GetLinearAccelerometerData(), delta_t);
+			ar_workspace.SetAccelVector(sensor.GetAccelerometerData(), delta_t);
 			
 			ar_workspace.Update(delta_t);
 		}
