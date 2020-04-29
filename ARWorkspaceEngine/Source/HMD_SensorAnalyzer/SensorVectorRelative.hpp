@@ -39,7 +39,7 @@ public:
 		return this->relative;
 	}
 public:
-private:
+//private:
 	Vector3	input;
 	Vector3	base;
 	Vector3	relative;

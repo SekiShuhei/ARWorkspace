@@ -116,7 +116,7 @@ private:
 	//double		compass_diff = 0.0;
 	//double		compass_diff_integral = 0.0;
 
-	bool		madgwick_startup_initialized = false;
+	//bool		madgwick_startup_initialized = false;
 	//s3d::Vec3	madgwick_startup;
 	SensorVectorRelative	madgwick;
 

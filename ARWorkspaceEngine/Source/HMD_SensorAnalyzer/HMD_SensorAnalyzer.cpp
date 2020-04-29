@@ -21,8 +21,10 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 	{
 		if (this->IsDeviceRollFlat() && this->IsDeviceStaticAngle())
 		{
-			this->gyro.integral.Smoothing(0.0, 10 * delta_t);
+			this->gyro.integral.Smoothing(0.0, 1 * delta_t);
 			//Smoothing(this->gyro.GetIntegral(), 0.0, 10 * delta_t);
+			//this->madgwick.base = this->madgwick.GetInput();
+			this->madgwick.base.Smoothing(this->madgwick.GetInput(), 1 * delta_t);
 			//Smoothing(this->madgwick_startup, , 10 * delta_t);
 			this->font(U"IsDeviceNearlyStartAngle = true").draw(Vec2(0, 720));
 		}
