@@ -45,6 +45,7 @@ void Main()
 		key_command.Update();
 		//p_ar_screen->Draw();
 		gui_capture_menu.Draw();
+		//hmd_analyzer.SetDebugDisplayMode(false);
 
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
 		
@@ -60,7 +61,15 @@ void Main()
 			hmd_analyzer.Update(delta_t);
 		}
 		{
-		
+			if (s3d::SimpleGUI::Button(U"HMD_Analyzer Debug Mode", Vec2(850, 800)))
+			{
+				hmd_analyzer.SetDebugDisplayMode(
+					! hmd_analyzer.IsDebugDisplayMode());
+			}
+			if (s3d::SimpleGUI::Button(U"HMD_Analyzer Reset", Vec2(850, 850)))
+			{
+				hmd_analyzer.ResetCenterAngle();
+			}
 		}
 
 
