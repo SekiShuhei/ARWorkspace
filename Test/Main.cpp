@@ -14,8 +14,7 @@ void Main()
 	s3d::WindowResizeOption::ResizeSceneSize;
 	s3d::Scene::SetScaleMode(ScaleMode::ResizeFill);
 	s3d::Scene::SetTextureFilter(TextureFilter::Linear);
-	
-	auto p_ar_screen = std::make_shared<ARWorkspace::ARVirtualScreen>();
+	auto p_ar_screen = std::make_shared<ARWorkspace::ARVirtualScreen>(false);
 	p_ar_screen->ReadConfigFile();
 
 	ARWorkspace::HMD_SensorAnalyzer	hmd_analyzer;

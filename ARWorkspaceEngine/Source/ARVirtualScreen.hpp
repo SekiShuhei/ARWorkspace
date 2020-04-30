@@ -17,7 +17,8 @@ class ARVirtualScreen
 {
 public:
 
-	ARVirtualScreen();
+	//ARVirtualScreen() = delete;
+	ARVirtualScreen(bool use_cauture_region_guide = true);
 
 	ARVirtualScreen(const ARVirtualScreen&) = delete;
 	ARVirtualScreen(const ARVirtualScreen&&) = delete;
@@ -44,11 +45,11 @@ public:
 	{
 		return this->capture_region;
 	}
-	void CaptureRegionUpdate()
+	inline void CaptureRegionUpdate()
 	{
 		this->capture_region_updated = true;
 	}
-	void CaptureSizeUpdate()
+	inline void CaptureSizeUpdate()
 	{
 		this->capture_size_updated = true;
 	}
@@ -76,9 +77,12 @@ private:
 	
 	std::thread			capture_thread;
 	bool				capture_thread_run = false;
+	const bool			capture_region_guide_enable = true;
 	std::thread			capture_region_guide_thread;
 	bool				capture_region_guide_thread_run = false;
 	bool				capture_region_guide_drawing = false;
+
+
 
 	s3d::Point	capture_point = s3d::Point(0, 0);
 	// ÀÛ‚ÉƒXƒNƒŠ[ƒ“‚©‚çæ“¾‚·‚é‚×‚«—Ìˆæ.

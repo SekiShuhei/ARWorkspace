@@ -4,7 +4,8 @@
 
 namespace ARWorkspace {
 
-ARVirtualScreen::ARVirtualScreen()
+ARVirtualScreen::ARVirtualScreen(bool use_cauture_region_guide) :
+	capture_region_guide_enable(use_cauture_region_guide)
 {
 	this->p_texture = std::make_unique<s3d::DynamicTexture>();
 }
@@ -14,9 +15,12 @@ ARVirtualScreen::~ARVirtualScreen()
 
 	this->capture_thread_run = false;
 	this->capture_thread.join();
-	this->capture_region_guide_thread_run = false;
-	this->capture_region_guide_thread.join();
 
+	if (this->capture_region_guide_enable)
+	{
+		this->capture_region_guide_thread_run = false;
+		this->capture_region_guide_thread.join();
+	}
 }
 
 void ARVirtualScreen::Initialize()
@@ -35,34 +39,36 @@ void ARVirtualScreen::Initialize()
 			}
 		});
 
-	this->capture_region_guide_thread_run = true;
-	this->capture_region_guide_thread = std::thread([this]()
-		{
-			::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
-			while (this->capture_region_guide_thread_run)
+	if (this->capture_region_guide_enable)
+	{
+		this->capture_region_guide_thread_run = true;
+		this->capture_region_guide_thread = std::thread([this]()
 			{
-				
-				if (this->capture_region_updated)
+				::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+				while (this->capture_region_guide_thread_run)
 				{
-					this->capture_region_updated = false;
-					this->capture_region_guide_counter.Reset();
-					this->capture_region_guide_counter.Count();
-				}
-				if (this->capture_region_guide_counter.IsCount())
-				{
-					if (this->capture_region_guide_counter.Count())
+					
+					if (this->capture_region_updated)
 					{
-						this->capture_region_guide.Invalidate();
+						this->capture_region_updated = false;
 						this->capture_region_guide_counter.Reset();
-					} else {
-						this->capture_region_guide.Draw();
+						this->capture_region_guide_counter.Count();
 					}
+					if (this->capture_region_guide_counter.IsCount())
+					{
+						if (this->capture_region_guide_counter.Count())
+						{
+							this->capture_region_guide.Invalidate();
+							this->capture_region_guide_counter.Reset();
+						} else {
+							this->capture_region_guide.Draw();
+						}
+					}
+					
+					std::this_thread::sleep_for(std::chrono::milliseconds(5));
 				}
-				
-				std::this_thread::sleep_for(std::chrono::milliseconds(5));
-			}
-		});
-
+			});
+	}
 }
 
 bool ARVirtualScreen::ReadConfigFile()
