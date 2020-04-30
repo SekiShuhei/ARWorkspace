@@ -110,11 +110,11 @@ public:
 		Vector3::Smoothing(this->y, target.y, ratio);
 		Vector3::Smoothing(this->z, target.z, ratio);
 	}
-	inline bool Smoothing(const double& target, const double ratio)
+	inline void Smoothing(const double& target, const double ratio)
 	{
 		if (ratio <= 0.0)
 		{
-			return false;
+			return;
 		}
 		Vector3::Smoothing(this->x, target, ratio);
 		Vector3::Smoothing(this->y, target, ratio);

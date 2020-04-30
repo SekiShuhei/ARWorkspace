@@ -14,7 +14,7 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 		if (this->IsDeviceRollFlat() && this->IsDeviceStaticAngle())
 		{
 			this->gyro.integral.Smoothing(0.0, 1 * delta_t);
-			this->madgwick.base.Smoothing(this->madgwick.GetInput(), 1 * delta_t);
+			//this->madgwick.base.Smoothing(this->madgwick.GetInput(), 1 * delta_t);
 		}
 	}
 	if (this->IsDeviceCompassCenterAngle())
@@ -30,22 +30,22 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 	int offset_x = 500;
 	int offset_y = 500;
 
-	{
-		this->madgwick_filter.Update(
-			this->gyro_raw.x, this->gyro_raw.y, this->gyro_raw.z,
-			this->accel.x, this->accel.y, this->accel.z,
-			this->compass.GetRelative().x, 
-			this->compass.GetRelative().y, 
-			this->compass.GetRelative().z,
-			delta_t);
-
-		auto roll  = this->madgwick_filter.getRollRadians() + 1;
-		auto pitch = this->madgwick_filter.getPitchRadians();
-		auto yaw   = this->madgwick_filter.getYawRadians() + 2;
-
-		this->madgwick.SetData(Vector3(yaw, pitch, roll));
-		
-	}
+	//{
+	//	this->madgwick_filter.Update(
+	//		this->gyro_raw.x, this->gyro_raw.y, this->gyro_raw.z,
+	//		this->accel.x, this->accel.y, this->accel.z,
+	//		this->compass.GetRelative().x, 
+	//		this->compass.GetRelative().y, 
+	//		this->compass.GetRelative().z,
+	//		delta_t);
+	//
+	//	auto roll  = this->madgwick_filter.getRollRadians() + 1;
+	//	auto pitch = this->madgwick_filter.getPitchRadians();
+	//	auto yaw   = this->madgwick_filter.getYawRadians() + 2;
+	//
+	//	this->madgwick.SetData(Vector3(yaw, pitch, roll));
+	//	
+	//}
 
 	if (this->IsDebugDisplayMode())
 	{
@@ -101,18 +101,18 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 			this->eye_angle2.z * 1.7,
 			U"eye_pt2", Palette::Orange);
 
-		scale = 300.0;
-		this->DrawSensorCursor(
-			this->eye_angle3.x, this->eye_angle3.y,
-			offset_x, offset_y, scale,
-			this->eye_angle3.z * 1.7,
-			U"eye_pt3", Palette::Pink);
+		//scale = 300.0;
+		//this->DrawSensorCursor(
+		//	this->eye_angle3.x, this->eye_angle3.y,
+		//	offset_x, offset_y, scale,
+		//	this->eye_angle3.z * 1.7,
+		//	U"eye_pt3", Palette::Pink);
 	}
 }
 
 void HMD_SensorAnalyzer::ResetCenterAngle()
 {
-	this->madgwick.ResetBase();
+	//this->madgwick.ResetBase();
 	this->compass.ResetBase();
 	this->gyro.ResetIntegral();
 }
@@ -278,8 +278,8 @@ void HMD_SensorAnalyzer::updateEyePoint()
 	this->eye_angle1.z = this->gravity_dot.x * -1;
 	this->eye_angle2.y = this->gravity_dot.z;
 	this->eye_angle2.z = this->gravity_dot.x * -1;
-	this->eye_angle3.y = this->gravity_dot.z;
-	this->eye_angle3.z = this->gravity_dot.x * -1;
+	//this->eye_angle3.y = this->gravity_dot.z;
+	//this->eye_angle3.z = this->gravity_dot.x * -1;
 
 	// ƒˆ[Šp‚Í‘¼‚©‚ç‚à‚Á‚Ä‚­‚é.
 
@@ -287,7 +287,7 @@ void HMD_SensorAnalyzer::updateEyePoint()
 
 	this->eye_angle2.x = (this->compass.GetRelative().x) / 100 * -1;
 
-	this->eye_angle3.x = this->madgwick.GetRelative().x;
+	//this->eye_angle3.x = this->madgwick.GetRelative().x;
 	
 	{
 		this->eye_pos = EyePosition(

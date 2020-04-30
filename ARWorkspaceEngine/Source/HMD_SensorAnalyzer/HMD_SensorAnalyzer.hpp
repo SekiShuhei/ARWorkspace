@@ -3,7 +3,6 @@
 #include <vector>
 #include <tuple>
 #include <Siv3D.hpp>
-#include "ThirdParty/ArduinoMadgwickAHRS/MadgwickAHRS.hpp"
 #include "SensorVectorRelative.hpp"
 #include "SensorVectorIntegral.hpp"
 
@@ -81,11 +80,11 @@ private:
 
 	SensorVectorIntegral	gyro;
 	SensorVectorRelative	compass;
-	SensorVectorRelative	madgwick;
+	//SensorVectorRelative	madgwick;
 
 	s3d::Vec3	eye_angle1;	// 重力内積+ジャイロ積分.
 	s3d::Vec3	eye_angle2; // 重力内積+コンパス差分.
-	s3d::Vec3	eye_angle3; // 重力内積＋Madgwickヨー角.
+	//s3d::Vec3	eye_angle3; // 重力内積＋Madgwickヨー角.
 	EyePosition	eye_pos;
 	double		eye_pos_scale = 1.0;
 	
@@ -99,7 +98,7 @@ private:
 
 	std::vector<s3d::String> debug_strings = std::vector<s3d::String>(30);
 
-	Madgwick::MadgwickFilter madgwick_filter;
+	//Madgwick::MadgwickFilter madgwick_filter;
 
 };
 

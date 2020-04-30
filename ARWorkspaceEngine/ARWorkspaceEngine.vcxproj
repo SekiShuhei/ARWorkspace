@@ -169,7 +169,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Library\ThirdParty\ArduinoMadgwickAHRS\MadgwickAHRS.hpp" />
     <ClInclude Include="Source\DropDownMenu.hpp" />
     <ClInclude Include="Source\framework.h" />
     <ClInclude Include="Source\HMD_SensorAnalyzer\SensorVectorIntegral.hpp" />
@@ -190,7 +189,6 @@
     <ClInclude Include="Source\WinScreenCapture.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Library\ThirdParty\ArduinoMadgwickAHRS\MadgwickAHRS.cpp" />
     <ClCompile Include="Source\DropDownMenu.cpp" />
     <ClCompile Include="Source\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -207,9 +205,6 @@
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\ValueEditor.cpp" />
     <ClCompile Include="Source\WinScreenCapture.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Library\ThirdParty\ArduinoMadgwickAHRS\LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
