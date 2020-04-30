@@ -38,14 +38,21 @@ void Main()
 	sensor.AddSensor(WinSensor::SensorType::AggregatedDeviceOrientation);
 	sensor.AddSensor(WinSensor::SensorType::Accelerometer);
 	
+	hmd_analyzer.SetDebugDisplayMode(false);
+	
 	while (System::Update())
 	{
 		
 
 		key_command.Update();
-		//p_ar_screen->Draw();
+		p_ar_screen->Draw();
+
+		auto eye_pos = hmd_analyzer.GetEyePosition();
+		font(U"x:{},y:{}"_fmt(std::get<0>(eye_pos), std::get<1>(eye_pos))).draw(Vec2(0,400));
+		p_ar_screen->SetCaptureRegionPosition(
+			std::get<0>(eye_pos), std::get<1>(eye_pos));
+		
 		gui_capture_menu.Draw();
-		//hmd_analyzer.SetDebugDisplayMode(false);
 
 		font(Profiler::FPS(), U"fps").draw(0.0, 0.0, Palette::Blue);
 		

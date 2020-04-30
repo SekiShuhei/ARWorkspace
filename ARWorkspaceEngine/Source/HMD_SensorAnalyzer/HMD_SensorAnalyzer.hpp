@@ -86,7 +86,7 @@ private:
 	s3d::Vec3	eye_angle2; // 重力内積+コンパス差分.
 	//s3d::Vec3	eye_angle3; // 重力内積＋Madgwickヨー角.
 	EyePosition	eye_pos;
-	double		eye_pos_scale = 1.0;
+	double		eye_pos_scale = 1000.0;
 	
 	double		device_roll_flat_margin = 0.20;
 	double		device_nearly_compass_start_margin = 30.0;

@@ -11,8 +11,6 @@
 #include "WinScreenCapture.hpp"
 #include "CustomCursor.hpp"
 
-
-
 namespace ARWorkspace {
 
 class ARVirtualScreen
@@ -21,7 +19,6 @@ public:
 
 	ARVirtualScreen();
 
-	// てきとう・・・.
 	ARVirtualScreen(const ARVirtualScreen&) = delete;
 	ARVirtualScreen(const ARVirtualScreen&&) = delete;
 	void operator =(const ARVirtualScreen&) = delete;
@@ -33,18 +30,6 @@ public:
 	bool ReadConfigFile();
 	bool WriteConfigFile();
 
-	// センサ系.
-	// COM系必須っぽい.
-
-	// センサ情報の解釈.
-	// データ整流.
-	// ジェスチャー解釈.
-
-	// モードは複数想定する.
-	// EXEレベルでわける？.
-
-
-
 private:
 
 	bool GetCaptureRect();
@@ -52,13 +37,9 @@ private:
 
 
 public:
-	// 描画.
 	void Draw();
 
-	// カスタムカーソル.
-	// OSカーソルと同期するように、座標系を適切に処理.
-	// ↑いらない？.
-
+	
 	const ScreenRegion& GetCaptureRegion() const
 	{
 		return this->capture_region;
@@ -93,7 +74,6 @@ private:
 	CustomCursor		custom_cursor;
 	WinScreenCapture	screen_capture;
 	
-	// キャプチャ系.
 	std::thread			capture_thread;
 	bool				capture_thread_run = false;
 	std::thread			capture_region_guide_thread;
@@ -140,8 +120,6 @@ private:
 	SimpleCounter	capture_region_guide_counter = SimpleCounter(10);
 	SimpleCounter	texture_reflesh_counter = SimpleCounter(3);
 	
-	// テクスチャ拡縮関連.
-	// アクセサ経由に変更する
 public:
 	double	scale = 3.0;
 	double	radian = 0.0;
