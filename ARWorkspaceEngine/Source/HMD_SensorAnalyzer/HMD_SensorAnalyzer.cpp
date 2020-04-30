@@ -56,7 +56,7 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 
 		this->madgwick.SetData(Vector3(yaw, pitch, roll));
 		
-		this->DebugString(U"madgwick_filter roll:{:.1f},pitch:{:.1f},yaw{:.1f}"_fmt
+		this->insertDebugString(U"madgwick_filter roll:{:.1f},pitch:{:.1f},yaw{:.1f}"_fmt
 		(roll, pitch, yaw));
 
 		scale = 8.0 * 50;
@@ -78,9 +78,9 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 
 	scale = 300.0;
 	this->DrawSensorCursor(
-		this->eye_point1.x, this->eye_point1.y,
+		this->eye_angle1.x, this->eye_angle1.y,
 		offset_x, offset_y, scale,
-		this->eye_point1.z * 1.7, 
+		this->eye_angle1.z * 1.7, 
 		U"eye_pt1", Palette::Lightgreen);
 
 	scale = 300.0;
@@ -92,18 +92,25 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 
 	scale = 300.0;
 	this->DrawSensorCursor(
-		this->eye_point2.x, this->eye_point2.y,
+		this->eye_angle2.x, this->eye_angle2.y,
 		offset_x, offset_y, scale,
-		this->eye_point2.z * 1.7,
+		this->eye_angle2.z * 1.7,
 		U"eye_pt2", Palette::Orange);
 
 	scale = 300.0;
 	this->DrawSensorCursor(
-		this->eye_point3.x, this->eye_point3.y,
+		this->eye_angle3.x, this->eye_angle3.y,
 		offset_x, offset_y, scale,
-		this->eye_point3.z * 1.7,
+		this->eye_angle3.z * 1.7,
 		U"eye_pt3", Palette::Pink);
 
+}
+
+void HMD_SensorAnalyzer::ResetCenterAngle()
+{
+	this->madgwick.ResetBase();
+	this->compass.ResetBase();
+	this->gyro.ResetIntegral();
 }
 
 void HMD_SensorAnalyzer::SetGravityVector(const Vector3AndTimestamp& arg_gravity, const double delta_t)
@@ -115,17 +122,17 @@ void HMD_SensorAnalyzer::SetGravityVector(const Vector3AndTimestamp& arg_gravity
 	{
 		this->gravity_dot.y = this->gravity.dot(s3d::Vec3::UnitY());
 		auto angle = s3d::ToDegrees(std::acos(this->gravity_dot.y));
-		this->DebugString(U"gravity_V_dot:{:.3f},angle{:.1f}"_fmt(this->gravity_dot.y, angle));
+		this->insertDebugString(U"gravity_V_dot:{:.3f},angle{:.1f}"_fmt(this->gravity_dot.y, angle));
 	}
 	{
 		this->gravity_dot.z = this->gravity.dot(s3d::Vec3::UnitZ());
 		auto angle = s3d::ToDegrees(std::acos(this->gravity_dot.z));
-		this->DebugString(U"gravity_H_dot:{:.3f},angle{:.1f}"_fmt(this->gravity_dot.z, angle));
+		this->insertDebugString(U"gravity_H_dot:{:.3f},angle{:.1f}"_fmt(this->gravity_dot.z, angle));
 	}
 	{
 		this->gravity_dot.x = this->gravity.dot(s3d::Vec3::UnitX());
 		auto angle = s3d::ToDegrees(std::acos(this->gravity_dot.x));
-		this->DebugString(U"gravity_H2_dot:{:.3f},angle{:.1f}"_fmt(this->gravity_dot.x, angle));
+		this->insertDebugString(U"gravity_H2_dot:{:.3f},angle{:.1f}"_fmt(this->gravity_dot.x, angle));
 	}
 	{
 
@@ -202,7 +209,7 @@ void HMD_SensorAnalyzer::DrawSensorCursor(double x, double y,
 		draw(disp_x + string_offset_x, disp_y, color);
 }
 
-void HMD_SensorAnalyzer::DebugString(const s3d::String& arg_string)
+void HMD_SensorAnalyzer::insertDebugString(const s3d::String& arg_string)
 {
 	this->debug_strings.emplace_back(arg_string);
 }
@@ -260,21 +267,29 @@ void HMD_SensorAnalyzer::updateEyePoint()
 	{
 		return;
 	}
-	this->eye_point1.y = this->gravity_dot.z;
-	this->eye_point1.z = this->gravity_dot.x * -1;
-	this->eye_point2.y = this->gravity_dot.z;
-	this->eye_point2.z = this->gravity_dot.x * -1;
-	this->eye_point3.y = this->gravity_dot.z;
-	this->eye_point3.z = this->gravity_dot.x * -1;
+	this->eye_angle1.y = this->gravity_dot.z;
+	this->eye_angle1.z = this->gravity_dot.x * -1;
+	this->eye_angle2.y = this->gravity_dot.z;
+	this->eye_angle2.z = this->gravity_dot.x * -1;
+	this->eye_angle3.y = this->gravity_dot.z;
+	this->eye_angle3.z = this->gravity_dot.x * -1;
 
 	// ƒˆ[Šp‚Í‘¼‚©‚ç‚à‚Á‚Ä‚­‚é.
 
-	this->eye_point1.x = this->gyro.GetIntegral().x / 30;
+	this->eye_angle1.x = this->gyro.GetIntegral().x / 30;
 
-	this->eye_point2.x = (this->compass.GetRelative().x) / 100 * -1;
+	this->eye_angle2.x = (this->compass.GetRelative().x) / 100 * -1;
 
-	this->eye_point3.x = this->madgwick.GetRelative().x;
+	this->eye_angle3.x = this->madgwick.GetRelative().x;
 	
+	{
+		this->eye_pos = EyePosition(
+			this->eye_angle1.x * this->eye_pos_scale,
+			this->eye_angle1.y * this->eye_pos_scale,
+			this->eye_angle1.z);
+	}
+
+
 }
 
 

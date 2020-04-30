@@ -7,6 +7,13 @@ namespace ARWorkspace {
 class SensorVectorRelative
 {
 public:
+
+	void ResetBase()
+	{
+		this->base = this->input;
+		this->update_value();
+	}
+
 	void SetData(const double& x, const double& y, const double& z)
 	{
 		this->SetData(Vector3(x, y, z));

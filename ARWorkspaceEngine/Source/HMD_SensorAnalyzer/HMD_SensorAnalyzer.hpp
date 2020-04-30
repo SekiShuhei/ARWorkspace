@@ -8,6 +8,7 @@
 #include "SensorVectorIntegral.hpp"
 
 namespace ARWorkspace {
+using EyePosition = std::tuple<int64_t, int64_t, double>;
 class HMD_SensorAnalyzer
 {
 using Vector3AndTimestamp = std::tuple<double, double, double, uint64_t>;
@@ -18,7 +19,13 @@ public:
 
 public:
 
+	const EyePosition& GetEyePosition() const
+	{
+		return this->eye_pos;
+	}
+
 	void Update(const double delta_t);
+	void ResetCenterAngle();
 
 	void SetGravityVector(const Vector3AndTimestamp& arg_gravity, const double delta_t);
 	void SetCompassVector(const Vector3AndTimestamp& arg_compass, const double delta_t);
@@ -30,9 +37,8 @@ public:
 	void SetEyeAngle(double arg_x, double arg_y, double arg_z);
 	void SetEyePoint(int64_t arg_x, int64_t arg_y);
 
-	void DrawSensorCursor(double x, double y, int offset_x, int offset_y, double display_scale, double angle, const s3d::String& name, s3d::Color color);
+	void DrawSensorCursor(double x, double y, int offset_x, int offset_y, double eye_angle_scale, double angle, const s3d::String& name, s3d::Color color);
 
-	void DebugString(const s3d::String& arg_string);
 
 	void drawDebugString(int arg_x, int arg_y);
 	bool IsDeviceRollFlat() const;
@@ -40,13 +46,9 @@ public:
 	bool IsDeviceNearlyStartAngle() const;
 	bool IsDeviceNearlyCompassCenterAngle() const;
 
-	std::tuple<int64_t, int64_t> GetEyePoint() const
-	{
-		return std::tuple<int64_t, int64_t>(0,0);
-	}
-
 private:
 	void updateEyePoint();
+	void insertDebugString(const s3d::String& arg_string);
 
 
 	inline bool IsDeviceStaticAngle() const
@@ -72,26 +74,22 @@ private:
 	SensorVectorRelative	compass;
 	SensorVectorRelative	madgwick;
 
-	s3d::Vec3	eye_point1;	// 重力内積+ジャイロ積分.
-	s3d::Vec3	eye_point2; // 重力内積+コンパス差分.
-	s3d::Vec3	eye_point3; // 重力内積＋Madgwickヨー角.
-
+	s3d::Vec3	eye_angle1;	// 重力内積+ジャイロ積分.
+	s3d::Vec3	eye_angle2; // 重力内積+コンパス差分.
+	s3d::Vec3	eye_angle3; // 重力内積＋Madgwickヨー角.
+	EyePosition	eye_pos;
+	double		eye_pos_scale = 1.0;
+	
 	double		device_roll_flat_margin = 0.20;
 	double		device_nearly_compass_start_margin = 30.0;
 
 
 
-	double	start_angle_x = 0.0;
-	double	start_angle_y = 0.0;
-	double	start_angle_z = 0.0;
-	
-	double	display_scale = 1.0;
 	int		display_size_x = 800;
 	int		display_size_y = 600;
 
 
 	std::vector<s3d::String> debug_strings = std::vector<s3d::String>(30);
-
 
 	Madgwick::MadgwickFilter madgwick_filter;
 
