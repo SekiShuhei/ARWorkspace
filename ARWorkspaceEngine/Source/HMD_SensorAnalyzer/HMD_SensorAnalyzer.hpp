@@ -42,9 +42,18 @@ public:
 
 	void drawDebugString(int arg_x, int arg_y);
 	bool IsDeviceRollFlat() const;
-	bool IsDeviceNearlyCompassStartAngle() const;
-	bool IsDeviceNearlyStartAngle() const;
-	bool IsDeviceNearlyCompassCenterAngle() const;
+	bool IsDeviceCompassStartAngle() const;
+	bool IsDeviceStartPosition() const;
+	bool IsDeviceCompassCenterAngle() const;
+
+	constexpr void SetDebugDisplayMode(bool arg)
+	{
+		this->debug_display_mode = arg;
+	}
+	constexpr bool IsDebugDisplayMode() const
+	{
+		return this->debug_display_mode;
+	}
 
 private:
 	void updateEyePoint();
@@ -83,11 +92,10 @@ private:
 	double		device_roll_flat_margin = 0.20;
 	double		device_nearly_compass_start_margin = 30.0;
 
-
-
 	int		display_size_x = 800;
 	int		display_size_y = 600;
 
+	bool	debug_display_mode = true;
 
 	std::vector<s3d::String> debug_strings = std::vector<s3d::String>(30);
 

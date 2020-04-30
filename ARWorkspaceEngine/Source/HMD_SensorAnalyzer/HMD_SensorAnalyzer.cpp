@@ -9,28 +9,17 @@ HMD_SensorAnalyzer::HMD_SensorAnalyzer()
 
 void HMD_SensorAnalyzer::Update(const double delta_t)
 {
-	if (this->IsDeviceRollFlat())
-	{
-		this->font(U"IsDeviceRollFlat = true").draw(Vec2(0, 600));
-	}
-	if (this->IsDeviceNearlyCompassStartAngle())
-	{
-		this->font(U"IsDeviceNearlyCompassStartAngle = true").draw(Vec2(0, 660));
-	}
-	if (this->IsDeviceNearlyStartAngle())
+	if (this->IsDeviceStartPosition())
 	{
 		if (this->IsDeviceRollFlat() && this->IsDeviceStaticAngle())
 		{
 			this->gyro.integral.Smoothing(0.0, 1 * delta_t);
 			this->madgwick.base.Smoothing(this->madgwick.GetInput(), 1 * delta_t);
-			this->font(U"IsDeviceNearlyStartAngle = true").draw(Vec2(0, 720));
 		}
 	}
-	if (this->IsDeviceNearlyCompassCenterAngle())
+	if (this->IsDeviceCompassCenterAngle())
 	{
 		Vector3::Smoothing(this->gyro.integral.x, 0.0, 0.1 * delta_t);
-		
-		this->font(U"IsDeviceNearlyCompassCenterAngle = true").draw(Vec2(0, 780));
 	}
 
 	this->updateEyePoint();
@@ -56,54 +45,69 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 
 		this->madgwick.SetData(Vector3(yaw, pitch, roll));
 		
-		this->insertDebugString(U"madgwick_filter roll:{:.1f},pitch:{:.1f},yaw{:.1f}"_fmt
-		(roll, pitch, yaw));
-
-		scale = 8.0 * 50;
-		this->DrawSensorCursor(yaw, pitch, offset_x - 1100, offset_y, 
-			scale, roll * 2,
-			U"MadgwickAngle", Palette::Goldenrod);
-
 	}
 
-	scale = 0.3 * 30;
-	this->DrawSensorCursor(this->gyro.GetIntegral().x, this->gyro.GetIntegral().y,
-		offset_x, offset_y, scale,
-		this->gyro.GetIntegral().z * 0.018, U"gyro integral", Palette::Aquamarine);
+	if (this->IsDebugDisplayMode())
+	{
+		if (this->IsDeviceRollFlat())
+		{
+			this->font(U"IsDeviceRollFlat = true").draw(Vec2(0, 600));
+		}
+		if (this->IsDeviceCompassStartAngle())
+		{
+			this->font(U"IsDeviceCompassStartAngle = true").draw(Vec2(0, 660));
+		}
+		if (this->IsDeviceStartPosition())
+		{
+			if (this->IsDeviceRollFlat() && this->IsDeviceStaticAngle())
+			{
+				this->font(U"IsDeviceStartPosition = true").draw(Vec2(0, 720));
+			}
+		}
+		if (this->IsDeviceCompassCenterAngle())
+		{
+			this->font(U"IsDeviceCompassCenterAngle = true").draw(Vec2(0, 780));
+		}
 
-	scale = 1.0;
-	this->DrawSensorCursor(this->gyro.GetInput().x, this->gyro.GetInput().y,
-		offset_x, offset_y, scale,
-		this->gyro.GetInput().z / 100, U"gyro", Palette::Ivory);
 
-	scale = 300.0;
-	this->DrawSensorCursor(
-		this->eye_angle1.x, this->eye_angle1.y,
-		offset_x, offset_y, scale,
-		this->eye_angle1.z * 1.7, 
-		U"eye_pt1", Palette::Lightgreen);
+		scale = 0.3 * 30;
+		this->DrawSensorCursor(this->gyro.GetIntegral().x, this->gyro.GetIntegral().y,
+			offset_x, offset_y, scale,
+			this->gyro.GetIntegral().z * 0.018, U"gyro integral", Palette::Aquamarine);
 
-	scale = 300.0;
-	this->DrawSensorCursor(
-		this->orientation.x, this->orientation.y,
-		offset_x, offset_y, scale,
-		this->orientation.z, 
-		U"orientation", Palette::Beige);
+		scale = 1.0;
+		this->DrawSensorCursor(this->gyro.GetInput().x, this->gyro.GetInput().y,
+			offset_x, offset_y, scale,
+			this->gyro.GetInput().z / 100, U"gyro", Palette::Ivory);
 
-	scale = 300.0;
-	this->DrawSensorCursor(
-		this->eye_angle2.x, this->eye_angle2.y,
-		offset_x, offset_y, scale,
-		this->eye_angle2.z * 1.7,
-		U"eye_pt2", Palette::Orange);
+		scale = 300.0;
+		this->DrawSensorCursor(
+			this->eye_angle1.x, this->eye_angle1.y,
+			offset_x, offset_y, scale,
+			this->eye_angle1.z * 1.7, 
+			U"eye_pt1", Palette::Lightgreen);
 
-	scale = 300.0;
-	this->DrawSensorCursor(
-		this->eye_angle3.x, this->eye_angle3.y,
-		offset_x, offset_y, scale,
-		this->eye_angle3.z * 1.7,
-		U"eye_pt3", Palette::Pink);
+		scale = 300.0;
+		this->DrawSensorCursor(
+			this->orientation.x, this->orientation.y,
+			offset_x, offset_y, scale,
+			this->orientation.z, 
+			U"orientation", Palette::Beige);
 
+		scale = 300.0;
+		this->DrawSensorCursor(
+			this->eye_angle2.x, this->eye_angle2.y,
+			offset_x, offset_y, scale,
+			this->eye_angle2.z * 1.7,
+			U"eye_pt2", Palette::Orange);
+
+		scale = 300.0;
+		this->DrawSensorCursor(
+			this->eye_angle3.x, this->eye_angle3.y,
+			offset_x, offset_y, scale,
+			this->eye_angle3.z * 1.7,
+			U"eye_pt3", Palette::Pink);
+	}
 }
 
 void HMD_SensorAnalyzer::ResetCenterAngle()
@@ -119,23 +123,26 @@ void HMD_SensorAnalyzer::SetGravityVector(const Vector3AndTimestamp& arg_gravity
 	this->gravity.y = std::get<1>(arg_gravity);
 	this->gravity.z = std::get<2>(arg_gravity);
 
+	this->gravity_dot.x = this->gravity.dot(s3d::Vec3::UnitX());
+	this->gravity_dot.y = this->gravity.dot(s3d::Vec3::UnitY());
+	this->gravity_dot.z = this->gravity.dot(s3d::Vec3::UnitZ());
+	
+	if (this->IsDebugDisplayMode())
 	{
-		this->gravity_dot.y = this->gravity.dot(s3d::Vec3::UnitY());
-		auto angle = s3d::ToDegrees(std::acos(this->gravity_dot.y));
-		this->insertDebugString(U"gravity_V_dot:{:.3f},angle{:.1f}"_fmt(this->gravity_dot.y, angle));
-	}
-	{
-		this->gravity_dot.z = this->gravity.dot(s3d::Vec3::UnitZ());
-		auto angle = s3d::ToDegrees(std::acos(this->gravity_dot.z));
-		this->insertDebugString(U"gravity_H_dot:{:.3f},angle{:.1f}"_fmt(this->gravity_dot.z, angle));
-	}
-	{
-		this->gravity_dot.x = this->gravity.dot(s3d::Vec3::UnitX());
-		auto angle = s3d::ToDegrees(std::acos(this->gravity_dot.x));
-		this->insertDebugString(U"gravity_H2_dot:{:.3f},angle{:.1f}"_fmt(this->gravity_dot.x, angle));
-	}
-	{
-
+		this->insertDebugString(
+			U"gravity_V_dot:{:.3f},angle{:.1f}"_fmt(
+				this->gravity_dot.y, 
+				s3d::ToDegrees(std::acos(this->gravity_dot.y))));
+	
+		this->insertDebugString(
+			U"gravity_H_dot:{:.3f},angle{:.1f}"_fmt(
+				this->gravity_dot.z, 
+				s3d::ToDegrees(std::acos(this->gravity_dot.z))));
+	
+		this->insertDebugString(
+			U"gravity_H2_dot:{:.3f},angle{:.1f}"_fmt(
+				this->gravity_dot.x, 
+				s3d::ToDegrees(std::acos(this->gravity_dot.x))));
 	}
 }
 
@@ -241,21 +248,21 @@ bool HMD_SensorAnalyzer::IsDeviceRollFlat() const
 	return false;
 }
 
-bool HMD_SensorAnalyzer::IsDeviceNearlyCompassStartAngle() const
+bool HMD_SensorAnalyzer::IsDeviceCompassStartAngle() const
 {
 	return this->compass.GetRelative().IsRange( 0.0,
 		this->device_nearly_compass_start_margin);
 }
 
-bool HMD_SensorAnalyzer::IsDeviceNearlyStartAngle() const
+bool HMD_SensorAnalyzer::IsDeviceStartPosition() const
 {
-	bool result;
-	result = this->IsDeviceNearlyCompassStartAngle();
-
-	return result;
+	return (
+		this->IsDeviceCompassStartAngle() &&
+		this->IsDeviceRollFlat() &&
+		this->IsDeviceStaticAngle());
 }
 
-bool HMD_SensorAnalyzer::IsDeviceNearlyCompassCenterAngle() const
+bool HMD_SensorAnalyzer::IsDeviceCompassCenterAngle() const
 {
 	return Vector3::IsRange(this->compass.GetRelative().x, 0.0, 20);
 }
