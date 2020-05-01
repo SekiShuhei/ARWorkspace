@@ -248,11 +248,6 @@ bool HMD_SensorAnalyzer::IsDeviceRollFlat() const
 	return false;
 }
 
-bool HMD_SensorAnalyzer::IsDeviceCompassStartAngle() const
-{
-	return this->compass.GetRelative().IsRange( 0.0,
-		this->device_nearly_compass_start_margin);
-}
 
 bool HMD_SensorAnalyzer::IsDeviceStartPosition() const
 {
@@ -262,9 +257,16 @@ bool HMD_SensorAnalyzer::IsDeviceStartPosition() const
 		this->IsDeviceStaticAngle());
 }
 
+bool HMD_SensorAnalyzer::IsDeviceCompassStartAngle() const
+{
+	//return this->compass.GetRelative().IsRange( 0.0,
+	//	this->device_nearly_compass_start_margin);
+	return this->eye_angle2.IsRange(0.0, 0.3);
+}
 bool HMD_SensorAnalyzer::IsDeviceCompassCenterAngle() const
 {
-	return Vector3::IsRange(this->compass.GetRelative().x, 0.0, 20);
+	//return Vector3::IsRange(this->compass.GetRelative().x, 0.0, 20);
+	return Vector3::IsRange(this->eye_angle2.x, 0.0, 0.3);
 }
 
 void HMD_SensorAnalyzer::updateEyePoint()
