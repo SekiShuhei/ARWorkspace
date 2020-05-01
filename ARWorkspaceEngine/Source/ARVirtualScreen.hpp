@@ -8,8 +8,9 @@
 #include "SimpleCounter.hpp"
 #include "ScreenRegion.hpp"
 #include "ScreenRegionGuideView.hpp"
-#include "WinScreenCapture.hpp"
+//#include "WinScreenCapture.hpp"
 #include "CustomCursor.hpp"
+#include "CaptureImageReader.hpp"
 
 namespace ARWorkspace {
 
@@ -66,18 +67,19 @@ private:
 
 	void drawTexture();
 
-	inline const s3d::Image& GetDrawImage() const
-	{
-		return this->capture_image[this->imageindex_drawing];
-	};
+	//inline const s3d::Image& GetDrawImage() const
+	//{
+	//	return this->capture_image[this->imageindex_drawing];
+	//};
 
 private:
 
 	CustomCursor		custom_cursor;
-	WinScreenCapture	screen_capture;
-	
-	std::thread			capture_thread;
-	bool				capture_thread_run = false;
+	//WinScreenCapture	screen_capture;
+	CaptureImageReader	capture_reader;
+
+	//std::thread			capture_thread;
+	//bool				capture_thread_run = false;
 	const bool			capture_region_guide_enable = true;
 	std::thread			capture_region_guide_thread;
 	bool				capture_region_guide_thread_run = false;
@@ -92,33 +94,33 @@ private:
 	ScreenRegionGuideView	capture_region_guide = ScreenRegionGuideView(capture_region, 10);
 	
 	// •`‰æŒn.
-	std::mutex			mutex;
-	int					imageindex_reading = 0;
-	int					imageindex_standby = 1;
-	int					imageindex_drawing = 2;
+	//std::mutex			mutex;
+	//int					imageindex_reading = 0;
+	//int					imageindex_standby = 1;
+	//int					imageindex_drawing = 2;
 	
-	enum class ImageState
-	{
-		not_initialized = -1,
-		reading = 0,
-		standby,
-		drawing,
-		drawed
-	};
-	ImageState			image_state[3]
-	{ 
-		ImageState::not_initialized ,
-		ImageState::not_initialized ,
-		ImageState::not_initialized 
-	};
+	//enum class ImageState
+	//{
+	//	not_initialized = -1,
+	//	reading = 0,
+	//	standby,
+	//	drawing,
+	//	drawed
+	//};
+	//ImageState			image_state[3]
+	//{ 
+	//	ImageState::not_initialized ,
+	//	ImageState::not_initialized ,
+	//	ImageState::not_initialized 
+	//};
 	std::unique_ptr<s3d::DynamicTexture>	p_texture;
 	
-	s3d::Image	capture_image[3] = 
-	{
-		s3d::Image(),
-		s3d::Image(),
-		s3d::Image()
-	};
+	//s3d::Image	capture_image[3] = 
+	//{
+	//	s3d::Image(),
+	//	s3d::Image(),
+	//	s3d::Image()
+	//};
 
 	bool capture_region_updated = false;
 	bool capture_size_updated = false;

@@ -12,8 +12,8 @@ ARVirtualScreen::ARVirtualScreen(bool use_cauture_region_guide) :
 
 ARVirtualScreen::~ARVirtualScreen()
 {
-	this->capture_thread_run = false;
-	this->capture_thread.join();
+	//this->capture_thread_run = false;
+	//this->capture_thread.join();
 
 	if (this->capture_region_guide_enable)
 	{
@@ -24,19 +24,20 @@ ARVirtualScreen::~ARVirtualScreen()
 
 void ARVirtualScreen::Initialize()
 {
-	this->capture_thread_run = true;
-	this->capture_thread = std::thread([this]()
-		{
-			::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
-			while (this->capture_thread_run)
-			{
-				if (!this->capture_region_guide_counter.IsCount())
-				{
-					this->Capture();
-				}
-				//std::this_thread::sleep_for(std::chrono::milliseconds(2));
-			}
-		});
+	this->capture_reader.Start();
+	//this->capture_thread_run = true;
+	//this->capture_thread = std::thread([this]()
+	//	{
+	//		::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+	//		while (this->capture_thread_run)
+	//		{
+	//			if (!this->capture_region_guide_counter.IsCount())
+	//			{
+	//				this->Capture();
+	//			}
+	//			//std::this_thread::sleep_for(std::chrono::milliseconds(2));
+	//		}
+	//	});
 
 	if (this->capture_region_guide_enable)
 	{
@@ -138,34 +139,34 @@ bool ARVirtualScreen::GetCaptureRect()
 	return true;
 }
 
-void ARVirtualScreen::Capture()
-{
-	
-	this->GetCaptureRect();
-	
-	
-	this->screen_capture.CaptureScreen(
-		this->capture_image[this->imageindex_reading],
-		(int)this->capture_region.GetX(),
-		(int)this->capture_region.GetY(),
-		(int)this->capture_region.GetWidth(),
-		(int)this->capture_region.GetHeight());
-	
-	{
-		std::lock_guard<std::mutex>	lock(this->mutex);
-		this->imageindex_standby = this->imageindex_reading;
-		for (int i = 0; i < 3; i++)
-		{
-			if (i != this->imageindex_drawing && i != this->imageindex_reading )
-			{
-				this->imageindex_reading = i;
-				break;
-			}
-		}
-		
-	}
-	
-}
+//void ARVirtualScreen::Capture()
+//{
+//	
+//	this->GetCaptureRect();
+//	
+//	
+//	this->screen_capture.CaptureScreen(
+//		this->capture_image[this->imageindex_reading],
+//		(int)this->capture_region.GetX(),
+//		(int)this->capture_region.GetY(),
+//		(int)this->capture_region.GetWidth(),
+//		(int)this->capture_region.GetHeight());
+//	
+//	{
+//		std::lock_guard<std::mutex>	lock(this->mutex);
+//		this->imageindex_standby = this->imageindex_reading;
+//		for (int i = 0; i < 3; i++)
+//		{
+//			if (i != this->imageindex_drawing && i != this->imageindex_reading )
+//			{
+//				this->imageindex_reading = i;
+//				break;
+//			}
+//		}
+//		
+//	}
+//	
+//}
 
 void ARVirtualScreen::Draw()
 {
@@ -186,7 +187,8 @@ void ARVirtualScreen::Draw()
 		} else {
 			
 			if (this->texture_reflesh_counter.Count() &&
-				this->p_texture->size() != this->GetDrawImage().size())
+				this->p_texture->size() != this->capture_reader.GetDrawImage().size())
+				//this->p_texture->size() != this->GetDrawImage().size())
 			{
 				this->p_texture = std::make_unique<s3d::DynamicTexture>();
 				
@@ -236,18 +238,19 @@ void ARVirtualScreen::SetCapturePosition(int x, int y, double arg_angle, double 
 void ARVirtualScreen::drawTexture()
 {
 	
-	{
-		std::lock_guard<std::mutex>	lock(this->mutex);
-		if (this->imageindex_standby >= 0)
-		{
-			this->imageindex_drawing = this->imageindex_standby;
-			this->imageindex_standby = -1;
-		}
-	}
-	if (this->imageindex_drawing >= 0)
-	{
+	//{
+	//	std::lock_guard<std::mutex>	lock(this->mutex);
+	//	if (this->imageindex_standby >= 0)
+	//	{
+	//		this->imageindex_drawing = this->imageindex_standby;
+	//		this->imageindex_standby = -1;
+	//	}
+	//}
+	//if (this->imageindex_drawing >= 0)
 
-		if (p_texture->fill(this->GetDrawImage()))
+	if (this->capture_reader.IsDrawingStandby())
+	{
+		if (p_texture->fill(this->capture_reader.GetDrawImage()))
 		{
 			if (this->texture_auto_resize)
 			{

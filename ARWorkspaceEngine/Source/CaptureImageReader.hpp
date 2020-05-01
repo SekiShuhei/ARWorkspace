@@ -1,6 +1,7 @@
 #pragma once
 
 #include <mutex>
+#include <optional>
 #include <Siv3D.hpp>
 #include "WinScreenCapture.hpp"
 #include "ScreenRegion.hpp"
@@ -29,9 +30,24 @@ public:
 		// ‘½­–³‘Ê‚¾‚ª‚Æ‚è‚ ‚¦‚¸.
 		this->capture_region = arg_capture_region;
 	}
-
-	inline const s3d::Image& GetDrawImage() const
+	inline bool IsDrawingStandby() const
 	{
+		return (this->imageindex_standby >= 0);
+	}
+
+	inline const s3d::Image& GetDrawImage()
+	{
+		std::lock_guard<std::mutex>	lock(this->mutex);
+		if (this->imageindex_standby >= 0)
+		{
+			this->imageindex_drawing = this->imageindex_standby;
+			this->imageindex_standby = -1;
+		}
+		if (this->imageindex_drawing >= 0)
+		{
+			return this->capture_image[this->imageindex_drawing];
+		}
+		assert("CaptureImageReader Not Drawing Standby");
 		return this->capture_image[this->imageindex_drawing];
 	};
 
