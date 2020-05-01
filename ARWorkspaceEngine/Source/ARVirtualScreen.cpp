@@ -207,7 +207,7 @@ void ARVirtualScreen::drawTexture()
 					else {
 						p_texture->scaled(this->scale).
 							rotatedAt(s3d::Window::ClientCenter(), this->angle).
-							drawAt(s3d::Window::ClientCenter());
+							drawAt(s3d::Window::ClientCenter() + this->texture_offset);
 					}
 				}
 				else {
