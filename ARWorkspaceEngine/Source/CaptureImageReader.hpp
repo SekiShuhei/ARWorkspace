@@ -57,20 +57,20 @@ private:
 
 	// CaptureImageƒNƒ‰ƒX‚Æ‚µ‚Ä“Æ—§‚³‚¹‚é—\’è.
 private:
-	enum class ImageState
-	{
-		not_initialized = -1,
-		reading = 0,
-		standby,
-		drawing,
-		drawed
-	};
-	ImageState			image_state[3]
-	{
-		ImageState::not_initialized ,
-		ImageState::not_initialized ,
-		ImageState::not_initialized
-	};
+	//enum class ImageState
+	//{
+	//	not_initialized = -1,
+	//	reading = 0,
+	//	standby,
+	//	drawing,
+	//	drawed
+	//};
+	//ImageState			image_state[3]
+	//{
+	//	ImageState::not_initialized ,
+	//	ImageState::not_initialized ,
+	//	ImageState::not_initialized
+	//};
 	
 	s3d::Image	capture_image[3] =
 	{

@@ -82,6 +82,9 @@
     <ClInclude Include="Source\HMD_SensorAnalyzer\SensorVectorIntegral.hpp">
       <Filter>HMD_SensorAnalyzer</Filter>
     </ClInclude>
+    <ClInclude Include="Source\CaptureImage.hpp">
+      <Filter>Screen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GUI">

@@ -9,12 +9,10 @@ CaptureImageReader::~CaptureImageReader()
 {
 	this->capture_thread_run = false;
 	this->capture_thread.join();
-
 }
 
 void CaptureImageReader::Start()
 {
-	
 	this->capture_thread_run = true;
 	this->capture_thread = std::thread([this]()
 		{
@@ -51,9 +49,7 @@ void CaptureImageReader::Capture()
 				break;
 			}
 		}
-
 	}
-
 }
 
 bool CaptureImageReader::DrawImage(std::function<void(const s3d::Image&)> draw_func)

@@ -169,6 +169,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\CaptureImage.hpp" />
     <ClInclude Include="Source\DropDownMenu.hpp" />
     <ClInclude Include="Source\framework.h" />
     <ClInclude Include="Source\HMD_SensorAnalyzer\SensorVectorIntegral.hpp" />
