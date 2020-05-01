@@ -32,7 +32,7 @@ void CaptureImageReader::Start()
 void CaptureImageReader::Capture()
 {
 	this->screen_capture.CaptureScreen(
-		this->capture_image[this->imageindex_reading],
+		this->capture_image[this->imageindex_reading].image,
 		(int)this->capture_region.GetX(),
 		(int)this->capture_region.GetY(),
 		(int)this->capture_region.GetWidth(),
@@ -62,7 +62,7 @@ bool CaptureImageReader::DrawImage(std::function<void(const s3d::Image&)> draw_f
 	}
 	if (this->IsDrawingStandby())
 	{
-		draw_func(this->capture_image[this->imageindex_drawing]);
+		draw_func(this->capture_image[this->imageindex_drawing].image);
 		return true;
 	}
 	return false;
@@ -74,7 +74,7 @@ const s3d::Image& CaptureImageReader::GetDrawImage()
 	{
 		this->capture_image[0];
 	}
-	return this->capture_image[this->imageindex_drawing];
+	return this->capture_image[this->imageindex_drawing].image;
 }
 
 }
