@@ -173,6 +173,11 @@ void ARVirtualScreen::SetCaptureRegionPosition(int arg_x, int arg_y)
 
 void ARVirtualScreen::SetCaptureRegionSize(int arg_width, int arg_height)
 {
+	if (arg_width == this->capture_region.GetWidth() &&
+		arg_height == this->capture_region.GetHeight())
+	{
+		return;
+	}
 	this->capture_region.SetWidth(arg_width);
 	this->capture_region.SetHeight(arg_height);
 	this->CaptureRegionUpdate();
@@ -181,8 +186,15 @@ void ARVirtualScreen::SetCaptureRegionSize(int arg_width, int arg_height)
 
 void ARVirtualScreen::SetCapturePosition(int x, int y, double arg_angle, double scale)
 {
+	double		eye_scale = 0.5;
+	s3d::Vec2	capture_size = s3d::Scene::Size() / this->scale;
 	// 現状はセンサありなしでコメントアウトしたりする
-	this->SetCaptureRegionPosition((x * 0.5) + 300, (y * 0.5) + 300);
+	this->SetCaptureRegionPosition(
+		(x * eye_scale) + 600, 
+		(y * eye_scale) + 600);
+	this->SetCaptureRegionSize(
+		capture_size.x,
+		capture_size.y);
 
 	this->angle = arg_angle * -1;
 	///
@@ -191,7 +203,13 @@ void ARVirtualScreen::SetCapturePosition(int x, int y, double arg_angle, double 
 
 void ARVirtualScreen::drawTexture()
 {
-	this->capture_reader.SetCaptureRegion(this->capture_region);
+	ScreenRegion	region;
+	region.SetX(this->capture_region.GetX() - this->texture_offset_margin);
+	region.SetY(this->capture_region.GetY() - this->texture_offset_margin);
+	region.SetWidth(this->capture_region.GetWidth() + this->texture_offset_margin);
+	region.SetHeight(this->capture_region.GetHeight() + this->texture_offset_margin);
+
+	this->capture_reader.SetCaptureRegion(region);
 
 	this->capture_reader.DrawImage([this](const CaptureImage& capture)
 		{

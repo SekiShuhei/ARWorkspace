@@ -96,6 +96,7 @@ public:
 	double	angle = 0.0;
 	bool texture_auto_resize = false;
 
+	int		texture_offset_margin = 400;
 };
 
 }
