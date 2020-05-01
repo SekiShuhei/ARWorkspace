@@ -68,12 +68,14 @@ void Main()
 			hmd_analyzer.Update(delta_t);
 		}
 		{
-			if (s3d::SimpleGUI::Button(U"HMD_Analyzer Debug Mode", Vec2(850, 800)))
+			auto x = s3d::Scene::Size().x - 300;
+			auto y = s3d::Scene::Size().y - 100;
+			if (s3d::SimpleGUI::Button(U"HMD_Analyzer Debug Mode", Vec2(x, y)))
 			{
 				hmd_analyzer.SetDebugDisplayMode(
 					! hmd_analyzer.IsDebugDisplayMode());
 			}
-			if (s3d::SimpleGUI::Button(U"HMD_Analyzer Reset", Vec2(850, 850)))
+			if (s3d::SimpleGUI::Button(U"HMD_Analyzer Reset", Vec2(x, y + 40)))
 			{
 				hmd_analyzer.ResetCenterAngle();
 			}
