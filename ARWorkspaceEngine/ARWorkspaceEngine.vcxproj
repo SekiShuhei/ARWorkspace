@@ -174,6 +174,7 @@
     <ClInclude Include="Source\HMD_SensorAnalyzer\SensorVectorIntegral.hpp" />
     <ClInclude Include="Source\HMD_SensorAnalyzer\SensorVectorRelative.hpp" />
     <ClInclude Include="Source\HMD_SensorAnalyzer\Vector3.hpp" />
+    <ClInclude Include="Source\CaptureImageReader.hpp" />
     <ClInclude Include="Source\pch.h" />
     <ClInclude Include="Source\HMD_SensorAnalyzer\HMD_SensorAnalyzer.hpp" />
     <ClInclude Include="Source\ARVirtualScreen.hpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="Source\WinScreenCapture.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\CaptureImageReader.cpp" />
     <ClCompile Include="Source\DropDownMenu.cpp" />
     <ClCompile Include="Source\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>

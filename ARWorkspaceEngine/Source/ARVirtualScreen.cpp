@@ -144,7 +144,6 @@ void ARVirtualScreen::Capture()
 	this->GetCaptureRect();
 	
 	
-	// メニューバーの分だけ少しY座標がずれるので注意.
 	this->screen_capture.CaptureScreen(
 		this->capture_image[this->imageindex_reading],
 		(int)this->capture_region.GetX(),
