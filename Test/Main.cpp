@@ -28,7 +28,7 @@ void Main()
 	double value;
 
 	p_ar_screen->Initialize();
-	p_ar_screen->SetAutoResizeMode(true);
+	p_ar_screen->SetAutoResizeMode(false);
 	sensor.Initialize();
 	sensor.SetPriorityVidList(WinSensor::Device::VidList_SmartGrass);
 	sensor.AddSensor(WinSensor::SensorType::GravityVector);
@@ -43,13 +43,14 @@ void Main()
 	{
 		
 
-		key_command.Update();
+		//key_command.Update();
 		p_ar_screen->Draw();
 
 		auto eye_pos = hmd_analyzer.GetEyePosition();
 		font(U"x:{},y:{}"_fmt(std::get<0>(eye_pos), std::get<1>(eye_pos))).draw(Vec2(0,400));
-		p_ar_screen->SetCaptureRegionPosition(
-			std::get<0>(eye_pos), std::get<1>(eye_pos));
+		p_ar_screen->SetCapturePosition(
+			std::get<0>(eye_pos), std::get<1>(eye_pos), 
+			std::get<2>(eye_pos), 3.0);
 		
 		gui_capture_menu.Draw();
 

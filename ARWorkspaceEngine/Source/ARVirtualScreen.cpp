@@ -12,7 +12,6 @@ ARVirtualScreen::ARVirtualScreen(bool use_cauture_region_guide) :
 
 ARVirtualScreen::~ARVirtualScreen()
 {
-
 	this->capture_thread_run = false;
 	this->capture_thread.join();
 
@@ -225,6 +224,16 @@ void ARVirtualScreen::SetCaptureRegionSize(int arg_width, int arg_height)
 	this->CaptureSizeUpdate();
 }
 
+void ARVirtualScreen::SetCapturePosition(int x, int y, double arg_angle, double scale)
+{
+
+	this->SetCaptureRegionPosition((x * 0.5) + 300, (y * 0.5) + 300);
+
+	this->angle = arg_angle * -1;
+	///
+	//...
+}
+
 void ARVirtualScreen::drawTexture()
 {
 	
@@ -247,7 +256,7 @@ void ARVirtualScreen::drawTexture()
 					draw(0,0);
 			} else {
 				p_texture->scaled(this->scale).
-					rotatedAt(s3d::Window::ClientCenter(), radian).
+					rotatedAt(s3d::Window::ClientCenter(), this->angle).
 					drawAt(s3d::Window::ClientCenter());
 			}
 
@@ -259,9 +268,7 @@ void ARVirtualScreen::drawTexture()
 		}
 	}
 	
-	// test.
-	//radian += 0.01;
-
+	
 }
 
 }

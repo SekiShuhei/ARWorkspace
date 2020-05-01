@@ -60,6 +60,7 @@ public:
 	{
 		this->texture_auto_resize = arg_bool;
 	}
+	void SetCapturePosition(int x, int y, double angle, double scale);
 
 private:
 
@@ -125,8 +126,8 @@ private:
 	SimpleCounter	texture_reflesh_counter = SimpleCounter(3);
 	
 public:
-	double	scale = 3.0;
-	double	radian = 0.0;
+	double	scale = 1.0;
+	double	angle = 0.0;
 	bool texture_auto_resize = false;
 };
 
