@@ -208,6 +208,7 @@ void ARVirtualScreen::SetCaptureRegion(int arg_x, int arg_y, int arg_width, int 
 	this->capture_region.SetHeight(arg_height);
 	this->CaptureRegionUpdate();
 	this->CaptureSizeUpdate();
+	this->capture_reader.SetCaptureRegion(this->capture_region);
 }
 
 void ARVirtualScreen::SetCaptureRegionPosition(int arg_x, int arg_y)
@@ -215,6 +216,7 @@ void ARVirtualScreen::SetCaptureRegionPosition(int arg_x, int arg_y)
 	this->capture_region.SetX(arg_x);
 	this->capture_region.SetY(arg_y);
 	this->CaptureRegionUpdate();
+	this->capture_reader.SetCaptureRegion(this->capture_region);
 }
 
 void ARVirtualScreen::SetCaptureRegionSize(int arg_width, int arg_height)
@@ -223,6 +225,7 @@ void ARVirtualScreen::SetCaptureRegionSize(int arg_width, int arg_height)
 	this->capture_region.SetHeight(arg_height);
 	this->CaptureRegionUpdate();
 	this->CaptureSizeUpdate();
+	this->capture_reader.SetCaptureRegion(this->capture_region);
 }
 
 void ARVirtualScreen::SetCapturePosition(int x, int y, double arg_angle, double scale)
@@ -237,7 +240,31 @@ void ARVirtualScreen::SetCapturePosition(int x, int y, double arg_angle, double 
 
 void ARVirtualScreen::drawTexture()
 {
-	
+	this->capture_reader.DrawImage([this](const s3d::Image& image)
+		{
+			if (this->capture_reader.IsDrawingStandby())
+			{
+				if (p_texture->fill(image))
+				{
+					if (this->texture_auto_resize)
+					{
+						p_texture->resized(s3d::Window::ClientWidth(), s3d::Window::ClientHeight()).
+							draw(0, 0);
+					}
+					else {
+						p_texture->scaled(this->scale).
+							rotatedAt(s3d::Window::ClientCenter(), this->angle).
+							drawAt(s3d::Window::ClientCenter());
+					}
+
+				}
+				else {
+					// テクスチャはリサイズできない.
+					// 現状のサイズと違うImageでFillしようとするとfalseが返る.
+					// 一定期間でテクスチャ再作成することで解決.
+				}
+			}
+		});
 	//{
 	//	std::lock_guard<std::mutex>	lock(this->mutex);
 	//	if (this->imageindex_standby >= 0)
@@ -248,27 +275,27 @@ void ARVirtualScreen::drawTexture()
 	//}
 	//if (this->imageindex_drawing >= 0)
 
-	if (this->capture_reader.IsDrawingStandby())
-	{
-		if (p_texture->fill(this->capture_reader.GetDrawImage()))
-		{
-			if (this->texture_auto_resize)
-			{
-				p_texture->resized(s3d::Window::ClientWidth(), s3d::Window::ClientHeight()).
-					draw(0,0);
-			} else {
-				p_texture->scaled(this->scale).
-					rotatedAt(s3d::Window::ClientCenter(), this->angle).
-					drawAt(s3d::Window::ClientCenter());
-			}
-
-		}
-		else {
-			// テクスチャはリサイズできない.
-			// 現状のサイズと違うImageでFillしようとするとfalseが返る.
-			// 一定期間でテクスチャ再作成することで解決.
-		}
-	}
+	//if (this->capture_reader.IsDrawingStandby())
+	//{
+	//	if (p_texture->fill(this->capture_reader.GetDrawImage()))
+	//	{
+	//		if (this->texture_auto_resize)
+	//		{
+	//			p_texture->resized(s3d::Window::ClientWidth(), s3d::Window::ClientHeight()).
+	//				draw(0,0);
+	//		} else {
+	//			p_texture->scaled(this->scale).
+	//				rotatedAt(s3d::Window::ClientCenter(), this->angle).
+	//				drawAt(s3d::Window::ClientCenter());
+	//		}
+	//
+	//	}
+	//	else {
+	//		// テクスチャはリサイズできない.
+	//		// 現状のサイズと違うImageでFillしようとするとfalseが返る.
+	//		// 一定期間でテクスチャ再作成することで解決.
+	//	}
+	//}
 	
 	
 }

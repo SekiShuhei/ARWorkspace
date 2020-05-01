@@ -56,4 +56,29 @@ void CaptureImageReader::Capture()
 
 }
 
+bool CaptureImageReader::DrawImage(std::function<void(const s3d::Image&)> draw_func)
+{
+	std::lock_guard<std::mutex>	lock(this->mutex);
+	if (this->imageindex_standby >= 0)
+	{
+		this->imageindex_drawing = this->imageindex_standby;
+		this->imageindex_standby = -1;
+	}
+	if (this->IsDrawingStandby())
+	{
+		draw_func(this->capture_image[this->imageindex_drawing]);
+		return true;
+	}
+	return false;
+}
+
+const s3d::Image& CaptureImageReader::GetDrawImage()
+{
+	if (! this->IsDrawingStandby())
+	{
+		this->capture_image[0];
+	}
+	return this->capture_image[this->imageindex_drawing];
+}
+
 }
