@@ -182,7 +182,7 @@ void ARVirtualScreen::SetCaptureRegionSize(int arg_width, int arg_height)
 void ARVirtualScreen::SetCapturePosition(int x, int y, double arg_angle, double scale)
 {
 	// 現状はセンサありなしでコメントアウトしたりする
-	//this->SetCaptureRegionPosition((x * 0.5) + 300, (y * 0.5) + 300);
+	this->SetCaptureRegionPosition((x * 0.5) + 300, (y * 0.5) + 300);
 
 	this->angle = arg_angle * -1;
 	///
@@ -195,26 +195,29 @@ void ARVirtualScreen::drawTexture()
 
 	this->capture_reader.DrawImage([this](const CaptureImage& capture)
 		{
-			if (this->capture_reader.IsDrawingStandby())
+			if (p_texture->fill(capture.image))
 			{
-				if (p_texture->fill(capture.image))
+				if (this->texture_auto_resize)
 				{
-					if (this->texture_auto_resize)
-					{
-						p_texture->resized(s3d::Window::ClientWidth(), s3d::Window::ClientHeight()).
-							draw(0, 0);
-					}
-					else {
-						p_texture->scaled(this->scale).
-							rotatedAt(s3d::Window::ClientCenter(), this->angle).
-							drawAt(s3d::Window::ClientCenter() + this->texture_offset);
-					}
+					p_texture->resized(s3d::Window::ClientWidth(), s3d::Window::ClientHeight()).
+						draw(0, 0);
 				}
 				else {
-					// テクスチャはリサイズできない.
-					// 現状のサイズと違うImageでFillしようとするとfalseが返る.
-					// 一定期間でテクスチャ再作成することで解決.
+
+					s3d::Vec2 texture_offset = 
+					{
+						capture.region.GetX() - this->capture_region.GetX(),
+						capture.region.GetY() - this->capture_region.GetY()
+					};
+					p_texture->scaled(this->scale).
+						rotatedAt(s3d::Window::ClientCenter(), this->angle).
+						drawAt(s3d::Window::ClientCenter() + texture_offset);
 				}
+			}
+			else {
+				// テクスチャはリサイズできない.
+				// 現状のサイズと違うImageでFillしようとするとfalseが返る.
+				// 一定期間でテクスチャ再作成することで解決.
 			}
 		});
 	

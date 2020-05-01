@@ -34,8 +34,7 @@ public:
 private:
 
 	bool GetCaptureRect();
-	void Capture();
-
+	
 
 public:
 	void Draw();
@@ -96,8 +95,6 @@ public:
 	double	scale = 1.0;
 	double	angle = 0.0;
 	bool texture_auto_resize = false;
-
-	s3d::Vec2	texture_offset = {0, 0};
 
 };
 
