@@ -31,13 +31,8 @@ void CaptureImageReader::Start()
 
 void CaptureImageReader::Capture()
 {
-	this->screen_capture.CaptureScreen(
-		this->capture_image[this->imageindex_reading].image,
-		(int)this->capture_region.GetX(),
-		(int)this->capture_region.GetY(),
-		(int)this->capture_region.GetWidth(),
-		(int)this->capture_region.GetHeight());
-
+	this->capture_image[this->imageindex_reading].region = this->capture_region;
+	this->screen_capture.CaptureScreen(this->capture_image[this->imageindex_reading]);
 	{
 		std::lock_guard<std::mutex>	lock(this->mutex);
 		this->imageindex_standby = this->imageindex_reading;

@@ -1,6 +1,7 @@
+#pragma once
 
-#include <Siv3D.hpp>
 #include "ScreenRegion.hpp"
+#include <Siv3D.hpp>
 
 namespace ARWorkspace {
 
@@ -13,7 +14,7 @@ namespace ARWorkspace {
 //	Drawed
 //};
 
-class CaptureImage
+struct CaptureImage
 {
 public:
 

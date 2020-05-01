@@ -7,6 +7,8 @@
 #pragma comment(lib, "gdi32.lib")
 #include <Windows.h>
 
+#include "CaptureImage.hpp"
+
 namespace ARWorkspace {
 class WinScreenCapture
 {
@@ -14,7 +16,9 @@ public:
 	WinScreenCapture();
 	~WinScreenCapture();
 
+	bool CaptureScreen(CaptureImage& capture_image);
 	bool CaptureScreen(s3d::Image&, int x, int y, int width, int height);
+
 	bool HasInvalidPremultipliedColors(const Color* image, const size_t num_pixels);
 
 private:
