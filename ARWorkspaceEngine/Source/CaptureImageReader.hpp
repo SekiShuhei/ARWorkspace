@@ -39,7 +39,7 @@ public:
 
 	const s3d::Image& GetDrawImage();
 
-	bool DrawImage(std::function<void(const s3d::Image&)> draw_func);
+	bool DrawImage(std::function<void(const CaptureImage&)> draw_func);
 
 private:
 	bool				capture_enable = true;

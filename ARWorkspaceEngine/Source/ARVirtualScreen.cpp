@@ -193,11 +193,11 @@ void ARVirtualScreen::drawTexture()
 {
 	this->capture_reader.SetCaptureRegion(this->capture_region);
 
-	this->capture_reader.DrawImage([this](const s3d::Image& image)
+	this->capture_reader.DrawImage([this](const CaptureImage& capture)
 		{
 			if (this->capture_reader.IsDrawingStandby())
 			{
-				if (p_texture->fill(image))
+				if (p_texture->fill(capture.image))
 				{
 					if (this->texture_auto_resize)
 					{
