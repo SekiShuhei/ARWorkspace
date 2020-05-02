@@ -4,6 +4,15 @@ namespace ARWorkspace {
 
 class ScreenRegion
 {
+public:
+	ScreenRegion& operator = (const ScreenRegion& arg) 
+	{
+		this->x = arg.x;
+		this->y = arg.y;
+		this->w = arg.w;
+		this->h = arg.h;
+		return (*this);
+	}
 
 public:
 	double GetX() const

@@ -53,6 +53,15 @@ DWORD WinScreenCapture::GetBitmapImageSize(const BITMAPINFO& bitmap_info) const
 }
 
 
+bool WinScreenCapture::CaptureScreen(CaptureImage& capture_image)
+{
+	return this->CaptureScreen(capture_image.image, 
+		capture_image.region.GetX(),
+		capture_image.region.GetY(), 
+		capture_image.region.GetWidth(), 
+		capture_image.region.GetHeight());
+}
+
 bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int width, int height)
 {
 	{

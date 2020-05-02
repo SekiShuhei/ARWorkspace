@@ -8,8 +8,8 @@
 #include "SimpleCounter.hpp"
 #include "ScreenRegion.hpp"
 #include "ScreenRegionGuideView.hpp"
-#include "WinScreenCapture.hpp"
 #include "CustomCursor.hpp"
+#include "CaptureImageReader.hpp"
 
 namespace ARWorkspace {
 
@@ -34,8 +34,7 @@ public:
 private:
 
 	bool GetCaptureRect();
-	void Capture();
-
+	
 
 public:
 	void Draw();
@@ -66,18 +65,12 @@ private:
 
 	void drawTexture();
 
-	inline const s3d::Image& GetDrawImage() const
-	{
-		return this->capture_image[this->imageindex_drawing];
-	};
-
+	
 private:
 
 	CustomCursor		custom_cursor;
-	WinScreenCapture	screen_capture;
-	
-	std::thread			capture_thread;
-	bool				capture_thread_run = false;
+	CaptureImageReader	capture_reader;
+
 	const bool			capture_region_guide_enable = true;
 	std::thread			capture_region_guide_thread;
 	bool				capture_region_guide_thread_run = false;
@@ -91,35 +84,8 @@ private:
 	ScreenRegion		capture_region;
 	ScreenRegionGuideView	capture_region_guide = ScreenRegionGuideView(capture_region, 10);
 	
-	// 描画系.
-	std::mutex			mutex;
-	int					imageindex_reading = 0;
-	int					imageindex_standby = 1;
-	int					imageindex_drawing = 2;
-	
-	enum class ImageState
-	{
-		not_initialized = -1,
-		reading = 0,
-		standby,
-		drawing,
-		drawed
-	};
-	ImageState			image_state[3]
-	{ 
-		ImageState::not_initialized ,
-		ImageState::not_initialized ,
-		ImageState::not_initialized 
-	};
 	std::unique_ptr<s3d::DynamicTexture>	p_texture;
 	
-	s3d::Image	capture_image[3] = 
-	{
-		s3d::Image(),
-		s3d::Image(),
-		s3d::Image()
-	};
-
 	bool capture_region_updated = false;
 	bool capture_size_updated = false;
 	SimpleCounter	capture_region_guide_counter = SimpleCounter(10);
@@ -129,6 +95,11 @@ public:
 	double	scale = 1.0;
 	double	angle = 0.0;
 	bool texture_auto_resize = false;
+
+	int		texture_offset_margin = 300;
+
+private:
+	s3d::Font	font = Font(30); //デバッグ用.
 };
 
 }

@@ -12,9 +12,6 @@ ARVirtualScreen::ARVirtualScreen(bool use_cauture_region_guide) :
 
 ARVirtualScreen::~ARVirtualScreen()
 {
-	this->capture_thread_run = false;
-	this->capture_thread.join();
-
 	if (this->capture_region_guide_enable)
 	{
 		this->capture_region_guide_thread_run = false;
@@ -24,20 +21,8 @@ ARVirtualScreen::~ARVirtualScreen()
 
 void ARVirtualScreen::Initialize()
 {
-	this->capture_thread_run = true;
-	this->capture_thread = std::thread([this]()
-		{
-			::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
-			while (this->capture_thread_run)
-			{
-				if (!this->capture_region_guide_counter.IsCount())
-				{
-					this->Capture();
-				}
-				//std::this_thread::sleep_for(std::chrono::milliseconds(2));
-			}
-		});
-
+	this->capture_reader.Start();
+	
 	if (this->capture_region_guide_enable)
 	{
 		this->capture_region_guide_thread_run = true;
@@ -138,36 +123,6 @@ bool ARVirtualScreen::GetCaptureRect()
 	return true;
 }
 
-void ARVirtualScreen::Capture()
-{
-	
-	this->GetCaptureRect();
-	
-	
-	// メニューバーの分だけ少しY座標がずれるので注意.
-	this->screen_capture.CaptureScreen(
-		this->capture_image[this->imageindex_reading],
-		(int)this->capture_region.GetX(),
-		(int)this->capture_region.GetY(),
-		(int)this->capture_region.GetWidth(),
-		(int)this->capture_region.GetHeight());
-	
-	{
-		std::lock_guard<std::mutex>	lock(this->mutex);
-		this->imageindex_standby = this->imageindex_reading;
-		for (int i = 0; i < 3; i++)
-		{
-			if (i != this->imageindex_drawing && i != this->imageindex_reading )
-			{
-				this->imageindex_reading = i;
-				break;
-			}
-		}
-		
-	}
-	
-}
-
 void ARVirtualScreen::Draw()
 {
 	
@@ -187,7 +142,7 @@ void ARVirtualScreen::Draw()
 		} else {
 			
 			if (this->texture_reflesh_counter.Count() &&
-				this->p_texture->size() != this->GetDrawImage().size())
+				this->p_texture->size() != this->capture_reader.GetDrawImage().size())
 			{
 				this->p_texture = std::make_unique<s3d::DynamicTexture>();
 				
@@ -218,6 +173,11 @@ void ARVirtualScreen::SetCaptureRegionPosition(int arg_x, int arg_y)
 
 void ARVirtualScreen::SetCaptureRegionSize(int arg_width, int arg_height)
 {
+	if (arg_width == this->capture_region.GetWidth() &&
+		arg_height == this->capture_region.GetHeight())
+	{
+		return;
+	}
 	this->capture_region.SetWidth(arg_width);
 	this->capture_region.SetHeight(arg_height);
 	this->CaptureRegionUpdate();
@@ -226,47 +186,76 @@ void ARVirtualScreen::SetCaptureRegionSize(int arg_width, int arg_height)
 
 void ARVirtualScreen::SetCapturePosition(int x, int y, double arg_angle, double scale)
 {
+	double		eye_scale = 0.8;
+	Vec2 eye_point = {x * eye_scale , y * eye_scale};
+	Vec2 primary_display_center = {600, 600}; //kari
+	Vec2 capture_size = s3d::Scene::Size() / this->scale;
+	Vec2 capture_rect_start = eye_point + primary_display_center - (capture_size / 2);
 
-	this->SetCaptureRegionPosition((x * 0.5) + 300, (y * 0.5) + 300);
 
-	this->angle = arg_angle * -1;
+	// 現状はセンサありなしでコメントアウトしたりする
+	this->SetCaptureRegionPosition(
+		capture_rect_start.x,
+		capture_rect_start.y);
+	this->SetCaptureRegionSize(
+		capture_size.x,
+		capture_size.y);
+
+	this->angle = arg_angle * -1 * 1.5;
 	///
 	//...
 }
 
 void ARVirtualScreen::drawTexture()
 {
-	
-	{
-		std::lock_guard<std::mutex>	lock(this->mutex);
-		if (this->imageindex_standby >= 0)
-		{
-			this->imageindex_drawing = this->imageindex_standby;
-			this->imageindex_standby = -1;
-		}
-	}
-	if (this->imageindex_drawing >= 0)
-	{
+	ScreenRegion	region;
+	region.SetX(this->capture_region.GetX() - this->texture_offset_margin);
+	region.SetY(this->capture_region.GetY() - this->texture_offset_margin);
+	region.SetWidth(this->capture_region.GetWidth() + (this->texture_offset_margin * 2));
+	region.SetHeight(this->capture_region.GetHeight() + (this->texture_offset_margin * 2));
 
-		if (p_texture->fill(this->GetDrawImage()))
+	this->capture_reader.SetCaptureRegion(region);
+
+	this->capture_reader.DrawImage([this](const CaptureImage& capture)
 		{
-			if (this->texture_auto_resize)
+			if (p_texture->fill(capture.image))
 			{
-				p_texture->resized(s3d::Window::ClientWidth(), s3d::Window::ClientHeight()).
-					draw(0,0);
-			} else {
-				p_texture->scaled(this->scale).
-					rotatedAt(s3d::Window::ClientCenter(), this->angle).
-					drawAt(s3d::Window::ClientCenter());
-			}
+				if (this->texture_auto_resize)
+				{
+					p_texture->resized(s3d::Window::ClientWidth(), s3d::Window::ClientHeight()).
+						draw(0, 0);
+				}
+				else {
 
-		}
-		else {
-			// テクスチャはリサイズできない.
-			// 現状のサイズと違うImageでFillしようとするとfalseが返る.
-			// 一定期間でテクスチャ再作成することで解決.
-		}
-	}
+					s3d::Vec2 texture_offset = 
+					{
+						(capture.region.GetX() - this->capture_region.GetX()) * this->scale,
+						(capture.region.GetY() - this->capture_region.GetY()) * this->scale
+					};
+					
+					Vec2 primary_display_center = { 600, 600 }; //kari
+					Vec2 capture_size = s3d::Scene::Size() / this->scale;
+
+					p_texture->
+						scaled(this->scale).
+						rotated(this->angle).
+						drawAt(s3d::Scene::Center() + texture_offset + capture_size);
+
+					//p_texture->scaled(this->scale).
+					//	rotatedAt(texture_offset * -1, this->angle).
+					//	drawAt(s3d::Window::ClientCenter() + texture_offset);
+					
+					this->font(U"texture_offset.x:{},y:{}"_fmt(texture_offset.x, texture_offset.y)).
+						draw(Vec2(0, 300), Palette::Blue);
+
+				}
+			}
+			else {
+				// テクスチャはリサイズできない.
+				// 現状のサイズと違うImageでFillしようとするとfalseが返る.
+				// 一定期間でテクスチャ再作成することで解決.
+			}
+		});
 	
 	
 }

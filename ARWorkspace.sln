@@ -12,6 +12,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ARWorkspaceEngine", "ARWorkspaceEngine\ARWorkspaceEngine.vcxproj", "{17133D95-54B3-42BF-826A-C85BCFD18286}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesktopDuplicator", "DesktopDuplicator\DesktopDuplicator.vcxproj", "{CEB5DBAC-B9DF-4BF7-8437-ED2822F124E5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{17133D95-54B3-42BF-826A-C85BCFD18286} = {17133D95-54B3-42BF-826A-C85BCFD18286}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinSensor", "WinSensor\WinSensor.vcxproj", "{26E28814-4264-488B-9DCF-E38F23F9B85F}"
 EndProject

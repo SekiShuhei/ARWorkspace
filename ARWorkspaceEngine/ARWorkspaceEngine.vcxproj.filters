@@ -30,6 +30,9 @@
     <ClCompile Include="Source\HMD_SensorAnalyzer\HMD_SensorAnalyzer.cpp">
       <Filter>HMD_SensorAnalyzer</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CaptureImageReader.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\framework.h" />
@@ -70,8 +73,18 @@
       <Filter>HMD_SensorAnalyzer</Filter>
     </ClInclude>
     <ClInclude Include="Source\HMD_SensorAnalyzer\Vector3.hpp" />
-    <ClInclude Include="Source\HMD_SensorAnalyzer\SensorVectorRelative.hpp" />
-    <ClInclude Include="Source\HMD_SensorAnalyzer\SensorVectorIntegral.hpp" />
+    <ClInclude Include="Source\CaptureImageReader.hpp">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HMD_SensorAnalyzer\SensorVectorRelative.hpp">
+      <Filter>HMD_SensorAnalyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HMD_SensorAnalyzer\SensorVectorIntegral.hpp">
+      <Filter>HMD_SensorAnalyzer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CaptureImage.hpp">
+      <Filter>Screen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GUI">
