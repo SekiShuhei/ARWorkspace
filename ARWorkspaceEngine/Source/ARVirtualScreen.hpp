@@ -96,7 +96,7 @@ public:
 	double	angle = 0.0;
 	bool texture_auto_resize = false;
 
-	int		texture_offset_margin = 300;
+	int		texture_offset_margin = 500;
 
 private:
 	s3d::Font	font = Font(30); //デバッグ用.

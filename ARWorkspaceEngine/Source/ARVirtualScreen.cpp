@@ -186,9 +186,9 @@ void ARVirtualScreen::SetCaptureRegionSize(int arg_width, int arg_height)
 
 void ARVirtualScreen::SetCapturePosition(int x, int y, double arg_angle, double scale)
 {
-	double		eye_scale = 0.8;
+	double	eye_scale = 0.8;
 	Vec2 eye_point = {x * eye_scale , y * eye_scale};
-	Vec2 primary_display_center = {600, 600}; //kari
+	Vec2 primary_display_center = {400, 000}; //kari
 	Vec2 capture_size = s3d::Scene::Size() / this->scale;
 	Vec2 capture_rect_start = eye_point + primary_display_center - (capture_size / 2);
 
@@ -229,11 +229,10 @@ void ARVirtualScreen::drawTexture()
 
 					s3d::Vec2 texture_offset = 
 					{
-						(capture.region.GetX() - this->capture_region.GetX()) * this->scale,
-						(capture.region.GetY() - this->capture_region.GetY()) * this->scale
+						(capture.region.GetX() - this->capture_region.GetX()) * this->scale * 1.5,
+						(capture.region.GetY() - this->capture_region.GetY()) * this->scale * 1.5
 					};
 					
-					Vec2 primary_display_center = { 600, 600 }; //kari
 					Vec2 capture_size = s3d::Scene::Size() / this->scale;
 
 					p_texture->
