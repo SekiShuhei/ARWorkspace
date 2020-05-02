@@ -186,17 +186,22 @@ void ARVirtualScreen::SetCaptureRegionSize(int arg_width, int arg_height)
 
 void ARVirtualScreen::SetCapturePosition(int x, int y, double arg_angle, double scale)
 {
-	double		eye_scale = 0.5;
-	s3d::Vec2	capture_size = s3d::Scene::Size() / this->scale;
+	double		eye_scale = 0.8;
+	Vec2 eye_point = {x * eye_scale , y * eye_scale};
+	Vec2 primary_display_center = {600, 600}; //kari
+	Vec2 capture_size = s3d::Scene::Size() / this->scale;
+	Vec2 capture_rect_start = eye_point + primary_display_center - (capture_size / 2);
+
+
 	// 現状はセンサありなしでコメントアウトしたりする
 	this->SetCaptureRegionPosition(
-		(x * eye_scale) + 600, 
-		(y * eye_scale) + 600);
+		capture_rect_start.x,
+		capture_rect_start.y);
 	this->SetCaptureRegionSize(
 		capture_size.x,
 		capture_size.y);
 
-	this->angle = arg_angle * -1;
+	this->angle = arg_angle * -1 * 1.5;
 	///
 	//...
 }
@@ -206,8 +211,8 @@ void ARVirtualScreen::drawTexture()
 	ScreenRegion	region;
 	region.SetX(this->capture_region.GetX() - this->texture_offset_margin);
 	region.SetY(this->capture_region.GetY() - this->texture_offset_margin);
-	region.SetWidth(this->capture_region.GetWidth() + this->texture_offset_margin);
-	region.SetHeight(this->capture_region.GetHeight() + this->texture_offset_margin);
+	region.SetWidth(this->capture_region.GetWidth() + (this->texture_offset_margin * 2));
+	region.SetHeight(this->capture_region.GetHeight() + (this->texture_offset_margin * 2));
 
 	this->capture_reader.SetCaptureRegion(region);
 
@@ -224,12 +229,25 @@ void ARVirtualScreen::drawTexture()
 
 					s3d::Vec2 texture_offset = 
 					{
-						capture.region.GetX() - this->capture_region.GetX(),
-						capture.region.GetY() - this->capture_region.GetY()
+						(capture.region.GetX() - this->capture_region.GetX()) * this->scale,
+						(capture.region.GetY() - this->capture_region.GetY()) * this->scale
 					};
-					p_texture->scaled(this->scale).
-						rotatedAt(s3d::Window::ClientCenter(), this->angle).
-						drawAt(s3d::Window::ClientCenter() + texture_offset);
+					
+					Vec2 primary_display_center = { 600, 600 }; //kari
+					Vec2 capture_size = s3d::Scene::Size() / this->scale;
+
+					p_texture->
+						scaled(this->scale).
+						rotated(this->angle).
+						drawAt(s3d::Scene::Center() + texture_offset + capture_size);
+
+					//p_texture->scaled(this->scale).
+					//	rotatedAt(texture_offset * -1, this->angle).
+					//	drawAt(s3d::Window::ClientCenter() + texture_offset);
+					
+					this->font(U"texture_offset.x:{},y:{}"_fmt(texture_offset.x, texture_offset.y)).
+						draw(Vec2(0, 300), Palette::Blue);
+
 				}
 			}
 			else {
