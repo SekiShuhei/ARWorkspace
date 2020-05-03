@@ -191,8 +191,10 @@ void ARVirtualScreen::SetCapturePosition(int x, int y, double arg_angle, double 
 	Vec2 primary_display_center = {200, 200}; //kari
 	Vec2 capture_size = s3d::Scene::Size() / this->scale;
 	Vec2 capture_rect_start = eye_point + primary_display_center - (capture_size / 2);
-
-
+	{
+		capture_rect_start -= this->capture_margin;
+		capture_size += this->capture_margin * 2;
+	}
 	// 現状はセンサありなしでコメントアウトしたりする
 	this->SetCaptureRegionPosition(
 		capture_rect_start.x,
@@ -208,13 +210,13 @@ void ARVirtualScreen::SetCapturePosition(int x, int y, double arg_angle, double 
 
 void ARVirtualScreen::drawTexture()
 {
-	ScreenRegion	region;
-	region.SetX(this->capture_region.GetX() - this->texture_offset_margin);
-	region.SetY(this->capture_region.GetY() - this->texture_offset_margin);
-	region.SetWidth(this->capture_region.GetWidth() + (this->texture_offset_margin * 2));
-	region.SetHeight(this->capture_region.GetHeight() + (this->texture_offset_margin * 2));
+	//ScreenRegion	region;
+	//region.SetX(this->capture_region.GetX() - this->capture_margin);
+	//region.SetY(this->capture_region.GetY() - this->capture_margin);
+	//region.SetWidth(this->capture_region.GetWidth() + (this->capture_margin * 2));
+	//region.SetHeight(this->capture_region.GetHeight() + (this->capture_margin * 2));
 
-	this->capture_reader.SetCaptureRegion(region);
+	this->capture_reader.SetCaptureRegion(this->capture_region);
 
 	this->capture_reader.DrawImage([this](const CaptureImage& capture)
 		{
@@ -238,13 +240,15 @@ void ARVirtualScreen::drawTexture()
 					p_texture->
 						scaled(this->scale).
 						rotated(this->angle).
-						drawAt(s3d::Scene::Center() + texture_offset + capture_size);
+						drawAt(s3d::Scene::Center() + texture_offset);
 
 					//p_texture->scaled(this->scale).
 					//	rotatedAt(texture_offset * -1, this->angle).
 					//	drawAt(s3d::Window::ClientCenter() + texture_offset);
 					
-					this->font(U"texture_offset.x:{},y:{}"_fmt(texture_offset.x, texture_offset.y)).
+					this->font(U"texture_offset.x:{:.0f},y:{:.0f}"_fmt(
+						texture_offset.x,
+						texture_offset.y)).
 						draw(Vec2(0, 300), Palette::Blue);
 
 				}
