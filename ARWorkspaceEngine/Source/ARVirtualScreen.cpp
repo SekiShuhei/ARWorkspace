@@ -188,7 +188,7 @@ void ARVirtualScreen::SetCapturePosition(int x, int y, double arg_angle, double 
 {
 	double	eye_scale = 0.8;
 	Vec2 eye_point = {x * eye_scale , y * eye_scale};
-	Vec2 primary_display_center = {400, 000}; //kari
+	Vec2 primary_display_center = {200, 200}; //kari
 	Vec2 capture_size = s3d::Scene::Size() / this->scale;
 	Vec2 capture_rect_start = eye_point + primary_display_center - (capture_size / 2);
 

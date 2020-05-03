@@ -22,7 +22,7 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 		Vector3::Smoothing(this->gyro.integral.x, 0.0, 0.1 * delta_t);
 	}
 
-	this->updateEyePoint();
+	this->updateEyePoint(delta_t);
 
 	this->drawDebugString(0, 100);
 
@@ -269,7 +269,7 @@ bool HMD_SensorAnalyzer::IsDeviceCompassCenterAngle() const
 	return Vector3::IsRange(this->eye_angle2.x, 0.0, 0.3);
 }
 
-void HMD_SensorAnalyzer::updateEyePoint()
+void HMD_SensorAnalyzer::updateEyePoint(double delta_t)
 {
 	
 	if (this->gravity_dot.y <= 0)
@@ -289,14 +289,20 @@ void HMD_SensorAnalyzer::updateEyePoint()
 
 	this->eye_angle2.x = (this->compass.GetRelative().x) / 100 * -1;
 
-	if (this->IsDeviceStaticAngle())
 	{
-		if (! this->eye_angle3.IsRange(this->eye_angle1, 0.1))
+		if (this->IsDeviceRollFlat())
 		{
+			Vector3::Smoothing(this->eye_angle3.z, 0.0, delta_t);
+		}
+		if (this->IsDeviceStaticAngle())
+		{
+			if (! this->eye_angle3.IsRange(this->eye_angle1, 0.7))
+			{
+				this->eye_angle3 = this->eye_angle1;
+			}
+		} else {
 			this->eye_angle3 = this->eye_angle1;
 		}
-	} else {
-		this->eye_angle3 = this->eye_angle1;
 	}
 	{
 		this->eye_pos = EyePosition(

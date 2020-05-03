@@ -55,7 +55,7 @@ public:
 	}
 
 private:
-	void updateEyePoint();
+	void updateEyePoint(double delta_t);
 	void insertDebugString(const s3d::String& arg_string);
 
 
