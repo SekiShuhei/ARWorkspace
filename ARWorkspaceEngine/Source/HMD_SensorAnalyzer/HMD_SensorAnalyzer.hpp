@@ -82,9 +82,9 @@ private:
 	SensorVectorRelative	compass;
 	//SensorVectorRelative	madgwick;
 
-	s3d::Vec3	eye_angle1;	// 重力内積+ジャイロ積分.
+	Vector3		eye_angle1;	// 重力内積+ジャイロ積分.
 	Vector3		eye_angle2; // 重力内積+コンパス差分.
-	//s3d::Vec3	eye_angle3; // 重力内積＋Madgwickヨー角.
+	Vector3		eye_angle3; // 注視点1の補正.
 	EyePosition	eye_pos;
 	double		eye_pos_scale = 1000.0;
 	

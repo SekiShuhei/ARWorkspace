@@ -13,7 +13,7 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 	{
 		if (this->IsDeviceRollFlat() && this->IsDeviceStaticAngle())
 		{
-			this->gyro.integral.Smoothing(0.0, 1 * delta_t);
+			this->gyro.integral.Smoothing(0.0, 0.4 * delta_t);
 			//this->madgwick.base.Smoothing(this->madgwick.GetInput(), 1 * delta_t);
 		}
 	}
@@ -101,12 +101,12 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 			this->eye_angle2.z * 1.7,
 			U"eye_pt2", Palette::Orange);
 
-		//scale = 300.0;
-		//this->DrawSensorCursor(
-		//	this->eye_angle3.x, this->eye_angle3.y,
-		//	offset_x, offset_y, scale,
-		//	this->eye_angle3.z * 1.7,
-		//	U"eye_pt3", Palette::Pink);
+		scale = 300.0;
+		this->DrawSensorCursor(
+			this->eye_angle3.x, this->eye_angle3.y,
+			offset_x, offset_y, scale,
+			this->eye_angle3.z * 1.7,
+			U"eye_pt3", Palette::Pink);
 	}
 }
 
@@ -261,7 +261,7 @@ bool HMD_SensorAnalyzer::IsDeviceCompassStartAngle() const
 {
 	//return this->compass.GetRelative().IsRange( 0.0,
 	//	this->device_nearly_compass_start_margin);
-	return this->eye_angle2.IsRange(0.0, 0.3);
+	return this->eye_angle2.IsRange(0.0, 0.1);
 }
 bool HMD_SensorAnalyzer::IsDeviceCompassCenterAngle() const
 {
@@ -280,8 +280,8 @@ void HMD_SensorAnalyzer::updateEyePoint()
 	this->eye_angle1.z = this->gravity_dot.x * -1;
 	this->eye_angle2.y = this->gravity_dot.z;
 	this->eye_angle2.z = this->gravity_dot.x * -1;
-	//this->eye_angle3.y = this->gravity_dot.z;
-	//this->eye_angle3.z = this->gravity_dot.x * -1;
+	this->eye_angle3.y = this->gravity_dot.z;
+	this->eye_angle3.z = this->gravity_dot.x * -1;
 
 	// ƒˆ[Šp‚Í‘¼‚©‚ç‚à‚Á‚Ä‚­‚é.
 
@@ -289,13 +289,20 @@ void HMD_SensorAnalyzer::updateEyePoint()
 
 	this->eye_angle2.x = (this->compass.GetRelative().x) / 100 * -1;
 
-	//this->eye_angle3.x = this->madgwick.GetRelative().x;
-	
+	if (this->IsDeviceStaticAngle())
+	{
+		if (! this->eye_angle3.IsRange(this->eye_angle1, 0.1))
+		{
+			this->eye_angle3 = this->eye_angle1;
+		}
+	} else {
+		this->eye_angle3 = this->eye_angle1;
+	}
 	{
 		this->eye_pos = EyePosition(
-			this->eye_angle1.x * this->eye_pos_scale,
-			this->eye_angle1.y * this->eye_pos_scale,
-			this->eye_angle1.z);
+			this->eye_angle3.x * this->eye_pos_scale,
+			this->eye_angle3.y * this->eye_pos_scale,
+			this->eye_angle3.z);
 	}
 
 
