@@ -14,12 +14,17 @@ void HMD_SensorAnalyzer::Update(const double delta_t)
 		if (this->IsDeviceRollFlat() && this->IsDeviceStaticAngle())
 		{
 			this->gyro.integral.Smoothing(0.0, 0.4 * delta_t);
+			this->gyro_integral_modify = true;
 			//this->madgwick.base.Smoothing(this->madgwick.GetInput(), 1 * delta_t);
 		}
 	}
 	if (this->IsDeviceCompassCenterAngle())
 	{
 		Vector3::Smoothing(this->gyro.integral.x, 0.0, 0.1 * delta_t);
+		if (this->gyro.GetIntegral().IsRange( 0.0, 0.1))
+		{
+			this->gyro_integral_modify = false;
+		}
 	}
 
 	this->updateEyePoint(delta_t);
@@ -296,12 +301,17 @@ void HMD_SensorAnalyzer::updateEyePoint(double delta_t)
 		}
 		if (this->IsDeviceStaticAngle())
 		{
-			if (! this->eye_angle3.IsRange(this->eye_angle1, 0.7))
-			{
-				this->eye_angle3 = this->eye_angle1;
-			}
+			//if (! this->gyro_integral_modify)
+			//{
+			//	this->eye_angle3.Smoothing(this->eye_angle1, 5 * delta_t);
+			//}
+			//if (! this->eye_angle3.IsRange(this->eye_angle1, 0.7))
+			//{
+			//	this->eye_angle3 = this->eye_angle1;
+			//}
 		} else {
-			this->eye_angle3 = this->eye_angle1;
+			this->eye_angle3.Smoothing(this->eye_angle1, 20 * delta_t);
+			//this->eye_angle3 = this->eye_angle1;
 		}
 	}
 	{

@@ -85,6 +85,7 @@ private:
 	Vector3		eye_angle1;	// 重力内積+ジャイロ積分.
 	Vector3		eye_angle2; // 重力内積+コンパス差分.
 	Vector3		eye_angle3; // 注視点1の補正.
+	bool		gyro_integral_modify = false;
 	EyePosition	eye_pos;
 	double		eye_pos_scale = 1000.0;
 	
