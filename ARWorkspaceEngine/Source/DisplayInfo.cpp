@@ -5,7 +5,7 @@
 namespace ARWorkspace {
 bool DisplayInfoUtility::EnumDisplayInfo() noexcept
 {
-	::EnumDisplayMonitors(NULL, NULL, (MONITORENUMPROC)enumDisplayCallback, NULL);
+	::EnumDisplayMonitors(NULL, NULL, (MONITORENUMPROC)enumDisplayCallback, (LPARAM)this);
 
 	return false;
 }
@@ -66,17 +66,19 @@ ScreenRegion DisplayInfoUtility::RectToScreenRegion(const RECT& rect) noexcept
 
 BOOL CALLBACK DisplayInfoUtility::enumDisplayCallback(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lpMonitor, LPARAM dwDate)
 {
-
 	MONITORINFOEX monitorInfo;
 
 	monitorInfo.cbSize = sizeof(monitorInfo);
 	::GetMonitorInfo(hMonitor, &monitorInfo);
 
-	DisplayInfo	info;
-	info.monitor = DisplayInfoUtility::RectToScreenRegion( monitorInfo.rcMonitor);
-	info.workspace = DisplayInfoUtility::RectToScreenRegion(monitorInfo.rcWork);
-	info.device_name = monitorInfo.szDevice;
-	info.primary_monitor = (monitorInfo.dwFlags == MONITORINFOF_PRIMARY);
+	auto p_info = std::make_shared<DisplayInfo>();
+	p_info->monitor = DisplayInfoUtility::RectToScreenRegion( monitorInfo.rcMonitor);
+	p_info->workspace = DisplayInfoUtility::RectToScreenRegion(monitorInfo.rcWork);
+	p_info->device_name = monitorInfo.szDevice;
+	p_info->primary_monitor = (monitorInfo.dwFlags == MONITORINFOF_PRIMARY);
+
+	DisplayInfoUtility* p_this = (DisplayInfoUtility*)dwDate;
+	p_this->info_list.push_back(p_info);
 
 	return TRUE;
 }
