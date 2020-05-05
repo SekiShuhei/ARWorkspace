@@ -44,6 +44,10 @@ void Main()
 	/// test
 	ARWorkspace::DisplayInfoUtility	a;
 	a.EnumDisplayInfo();
+	auto b = a.GetPrimaryDisplayInfo();
+	auto c = a.GetSubDisplayInfo();
+	auto d = a.FindDisplayInfo(L"DISPLAY2");
+	int e = 1;
 	
 	while (System::Update())
 	{

@@ -23,12 +23,9 @@ public:
 
 public:
 	bool EnumDisplayInfo() noexcept;
-	// プライマリモニタの情報を得る.
-	const std::shared_ptr<DisplayInfo> GetPrimaryDisplayInfo() const noexcept;
-	const std::shared_ptr<DisplayInfo> GetSubDisplayInfo(const std::string& device_name) const noexcept;
-	// BT-30のデバイス名一致確認して情報を得る.
-	const std::shared_ptr<DisplayInfo> FindDisplayInfo(const std::string& device_name) const noexcept;
-
+	std::optional<const DisplayInfo> GetPrimaryDisplayInfo() const noexcept;
+	std::optional<const DisplayInfo> GetSubDisplayInfo() const noexcept;
+	std::optional<const DisplayInfo> FindDisplayInfo(const std::wstring& device_name) const noexcept;
 
 public:
 	static ScreenRegion RectToScreenRegion(const RECT& rect) noexcept;
