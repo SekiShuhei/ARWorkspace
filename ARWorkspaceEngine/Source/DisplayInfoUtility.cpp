@@ -1,6 +1,6 @@
 
 #include <algorithm>
-#include "DisplayInfo.hpp"
+#include "DisplayInfoUtility.hpp"
 
 namespace ARWorkspace {
 bool DisplayInfoUtility::EnumDisplayInfo() noexcept

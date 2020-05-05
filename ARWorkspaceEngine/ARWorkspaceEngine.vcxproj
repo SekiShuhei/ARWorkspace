@@ -170,7 +170,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Source\CaptureImage.hpp" />
-    <ClInclude Include="Source\DisplayInfo.hpp" />
+    <ClInclude Include="Source\DisplayInfoUtility.hpp" />
     <ClInclude Include="Source\DropDownMenu.hpp" />
     <ClInclude Include="Source\framework.h" />
     <ClInclude Include="Source\HMD_SensorAnalyzer\SensorVectorIntegral.hpp" />
@@ -193,7 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\CaptureImageReader.cpp" />
-    <ClCompile Include="Source\DisplayInfo.cpp" />
+    <ClCompile Include="Source\DisplayInfoUtility.cpp" />
     <ClCompile Include="Source\DropDownMenu.cpp" />
     <ClCompile Include="Source\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>

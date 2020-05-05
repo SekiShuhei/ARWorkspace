@@ -7,7 +7,6 @@
 #include "KeyCommand.hpp"
 #include "WinSensorManager.hpp"
 
-#include "DisplayInfo.hpp"
 
 void Main()
 {
@@ -41,14 +40,6 @@ void Main()
 	
 	hmd_analyzer.SetDebugDisplayMode(false);
 
-	/// test
-	ARWorkspace::DisplayInfoUtility	a;
-	a.EnumDisplayInfo();
-	auto b = a.GetPrimaryDisplayInfo();
-	auto c = a.GetSubDisplayInfo();
-	auto d = a.FindDisplayInfo(L"DISPLAY2");
-	int e = 1;
-	
 	while (System::Update())
 	{
 		

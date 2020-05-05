@@ -33,7 +33,7 @@
     <ClCompile Include="Source\CaptureImageReader.cpp">
       <Filter>Screen</Filter>
     </ClCompile>
-    <ClCompile Include="Source\DisplayInfo.cpp">
+    <ClCompile Include="Source\DisplayInfoUtility.cpp">
       <Filter>Screen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -88,7 +88,7 @@
     <ClInclude Include="Source\CaptureImage.hpp">
       <Filter>Screen</Filter>
     </ClInclude>
-    <ClInclude Include="Source\DisplayInfo.hpp">
+    <ClInclude Include="Source\DisplayInfoUtility.hpp">
       <Filter>Screen</Filter>
     </ClInclude>
   </ItemGroup>
