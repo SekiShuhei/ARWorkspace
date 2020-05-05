@@ -7,6 +7,8 @@
 #include "KeyCommand.hpp"
 #include "WinSensorManager.hpp"
 
+#include "DisplayInfo.hpp"
+
 void Main()
 {
 	s3d::Window::Resize(s3d::Size(1200, 900));
@@ -38,6 +40,10 @@ void Main()
 	sensor.AddSensor(WinSensor::SensorType::Accelerometer);
 	
 	hmd_analyzer.SetDebugDisplayMode(false);
+
+	/// test
+	ARWorkspace::DisplayInfoUtility	a;
+	a.EnumDisplayInfo();
 	
 	while (System::Update())
 	{
