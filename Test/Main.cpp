@@ -6,7 +6,7 @@
 #include "GuiMenu.hpp"
 #include "KeyCommand.hpp"
 #include "WinSensorManager.hpp"
-
+#include "DisplayInfoUtility.hpp"
 
 void Main()
 {
@@ -40,6 +40,8 @@ void Main()
 	
 	hmd_analyzer.SetDebugDisplayMode(false);
 
+	ARWorkspace::DisplayInfoUtility::GetInstance().GetPrimaryDisplayInfo();
+	
 	while (System::Update())
 	{
 		

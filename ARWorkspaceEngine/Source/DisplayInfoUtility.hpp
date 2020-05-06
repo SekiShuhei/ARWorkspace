@@ -18,9 +18,20 @@ struct DisplayInfo
 
 class DisplayInfoUtility
 {
-
+private:
+	DisplayInfoUtility() = default;
 public:
-
+	~DisplayInfoUtility() = default;
+	DisplayInfoUtility(const DisplayInfoUtility&) = delete;
+	DisplayInfoUtility& operator=(const DisplayInfoUtility&) = delete;
+	DisplayInfoUtility(DisplayInfoUtility&&) = delete;
+	DisplayInfoUtility& operator=(DisplayInfoUtility&&) = delete;
+public:
+	static const DisplayInfoUtility& GetInstance()
+	{
+		static DisplayInfoUtility instance;
+		return instance;
+	}
 public:
 	bool EnumDisplayInfo() noexcept;
 	std::optional<const DisplayInfo> GetPrimaryDisplayInfo() const noexcept;
@@ -34,7 +45,7 @@ private:
 	static BOOL CALLBACK enumDisplayCallback(HMONITOR hMon, HDC hdcMon, LPRECT lpMon, LPARAM dwDate);
 
 private:
-	std::vector<std::shared_ptr<DisplayInfo>> info_list;
+	std::vector<std::shared_ptr<DisplayInfo>>	info_list;
 };
 
 }
