@@ -27,7 +27,7 @@ public:
 	DisplayInfoUtility(DisplayInfoUtility&&) = delete;
 	DisplayInfoUtility& operator=(DisplayInfoUtility&&) = delete;
 public:
-	static const DisplayInfoUtility& GetInstance()
+	static DisplayInfoUtility& GetInstance()
 	{
 		static DisplayInfoUtility instance;
 		return instance;
