@@ -41,22 +41,17 @@ void Main()
 	hmd_analyzer.SetDebugDisplayMode(false);
 
 	{
-		// サブディスプレイがある場合はウィンドウをサブディスプレイ領域に移動させて最大化する.
 		ARWorkspace::DisplayInfoUtility::GetInstance().EnumDisplayInfo();
 		auto sub_display = ARWorkspace::DisplayInfoUtility::GetInstance().GetSubDisplayInfo();
 		if (sub_display)
 		{
 			auto region = sub_display.value().monitor;
-			//...
-			auto hwnd = s3d::Platform::Windows::Window::GetHWND();
-			//BOOL ::MoveWindow(
-			//	HWND hWnd,      // ウィンドウのハンドル
-			//	int X,          // 横方向の位置
-			//	int Y,          // 縦方向の位置
-			//	int nWidth,     // 幅
-			//	int nHeight,    // 高さ
-			//	BOOL bRepaint   // 再描画オプション
-			//);
+			auto hwnd = (HWND)s3d::Platform::Windows::Window::GetHWND();
+			auto result = ::MoveWindow(hwnd, region.GetX(), region.GetY(), 500, 500, TRUE);
+			if (result)
+			{
+				::ShowWindow(hwnd, SW_MAXIMIZE);
+			}
 		}
 	}
 
