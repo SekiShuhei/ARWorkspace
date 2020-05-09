@@ -19,7 +19,7 @@ struct DisplayInfo
 class DisplayInfoUtility
 {
 private:
-	DisplayInfoUtility() = default;
+	DisplayInfoUtility();
 public:
 	~DisplayInfoUtility() = default;
 	DisplayInfoUtility(const DisplayInfoUtility&) = delete;

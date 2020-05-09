@@ -3,7 +3,11 @@
 #include "DisplayInfoUtility.hpp"
 
 namespace ARWorkspace {
-bool DisplayInfoUtility::EnumDisplayInfo() noexcept
+	DisplayInfoUtility::DisplayInfoUtility()
+	{
+		this->EnumDisplayInfo();
+	}
+	bool DisplayInfoUtility::EnumDisplayInfo() noexcept
 {
 	::EnumDisplayMonitors(NULL, NULL, (MONITORENUMPROC)enumDisplayCallback, (LPARAM)this);
 

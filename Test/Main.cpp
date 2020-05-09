@@ -41,7 +41,6 @@ void Main()
 	hmd_analyzer.SetDebugDisplayMode(false);
 
 	{
-		ARWorkspace::DisplayInfoUtility::GetInstance().EnumDisplayInfo();
 		auto sub_display = ARWorkspace::DisplayInfoUtility::GetInstance().GetSubDisplayInfo();
 		if (sub_display)
 		{
