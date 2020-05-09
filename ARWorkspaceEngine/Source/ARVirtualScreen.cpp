@@ -1,6 +1,7 @@
 #include "ARVirtualScreen.hpp"
 
 #include "Utility.hpp"
+#include "DisplayInfoUtility.hpp"
 
 namespace ARWorkspace {
 
@@ -8,6 +9,15 @@ ARVirtualScreen::ARVirtualScreen(bool use_cauture_region_guide) :
 	capture_region_guide_enable(use_cauture_region_guide)
 {
 	this->p_texture = std::make_unique<s3d::DynamicTexture>();
+
+	auto primary_display = DisplayInfoUtility::GetInstance().GetPrimaryDisplayInfo();
+	if (primary_display)
+	{
+		this->center_point = {
+			primary_display.value().monitor.GetX() + primary_display.value().monitor.GetWidth() / 2,
+			primary_display.value().monitor.GetY() + primary_display.value().monitor.GetHeight() / 2 
+		};
+	}
 }
 
 ARVirtualScreen::~ARVirtualScreen()
@@ -188,9 +198,8 @@ void ARVirtualScreen::SetCapturePosition(int x, int y, double arg_angle, double 
 {
 	double	eye_scale = 0.8;
 	Vec2 eye_point = {x * eye_scale , y * eye_scale};
-	Vec2 primary_display_center = {200, 200}; //kari
 	Vec2 capture_size = s3d::Scene::Size() / this->scale;
-	Vec2 capture_rect_start = eye_point + primary_display_center - (capture_size / 2);
+	Vec2 capture_rect_start = eye_point + this->center_point - (capture_size / 2);
 	{
 		capture_rect_start -= this->capture_margin;
 		capture_size += this->capture_margin * 2;
