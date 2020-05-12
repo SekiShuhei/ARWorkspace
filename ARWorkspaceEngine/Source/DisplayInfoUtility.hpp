@@ -12,7 +12,7 @@ struct DisplayInfo
 {
 	ScreenRegion	monitor;
 	ScreenRegion	workspace;
-	bool		primary_monitor = false;
+	bool			is_primary = false;
 	std::wstring	device_name = L"";
 };
 
