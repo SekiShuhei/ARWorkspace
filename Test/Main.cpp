@@ -6,7 +6,7 @@
 #include "GuiMenu.hpp"
 #include "KeyCommand.hpp"
 #include "WinSensorManager.hpp"
-
+#include "DisplayInfoUtility.hpp"
 
 void Main()
 {
@@ -40,13 +40,30 @@ void Main()
 	
 	hmd_analyzer.SetDebugDisplayMode(false);
 
+	{
+		auto sub_display = ARWorkspace::DisplayInfoUtility::GetInstance().GetSubDisplayInfo();
+		if (sub_display)
+		{
+			auto region = sub_display.value().monitor;
+			auto hwnd = (HWND)s3d::Platform::Windows::Window::GetHWND();
+			auto result = ::MoveWindow(hwnd, region.GetX(), region.GetY(), 500, 500, TRUE);
+			if (result)
+			{
+				::ShowWindow(hwnd, SW_MAXIMIZE);
+			}
+		}
+	}
+
 	while (System::Update())
 	{
 		
 
 		//key_command.Update();
-		p_ar_screen->Draw();
-
+		
+		//if (! hmd_analyzer.IsDeviceCompassStartAngle())
+		//{
+			p_ar_screen->Draw();
+		//}
 		auto eye_pos = hmd_analyzer.GetEyePosition();
 		font(U"x:{},y:{}"_fmt(std::get<0>(eye_pos), std::get<1>(eye_pos))).draw(Vec2(0,400));
 		p_ar_screen->SetCapturePosition(

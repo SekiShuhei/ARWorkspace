@@ -1,10 +1,10 @@
 
-
 #include <math.h>
 #include "WinScreenCapture.hpp"
-
 #pragma comment(lib, "shcore.lib")
 #include <ShellScalingApi.h>
+
+#include "DisplayInfoUtility.hpp"
 
 namespace ARWorkspace {
 WinScreenCapture::WinScreenCapture() :
@@ -100,8 +100,8 @@ bool WinScreenCapture::CaptureScreen(s3d::Image& read_image, int x, int y, int w
 	this->bmpInfo.bmiHeader.biBitCount = 32;
 	this->bmpInfo.bmiHeader.biCompression = BI_RGB;
 	this->bmpInfo.bmiHeader.biSizeImage = this->GetBitmapImageSize(this->bmpInfo);
-
-	HDC screen_dc = GetDC(NULL);
+	
+	HDC screen_dc = ::GetDC(NULL);
 	
 	HDC hPrevMemDC = this->hMemDC;
 	HBITMAP hPrevBitmap = this->hBitmap;

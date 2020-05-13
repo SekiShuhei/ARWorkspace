@@ -97,6 +97,7 @@ public:
 	bool texture_auto_resize = false;
 
 	s3d::Vec2	capture_margin = {500, 500};
+	Vec2		center_point;
 
 private:
 	s3d::Font	font = Font(30); //デバッグ用.

@@ -12,15 +12,27 @@ struct DisplayInfo
 {
 	ScreenRegion	monitor;
 	ScreenRegion	workspace;
-	bool		primary_monitor = false;
+	bool			is_primary = false;
 	std::wstring	device_name = L"";
+	HMONITOR		monitor_handle;
 };
 
 class DisplayInfoUtility
 {
-
+private:
+	DisplayInfoUtility();
 public:
-
+	~DisplayInfoUtility() = default;
+	DisplayInfoUtility(const DisplayInfoUtility&) = delete;
+	DisplayInfoUtility& operator=(const DisplayInfoUtility&) = delete;
+	DisplayInfoUtility(DisplayInfoUtility&&) = delete;
+	DisplayInfoUtility& operator=(DisplayInfoUtility&&) = delete;
+public:
+	static DisplayInfoUtility& GetInstance()
+	{
+		static DisplayInfoUtility instance;
+		return instance;
+	}
 public:
 	bool EnumDisplayInfo() noexcept;
 	std::optional<const DisplayInfo> GetPrimaryDisplayInfo() const noexcept;
@@ -34,7 +46,7 @@ private:
 	static BOOL CALLBACK enumDisplayCallback(HMONITOR hMon, HDC hdcMon, LPRECT lpMon, LPARAM dwDate);
 
 private:
-	std::vector<std::shared_ptr<DisplayInfo>> info_list;
+	std::vector<std::shared_ptr<DisplayInfo>>	info_list;
 };
 
 }

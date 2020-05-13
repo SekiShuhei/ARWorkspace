@@ -3,7 +3,11 @@
 #include "DisplayInfoUtility.hpp"
 
 namespace ARWorkspace {
-bool DisplayInfoUtility::EnumDisplayInfo() noexcept
+	DisplayInfoUtility::DisplayInfoUtility()
+	{
+		this->EnumDisplayInfo();
+	}
+	bool DisplayInfoUtility::EnumDisplayInfo() noexcept
 {
 	::EnumDisplayMonitors(NULL, NULL, (MONITORENUMPROC)enumDisplayCallback, (LPARAM)this);
 
@@ -16,7 +20,7 @@ std::optional<const DisplayInfo> DisplayInfoUtility::GetPrimaryDisplayInfo() con
 	auto it = std::find_if(this->info_list.begin(), this->info_list.end(), 
 		[](const std::shared_ptr<DisplayInfo> info)
 		{
-			return info->primary_monitor;
+			return info->is_primary;
 		});
 	if (it == this->info_list.end())
 	{
@@ -30,7 +34,7 @@ std::optional<const DisplayInfo> DisplayInfoUtility::GetSubDisplayInfo() const n
 	auto it = std::find_if(this->info_list.begin(), this->info_list.end(),
 		[](const std::shared_ptr <DisplayInfo> info)
 		{
-			return (! info->primary_monitor);
+			return (! info->is_primary);
 		});
 	if (it == this->info_list.end())
 	{
@@ -70,13 +74,14 @@ BOOL CALLBACK DisplayInfoUtility::enumDisplayCallback(HMONITOR hMonitor, HDC hdc
 
 	monitorInfo.cbSize = sizeof(monitorInfo);
 	::GetMonitorInfo(hMonitor, &monitorInfo);
-
+	
 	auto p_info = std::make_shared<DisplayInfo>();
-	p_info->monitor = DisplayInfoUtility::RectToScreenRegion( monitorInfo.rcMonitor);
+	p_info->monitor = DisplayInfoUtility::RectToScreenRegion(monitorInfo.rcMonitor);
 	p_info->workspace = DisplayInfoUtility::RectToScreenRegion(monitorInfo.rcWork);
 	p_info->device_name = monitorInfo.szDevice;
-	p_info->primary_monitor = (monitorInfo.dwFlags == MONITORINFOF_PRIMARY);
-
+	p_info->is_primary = (monitorInfo.dwFlags == MONITORINFOF_PRIMARY);
+	p_info->monitor_handle = hMonitor;
+	
 	DisplayInfoUtility* p_this = (DisplayInfoUtility*)dwDate;
 	p_this->info_list.push_back(p_info);
 
