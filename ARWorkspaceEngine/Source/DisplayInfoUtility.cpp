@@ -74,13 +74,14 @@ BOOL CALLBACK DisplayInfoUtility::enumDisplayCallback(HMONITOR hMonitor, HDC hdc
 
 	monitorInfo.cbSize = sizeof(monitorInfo);
 	::GetMonitorInfo(hMonitor, &monitorInfo);
-
+	
 	auto p_info = std::make_shared<DisplayInfo>();
-	p_info->monitor = DisplayInfoUtility::RectToScreenRegion( monitorInfo.rcMonitor);
+	p_info->monitor = DisplayInfoUtility::RectToScreenRegion(monitorInfo.rcMonitor);
 	p_info->workspace = DisplayInfoUtility::RectToScreenRegion(monitorInfo.rcWork);
 	p_info->device_name = monitorInfo.szDevice;
 	p_info->is_primary = (monitorInfo.dwFlags == MONITORINFOF_PRIMARY);
-
+	p_info->monitor_handle = hMonitor;
+	
 	DisplayInfoUtility* p_this = (DisplayInfoUtility*)dwDate;
 	p_this->info_list.push_back(p_info);
 

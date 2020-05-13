@@ -14,6 +14,7 @@ struct DisplayInfo
 	ScreenRegion	workspace;
 	bool			is_primary = false;
 	std::wstring	device_name = L"";
+	HMONITOR		monitor_handle;
 };
 
 class DisplayInfoUtility

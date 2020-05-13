@@ -13,10 +13,15 @@ ARVirtualScreen::ARVirtualScreen(bool use_cauture_region_guide) :
 	auto primary_display = DisplayInfoUtility::GetInstance().GetPrimaryDisplayInfo();
 	if (primary_display)
 	{
+		s3d::Vec2 virtual_screen_point = {
+			::GetSystemMetrics(SM_XVIRTUALSCREEN),
+			::GetSystemMetrics(SM_YVIRTUALSCREEN)
+		};
 		this->center_point = {
 			primary_display.value().monitor.GetX() + primary_display.value().monitor.GetWidth() / 2,
-			primary_display.value().monitor.GetY() + primary_display.value().monitor.GetHeight() / 2 
+			primary_display.value().monitor.GetY() + primary_display.value().monitor.GetHeight() / 2
 		};
+		this->center_point -= virtual_screen_point;
 	}
 }
 
