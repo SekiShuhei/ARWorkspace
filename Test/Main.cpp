@@ -59,8 +59,11 @@ void Main()
 		
 
 		//key_command.Update();
-		p_ar_screen->Draw();
-
+		
+		//if (! hmd_analyzer.IsDeviceCompassStartAngle())
+		//{
+			p_ar_screen->Draw();
+		//}
 		auto eye_pos = hmd_analyzer.GetEyePosition();
 		font(U"x:{},y:{}"_fmt(std::get<0>(eye_pos), std::get<1>(eye_pos))).draw(Vec2(0,400));
 		p_ar_screen->SetCapturePosition(
